@@ -80,6 +80,7 @@ io.on('connection', function(socket) {
             color: ball.color,
         });
     }
+    
     socket.broadcast.emit('join_user',{
         id: socket.id,
         x: newBall.x,
