@@ -29,7 +29,7 @@ class PlayerBall{
         this.socket = socket;
         this.x = startX;
         this.y = startY;
-        this.color = getPlayerColor();
+        this.color = getPlayerColor(); // 백그라운드 이미지로 대체
     }
 
     get id() {
@@ -80,7 +80,7 @@ io.on('connection', function(socket) {
             color: ball.color,
         });
     }
-    
+
     socket.broadcast.emit('join_user',{
         id: socket.id,
         x: newBall.x,

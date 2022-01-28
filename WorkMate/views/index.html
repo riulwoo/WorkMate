@@ -76,8 +76,8 @@
             ball.x = x;
             ball.y = y;
 
-            balls.push(ball);
-            ballMap[id] = ball;
+            balls.push(ball); // 유저목록
+            ballMap[id] = ball; // 유저정보목록 
 
             return ball;
         }
@@ -99,7 +99,6 @@
             }
             ball.x = x;
             ball.y = y;
-
         }
 
         var socket = io();
@@ -107,13 +106,13 @@
         socket.on('user_id', function(data){
             myId = data;
         });
-        socket.on('join_user', function(data){
+        socket.on('join_user', function(data){ //html을 접속했을 때 발생
             joinUser(data.id, data.color, data.x, data.y);
         })
-        socket.on('leave_user', function(data){
+        socket.on('leave_user', function(data){ //html를 나갔을 때 발생
             leaveUser(data);
         })
-        socket.on('update_state', function(data){
+        socket.on('update_state', function(data){ // setinterval 마다 발생
             updateState(data.id, data.x, data.y);
         })
         
@@ -126,7 +125,7 @@
                 y: curPlayer.y,
             };
             if(data){
-                socket.emit("send_location", data);
+                socket.emit("send_location", data); // data가 있다면 send_location으로 data를 보낸다.
             }
         }
 
@@ -169,7 +168,7 @@
             renderPlayer();
         }
         
-        setInterval(update, 10);
+        setInterval(update, 10); // 0.01초마다 update함수를 실행
 
     </script>
 
