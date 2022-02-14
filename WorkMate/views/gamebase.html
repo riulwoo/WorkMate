@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professor VS Student</title>
+    <title>WorkMate</title>
     <style>
         * {padding : 0; margin: 0;}
         canvas {background: #eee; display: block; margin : 0 auto;}
@@ -26,16 +26,16 @@
         var leftPressed = false;
         var upPressed = false;
         var downPressed = false;
-        function PlayerBall(id){
+        function Playerplayer(id){
             this.id = id;
             this.color = "#FF00FF";
             this.x = 1024/2;
             this.y = 768/2;
         }
         
-        var userpool  = [];
-        var userinfo = {};
-        var myId;
+        var userpool  = [];    // user's socket ids   // balls
+        var userinfo = {};     // x, y ,color         // ballmap
+        var myId;              // client's socket id  // ball = player
 
         document.addEventListener("keydown", keyDownHandler,false);
         document.addEventListener("keyup", keyUpHandler,false);
@@ -71,13 +71,13 @@
         }
 
         function joinUser(id,color,x,y){
-            let ball = new PlayerBall(id);
-            ball.color = color;
-            ball.x = x;
-            ball.y = y;
+            let player = new Playerplayer(id);
+            player.color = color;
+            player.x = x;
+            player.y = y;
 
-            userpool.push(ball); // 유저목록
-            userinfo[id] = ball; // 유저정보목록 
+            userpool.push(player);
+            userinfo[id] = player;
 
             return player;
         }
@@ -106,13 +106,13 @@
         socket.on('user_id', function(data){
             myId = data;
         });
-        socket.on('join_user', function(data){ //html을 접속했을 때 발생
+        socket.on('join_user', function(data){ 
             joinUser(data.id, data.color, data.x, data.y);
         })
-        socket.on('leave_user', function(data){ //html를 나갔을 때 발생
+        socket.on('leave_user', function(data){ 
             leaveUser(data);
         })
-        socket.on('update_state', function(data){ // setinterval 마다 발생
+        socket.on('update_state', function(data){ 
             updateState(data.id, data.x, data.y);
         })
         
@@ -125,15 +125,16 @@
                 y: curPlayer.y,
             };
             if(data){
-                socket.emit("send_location", data); // data가 있다면 send_location으로 data를 보낸다.
+                socket.emit("send_location", data); 
             }
         }
 
+        // 플레이어 그리기
         function renderPlayer() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-                for (let i = 0; i < userpool.length; i++) {
-                    let player = userpool[i];
+                for (let i = 0; i < players.length; i++) {
+                    let player = players[i];
                     
                     ctx.fillStyle = player.color;
                     ctx.beginPath();
@@ -143,7 +144,7 @@
                     
                     ctx.beginPath();
                     ctx.font = '15px Arial';
-                    ctx.fillText(`player ${i}`,player.x-radius-7, player.y-radius);
+                    ctx.fillText(`player ${i}`,player.x-radius-7, player.y-radius);  // 닉네임 수정 해야됨
                     ctx.closePath();
                 }
 
