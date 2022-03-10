@@ -39,28 +39,36 @@ class PlayerBall{
     }
 }
 
-var userpool = [];  // 총 인원
-var matchinguser = [];                    // 게임참여인원은 빠짐
+var userpool = [1,2,3,4];                        // 총 인원
+var matchinguser = [3,4];                    // 게임참여인원은 빠짐
 var userinfo = {};
 
+class userroom{  // 유저룸 : 매칭중인 유저들의 정보를 저장하는 곳
+  // 생성된 유저룸의 길이가 조건에 만족할 시 새로운 유저룸 객체를 생성
+  var userlist[6] = null;                   // 현재 잡힌 방  
+  let users = userlist.length;
+  function name(params) {
+      return users;
+  }
+}
+// 값을 어따가 저장해놓으며 얼마나 저장이될까
+// 보관되있는 값을 어떻게 반환할것인가
+// 마지막 라운드에 애들 다 결과화면 보내고 delete되게 해야함 > 
 
-class userroom{
-    constructor(){
-        player1
-        player2
-        player3
-        player4
-        player5
-        player6
-    }
+let newroom = new userroom;
+
+function match(params) {
+  // 만약 newroom.userlist가 다 찼다면
+  let newroom = new userroom;
+  
 }
 
 function joinGame(socket){
     let player = new PlayerBall(socket);
 
-    userpool.push(player);
-    matchinguser.push(player); 
-    userinfo[socket.id] = player;
+    newroom.userpool.push(player);
+    newroom.matchinguser.push(player); 
+    newroom.userinfo[socket.id] = player;
 
     return player;
 }
@@ -75,9 +83,6 @@ function endGame(socket){
     delete userinfo[socket.id];
 }
 
-
-
-
 io.on('connection', function(socket) {
     console.log(`${socket.id}님이 입장하셨습니다.`);
 
@@ -87,38 +92,13 @@ io.on('connection', function(socket) {
         socket.broadcast.emit('leave_user', socket.id);
     });
 
-    function MatchTimer(timer, matchuser){
-        // 타이머 변수, 타이머 줄어드는 기능, 유저풀 체크 로직, 클라이언트에 메시지전달, 화면전환
-        // 1명일때부터 타이머가 돌아가는데 2명일때는 타이머변수가 변하지않음 방장이 나가도 타이머는 돌아간다
-        
-        // 타이머 줄어드는 기능
-        socket.broadcast.emit('timer', {
-            timer : timer,
-            matchuser : matchuser
-        });
-        
-        // 매칭중인 유저들 수 체크
     
-        // 클라이언트에 메시지전달과 화면전환
-
-
-        if(timer == 0 && matchuser >= 2)
-        // 랜덤으로 게임 화면 전환
-        //matchinguser의 내용 지우기
-
-        sendFile(__dirname + '/views/index.html')
-
-        if(matchuser == 6)
-        // 랜덤으로 게임 화면 
-        //matchinguser의 내용 지우기
-
-        sendFile(__dirname + '/views/index.html')
-        clearInterval
-    }
 
     let newplayer = joinGame(socket);
     socket.emit('user_id', socket.id);
 
+    
+  
     for (var i = 0 ; i < userpool.length; i++){
         let player = userpool[i];
         socket.emit('join_user', {
@@ -155,5 +135,25 @@ io.on('connection', function(socket) {
     })
 })
 
-//1.socket.on에서 초마다 반복 실행이 안되는 점 -해결?
+//1.socket.on에서 초마다 반복 실행이 안되는 점 -해결 
 //2.matchtimer 함수에서 메시지 전송이 안되는 점 
+
+// 클라이언트에서 접속했다고 소켓만들어서 서버에 전달
+// 매칭을 누르면 매칭 메시지 전달 
+// 나중----------------------------------------------
+// 방만든다는 변수하나 만들어서 같이전달
+// socket.emit('matching',socket.id, room = false)
+//--------------------------------------------------
+// userroom 객체 생성 > 6명이 다 차면 > 객체 따로 생성 = 매칭
+// 랜덤으로 화면전환
+// 라운드별 점수계산
+// 탈락화면 전환
+// 
+//--------------------------------------------------
+// 1. 1클라 입장 -> 매칭 버튼 - >  매칭중 -> 서버에서 유저풀 인원 체크
+// 2. 2클라 입장 -> 서버유저풀 추가 -> 매칭중
+
+
+// 
+// 유저룸 배열에서 매칭 취소를 누른 사람이 있다면 배열 내의 취소를 누른 사람의 정보를 null로 입력
+// 다른 유저가 들어오면 0인지 먼저 체크한후에 있다면 0 자리에 배치 , 없다면 뒤에 배치
