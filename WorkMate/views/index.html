@@ -17,14 +17,53 @@
             background-repeat: no-repeat; 
             background-size: cover;
         }
+        #work {
+            position: relative; 
+            top: 50px; 
+            left: 700px; 
+
+        }
+        #start{
+            position: relative; 
+            top: 400px; 
+            left: 825px;
+        }
+        #option{
+            position: relative; 
+            top: 500px; 
+            left: 835px;
+
+        }
     </style>
     
     <script src="/socket.io/socket.io.js"></script>
 
 </head>
 <body>
+<!-- <div id = "main"></div>
+
+    <button class ="start" type="button"><img src="start(dk).png" alt=""></button>
+    <button class ="option" type="button"><img src="OPTION(dk).png" alt=""></button>
     <canvas id = "myCanvas" width ="1024" height = "768"></canvas>
-    <script>
+</div> -->
+<div>
+
+    <div style="position: absolute;">
+        <div id="start" href =""><img src="start(dk).png"></img> 
+        </div>
+    </div>
+    <div style="position: absolute;">
+        <div id="option" href =""><img src="OPTION(dk).png"></img>
+        </div> 
+    </div>
+    <div style="position: absolute;">
+        <div id="work"><img width="600px;" height="600px;" src="work.png"></img>
+        </div> 
+    </div>
+    <canvas id = "myCanvas" width ="1024" height = "768"></canvas>   
+    </div>
+
+<script>
         var canvas = document.getElementById("myCanvas");
         var ctx = canvas.getContext("2d");
         var radius = 16
@@ -179,6 +218,10 @@
         setInterval(update, 10); // 0.01초마다 update함수를 실행
 
     </script>
+
+
+
+
 
 </body>
 </html><!-- index.html -->
