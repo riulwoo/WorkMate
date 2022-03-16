@@ -1,0 +1,63 @@
+/* https://ofcourse.kr/css-course/CSS-%EC%9E%85%EB%AC%B8 */
+@font-face {
+    font-family: abster;
+    src:url(font/abster-webfont.woff) format('woff');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    min-height: 100vh;
+    width: 100%;
+    background-color: #000000;
+    background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+    url(https://cdn.discordapp.com/attachments/914865394643271762/944339200751321158/e4a73c86ccae59ea259c75121ba6cb84.gif) center / cover;
+    background-repeat: no-repeat;
+    /* background-position: center;
+    background-size: 70%;
+    color: white;
+    padding: 0 8%; */
+}
+
+.container .items {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -60%);
+}
+
+.container .items .btns button {
+    position: absolute;
+    width: 250px;
+    height: 100px;
+    background: none;
+    color: white;
+    border: 3px solid #F0F0F0;
+    border-radius: 20px;
+    padding: 10px;
+    outline: none;
+    cursor: pointer;
+    font-size: 50px;
+    font-style: italic;
+
+    left: 50%;
+    transform: translate(-50%);
+    transition: all 2s;
+}
+
+.btn1 {
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.btn2 {
+    margin-top: 140px;
+}
+
+.container .items .btns button:hover {
+background-color: #044778;
+}
