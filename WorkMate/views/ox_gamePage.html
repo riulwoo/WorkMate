@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OX_inGame</title>
+    <style>
+        * { padding: 0; margin: 0;}
+        canvas {
+            background: #eee;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+    <link href="css/toastr.css" rel="stylesheet">
+</head>
+
+<body>
+    <canvas id="ox_canvas" width="1600" height="900"></canvas>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="js/toastr.min.js"></script>
+
+    <script>
+        // Javascript code goes here.
+        var canvas = document.getElementById("ox_canvas");
+        var ctx = canvas.getContext("2d");
+
+        // 처음 시작시 공(아바타)이 그려지는 위치는 정 가운데. (프로토타입 싱글 플레이 기준)
+        var x = canvas.width / 2;
+        var y = canvas.height / 2; 
+
+        // 공(아바타)이 움직일 때의 변동값을 지정
+        var dx = 7;
+        var dy = 7;
+
+        // 공의 반지름을 지정
+        var avatar_radius = 20;
+
+        // 사용자의 키 입력을 감지 (방향키)
+        var rightPressed = false; // 오른쪽
+        var leftPressed = false; // 왼쪽
+        var upPressed = false; // 위
+        var downPressed = false; // 아래
+
+        document.addEventListener("keydown", keyDownHandler, false);
+        document.addEventListener("keyup", keyUpHandler, false);
+
+        //
+        function keyDownHandler(e)
+        {
+            if (e.key == "Right" || e.key == "ArrowRight")
+            {
+                rightPressed = true;
+            }
+            else if (e.key == "Left" || e.key == "ArrowLeft")
+            {
+                leftPressed = true;
+            }
+            else if (e.key == "Up" || e.key == "ArrowUp")
+            {
+                upPressed = true;
+            }
+            else if (e.key == "Down" || e.key == "ArrowDown")
+            {
+                downPressed = true;
+            }
+        }
+
+        function keyUpHandler(e)
+        {
+            if (e.key == "Right" || e.key == "ArrowRight")
+            {
+                rightPressed = false;
+            }
+            else if (e.key == "Left" || e.key == "ArrowLeft")
+            {
+                leftPressed = false;
+            }
+            else if (e.key == "Up" || e.key == "ArrowUp")
+            {
+                upPressed = false;
+            }
+            else if (e.key == "Down" || e.key == "ArrowDown")
+            {
+                downPressed = false;
+            }
+        }
+
+        toastr.options = {
+            "closeButton" : false, // 닫힘 버튼 보이게 (true)
+            "debug": false, // 콘솔창에 토스트 관련 메세지를 띄울 것인지 정함.
+            "newestOnTop" : false, // 새로운 팝업 창을 띄울 때 위로 띄울것인지(true), 아래로 띄울 것인지(false)
+            "progressBar" : true, // 닫히기까지의 프로그래스 바 표시 (true)
+            "positionClass" : "toast-top-center", // 팝업창의 위치
+            /* top-right
+            bottom-right
+            top-left
+            bottom-left
+            top-full-width
+            bottom-full-width
+            top-center
+            bottom-center
+            */
+            "preventDuplicates": true, // 중복실행 방지, false일 경우 여러번 실행 가능
+            "showDuration": 1000, // 등장할때 걸리는 시간, 숫자로 적어놔야 먹힌다.
+            "hideDuration" : 1000, // 사라지는데 걸리는 시간, 숫자로 적어놔야 먹힌다.
+            "timeout": 15000,
+            "extendedTimeOut": 10000,
+            "showEasing": "swing",
+            "hideEasing" : "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+
+        function timer_15s()
+        {
+            swal("Good job!", "정답은 O입니다!", "success");
+        }
+
+        function draw_avatar()
+        {
+            ctx.beginPath();
+            ctx.arc(x, y, avatar_radius, 0 , Math.PI*2, false);
+            ctx.fillStyle = "#E88EB6";
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        function draw_border()
+        {
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2, 0);
+            ctx.lineTo(canvas.width/2, canvas.height);
+            ctx.lineWidth = 10;
+            ctx.strokeStyle = "#141212"
+            ctx.stroke();
+            ctx.closePath();
+
+            ctx.beginPath();
+            ctx.strokeRect(80, 80, (canvas.width / 2)-160, canvas.height-160); // x, y, width, height // O 영역이 될 직사각형을 그림.
+            ctx.strokeRect((canvas.width / 2)+80, 80, (canvas.width / 2)-160, canvas.height-160); // X 영역이 될 직사각형을 그림
+            ctx.closePath();
+
+            ctx.font = "640px Arial";
+            ctx.fillStyle = "#0095DD";
+            ctx.fillText('O', 150, canvas.height-220);
+
+            ctx.font = "640px Arial";
+            ctx.fillStyle = "#B80C03";
+            ctx.fillText('X', (canvas.width / 2)+190, canvas.height-220);
+        }
+
+        function draw_screen()
+        {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            draw_border();
+            draw_avatar();
+
+            if (rightPressed == true)
+            {
+                x += dx;
+                if (x + avatar_radius > canvas.width)
+                {
+                    x = canvas.width - avatar_radius;
+                }
+            }
+
+            if (leftPressed == true)
+            {
+                x -= dx;
+                if (x - avatar_radius < 0)
+                {
+                    x = 0 + avatar_radius;
+                }
+            }
+
+            if (upPressed == true)
+            {
+                y -= dy;
+                if (y - avatar_radius < 0)
+                {
+                    y = 0 + avatar_radius;
+                }
+            }
+
+            if (downPressed == true)
+            {
+                y += dy;
+                if (y + avatar_radius > canvas.height)
+                {
+                    y = canvas.height - avatar_radius;
+                }
+            }
+        }
+
+
+        var intervals = setInterval(draw_screen, 10);
+        toastr.success('자강두천은 사자성어이다.');
+        setTimeout(timer_15s, 15000);
+    </script>
+    
+
+</body>
+</html>
