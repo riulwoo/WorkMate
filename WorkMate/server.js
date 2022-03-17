@@ -89,35 +89,6 @@ io.on('connection', function(socket) {
         socket.broadcast.emit('leave_user', socket.id);
     });
 
-    function MatchTimer(timer, matchuser){
-        // 타이머 변수, 타이머 줄어드는 기능, 유저풀 체크 로직, 클라이언트에 메시지전달, 화면전환
-        // 1명일때부터 타이머가 돌아가는데 2명일때는 타이머변수가 변하지않음 방장이 나가도 타이머는 돌아간다
-        
-        // 타이머 줄어드는 기능
-        socket.broadcast.emit('timer', {
-            timer : timer,
-            matchuser : matchuser
-        });
-        
-        // 매칭중인 유저들 수 체크
-    
-        // 클라이언트에 메시지전달과 화면전환
-
-
-        if(timer == 0 && matchuser >= 2)
-        // 랜덤으로 게임 화면 전환
-        //matchinguser의 내용 지우기
-
-        sendFile(__dirname + '/views/index.html')
-
-        if(matchuser == 6)
-        // 랜덤으로 게임 화면 
-        //matchinguser의 내용 지우기
-
-        sendFile(__dirname + '/views/index.html')
-        clearInterval
-    }
-
     let newplayer = joinGame(socket);
     socket.emit('user_id', socket.id);
 
@@ -145,15 +116,6 @@ io.on('connection', function(socket) {
                 y: data.y,
             })
     })
-
-    socket.on('matching', function(){
-        if(matchinguser.length == 1)
-        Timer = 30;
-        matchuser = matchinguser.length;
-        setInterval(MatchTimer(Timer, matchuser), 1000);
-        socket.emit('gamestart', {
-            Timer: Timer
-        });
     })
 })
 

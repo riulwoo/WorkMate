@@ -1,0 +1,39 @@
+<html>
+<head>
+</head>
+<script>
+class userroom {
+    constructor(){
+      this.player1 = null;
+      this.player2 = null;
+      this.player3 = null;
+      this.player4 = null;
+      this.player5 = null;
+      this.player6 = null;
+    }    
+  }
+	let room = new Array();
+	room[0] = new userroom();
+  let a = false;
+  let i = 0 ;
+  let j = 0;
+//--------------------유저 들어올때마다 반복-------------------
+
+	for( i = 0 ; i < 6; i++ )
+	{
+		if(room[j][i] == null){
+		room[j][i] = i
+    }
+	}
+	room[1] = new userroom();
+    room[1][0] = 1;
+    room[1][1] = 2;
+    room[1][2] = 3;
+for(let q = 0; q < 2 ; q++){
+for(let c = 0; c < 6 ; c++)
+  console.log(room[q][c]);
+}
+</script>
+<body>
+</body>
+</html>
