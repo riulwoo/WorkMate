@@ -40,8 +40,10 @@ class PlayerBall{
 }
 
 var userpool = [];  // 총 인원
-var matchinguser = [];                    // 게임참여인원은 빠짐
+var matchinguser = [];                    // 게임참여인원은 빠짐 입장대기방
 var userinfo = {};
+let Timer;
+let matchuser; // 실질적인 매칭중인 유저파악 카운터 변수
 
 
 class userroom{
@@ -146,8 +148,8 @@ io.on('connection', function(socket) {
 
     socket.on('matching', function(){
         if(matchinguser.length == 1)
-        let Timer = 30;
-        let matchuser = matchinguser.length;
+        Timer = 30;
+        matchuser = matchinguser.length;
         setInterval(MatchTimer(Timer, matchuser), 1000);
         socket.emit('gamestart', {
             Timer: Timer
@@ -157,3 +159,4 @@ io.on('connection', function(socket) {
 
 //1.socket.on에서 초마다 반복 실행이 안되는 점 -해결?
 //2.matchtimer 함수에서 메시지 전송이 안되는 점 
+

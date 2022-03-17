@@ -1,3 +1,5 @@
+// 코드 마켓
+
 function renderClearMessage(){
     ctx.beginPath();
     ctx.fillStyle = '#000000';
