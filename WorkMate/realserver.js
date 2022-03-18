@@ -39,6 +39,7 @@ class Player {
   }
 }
 
+
 class userroom {
   constructor(){
     this.player1 = null;
@@ -48,13 +49,9 @@ class userroom {
     this.player5 = null;
     this.player6 = null;
   }
-  
-  get userid(){
-    for(let i=0; i < 6 ; i++)
-      {
-        if()          // player1~6 null player4 = socket.id
-      }
-    return 
+  // 라운드별로 userroom 객체내의 탈락한 player들을 null 입력
+  get userid(){      // 최종 우승자 판별
+    return
   }
 
   set userid(socket)
@@ -63,31 +60,16 @@ class userroom {
         
 }
 
-
 //------------------
 
 var userpool = []; //페이지 접속한 총인원
 var matchinguser = []; // 게임 참여인원은 빠진 페이지접속 인원
 var userinfo = {}; //유저들의 정보모음집
-let matchuser; //매칭중인 유저 인원 카운터 변수
-
+let a = false;
+let i = 0;
+let j = 0;
 let room = new Array();
-let newroom = new userroom();
-matching , function(data) {
-  for(let a = 0 ; a < b ; a++){
-    
-   for(let i= 0 ; i=6; i++)
-     if(newroom[i] == null)
-      newroom[i] = data
-     else
-       room = new userroom();
-       room[0] = data
-  
-  }
-}
-win (socket.id)
-newroom[i] == socket.id
-win.html
+room[0] = new userroom();
 
 function joinGame(socket) {
   
@@ -95,16 +77,26 @@ function joinGame(socket) {
 }
 
 function exitGame(socket) {
-  
+      for( var i = 0 ; i < userpool.length; i++){
+        if(userpool[i].id == socket.id){
+            userpool.splice(i,1);
+            break
+        }
+    }
+    delete userinfo[socket.id];
 }
 
 function endGame(socket) {
-  
+  let MAX = 0;
+  room[i][j].score 비교
+  MAX = room[i][j]
+  return MAX  // 정보
 }
 
+let test = new userroom();
+console.log(test.userid());
 
-
-io.on('connection'function (socket) {
+io.on('connection'function(socket) {
   console.log(`${socket.id}님이 입장하셨습니다.`);
 
   socket.on('disconnect', function(reason){
@@ -113,11 +105,31 @@ io.on('connection'function (socket) {
     socket.broadcast.emit('leave_user',sockt.id);    
   });
 
-  socket.on('matchingfail' function (a) {
+  socket.on('matchStart', function(data) {  // data = 클라이언트에서 넘어오는 유저정보
+    for( i = 0 ; i < 6 ; i++)
+      {
+        if(room[j][i] == null)
+          room[j][i] = i;
+      }
+    
 
-            socket.emit('exitMatching', )
+
+     
+  });
+
+win (socket.id)
+newroom[i] == socket.id
+win.html
+
+  socket.on('matchingfail', function(a) { //매칭 종료버튼, 매칭 타이머 초과 시 받는 정보
+    let asd = function (socket) {
+      for(let i = 0 ;)
+    }
+    socket.emit('exitMatching', socket.id);
     
   })
+
+socket.on()
 
   let newplayer = joinGame(socket);
   socket.emit('user_id', socket.id);
