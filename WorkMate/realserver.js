@@ -51,12 +51,34 @@ class userroom {
   }
   // 라운드별로 userroom 객체내의 탈락한 player들을 null 입력
   get userid(){      // 최종 우승자 판별
-    return
+    let players = [];
+    players[0] = player1;
+    players[1] = player2;
+    players[2] = player3;
+    players[3] = player4;
+    players[4] = player5;
+    players[5] = player6;
+    return players;
   }
 
-  set userid(socket)
-    for()
-      if(!null)
+  // 매칭시 player1~6까지 null이 있는지 체크, null이 없다면 false반환
+  set userid(socket){
+    if(player1 == null)
+      player1 = socket;
+    else if(player2 == null)
+      player2 = socket;
+    else if(player3 == null)
+      player3 = socket;
+    else if(player4 == null)
+      player4 = socket;
+    else if(player5 == null)
+      player5 = socket;
+    else if(player6 == null)
+      player6 = socket;
+    else
+      return false;
+  }
+    
         
 }
 
