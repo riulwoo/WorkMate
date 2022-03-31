@@ -42,20 +42,6 @@ class PlayerBall{
 var userpool = [];  // 총 인원
 var matchinguser = [];                    // 게임참여인원은 빠짐 입장대기방
 var userinfo = {};
-let Timer;
-let matchuser; // 실질적인 매칭중인 유저파악 카운터 변수
-
-
-class userroom{
-    constructor(){
-        player1
-        player2
-        player3
-        player4
-        player5
-        player6
-    }
-}
 
 function joinGame(socket){
     let player = new PlayerBall(socket);
