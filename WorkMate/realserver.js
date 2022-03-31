@@ -93,11 +93,6 @@ let j = 0;
 let room = new Array();
 room[0] = new userroom();
 
-function joinGame(socket) {
-  
-  
-}
-
 function exitGame(socket) {
       for( var i = 0 ; i < userpool.length; i++){
         if(userpool[i].id == socket.id){
@@ -108,17 +103,15 @@ function exitGame(socket) {
     delete userinfo[socket.id];
 }
 
-function endGame(socket) {
-  let MAX = 0;
-  room[i][j].score 비교
-  MAX = room[i][j]
-  return MAX  // 정보
+function endGame(socket) {  
+  winner = userroom.userid(socket);
+  return winner  // 정보
 }
 
 let test = new userroom();
 console.log(test.userid());
 
-io.on('connection'function(socket) {
+io.on('connection', function(socket) {
   console.log(`${socket.id}님이 입장하셨습니다.`);
 
   socket.on('disconnect', function(reason){
@@ -139,15 +132,15 @@ io.on('connection'function(socket) {
      
   });
 
-win (socket.id)
-newroom[i] == socket.id
-win.html
 
-  socket.on('matchingfail', function(a) { //매칭 종료버튼, 매칭 타이머 초과 시 받는 정보
-    let asd = function (socket) {
-      for(let i = 0 ;)
-    }
-    socket.emit('exitMatching', socket.id);
+  socket.on('matchingfail', function(data) { //매칭 종료버튼, 매칭 타이머 초과 시 받는 정보
+    //받는 정보는 타이머 종료 신호, 매칭 종료버튼 신호, 해당 유저 정보
+    let abc = new player.id();
+      for(i = 0 ; i < room.length ; i++){
+        j = 0;
+        if(room[i][j] == )
+      }
+    socket.emit('exitMatching', socket.id);//
     
   })
 
