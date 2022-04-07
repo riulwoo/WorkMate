@@ -154,5 +154,4 @@ let stageClear = false;
             ctx.font = '20px Arial';
             ctx.fillText(`Timer ${timer.toFixed(2)}`,30,50);
             ctx.closePath();
-
         }

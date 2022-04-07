@@ -2,8 +2,12 @@
 const app = require('http').createServer(handler);
 const io = require('socket.io')(app);
 const fs = require('fs');
+const express = require('express');
 
-app.listen(5500);
+var port = process.env.PORT || 3000; // 1
+app.listen(port, function () {
+  
+});
 
 function handler(req, res) 
 {
@@ -42,12 +46,53 @@ class Player {
 
 class userroom {
   constructor(){
-    this.player1 = null;
-    this.player2 = null;
-    this.player3 = null;
-    this.player4 = null;
-    this.player5 = null;
-    this.player6 = null;
+    this.player1 = {
+      id : null,
+      x : null,
+      y : null,
+      nick : null,
+      score : null,
+      color : null
+    };
+    this.player2 = {
+      id : null,
+      x : null,
+      y : null,
+      nick : null,
+      score : null,
+      color : null
+    };
+    this.player3 = {
+      id : null,
+      x : null,
+      y : null,
+      nick : null,
+      score : null,
+      color : null
+    };
+    this.player4 = {
+      id : null,
+      x : null,
+      y : null,
+      nick : null,
+      score : null,
+      color : null
+    };
+    this.player5 = {
+      id : null,
+      x : null,
+      y : null,
+      nick : null,
+      score : null,
+      color : null
+    };
+    this.player6 = {
+      id : null,
+      x : null,
+      y : null,
+      nick : null,
+      score : null,
+      color : null};
   }
   // 라운드별로 userroom 객체내의 탈락한 player들을 null 입력
   get userid(){      // 최종 우승자 판별
@@ -63,30 +108,70 @@ class userroom {
   }
 
   // 매칭시 player1~6까지 null이 있는지 체크, null이 없다면 false반환
-  set userid(socket){
+  set userid(data){
     if(this.player1 == null)
-      this.player1 = socket;
+    {
+      this.player1.id = data.id;
+      this.player1.x = data.x;
+      this.player1.y = data.y;
+      this.player1.score = data.score;
+      this.player1.color = data.color;
+      this.player1.nick = data.nick;
       return true;
-    else if(this.player2 == null)
-      this.player2 = socket;
+    }
+    else if(this.player2 == null) 
+    {
+      this.player2.id = data.id;
+      this.player2.x = data.x;
+      this.player2.y = data.y;
+      this.player2.score = data.score;
+      this.player2.color = data.color;
+      this.player2.nick = data.nick;
+    }
       return true;
     else if(this.player3 == null)
-      this.player3 = socket;
+    {
+      this.player3.id = data.id;
+      this.player3.x = data.x;
+      this.player3.y = data.y;
+      this.player3.score = data.score;
+      this.player3.color = data.color;
+      this.player3.nick = data.nick;
+    }
       return true;
     else if(this.player4 == null)
-      this.player4 = socket;
+    {
+      this.player1.id = data.id;
+      this.player1.x = data.x;
+      this.player1.y = data.y;
+      this.player1.score = data.score;
+      this.player1.color = data.color;
+      this.player1.nick = data.nick;
+    }
       return true;
     else if(this.player5 == null)
-      this.player5 = socket;
+    {
+      this.player1.id = data.id;
+      this.player1.x = data.x;
+      this.player1.y = data.y;
+      this.player1.score = data.score;
+      this.player1.color = data.color;
+      this.player1.nick = data.nick;
+    }
       return true;
     else if(this.player6 == null)
-      this.player6 = socket;
+    {
+      this.player1.id = data.id;
+      this.player1.x = data.x;
+      this.player1.y = data.y;
+      this.player1.score = data.score;
+      this.player1.color = data.color;
+      this.player1.nick = data.nick;
+    }
       return true;
     else
       return false;
   }
-    
-        
 }
 
 //------------------
@@ -100,11 +185,13 @@ let j = 0;
 let roomcnt = 0;
 let room = new Array();
 room[0] = new userroom();
+// id 값 받아서 비교해서 userinfo의 값을 userroom에 넣자
+
 function joinGame(socket){    // id
-    let player = new PlayerBall(socket);  // x,y, nickname
+    let player = new Player(socket);  // x,y, nickname
 
     userpool.push(player);
-    matchinguser.push(player); 
+    matchinguser.push(player);
     userinfo[socket.id] = player;
 
     return player;
@@ -137,10 +224,16 @@ io.on('connection', function(socket) {
     socket.broadcast.emit('leave_user',socket.id);    
   });
   
+  let newplayer = joinGame(socket);
+  socket.emit('user_id', socket.id);
+  
   // 클라이언트에서 매칭을 할 시 첫번째로 넘어오는 유저 정보 정보는 방 객체에 저장  
   socket.on('matchStart', function(data) {  // data = 클라이언트에서 넘어오는 유저정보
-    
-        if(!room[roomcnt].userid(data))
+        // 클라에서 보낸 정보들 = id, nickname, score, x, y, color등 
+        // 받아온 data 값을 userroom.userid 안에서 null값을 체크해 값을 넣는다 
+        // id x y null -> 
+
+        if(!room[roomcnt].userid(a))
         { 
           roomcnt++
           room[roomcnt] = new userroom();
@@ -162,21 +255,27 @@ io.on('connection', function(socket) {
     let clientSocket = io.sockets.connected[data.id];
     let data = [];
     let cnt = false;
+    let roomcnt = 0;
     let a = 0;
-    for ( i = 0 ; i < room.length ; i++)
+    for ( i = 0 ; i < room.length ; i++)  //유저의 id를 몇번 방에 있는 지 확인 하는 for문
       {
-        for( j = 0 ; j < 6 ; j++)
+        for( j = 0 ; j < 6 ; j++) 
           {
-            data[j] = room[i][j];
-            if(clientSocket == data[j])
+            // room안에 있는 socket.id를 하나하나 확인하기 위한 변수
+            data[j] = room[i][j].id;
+            // 방안에 유저의 정보가 있다면 확인 변수를 설정
+            if(clientSocket == data[j]) 
             {
+              // 
               cnt = true;
+              roomcnt = i;
               break;
              }
           }
-        if(cnt)
+        if(cnt) //방안에 유저가 있는 게 확인 되었을 때 그 방안의 인원을 체크하는 if문
         {
-          for(j = 0 ; j < 6 ; j++)
+          room[roomcnt].userid()
+          for(a = 0 ; a < 6 ; a++)
             {
               
             }
@@ -209,24 +308,16 @@ io.on('connection', function(socket) {
 
   
 
-  let newplayer = joinGame(socket);
-  socket.emit('user_id', socket.id);
+  
 
-  socket.broadcast.emit('join_user',{
-    id: socket.id,
-    x: newplayer.x,
-    y: newplayer.y
-  });
 
   socket.on('send_location', function(data) {
-    socket.broadcast.emit('update_state', {
+    socket.to(ㅁㄴㅇ).emit('update_state', {
       id: data.id,
       x: data.x,
       y: data.y
     })
   })
-
-
 
 });
 

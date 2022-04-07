@@ -1,4 +1,4 @@
-<!-- index.html -->
+디와 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,19 +36,23 @@
         var leftPressed = false;
         var upPressed = false;
         var downPressed = false;
-        function PlayerBall(id){
+        function PlayerBall(id){ //자신이 서버랑 주고받을 정보들
             this.id = id;
             this.color = "#FF00FF";
             this.x = 1024/2;
             this.y = 768/2;
+            this.nick = "player";
+            this.score = 0;
         }
         
         var userpool  = [];
         var userinfo = {};
         var myId;
-
+        var socket = io();
         document.addEventListener("keydown", keyDownHandler,false);
         document.addEventListener("keyup", keyUpHandler,false);
+        matchbtn.addEventListener("onClick", match, false);
+
 
         function keyDownHandler(e){
             if (e.code == 'ArrowRight'){
@@ -111,7 +115,7 @@
             player.y = y;
         }
 
-        var socket = io();
+        
 
         socket.on('user_id', function(data){
             myId = data;
@@ -125,7 +129,21 @@
         socket.on('update_state', function(data){ // setinterval 마다 발생
             updateState(data.id, data.x, data.y);
         })
-        
+
+        function match() {
+          let player = userinfo[myId];        // 자신의 정보불러옴
+          
+          if(data){
+            socket.emit('matchstart', myId);    // 데이터 넣고 서버에 스타트메시지
+            // gif로 로딩중이미지 띄움
+            setTimeout(()=>{
+              // gif 없앤다
+              socket.emit('matchtimeover', myId);    // 15초후 서버에 타임오버 메시지
+            }, 1500)
+          }
+            
+        }
+  
         function sendData() {
             let curPlayer = userinfo[myId];
             let data = {};
