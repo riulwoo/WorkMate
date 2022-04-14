@@ -283,40 +283,27 @@ io.on('connection', function(socket) {
     {
         // roomusers에게만 보내도록 추후 
         clientSocket.emit('matchsuccess', function () {
-        fs.readFile(__dirname + '/views/index.html', function(err, data) {
-        if(err){
-          res.writeHead(500);
-          return res.end('Error!!');
-        }
-        res.writeHead(200);
-        res.end(data);
-        
-        room[userroomcnt].alreadyuser = false;
-        cnt = false;
-        roomcnt++;
-        room[roomcnt] = new userroom();
+          fs.readFile(__dirname + '/views/index.html', function(err, data) {
+          if(err){
+            res.writeHead(500);
+            return res.end('Error!!');
+          }
+          res.writeHead(200);
+          res.end(data);
+          
+          room[userroomcnt].alreadyuser = false;
+          cnt = false;
+          roomcnt++;
+          room[roomcnt] = new userroom();
+          });
         });
-      }
     }
-  });
-    
-
-
-
-  
-  })
+  }) // end of mto
 
   socket.on('matchingover', function (data) { // 매칭 종료 버튼을 눌렀을 때 받는 정보
     
   })
   
-
-
-  
-
-  
-
-
   socket.on('send_location', function(data) {
     socket.to(ㅁㄴㅇ).emit('update_state', {
       id: data.id,
@@ -324,7 +311,6 @@ io.on('connection', function(socket) {
       y: data.y
     })
   })
-
 });
 
 
