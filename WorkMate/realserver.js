@@ -46,8 +46,8 @@ class Player {
 
 class userroom {  
   constructor(){
-  let alreadyuser = false;
-  let player1 = {
+  this.alreadyuser = false;
+  this.player1 = {
       id : null,
       x : null,
       y : null,
@@ -55,7 +55,7 @@ class userroom {
       score : null,
       color : null
     };
-  let player2 = {
+  this.player2 = {
       id : null,
       x : null,
       y : null,
@@ -63,7 +63,7 @@ class userroom {
       score : null,
       color : null
     };
-  let player3 = {
+  this.player3 = {
       id : null,
       x : null,
       y : null,
@@ -71,7 +71,7 @@ class userroom {
       score : null,
       color : null
     };
-  let player4 = {
+  this.player4 = {
       id : null,
       x : null,
       y : null,
@@ -79,7 +79,7 @@ class userroom {
       score : null,
       color : null
     };
-  let player5 = {
+  this.player5 = {
       id : null,
       x : null,
       y : null,
@@ -87,7 +87,7 @@ class userroom {
       score : null,
       color : null
     };
-  let player6 = {
+  this.player6 = {
       id : null,
       x : null,
       y : null,
