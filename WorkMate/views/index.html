@@ -1,11 +1,11 @@
-디와 <!-- index.html -->
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professor VS Student</title>
+    <title>우리의 힘</title>
 
     <style>
         * {padding : 0; margin: 0;}
@@ -21,13 +21,15 @@
 <body>
 
 <div>
-
-
     <canvas id = "myCanvas" width ="1024" height = "768"></canvas>   
-    </div>
+    <input type="button" id="matching" width = "200" height = "50" value="MATCH">
+    <input type="text" id="nick" >
+</div>
 
 <script>
         var canvas = document.getElementById("myCanvas");
+        var matchbtn = document.getElementById("matching");
+        var nicktxt = document.getElementById("nick");
         var ctx = canvas.getContext("2d");
         var radius = 16
         var playerSpeed = 4
@@ -49,63 +51,8 @@
         var userinfo = {};
         var myId;
         var socket = io();
-        document.addEventListener("keydown", keyDownHandler,false);
-        document.addEventListener("keyup", keyUpHandler,false);
         matchbtn.addEventListener("onClick", match, false);
-
-
-        function keyDownHandler(e){
-            if (e.code == 'ArrowRight'){
-                rightPressed = true;
-            }
-            if (e.code == 'ArrowLeft'){
-                leftPressed = true;
-            }
-            if(e.code == "ArrowDown"){
-                downPressed = true;
-            }
-            if(e.code == "ArrowUp"){
-                upPressed = true;
-            }
-        }
-
-        function keyUpHandler(e){
-            if (e.code == "ArrowRight"){
-                rightPressed = false;
-            }
-            if (e.code == "ArrowLeft"){
-                leftPressed = false;
-            }
-            if(e.code == "ArrowDown"){
-                downPressed = false;
-            }
-            if(e.code == "ArrowUp"){
-                upPressed = false;
-            }
-        }
-
-        function joinUser(id,color,x,y){
-            let ball = new PlayerBall(id);
-            ball.color = color;
-            ball.x = x;
-            ball.y = y;
-
-            userpool.push(ball); // 유저목록
-            userinfo[id] = ball; // 유저정보목록 
-
-            return player;
-        }
-
-        function leaveUser(id){
-            for(var i = 0 ; i < userpool.length; i++){
-                if(userpool[i].id == id){
-                    userpool.splice(i,1);
-                    break;
-                }
-            }
-            delete userinfo[id];
-        }
-
+        
         function updateState(id,x,y){
             let player = userinfo[id];
             if(!player){
@@ -132,77 +79,17 @@
 
         function match() {
           let player = userinfo[myId];        // 자신의 정보불러옴
-          
-          if(data){
-            socket.emit('matchstart', myId);    // 데이터 넣고 서버에 스타트메시지
-            // gif로 로딩중이미지 띄움
-            setTimeout(()=>{
-              // gif 없앤다
+          let nickname = nicktxt.value;
+          let data = {id : player, nick : nickname, score : 0};
+          socket.emit('matchstart', data);    // 데이터 넣고 서버에 스타트메시지
+          // gif로 로딩중이미지 띄움
+          setTimeout(()=>{
+          // gif 없앤다
               socket.emit('matchtimeover', myId);    // 15초후 서버에 타임오버 메시지
             }, 1500)
           }
-            
+          15초후에 보내는 메시지가 첫사람이 아닌 사람이면 어떻게 하기로?
         }
-  
-        function sendData() {
-            let curPlayer = userinfo[myId];
-            let data = {};
-            data = {
-                id : curPlayer.id,
-                x: curPlayer.x,
-                y: curPlayer.y,
-            };
-            if(data){
-                socket.emit("send_location", data); // data가 있다면 send_location으로 data를 보낸다.
-            }
-        }
-
-        function renderPlayer() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-                for (let i = 0; i < userpool.length; i++) {
-                    let player = userpool[i];
-                    
-                    ctx.fillStyle = player.color;
-                    ctx.beginPath();
-                    ctx.arc(player.x, player.y, radius, 0, Math.PI * 2, false);
-                    ctx.closePath();
-                    ctx.fill();
-                    
-                    ctx.beginPath();
-                    ctx.font = '15px Arial';
-                    ctx.fillText(`player ${i}`,player.x-radius-7, player.y-radius);
-                    ctx.closePath();
-                }
-
-                let curPlayer = userinfo[myId];
-                
-                if (rightPressed){
-                    curPlayer.x += playerSpeed;
-                }
-                if (leftPressed ){
-                    curPlayer.x -= playerSpeed;
-                }
-                if(upPressed ){
-                    curPlayer.y -= playerSpeed;
-                }
-                if(downPressed ){
-                    curPlayer.y += playerSpeed;
-                }
-                sendData();
-            }
-
-        function update() {
-            renderPlayer();
-        }
-        
-        setInterval(update, 10); // 0.01초마다 update함수를 실행
-
     </script>
-
-
-
-
-
 </body>
 </html><!-- index.html -->

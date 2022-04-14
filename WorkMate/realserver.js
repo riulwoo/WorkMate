@@ -44,9 +44,9 @@ class Player {
 }
 
 
-class userroom {
-  constructor(){
-    this.player1 = {
+class userroom {  
+  let alreadyuser = false;
+  let player1 = {
       id : null,
       x : null,
       y : null,
@@ -54,7 +54,7 @@ class userroom {
       score : null,
       color : null
     };
-    this.player2 = {
+  let player2 = {
       id : null,
       x : null,
       y : null,
@@ -62,7 +62,7 @@ class userroom {
       score : null,
       color : null
     };
-    this.player3 = {
+  let player3 = {
       id : null,
       x : null,
       y : null,
@@ -70,7 +70,7 @@ class userroom {
       score : null,
       color : null
     };
-    this.player4 = {
+  let player4 = {
       id : null,
       x : null,
       y : null,
@@ -78,7 +78,7 @@ class userroom {
       score : null,
       color : null
     };
-    this.player5 = {
+  let player5 = {
       id : null,
       x : null,
       y : null,
@@ -86,7 +86,7 @@ class userroom {
       score : null,
       color : null
     };
-    this.player6 = {
+  let player6 = {
       id : null,
       x : null,
       y : null,
@@ -112,60 +112,48 @@ class userroom {
     if(this.player1 == null)
     {
       this.player1.id = data.id;
-      this.player1.x = data.x;
-      this.player1.y = data.y;
       this.player1.score = data.score;
-      this.player1.color = data.color;
+      //this.player1.color = data.color;
       this.player1.nick = data.nick;
       return true;
     }
     else if(this.player2 == null) 
     {
       this.player2.id = data.id;
-      this.player2.x = data.x;
-      this.player2.y = data.y;
       this.player2.score = data.score;
-      this.player2.color = data.color;
+      //this.player2.color = data.color;
       this.player2.nick = data.nick;
     }
       return true;
     else if(this.player3 == null)
     {
       this.player3.id = data.id;
-      this.player3.x = data.x;
-      this.player3.y = data.y;
       this.player3.score = data.score;
-      this.player3.color = data.color;
+      //this.player3.color = data.color;
       this.player3.nick = data.nick;
     }
       return true;
     else if(this.player4 == null)
     {
       this.player1.id = data.id;
-      this.player1.x = data.x;
-      this.player1.y = data.y;
       this.player1.score = data.score;
-      this.player1.color = data.color;
+      //this.player1.color = data.color;
       this.player1.nick = data.nick;
     }
       return true;
     else if(this.player5 == null)
     {
       this.player1.id = data.id;
-      this.player1.x = data.x;
-      this.player1.y = data.y;
       this.player1.score = data.score;
-      this.player1.color = data.color;
+      //this.player1.color = data.color;
       this.player1.nick = data.nick;
     }
       return true;
     else if(this.player6 == null)
     {
       this.player1.id = data.id;
-      this.player1.x = data.x;
-      this.player1.y = data.y;
       this.player1.score = data.score;
-      this.player1.color = data.color;
+      //this.player1.color = data.color;
       this.player1.nick = data.nick;
     }
       return true;
@@ -184,7 +172,9 @@ let i = 0;
 let j = 0;
 let roomcnt = 0;
 let room = new Array();
+let cnt = true;
 room[0] = new userroom();
+
 // id 값 받아서 비교해서 userinfo의 값을 userroom에 넣자
 
 function joinGame(socket){    // id
@@ -229,75 +219,85 @@ io.on('connection', function(socket) {
   
   // 클라이언트에서 매칭을 할 시 첫번째로 넘어오는 유저 정보 정보는 방 객체에 저장  
   socket.on('matchStart', function(data) {  // data = 클라이언트에서 넘어오는 유저정보
-        // 클라에서 보낸 정보들 = id, nickname, score, x, y, color등 
         // 받아온 data 값을 userroom.userid 안에서 null값을 체크해 값을 넣는다 
-        // id x y null -> 
-
-        if(!room[roomcnt].userid(a))
+        // data = {id : id, nick : nickname, score : 0}
+        if(!room[roomcnt].userid(data)) // 방에 6명이 찼을 경우 방을 생성하는 if문
         { 
           roomcnt++
           room[roomcnt] = new userroom();
           room[roomcnt].userid(data);
+          // 처음 matchtimeover 메세지를 보낸 유저기준으로 방의 인원을 체크하여 matchsuccess를 중복하여 보내지 않기 위한 변수 
+          cnt = true;
         }
   });
-  
-  // 여유 있으면 6명이 되자마자 matchsuccess넘겨주기
-  // 두번째로 넘어오는 메세지 > 매칭 타임 종료가 되었다는 메시지
-  // 메시지와 함께 넘어온 유저정보(socket)이 들어있는 방을 체크해서 1명이면 fail주고 
-  // 2명에서 6명이라면 그 방 유저들에게 success 메시지와 게임화면 전환)
-
   // 각 클라이언트마다 mto메시지를 보낸다 이걸 어떻게 처리해야하나
+  // 1번째 사람의 mto메시지만 받고 나머지는 무시한다.
+  
   socket.on('matchtimeover', function(data) { //매칭 종료버튼, 매칭 타이머 초과 시 받는 정보
     // 클라이언트에서 emit data {socket.id}
     // 받는 정보는 타이머 종료 신호, 해당 유저 정보
     // 1. 유저의 id가 유저룸에 들어가 있는가
     // 2. 
+
+    // 받아온 id값을 어느방에 있는지 체크하고 > 이미 있음
+    // 그 방의 유저수를 체크하는 userid를 실행 > 배열.length가 1 이면 userroom.asd = true;
+    // 2번째 사람이 왔음 > 근데 해당하는 userroom.asd가 true이면 그냥 넘어감
     let clientSocket = io.sockets.connected[data.id];
     let data = [];
-    let cnt = false;
-    let roomcnt = 0;
+    let userroomcnt = 0;
     let a = 0;
+    
     for ( i = 0 ; i < room.length ; i++)  //유저의 id를 몇번 방에 있는 지 확인 하는 for문
       {
         for( j = 0 ; j < 6 ; j++) 
           {
             // room안에 있는 socket.id를 하나하나 확인하기 위한 변수
             data[j] = room[i][j].id;
-            // 방안에 유저의 정보가 있다면 확인 변수를 설정
+            // 방안에 유저의 정보를 체크하여 방의 위치 확인
             if(clientSocket == data[j]) 
             {
-              // 
-              cnt = true;
-              roomcnt = i;
+              userroomcnt = i;
               break;
              }
           }
-        if(cnt) //방안에 유저가 있는 게 확인 되었을 때 그 방안의 인원을 체크하는 if문
-        {
-          room[roomcnt].userid()
-          for(a = 0 ; a < 6 ; a++)
-            {
-              
-            }
-        }
       }
-      // 누구한테 보낼지 > 단일이 아닌 방 단위로 소켓들의 배열을 만들면 좋을거같음
-      clientSocket.emit('matchsuccess', function () {
-        fs.readFile(__dirname + '/views/index.html', function(err, data) {
-          if(err){
-            res.writeHead(500);
-            return res.end('Error!!');
-          }
-          res.writeHead(200);
-          res.end(data);
-        });
-      });
+    //방안에 유저가 있는 게 확인 되었을 때 그 방안의 인원을 체크하는 코드
+    let array = room[userroomcnt].userid()
+    if(array>2 && cnt == true)
+    {
+      room[userroomcnt].alreadyuser = true;
+    }
     else
     {
-      emit('matchfail') // 클라이언트에서 다시 매칭하라고 해야함
-      
+      // 클라이언트에서 다시 매칭하라고 해야함
+      clientSocket.emit('matchfail');
     }
+        
+    if(room[userroomcnt].alreadyuser) 
+    {
+        // roomusers에게만 보내도록 추후 
+        clientSocket.emit('matchsuccess', function () {
+        fs.readFile(__dirname + '/views/index.html', function(err, data) {
+        if(err){
+          res.writeHead(500);
+          return res.end('Error!!');
+        }
+        res.writeHead(200);
+        res.end(data);
+        
+        room[userroomcnt].alreadyuser = false;
+        cnt = false;
+        roomcnt++;
+        room[roomcnt] = new userroom();
+        });
+      }
+    }
+  });
     
+
+
+
+  
   })
 
   socket.on('matchingover', function (data) { // 매칭 종료 버튼을 눌렀을 때 받는 정보
