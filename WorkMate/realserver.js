@@ -45,6 +45,7 @@ class Player {
 
 
 class userroom {  
+  constructor(){
   let alreadyuser = false;
   let player1 = {
       id : null,
@@ -94,6 +95,7 @@ class userroom {
       score : null,
       color : null};
   }
+
   // 라운드별로 userroom 객체내의 탈락한 player들을 null 입력
   get userid(){      // 최종 우승자 판별
     
@@ -123,44 +125,48 @@ class userroom {
       this.player2.score = data.score;
       //this.player2.color = data.color;
       this.player2.nick = data.nick;
-    }
       return true;
+    }
     else if(this.player3 == null)
     {
       this.player3.id = data.id;
       this.player3.score = data.score;
       //this.player3.color = data.color;
       this.player3.nick = data.nick;
-    }
       return true;
+    }
+      
     else if(this.player4 == null)
     {
       this.player1.id = data.id;
       this.player1.score = data.score;
       //this.player1.color = data.color;
       this.player1.nick = data.nick;
-    }
       return true;
+    }
+      
     else if(this.player5 == null)
     {
       this.player1.id = data.id;
       this.player1.score = data.score;
       //this.player1.color = data.color;
       this.player1.nick = data.nick;
-    }
       return true;
+    }
+      
     else if(this.player6 == null)
     {
       this.player1.id = data.id;
       this.player1.score = data.score;
       //this.player1.color = data.color;
       this.player1.nick = data.nick;
-    }
       return true;
+    }
     else
       return false;
   }
 }
+
 
 //------------------
 
