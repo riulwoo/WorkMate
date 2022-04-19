@@ -45,8 +45,9 @@ class Player {
 
 
 class userroom {  
-  let alreadyuser = false;
-  let player1 = {
+  constructor(){
+  this.alreadyuser = false;
+  this.player1 = {
       id : null,
       x : null,
       y : null,
@@ -54,7 +55,7 @@ class userroom {
       score : null,
       color : null
     };
-  let player2 = {
+  this.player2 = {
       id : null,
       x : null,
       y : null,
@@ -62,7 +63,7 @@ class userroom {
       score : null,
       color : null
     };
-  let player3 = {
+  this.player3 = {
       id : null,
       x : null,
       y : null,
@@ -70,7 +71,7 @@ class userroom {
       score : null,
       color : null
     };
-  let player4 = {
+  this.player4 = {
       id : null,
       x : null,
       y : null,
@@ -78,7 +79,7 @@ class userroom {
       score : null,
       color : null
     };
-  let player5 = {
+  this.player5 = {
       id : null,
       x : null,
       y : null,
@@ -86,7 +87,7 @@ class userroom {
       score : null,
       color : null
     };
-  let player6 = {
+  this.player6 = {
       id : null,
       x : null,
       y : null,
@@ -94,6 +95,7 @@ class userroom {
       score : null,
       color : null};
   }
+
   // 라운드별로 userroom 객체내의 탈락한 player들을 null 입력
   get userid(){      // 최종 우승자 판별
     
@@ -123,44 +125,48 @@ class userroom {
       this.player2.score = data.score;
       //this.player2.color = data.color;
       this.player2.nick = data.nick;
-    }
       return true;
+    }
     else if(this.player3 == null)
     {
       this.player3.id = data.id;
       this.player3.score = data.score;
       //this.player3.color = data.color;
       this.player3.nick = data.nick;
-    }
       return true;
+    }
+      
     else if(this.player4 == null)
     {
       this.player1.id = data.id;
       this.player1.score = data.score;
       //this.player1.color = data.color;
       this.player1.nick = data.nick;
-    }
       return true;
+    }
+      
     else if(this.player5 == null)
     {
       this.player1.id = data.id;
       this.player1.score = data.score;
       //this.player1.color = data.color;
       this.player1.nick = data.nick;
-    }
       return true;
+    }
+      
     else if(this.player6 == null)
     {
       this.player1.id = data.id;
       this.player1.score = data.score;
       //this.player1.color = data.color;
       this.player1.nick = data.nick;
-    }
       return true;
+    }
     else
       return false;
   }
 }
+
 
 //------------------
 
@@ -277,40 +283,27 @@ io.on('connection', function(socket) {
     {
         // roomusers에게만 보내도록 추후 
         clientSocket.emit('matchsuccess', function () {
-        fs.readFile(__dirname + '/views/index.html', function(err, data) {
-        if(err){
-          res.writeHead(500);
-          return res.end('Error!!');
-        }
-        res.writeHead(200);
-        res.end(data);
-        
-        room[userroomcnt].alreadyuser = false;
-        cnt = false;
-        roomcnt++;
-        room[roomcnt] = new userroom();
+          fs.readFile(__dirname + '/views/index.html', function(err, data) {
+          if(err){
+            res.writeHead(500);
+            return res.end('Error!!');
+          }
+          res.writeHead(200);
+          res.end(data);
+          
+          room[userroomcnt].alreadyuser = false;
+          cnt = false;
+          roomcnt++;
+          room[roomcnt] = new userroom();
+          });
         });
-      }
     }
-  });
-    
-
-
-
-  
-  })
+  }) // end of mto
 
   socket.on('matchingover', function (data) { // 매칭 종료 버튼을 눌렀을 때 받는 정보
     
   })
   
-
-
-  
-
-  
-
-
   socket.on('send_location', function(data) {
     socket.to(ㅁㄴㅇ).emit('update_state', {
       id: data.id,
@@ -318,7 +311,6 @@ io.on('connection', function(socket) {
       y: data.y
     })
   })
-
 });
 
 
