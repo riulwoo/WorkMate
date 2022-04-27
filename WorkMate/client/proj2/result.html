@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+	<head>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<div class="center">
+			<div id="result">
+				<script>
+					var temp = location.href.split("?");
+					if (temp[1] == 1) {
+						document.write("오답. O가 아닙니다.<br>");
+					} else {
+						document.write("정답. X가 맞습니다.<br>");
+					}
+					document.write(
+						"해설: 자강두천은 자존심 강한 두 천재에서 온 말입니다.");
+				</script>
+			</div>
+			<br><br>
+
+			<a href="index.html">
+				back to main
+			</a>
+		</div>
+	</body>
+</html>
