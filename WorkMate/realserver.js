@@ -210,7 +210,6 @@ function endGame(socket) {
 }
 
 let test = new userroom();
-console.log(test.userid());
 
 io.on('connection', function(socket) {
   console.log(`${socket.id}님이 입장하셨습니다.`);
