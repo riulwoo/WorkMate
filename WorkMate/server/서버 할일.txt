@@ -74,5 +74,7 @@ O/X 퀴즈 :
 document.elementId('nickname')으로 가져와서 DB에 넣기
 
 DB 설계 (초기)
+socketid varchar2(40)
 roomid varchar2(10)
 nickname varchar2(30)
+

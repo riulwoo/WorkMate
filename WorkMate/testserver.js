@@ -1,24 +1,18 @@
 // server.js
-const app = require('http').createServer(handler)
-const io = require('socket.io')(app);
-const fs = require('fs');
 const express = require('express');
-//var http = require('http');
-//var server = http.createServer();
-var port = process.env.PORT || 3000; // 1
-app.listen(port, function () {});
+const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 
-function handler(req, res) 
-{
-  fs.readFile(__dirname + '/views/index.html', function(err, data) {
-    if(err){
-      res.writeHead(500);
-      return res.end('Error!!');
-    }
-    res.writeHead(200);
-    res.end(data);
-  });
-}
+server.listen(process.env.PORT || 3000, ()=> {
+  console.log("서버가 대기중입니다.");
+})
+
+app.use(express.static('views'))
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/views/index.html')
+})
 
 function getPlayerColor() {
   return "#" + Math.floor(Math.random() * 16777215).toString(16);  
@@ -281,24 +275,6 @@ io.on('connection', function(socket) {
     {
         // roomusers에게만 보내도록 추후 
         clientSocket.emit('matchsuccess', function () {         
-          
-
-
-
-
-
-
-
-
-          
-          fs.readFile(__dirname + '/views/index.html', function(err, data) {
-          if(err){
-            res.writeHead(500);
-            return res.end('Error!!');
-          }
-          res.writeHead(200);
-          res.end(data);
-          
           room[userroomcnt].alreadyuser = false;
           cnt = false;
           roomcnt++;
