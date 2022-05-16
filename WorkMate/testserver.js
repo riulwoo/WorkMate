@@ -280,7 +280,6 @@ io.on('connection', function(socket) {
           roomcnt++;
           room[roomcnt] = new userroom();
           });
-        });
     }
   }) // end of mto
 
