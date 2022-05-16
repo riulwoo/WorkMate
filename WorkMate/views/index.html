@@ -53,7 +53,7 @@
         var userinfo = {};
         var myId;
         var socket = io();
-        matchbtn.addEventListener("onClick", match, false);
+        matchbtn.addEventListener("onClick", match);
         
         function updateState(id,x,y){
             let player = userinfo[id];
@@ -83,7 +83,7 @@
           let player = userinfo[myId];        // 자신의 정보불러옴
           let nickname = nicktxt.value;
           let data = {id : player, nick : nickname, score : 0};
-          console.log(data);
+          console.log('match눌림');
           socket.emit('matchstart', data);    // 데이터 넣고 서버에 스타트메시지
           // gif로 로딩중이미지 띄움
           setTimeout(()=>{
@@ -91,7 +91,6 @@
               socket.emit('matchtimeover', myId);    // 15초후 서버에 타임오버 메시지
             }, 1500)
           }
-          15초후에 보내는 메시지가 첫사람이 아닌 사람이면 어떻게 하기로?
         }
     </script>
 </body>
