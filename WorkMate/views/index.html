@@ -31,6 +31,7 @@
 <script>
         var canvas = document.getElementById("myCanvas");
         var matchbtn = document.getElementById("matching");
+        var jnroombtn = document.getElementById("joinroom");
         var nicktxt = document.getElementById("nick");
         var ctx = canvas.getContext("2d");
         var radius = 16
@@ -53,8 +54,10 @@
         var userinfo = {};
         var myId;
         var socket = io();
-        matchbtn.addEventListener("onClick", match);
-        
+        matchbtn.addEventListener("click", match);
+        jnroombtn.addEventListener('click', function () {
+          console.log('방만들기 버튼 눌림')
+        })
         function updateState(id,x,y){
             let player = userinfo[id];
             if(!player){
