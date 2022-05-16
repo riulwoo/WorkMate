@@ -83,6 +83,7 @@
           let player = userinfo[myId];        // 자신의 정보불러옴
           let nickname = nicktxt.value;
           let data = {id : player, nick : nickname, score : 0};
+          console.log(data);
           socket.emit('matchstart', data);    // 데이터 넣고 서버에 스타트메시지
           // gif로 로딩중이미지 띄움
           setTimeout(()=>{

@@ -39,7 +39,19 @@ class Player {
 
 class userroom {  
   constructor(){
-  this.alreadyuser = false;
+  // 방안에 유저가 들어가 있는지 체크
+  this.alreadyUser = false;
+
+  // 방 코드
+  this.roomCode = null;
+
+  // 라운드 구별 변수
+  this.roundCheck = -1;
+
+  // 게임배열
+  this.gameName
+    
+  // 플레이어 1~6명의 정보
   this.player1 = {
       id : null,
       x : null,
@@ -161,11 +173,14 @@ class userroom {
 }
 
 
-//------------------
+//-------------------------- 지역 변수 --------------------------------
 
 var userpool = []; //페이지 접속한 총인원
 var matchinguser = []; // 게임 참여인원은 빠진 페이지접속 인원
 var userinfo = {}; //유저들의 정보모음집
+
+
+// 목적이나 용도 따로 작성 필요
 let a = false;
 let i = 0;
 let j = 0;
@@ -173,6 +188,8 @@ let roomcnt = 0;
 let room = new Array();
 let cnt = true;
 room[0] = new userroom();
+
+
 
 // id 값 받아서 비교해서 userinfo의 값을 userroom에 넣자
 
@@ -263,7 +280,7 @@ io.on('connection', function(socket) {
     let array = room[userroomcnt].userid()
     if(array>2 && cnt == true)
     {
-      room[userroomcnt].alreadyuser = true;
+      room[userroomcnt].alreadyUser = true;
     }
     else
     {
@@ -271,11 +288,16 @@ io.on('connection', function(socket) {
       clientSocket.emit('matchfail');
     }
         
-    if(room[userroomcnt].alreadyuser) 
+    if(room[userroomcnt].alreadyUser) 
     {
         // roomusers에게만 보내도록 추후 
-        clientSocket.emit('matchsuccess', function () {         
-          room[userroomcnt].alreadyuser = false;
+        clientSocket.emit('matchsuccess', function () {
+          //랜덤으로 전환 요망
+          app.get('/', (req, res) => {
+            res.sendFile(__dirname + '/views/index.html')
+          })
+          app.get
+          room[userroomcnt].alreadyUser = false;
           cnt = false;
           roomcnt++;
           room[roomcnt] = new userroom();
