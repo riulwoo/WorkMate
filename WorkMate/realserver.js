@@ -282,7 +282,17 @@ io.on('connection', function(socket) {
     if(room[userroomcnt].alreadyuser) 
     {
         // roomusers에게만 보내도록 추후 
-        clientSocket.emit('matchsuccess', function () {
+        clientSocket.emit('matchsuccess', function () {         
+          
+
+
+
+
+
+
+
+
+          
           fs.readFile(__dirname + '/views/index.html', function(err, data) {
           if(err){
             res.writeHead(500);
