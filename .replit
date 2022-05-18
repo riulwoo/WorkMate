@@ -1,2 +1,2 @@
-language="nodeJs"
+language="nodejs"
 run="npm start"

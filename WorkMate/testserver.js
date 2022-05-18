@@ -4,6 +4,10 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
+const mysql = require('mysql')
+var connection =mysql.createConnection({
+  host : 
+})
 server.listen(process.env.PORT || 3000, ()=> {
   console.log("서버가 대기중입니다.");
 })
@@ -37,7 +41,7 @@ class Player {
 }
 
 
-class userroom {  
+class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플레이하는 유저의 정보도 알아야 게임이 됨
   constructor(){
   // 방안에 유저가 들어가 있는지 체크
   this.alreadyUser = false;
@@ -48,7 +52,7 @@ class userroom {
   // 라운드 구별 변수
   this.roundCheck = -1;
 
-  // 게임배열
+  // 게임배열 
   this.gameName
     
   // 플레이어 1~6명의 정보
