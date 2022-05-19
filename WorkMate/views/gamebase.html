@@ -34,7 +34,7 @@
         }
         
         var userpool  = [];    // user's socket ids   // balls
-        var userinfo = {};     // x, y ,color         // ballmap
+        var userinfo = {};     // x, y , color        // ballmap
         var myId;              // client's socket id  // ball = player
 
         document.addEventListener("keydown", keyDownHandler,false);
@@ -70,6 +70,7 @@
             }
         }
 
+      // 게임 내의 플레이어들의 정보를 다룰 때 사용
         function joinUser(id,color,x,y){
             let player = new Playerplayer(id);
             player.color = color;

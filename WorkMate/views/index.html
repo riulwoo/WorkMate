@@ -31,16 +31,14 @@
 <script>
         var canvas = document.getElementById("myCanvas");
         var matchbtn = document.getElementById("matching");
-        var jnroombtn = document.getElementById("joinroom");
+        var Croombtn = document.getElementById("createroom"); //방만들기 버튼 
+        var Jroombtn = document.getElementById("joinroom"); //방 입장 버튼
         var nicktxt = document.getElementById("nick");
-        var ctx = canvas.getContext("2d");
-        var radius = 16
-        var playerSpeed = 4
+        var roomid  = (new Date().getTime() + 
+                      Math.random.subtring(2,15)).toString(36).substring(1,6);
+  
 
-        var rightPressed = false;
-        var leftPressed = false;
-        var upPressed = false;
-        var downPressed = false;
+  
         function PlayerBall(id){ //자신이 서버랑 주고받을 정보들
             this.id = id;
             this.color = "#FF00FF";
@@ -55,19 +53,37 @@
         var myId;
         var socket = io();
         matchbtn.addEventListener("click", match);
-        jnroombtn.addEventListener('click', function () {
-          console.log('방만들기 버튼 눌림');
+        Croombtn.addEventListener('click', function () {
+          console.log('create room 눌림 ' + myId + userinfo[myId]);
+          socket.emit('createroom', {
+            id : , 
+            roomid : roomid, 
+            nick : nickname,
+            score : 0
+          }); 
         })
-        function updateState(id,x,y){
-            let player = userinfo[id];
-            if(!player){
-                return;
-            }
+
+        function joinUser(id,color,x,y){
+            let player = new Playerplayer(id);
+            player.color = color;
             player.x = x;
             player.y = y;
+
+            userpool.push(player);
+            userinfo[id] = player;
+
+            return player;
         }
 
-        
+        function leaveUser(id){
+            for(var i = 0 ; i < userpool.length; i++){
+                if(userpool[i].id == id){
+                    userpool.splice(i,1);
+                    break;
+                }
+            }
+            delete userinfo[id];
+        }
 
         socket.on('user_id', function(data){
             myId = data;
@@ -85,7 +101,7 @@
         function match() {
           let player = userinfo[myId];        // 자신의 정보불러옴
           let nickname = nicktxt.value;
-          console.log('match눌림');
+          console.log('match 눌림');
           socket.emit('matchstart', {
             id : player, 
             nick : nickname, 
