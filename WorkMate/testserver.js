@@ -313,7 +313,7 @@ io.on('connection', function(socket) {
         //   res.sendFile(__dirname + '/views/index.html')
         // })
         
-        **************room[userroomcnt].alreadyUser = false;
+        room[userroomcnt].alreadyUser = false;
         cnt = false;
         roomcnt++;
         room[roomcnt] = new userroom();
