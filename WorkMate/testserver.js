@@ -229,8 +229,6 @@ function endGame(socket) {
   return winner  // 정보
 }
 
-let test = new userroom();
-
 io.on('connection', function(socket) {
   console.log(`${socket.id}님이 입장하셨습니다.`);
 
@@ -277,7 +275,7 @@ io.on('connection', function(socket) {
     for ( i = 0 ; i < room.length ; i++)  //유저의 id를 몇번 방에 있는 지 확인 하는 for문
       {
         // room안에 있는 socket.id를 하나하나 확인하기 위한 변수
-        checkdata = room[i].userid(); //[1.id, 2.id, 3.id ... 6.id]
+        checkdata = room[i].userid; //[1.id, 2.id, 3.id ... 6.id]
         for( j = 0 ; j < 6 ; j++) 
           {
             // 방안에 유저의 정보를 체크하여 방의 위치 확인
@@ -290,7 +288,7 @@ io.on('connection', function(socket) {
           }
       }
     //방안에 유저가 있는 게 확인 되었을 때 그 방안의 인원을 체크하는 코드
-    let array = room[userroomcnt].userid()
+    let array = room[userroomcnt].userid();
     if(array>2 && cnt == true)
     {
       room[userroomcnt].alreadyUser = true;
