@@ -115,15 +115,16 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   get userid(){      // 최종 우승자 판별
     
     let players = [];
-    players[0] = this.player1;
-    players[1] = this.player2;
-    players[2] = this.player3;
-    players[3] = this.player4;
-    players[4] = this.player5;
-    players[5] = this.player6;
+    players[0] = this.player1.id;
+    players[1] = this.player2.id;
+    players[2] = this.player3.id;
+    players[3] = this.player4.id;
+    players[4] = this.player5.id;
+    players[5] = this.player6.id;
     return players;
   }
 
+  
   // 매칭시 player1~6까지 null이 있는지 체크, null이 없다면 false반환
   set userid(data){
     if(this.player1 == null)
@@ -275,10 +276,10 @@ io.on('connection', function(socket) {
     
     for ( i = 0 ; i < room.length ; i++)  //유저의 id를 몇번 방에 있는 지 확인 하는 for문
       {
+        // room안에 있는 socket.id를 하나하나 확인하기 위한 변수
+        checkdata = room[i].userid(); //[1.id, 2.id, 3.id ... 6.id]
         for( j = 0 ; j < 6 ; j++) 
           {
-            // room안에 있는 socket.id를 하나하나 확인하기 위한 변수
-            checkdata[j] = room[i][j].id;
             // 방안에 유저의 정보를 체크하여 방의 위치 확인
             if(clientSocket == checkdata[j]) 
             {
@@ -293,6 +294,7 @@ io.on('connection', function(socket) {
     if(array>2 && cnt == true)
     {
       room[userroomcnt].alreadyUser = true;
+      // socket.room('#wesa').length 
     }
     else
     {
@@ -311,7 +313,7 @@ io.on('connection', function(socket) {
         //   res.sendFile(__dirname + '/views/index.html')
         // })
         
-        room[userroomcnt].alreadyUser = false;
+        **************room[userroomcnt].alreadyUser = false;
         cnt = false;
         roomcnt++;
         room[roomcnt] = new userroom();
