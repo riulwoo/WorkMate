@@ -6,8 +6,14 @@ const io = require('socket.io')(server);
 
 const mysql = require('mysql')
 var connection =mysql.createConnection({
-  host : 
+  host : 'localhost',    // 호스트 주소
+  user : 'workmate',
+  password : 'workmate123',
+  database : 'workmate'
 })
+
+connection.connect();
+
 server.listen(process.env.PORT || 3000, ()=> {
   console.log("서버가 대기중입니다.");
 })
@@ -243,9 +249,10 @@ io.on('connection', function(socket) {
         if(!room[roomcnt].userid(data)) // 방에 6명이 찼을 경우 방을 생성하는 if문
         { 
           roomcnt++
+          room[roomcnt].roomcode = data.roomid;
           room[roomcnt] = new userroom();
           room[roomcnt].userid(data);
-          // 처음 matchtimeover 메세지를 보낸 유저기준으로 방의 인원을 체크하여 matchsuccess를 중복하여 보내지 않기 위한 변수 
+// 처음 matchtimeover 메세지를 보낸 유저기준으로 방의 인원을 체크하여 matchsuccess를 중복하여 보내지 않기 위한 변수 
           cnt = true;
         }
   });
@@ -275,6 +282,7 @@ io.on('connection', function(socket) {
             // 방안에 유저의 정보를 체크하여 방의 위치 확인
             if(clientSocket == checkdata[j]) 
             {
+              // mto를 보낸 유저의 방 번호를 알 수 있다.
               userroomcnt = i;
               break;
              }
@@ -294,18 +302,20 @@ io.on('connection', function(socket) {
         
     if(room[userroomcnt].alreadyUser) 
     {
-        // roomusers에게만 보내도록 추후 
-        clientSocket.emit('matchsuccess', function () {
-          //랜덤으로 전환 요망
-          app.get('/', (req, res) => {
-            res.sendFile(__dirname + '/views/index.html')
-          })
-          app.get
-          room[userroomcnt].alreadyUser = false;
-          cnt = false;
-          roomcnt++;
-          room[roomcnt] = new userroom();
-          });
+      // roomusers에게만 보내도록 추후 
+      // 랜덤 방 코드 생성
+      // DB에 userid, roomid, score, nick 삽입
+      
+      clientSocket.emit('matchsuccess', function () {
+        // app.get('/', (req, res) => {
+        //   res.sendFile(__dirname + '/views/index.html')
+        // })
+        
+        room[userroomcnt].alreadyUser = false;
+        cnt = false;
+        roomcnt++;
+        room[roomcnt] = new userroom();
+        });
     }
   }) // end of mto
 

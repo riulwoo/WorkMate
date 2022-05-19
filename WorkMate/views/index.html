@@ -34,9 +34,7 @@
         var Croombtn = document.getElementById("createroom"); //방만들기 버튼 
         var Jroombtn = document.getElementById("joinroom"); //방 입장 버튼
         var nicktxt = document.getElementById("nick");
-        var roomid  = (new Date().getTime() + 
-                      Math.random.subtring(2,15)).toString(36).substring(1,6);
-  
+        var roomid = '';
 
   
         function PlayerBall(id){ //자신이 서버랑 주고받을 정보들
@@ -56,10 +54,17 @@
         Croombtn.addEventListener('click', function () {
           console.log('create room 눌림 ' + myId + userinfo[myId]);
           socket.emit('createroom', {
-            id : , 
+            id : "hi", 
             roomid : roomid, 
             nick : nickname,
-            score : 0
+          }); 
+        })
+
+        Jroombtn.addEventListener('click', function () {
+          console.log('join room 눌림');
+          socket.emit('joinroom', {
+            id : "hi2",  
+            nick : nickname,
           }); 
         })
 
@@ -84,10 +89,12 @@
             }
             delete userinfo[id];
         }
-
+        socket.on('matchfail', function(data) {
+           alert('다시 시도해주세요 찐따련아');
+        })
         socket.on('user_id', function(data){
             myId = data;
-        });
+        })
         socket.on('join_user', function(data){ //html을 접속했을 때 발생
             joinUser(data.id, data.color, data.x, data.y);
         })
@@ -101,16 +108,22 @@
         function match() {
           let player = userinfo[myId];        // 자신의 정보불러옴
           let nickname = nicktxt.value;
-          console.log('match 눌림');
+          roomid  =
+          (new Date().getTime() + Math.random.subtring(2,15)).toString(36).substring(1,6);
+          
           socket.emit('matchstart', {
-            id : player, 
+            id : player,
+            roomid : roomid,
             nick : nickname, 
             score : 0
-          });    // 데이터 넣고 서버에 스타트메시지
+          });
+          console.log();
+          // 데이터 넣고 서버에 스타트메시지
           // gif로 로딩중이미지 띄움
           setTimeout(()=>{
-          // gif 없앤다
-              socket.emit('matchtimeover', myId);    // 15초후 서버에 타임오버 메시지
+            // gif 없앤다
+            socket.emit('matchtimeover', myId);    
+            // 15초후 서버에 타임오버 메시지
             }, 1500)
           }
         
