@@ -278,7 +278,7 @@ io.on('connection', function(socket) {
         checkdata = room[i].userid; //[1.id, 2.id, 3.id ... 6.id]
         for( j = 0 ; j < 6 ; j++) 
           {
-            // 방안에 유저의 정보를 체크하여 방의 위치 확인
+            // 방안에 유저의 정보를 체크하여 방의 위치 확인 
             if(clientSocket == checkdata[j]) 
             {
               // mto를 보낸 유저의 방 번호를 알 수 있다.
