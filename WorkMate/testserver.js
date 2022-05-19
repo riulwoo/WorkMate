@@ -275,7 +275,7 @@ io.on('connection', function(socket) {
     for ( i = 0 ; i < room.length ; i++)  //유저의 id를 몇번 방에 있는 지 확인 하는 for문
       {
         // room안에 있는 socket.id를 하나하나 확인하기 위한 변수
-        checkdata = room[i].userid; //[1.id, 2.id, 3.id ... 6.id]
+        checkdata = room[i].userid;
         for( j = 0 ; j < 6 ; j++) 
           {
             // 방안에 유저의 정보를 체크하여 방의 위치 확인 
@@ -287,20 +287,16 @@ io.on('connection', function(socket) {
              }
           }
       }
-    //Can you hear the crystal melody
-    //with a small hint of misery
-    //Life sometimes promises warmth tomorrow
     //방안에 유저가 있는 게 확인 되었을 때 그 방안의 인원을 체크하는 코드
     let array = room[userroomcnt].userid;
     if(array>2 && cnt == true)
     {
       room[userroomcnt].alreadyUser = true;
-      // socket.room('#wesa').length 
     }
     else
     {
       // 클라이언트에서 다시 매칭하라고 해야함
-      clientSocket.emit('matchfail');
+      io.to('방코드').emit('matchfail');
     }
         
     if(room[userroomcnt].alreadyUser) 
@@ -309,7 +305,7 @@ io.on('connection', function(socket) {
       // 랜덤 방 코드 생성
       // DB에 userid, roomid, score, nick 삽입
       
-      clientSocket.emit('matchsuccess', function () {
+      io.to('방코드').emit('matchsuccess', function () {
         // app.get('/', (req, res) => {
         //   res.sendFile(__dirname + '/views/index.html')
         // })
@@ -327,7 +323,7 @@ io.on('connection', function(socket) {
   })
   
   socket.on('send_location', function(data) {
-    socket.to(ㅁㄴㅇ).emit('update_state', {
+    io.to('방코드').emit('update_state', {
       id: data.id,
       x: data.x,
       y: data.y
