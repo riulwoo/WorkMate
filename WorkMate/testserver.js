@@ -287,6 +287,9 @@ io.on('connection', function(socket) {
              }
           }
       }
+    //Can you hear the crystal melody
+    //with a small hint of misery
+    //Life sometimes promises warmth tomorrow
     //방안에 유저가 있는 게 확인 되었을 때 그 방안의 인원을 체크하는 코드
     let array = room[userroomcnt].userid();
     if(array>2 && cnt == true)
