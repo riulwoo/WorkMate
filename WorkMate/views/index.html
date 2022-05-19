@@ -109,7 +109,7 @@
           let player = userinfo[myId];        // 자신의 정보불러옴
           let nickname = nicktxt.value;
           roomid  =
-          (new Date().getTime() + Math.random()).subtring(2,15).toString(36).substring(1,6);
+          (new Date().getTime() + Math.random()).toString(36).substring(2,7);
           
           socket.emit('matchstart', {
             id : player,
