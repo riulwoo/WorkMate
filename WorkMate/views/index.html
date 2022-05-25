@@ -72,6 +72,7 @@
 
         cancelbtn.addEventListener("click",function () {
           socket.emit('matchingover', myId);
+          console.log('나가기 눌림');
         })
         function joinUser(id,color,x,y){
             let player = new Playerplayer(id);
