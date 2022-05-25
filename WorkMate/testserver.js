@@ -70,7 +70,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
 
   deleteUser(id, j) {
     //this.players.forEach((players, index) => {
-      if(this.players.id === id)
+      if(this.players.id[j] === id)
         this.players.splice(j, 1, { id: null, nick: null, score: null });
     //});
   }
