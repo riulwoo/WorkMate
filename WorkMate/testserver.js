@@ -67,6 +67,13 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
       this.players.push({ id: null, nick: null, score: null });
     }
   }
+
+  deleteUser(id) {
+    this.players.foreach((players, index) => {
+      if(players.id === id)
+        players.splice(index, 1);
+    });
+  }
   
   // 라운드별로 userroom 객체내의 탈락한 player들을 null 입력
   get userid() {
@@ -245,7 +252,7 @@ io.on('connection', function(socket) {
     }
   }) // end of mto
 
-  socket.on('matchingover', function (data) { // 매칭 종료 버튼을 눌렀을 때 받는 정보 data = myId
+  socket.on('matchingover', function (id) { // 매칭 종료 버튼을 눌렀을 때 받는 정보 data = myId
     // id값에 해당하는 join했던 room과 room객체를 찾아 disconnect와 
     
     let checkdata = [];
@@ -259,8 +266,8 @@ io.on('connection', function(socket) {
             if(data == checkdata[j])
             {
               socket.leave(room[i].roomid);
+              room[i].deleteUser(id); 
               console.log('[matchingover] leave 후 조인 방 정보 : ' + room[i].roomid);
-              checkdata.splice(j,1);
               console.log('[matchingover] 유저 정보삭제 후 정보 : ' + checkdata);
               console.log('');
             }
