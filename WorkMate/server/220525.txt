@@ -40,3 +40,35 @@ socket.join('방코드');
 
 다음에 할일
 - get 수정
+
+
+class UserRoom {
+
+constructor(){
+  // 플레이어 1~6명의 정보
+    this.players = [];
+    for (let i = 1; i < 7; i++) {
+      this.players.push({ id: null, nick: null, score: null });
+  }
+
+  get userId() {
+    const playersId = this.players.map((player) => player.id);    
+    return playersId;
+  }
+
+  set userId(data) {
+    const { id, nick, score } = data;
+    this.players.forEach((player, index) => {
+      if (player.id === null && index + 1 === id) {
+        player.id = id;
+        player.nick = nick;
+        player.score = score;
+      }
+    });
+  }
+}
+
+const room = new UserRoom();
+console.log(room.userId); // [null * 6]
+room.userId = { id: "sndkglnekrn235", nick: "dongwoo", score: "69" };
+console.log(room.userId); // [1, null * 5]

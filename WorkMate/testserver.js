@@ -62,36 +62,9 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   this.gameName;
     
   // 플레이어 1~6명의 정보
-  this.player1 = {
-      id : null,
-      nick : null,
-      score : null,
-    };
-  this.player2 = {
-      id : null,
-      nick : null,
-      score : null,
-    };
-  this.player3 = {
-      id : null,
-      nick : null,
-      score : null,
-    };
-  this.player4 = {
-      id : null,
-      nick : null,
-      score : null,
-    };
-  this.player5 = {
-      id : null,
-      nick : null,
-      score : null,
-    };
-  this.player6 = {
-      id : null,
-      nick : null,
-      score : null,
-  };
+    this.players = [];
+    for (let i = 1; i < 7; i++) {
+      this.players.push({ id: null, nick: null, score: null });
   }
 
   deleteuser(id){
@@ -112,24 +85,17 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   } 
   
   // 라운드별로 userroom 객체내의 탈락한 player들을 null 입력
-  get userid() {      // 최종 우승자 판별
-    
-    let players = [];
-    players[0] = this.player1.id;
-    players[1] = this.player2.id;
-    players[2] = this.player3.id;
-    players[3] = this.player4.id;
-    players[4] = this.player5.id;
-    players[5] = this.player6.id;
-    return players;
+  get userId() {
+    const playersId = this.players.map((player) => player.id);    
+    return playersId;
   }
 
   
   // 매칭시 player1~6까지 null이 있는지 체크, null이 없다면 false반환
   setuser(data){
-    console.log(data);
     if(this.player1 == null)
     {
+      console.log(data);
       this.player1.id = data.id;
       this.player1.score = data.score;
       this.player1.nick = data.nick;
@@ -329,13 +295,13 @@ io.on('connection', function(socket) {
   socket.on('matchingover', function (data) { // 매칭 종료 버튼을 눌렀을 때 받는 정보 data = myId
     // id값에 해당하는 join했던 room과 room객체를 찾아 disconnect와 
     
-    var checkdata = [];
-    for(var i = 0; i < room.length ; i++)
+    let checkdata = [];
+    for(let i = 0; i < room.length ; i++)
       {
         checkdata = room[i].userid;
         console.log(checkdata);
 
-        for(var j = 0 ; j < checkdata.length ; j++)
+        for(let j = 0 ; j < checkdata.length ; j++)
           {
             console.log(checkdata[j]);
             if(data == checkdata[j])
