@@ -156,7 +156,7 @@ io.on('connection', function(socket) {
         room[roomcnt].userid = data;
         room[roomcnt].roomcode = data.roomid;
         socket.join(data.roomid);
-        console.log(room[roomcnt].roomcode);
+        console.log('룸 속성자 : ' + room[roomcnt].roomcode);
       }
     // 방에 6명이 있고 방이 없을 경우 방을 생성하는 if문
     else if(!(room[roomcnt].userid = data))
