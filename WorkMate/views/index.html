@@ -117,7 +117,7 @@
           roomid  =
           (new Date().getTime() + Math.random()).toString(36).substring(2,7);
           
-          socket.emit("matchstart", {
+          socket.emit("matchStart", {
             id : player,
             roomid : roomid,
             nick : nickname, 
