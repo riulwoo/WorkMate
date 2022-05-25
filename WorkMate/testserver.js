@@ -83,12 +83,12 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
         player.id = id;
         player.nick = nick;
         player.score = score;
-        break;
+        return true;
       } else if(this.roomCode != null && this.player[index-1].id != id){
         player.id = id;
         player.nick = nick;
         player.score = score;
-        break;
+        return true;
       } else return false;
     });
   }
