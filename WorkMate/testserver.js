@@ -263,7 +263,7 @@ io.on('connection', function(socket) {
 
         for(let j = 0 ; j < checkdata.length ; j++)
           {
-            if(data == checkdata[j])
+            if(id == checkdata[j])
             {
               socket.leave(room[i].roomid);
               room[i].deleteUser(id); 
