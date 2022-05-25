@@ -82,7 +82,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
       if(this.roomCode != null && this.players[i].id == id) {
         return false;
       }else if (this.roomCode != null && this.players[i].id != id) {
-        this.players.splice(i, 1, { id: id, nick: nick, score: score });
+        this.players.splice(i+1, 1, { id: id, nick: nick, score: score });
         return true;
       }else if (this.roomCode == null) {
         this.players.splice(i, 1, { id: id, nick: nick, score: score });
@@ -160,7 +160,7 @@ io.on('connection', function(socket) {
         room[roomcnt].userid = data;
         room[roomcnt].roomCode = data.roomid;
         socket.join(data.roomid);
-        console.log('처음 방이 만들어졌습니다.  //' + '방코드 : ' + room[i].roomid);
+        console.log('처음 방이 만들어졌습니다.  //' + '방코드 : ' + room[0].roomid);
         console.log('[matchStart] 들어간 유저 정보 : ' + room[0].userid);
       }
     // 방에 6명이 있고 방이 없을 경우 방을 생성하는 if문
@@ -178,7 +178,7 @@ io.on('connection', function(socket) {
     else
       {
         socket.join(room[roomcnt].roomcode);
-        console.log('매칭 유저가 추가되었습니다.' + '방코드 : ' + room[i].roomid);
+        console.log('매칭 유저가 추가되었습니다.' + '방코드 : ' + room[0].roomid);
         console.log('[matchStart] 들어간 유저 정보 : ' + room[0].userid);
       }    
   });
