@@ -21,16 +21,18 @@
 <body>
 
 <div>
-  <input type="button" id="matching" width = "200" height = "50" value="매칭하기">
+  <input type="button" id="matchstart" width = "200" height = "50" value="매칭하기">
   <input type="button" id="joinroom" width = "200" height = "50" value="방만들기">
   <input type="text" id="nick" >
+  <input type="button" id="matchcancel" width = "200" height = "50" value="나가기">
   <canvas id = "myCanvas" width ="1024" height = "768"></canvas>   
   
 </div>
 
 <script>
         var canvas = document.getElementById("myCanvas");
-        var matchbtn = document.getElementById("matching");
+        var matchbtn = document.getElementById("matchStart"); //매칭하기 버튼
+        var cancelbtn = document.getElementById("matchcancel"); //방나가기 / 매치 나가기 버튼
         var Croombtn = document.getElementById("createroom"); //방만들기 버튼 
         var Jroombtn = document.getElementById("joinroom"); //방 입장 버튼
         var nicktxt = document.getElementById("nick");
@@ -59,15 +61,17 @@
             nick : nickname,
           }); 
         })
-
         Jroombtn.addEventListener('click', function () {
           console.log('join room 눌림');
           socket.emit('joinroom', {
-            id : "hi2",  
-            nick : nickname,
+            id : myId,  
+            nick : nickname
           }); 
         })
 
+        cancelbtn.addEventListener('click',function () {
+          socket.emit('matchingover', myId);
+        })
         function joinUser(id,color,x,y){
             let player = new Playerplayer(id);
             player.color = color;

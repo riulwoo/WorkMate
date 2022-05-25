@@ -64,53 +64,52 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   // 플레이어 1~6명의 정보
   this.player1 = {
       id : null,
-      x : null,
-      y : null,
       nick : null,
       score : null,
-      color : null
     };
   this.player2 = {
       id : null,
-      x : null,
-      y : null,
       nick : null,
       score : null,
-      color : null
     };
   this.player3 = {
       id : null,
-      x : null,
-      y : null,
       nick : null,
       score : null,
-      color : null
     };
   this.player4 = {
       id : null,
-      x : null,
-      y : null,
       nick : null,
       score : null,
-      color : null
     };
   this.player5 = {
       id : null,
-      x : null,
-      y : null,
       nick : null,
       score : null,
-      color : null
     };
   this.player6 = {
       id : null,
-      x : null,
-      y : null,
       nick : null,
       score : null,
-      color : null};
+  };
   }
 
+  deleteuser(id){
+    var a = [this.player1, this.player2, this.player3,this.player4, this.player5, this.player6];
+    for(var i = 0 ; i < 6 ; i++)
+      {
+        if(id == a[i].id)
+        {
+          a[i] = {
+            id : null,
+            nick : null,
+            score : null,
+          }
+              console.log('우왕굳');
+        }
+      }
+  } 
+  
   // 라운드별로 userroom 객체내의 탈락한 player들을 null 입력
   get userid(){      // 최종 우승자 판별
     
@@ -131,7 +130,6 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
     {
       this.player1.id = data.id;
       this.player1.score = data.score;
-      //this.player1.color = data.color;
       this.player1.nick = data.nick;
       return true;
     }
@@ -139,7 +137,6 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
     {
       this.player2.id = data.id;
       this.player2.score = data.score;
-      //this.player2.color = data.color;
       this.player2.nick = data.nick;
       return true;
     }
@@ -147,7 +144,6 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
     {
       this.player3.id = data.id;
       this.player3.score = data.score;
-      //this.player3.color = data.color;
       this.player3.nick = data.nick;
       return true;
     }
@@ -156,7 +152,6 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
     {
       this.player1.id = data.id;
       this.player1.score = data.score;
-      //this.player1.color = data.color;
       this.player1.nick = data.nick;
       return true;
     }
@@ -165,7 +160,6 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
     {
       this.player1.id = data.id;
       this.player1.score = data.score;
-      //this.player1.color = data.color;
       this.player1.nick = data.nick;
       return true;
     }
@@ -174,7 +168,6 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
     {
       this.player1.id = data.id;
       this.player1.score = data.score;
-      //this.player1.color = data.color;
       this.player1.nick = data.nick;
       return true;
     }
@@ -330,8 +323,23 @@ io.on('connection', function(socket) {
     }
   }) // end of mto
 
-  socket.on('matchingover', function (data) { // 매칭 종료 버튼을 눌렀을 때 받는 정보
-    
+  socket.on('matchingover', function (data) { // 매칭 종료 버튼을 눌렀을 때 받는 정보 data = myId
+    // id값에 해당하는 join했던 room과 room객체를 찾아 disconnect와 
+    var checkdata = [];
+    for(var i ; i < room.length ; i++)
+      {
+        checkdata = room[i].userid;
+
+        for(var j = 0 ; j < checkdata.length ; j++)
+          {
+            if(data.id == checkdata[j])
+            {
+              socket.leave(room[i].roomid);
+              room[i].deleteuser(data);
+            }
+          }
+        
+      }
   })
 
   // 
