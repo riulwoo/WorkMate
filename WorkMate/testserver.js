@@ -281,7 +281,7 @@ io.on('connection', function(socket) {
     // 받아온 id값을 어느방에 있는지 체크하고 > 이미 있음
     // 그 방의 유저수를 체크하는 userid를 실행 > 배열.length가 1 이면 userroom.asd = true;
     // 2번째 사람이 왔음 > 근데 해당하는 userroom.asd가 true이면 그냥 넘어감
-    let clientSocket = data.id;
+    let clientSocket = data;
     let checkdata = [];
     let userroomcnt = 0;
     let a = 0;
