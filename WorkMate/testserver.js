@@ -105,7 +105,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
             nick : null,
             score : null,
           }
-              
+             console.log('우왁굳'); 
         }
       }
   } 
@@ -239,7 +239,7 @@ io.on('connection', function(socket) {
     // 받아온 data 값을 userroom.userid 안에서 null값을 체크해 값을 넣는다 
     // data = {id : id, nick : nickname, score : 0}
     // 방은 있으되 방에 사람이 아무도 없는 경우    
-    console.log(`매칭시작`);
+    console.log('매칭시작');
     if(room[roomcnt].roomid == null)
       {
         room[roomcnt].userid(data);
