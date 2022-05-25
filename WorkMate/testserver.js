@@ -242,6 +242,7 @@ io.on('connection', function(socket) {
     let checkdata = [];
     let test1 = [];
     test1 = room[0].userid;
+    console.log(test1[0].id);
     for(let i = 0; i < room.length ; i++)
       {
         checkdata = room[i].userid;
@@ -253,9 +254,9 @@ io.on('connection', function(socket) {
             if(data == checkdata[j])
             {
               socket.leave(room[i].roomid);
-              console.log(room[i].roomid);
+              //console.log(room[i].roomid);
               room[i].splice(0,1);
-              console.log(test1[j].id);
+              //console.log(test1[j].id);
             }
           }
         
