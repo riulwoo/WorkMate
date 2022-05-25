@@ -153,7 +153,7 @@ io.on('connection', function(socket) {
     // 방은 있으되 방에 사람이 아무도 없는 경우   
     if(room[roomcnt].roomid == null)
       {
-        room[roomcnt].userid = data;
+        room[roomcnt].userid() = data;
         room[roomcnt].roomcode = data.roomid;
         socket.join(data.roomid);
         console.log(data.roomid);
