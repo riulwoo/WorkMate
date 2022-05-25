@@ -257,7 +257,7 @@ io.on('connection', function(socket) {
               socket.leave(room[i].roomid);
               console.log('조인 방 정보 : ' + room[i].roomid);
               checkdata.splice(0,1);
-              console.log('클래스 삭제 후 정보 : ' + checkdata[i].id);
+              console.log('클래스 삭제 후 정보 : ' + checkdata[1].id);
             }
           }
         
