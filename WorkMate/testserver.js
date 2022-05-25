@@ -170,7 +170,6 @@ io.on('connection', function(socket) {
         socket.join(data.roomid);
         room[roomcnt] = new userroom();
         room[roomcnt].userid = data;
-        console.log('매칭 유저가 추가되었습니다.');
         // 처음 matchtimeover 메세지를 보낸 유저기준으로 방의 인원을 체크하여
         // matchsuccess를 중복하여 보내지 않기 위한 변수 
         cnt = true;
@@ -178,6 +177,7 @@ io.on('connection', function(socket) {
     else
       {
         socket.join(room[roomcnt].roomcode);
+        console.log('매칭 유저가 추가되었습니다.');
       }    
   });
   // 각 클라이언트마다 mto메시지를 보낸다 이걸 어떻게 처리해야하나
@@ -256,7 +256,7 @@ io.on('connection', function(socket) {
             {
               socket.leave(room[i].roomid);
               console.log('조인 방 정보 : ' + room[i].roomid);
-              room[i].splice(0,1);
+              checkdata.splice(0,1);
               console.log('클래스 삭제 후 정보 : ' + checkdata[i].id);
             }
           }
