@@ -335,7 +335,7 @@ io.on('connection', function(socket) {
 
         for(var j = 0 ; j < checkdata.length ; j++)
           {
-            if(data.id == checkdata[j])
+            if(data == checkdata[j])
             {
               socket.leave(room[i].roomid);
               console.log(room[i].roomid);
