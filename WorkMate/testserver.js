@@ -246,7 +246,7 @@ io.on('connection', function(socket) {
 
         for(let j = 0 ; j < checkdata.length ; j++)
           {
-            console.log('들어간 정보 : ' + checkdata[j]);
+            console.log('들어간 정보 : ' + room[i].userid);
             if(data == checkdata[j])
             {
               socket.leave(room[i].roomid);
