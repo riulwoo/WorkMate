@@ -118,7 +118,7 @@
           (new Date().getTime() + Math.random()).toString(36).substring(2,7);
           
           socket.emit("matchStart", {
-            id : player,
+            id : myId,
             roomid : roomid,
             nick : nickname, 
             score : 0
