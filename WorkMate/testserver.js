@@ -78,12 +78,18 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   // 매칭시 player1~6까지 null이 있는지 체크, null이 없다면 false반환
   set userid(data) {
     const { id, roomid, nick, score } = data;
-    this.players.forEach((x, index) => {
-      if (x.id === null && index === id) {
-        x.id = id;
-        x.nick = nick;
-        x.score = score;
-      }
+    this.players.forEach((player, index) => {
+      if (this.roomCode == null) {
+        player.id = id;
+        player.nick = nick;
+        player.score = score;
+        break;
+      } else if(this.roomCode != null && this.player[index-1].id != id){
+        player.id = id;
+        player.nick = nick;
+        player.score = score;
+        break;
+      } else return false;
     });
   }
 }
@@ -178,7 +184,7 @@ io.on('connection', function(socket) {
   // 각 클라이언트마다 mto메시지를 보낸다 이걸 어떻게 처리해야하나
   // 1번째 사람의 mto메시지만 받고 나머지는 무시한다.
   
-  socket.on('matchtimeover', function(data) { //매칭 종료버튼, 매칭 타이머 초과 시 받는 정보
+  socket.on('matchtimeover', function(userId) { //매칭 종료버튼, 매칭 타이머 초과 시 받는 정보
     // 클라이언트에서 emit data {socket.id}
     // 받는 정보는 타이머 종료 신호, 해당 유저 정보
     // 1. 유저의 id가 유저룸에 들어가 있는가
@@ -187,7 +193,7 @@ io.on('connection', function(socket) {
     // 받아온 id값을 어느방에 있는지 체크하고 > 이미 있음
     // 그 방의 유저수를 체크하는 userid를 실행 > 배열.length가 1 이면 userroom.asd = true;
     // 2번째 사람이 왔음 > 근데 해당하는 userroom.asd가 true이면 그냥 넘어감
-    let clientSocket = data;
+    let clientSocket = userId;
     let checkdata = [];
     let userroomcnt = 0;
     let a = 0;
