@@ -105,7 +105,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
             nick : null,
             score : null,
           }
-              console.log(`우왕굳`);
+              
         }
       }
   } 
@@ -339,7 +339,7 @@ io.on('connection', function(socket) {
               room[i].deleteuser(data);
             }
           }
-        
+        console.log('우왕굳');
       }
   })
 
