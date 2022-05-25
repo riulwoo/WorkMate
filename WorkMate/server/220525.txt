@@ -58,11 +58,11 @@ constructor(){
 
   set userId(data) {
     const { id, nick, score } = data;
-    this.players.forEach((player, index) => {
-      if (player.id === null && index + 1 === id) {
-        player.id = id;
-        player.nick = nick;
-        player.score = score;
+    this.players.forEach((x, index) => {
+      if x.id === null && index + 1 === id) {
+        x.id = id;
+        x.nick = nick;
+        x.score = score;
       }
     });
   }

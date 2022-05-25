@@ -67,79 +67,24 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
       this.players.push({ id: null, nick: null, score: null });
     }
   }
-
-  deleteuser(id) {
-    var a = [this.player1, this.player2, this.player3,this.player4, this.player5, this.player6];
-    for(var i = 0 ; i < 6 ; i++)
-      {
-        if(id == a[i].id)
-        {
-          a[i] = {
-            id : null,
-            nick : null,
-            score : null,
-          }
-        }
-      }
-  } 
   
   // 라운드별로 userroom 객체내의 탈락한 player들을 null 입력
   get userId() {
-    const playersId = this.players.map((player) => player.id);    
+    const playersId = this.players.map((players) => players.id);    
     return playersId;
   }
 
   
   // 매칭시 player1~6까지 null이 있는지 체크, null이 없다면 false반환
-  setuser(data){
-    if(this.player1 == null)
-    {
-      console.log(data);
-      this.player1.id = data.id;
-      this.player1.score = data.score;
-      this.player1.nick = data.nick;
-      return true;
-    }
-    else if(this.player2 == null) 
-    {
-      this.player2.id = data.id;
-      this.player2.score = data.score;
-      this.player2.nick = data.nick;
-      return true;
-    }
-    else if(this.player3 == null)
-    {
-      this.player3.id = data.id;
-      this.player3.score = data.score;
-      this.player3.nick = data.nick;
-      return true;
-    }
-      
-    else if(this.player4 == null)
-    {
-      this.player1.id = data.id;
-      this.player1.score = data.score;
-      this.player1.nick = data.nick;
-      return true;
-    }
-      
-    else if(this.player5 == null)
-    {
-      this.player1.id = data.id;
-      this.player1.score = data.score;
-      this.player1.nick = data.nick;
-      return true;
-    }
-      
-    else if(this.player6 == null)
-    {
-      this.player1.id = data.id;
-      this.player1.score = data.score;
-      this.player1.nick = data.nick;
-      return true;
-    }
-    else
-      return false;
+  set userId(data) {
+    const { id, nick, score } = data;
+    this.players.forEach((x, index) => {
+      if x.id === null && index === id) {
+        x.id = id;
+        x.nick = nick;
+        x.score = score;
+      }
+    });
   }
 }
 
@@ -295,6 +240,8 @@ io.on('connection', function(socket) {
     // id값에 해당하는 join했던 room과 room객체를 찾아 disconnect와 
     
     let checkdata = [];
+    let test1 = [];
+    test1 = room[0].userid;
     for(let i = 0; i < room.length ; i++)
       {
         checkdata = room[i].userid;
@@ -305,10 +252,10 @@ io.on('connection', function(socket) {
             console.log(checkdata[j]);
             if(data == checkdata[j])
             {
-              console.log(room[i].roomid);
               socket.leave(room[i].roomid);
               console.log(room[i].roomid);
-              room[i].deleteuser(data);
+              room[i].splice(0,1);
+              console.log(test1[j].id);
             }
           }
         
