@@ -79,7 +79,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   set userid(data) {
     const { id, roomid, nick, score } = data;
     for( let i = 0 ; i < 6 ; i++) {
-      if(this.roomCode != null && this.player[i].id == id) {
+      if(this.roomCode != null && this.players[i].id == id) {
         return false;
       }else if (this.roomCode != null && this.player[i].id != id) {
         this.players.push({ id: id, nick: nick, score: score });
