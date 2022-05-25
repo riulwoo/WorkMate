@@ -78,11 +78,11 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   // 매칭시 player1~6까지 null이 있는지 체크, null이 없다면 false반환
   set userid(data) {
     const { id, roomid, nick, score } = data;
-    for( let i = 0 ; i < 6 ; i++) {
-      if(this.roomCode != null && this.players[i].id == id) {
+    for(let i = 0 ; i < 6 ; i++) {
+      if(this.roomCode != null && this.players[5].id != null) {
         return false;
-      }else if (this.roomCode != null && this.players[i].id != id) {
-        this.players.splice(i+1, 1, { id: id, nick: nick, score: score });
+      }else if (this.roomCode != null && this.players[i].id == null) {
+        this.players.splice(i, 1, { id: id, nick: nick, score: score });
         return true;
       }else if (this.roomCode == null) {
         this.players.splice(i, 1, { id: id, nick: nick, score: score });
