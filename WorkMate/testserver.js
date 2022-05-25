@@ -240,23 +240,19 @@ io.on('connection', function(socket) {
     // id값에 해당하는 join했던 room과 room객체를 찾아 disconnect와 
     
     let checkdata = [];
-    let test1 = [];
-    test1 = room[0].userid;
-    console.log(test1[0].id);
     for(let i = 0; i < room.length ; i++)
       {
         checkdata = room[i].userid;
-        console.log(checkdata);
 
         for(let j = 0 ; j < checkdata.length ; j++)
           {
-            console.log(checkdata[j]);
+            console.log('들어간 정보 : ' + checkdata[j]);
             if(data == checkdata[j])
             {
               socket.leave(room[i].roomid);
-              //console.log(room[i].roomid);
+              console.log(room[i].roomid);
               room[i].splice(0,1);
-              //console.log(test1[j].id);
+              console.log(test1[j].id);
             }
           }
         
