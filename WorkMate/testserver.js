@@ -160,7 +160,8 @@ io.on('connection', function(socket) {
         room[roomcnt].userid = data;
         room[roomcnt].roomCode = data.roomid;
         socket.join(data.roomid);
-        console.log('처음 방이 만들어졌습니다.');
+        console.log('처음 방이 만들어졌습니다.  //' + '방코드 : ' + room[i].roomid);
+        console.log('[matchStart] 들어간 유저 정보 : ' + room[0].userid);
       }
     // 방에 6명이 있고 방이 없을 경우 방을 생성하는 if문
     else if(!(room[roomcnt].userid = data))
@@ -177,7 +178,8 @@ io.on('connection', function(socket) {
     else
       {
         socket.join(room[roomcnt].roomcode);
-        console.log('매칭 유저가 추가되었습니다.');
+        console.log('매칭 유저가 추가되었습니다.' + '방코드 : ' + room[i].roomid);
+        console.log('[matchStart] 들어간 유저 정보 : ' + room[0].userid);
       }    
   });
   // 각 클라이언트마다 mto메시지를 보낸다 이걸 어떻게 처리해야하나
@@ -248,16 +250,16 @@ io.on('connection', function(socket) {
     for(let i = 0; i < room.length ; i++)
       {
         checkdata = room[i].userid;
-        console.log('들어간 정보 : ' + room[i].userid);
+        console.log('[matchingover] 들어간 정보 : ' + room[i].userid);
 
         for(let j = 0 ; j < checkdata.length ; j++)
           {
             if(data == checkdata[j])
             {
               socket.leave(room[i].roomid);
-              console.log('조인 방 정보 : ' + room[i].roomid);
+              console.log('[matchingover] leave 후 조인 방 정보 : ' + room[i].roomid);
               checkdata.splice(0,1);
-              console.log('클래스 삭제 후 정보 : ' + checkdata[1]);
+              console.log('[matchingover] 유저 정보삭제 후 정보 : ' + checkdata[1]);
             }
           }
         
