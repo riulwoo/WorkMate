@@ -68,11 +68,11 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
     }
   }
 
-  deleteUser(id) {
-    this.players.forEach((players, index) => {
+  deleteUser(id, j) {
+    //this.players.forEach((players, index) => {
       if(players.id === id)
-        this.players.splice(index, 1, { id: null, nick: null, score: null });
-    });
+        this.players.splice(j, 1, { id: null, nick: null, score: null });
+    //});
   }
   
   // 라운드별로 userroom 객체내의 탈락한 player들을 null 입력
@@ -266,7 +266,7 @@ io.on('connection', function(socket) {
             if(id == checkdata[j])
             {
               socket.leave(room[i].roomid);
-              room[i].deleteUser(id); 
+              room[i].deleteUser(id, j); 
               console.log('[matchingover] leave 후 조인 방 정보 : ' + room[i].roomid);
               console.log('[matchingover] 유저 정보삭제 후 정보 : ' + room[i].userid);
               console.log('');
