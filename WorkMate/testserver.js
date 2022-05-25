@@ -85,7 +85,6 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
         x.score = score;
       }
     });
-    console.log('클래스 내부 정보 : ' + id + roomid + nick + score);
   }
 }
 
@@ -151,13 +150,13 @@ io.on('connection', function(socket) {
   socket.on('matchStart', function(data) {  // data = 클라이언트에서 넘어오는 유저정보
     // 받아온 data 값을 userroom.userid 안에서 null값을 체크해 값을 넣는다 
     // data = {id : id, nick : nickname, score : 0}
-    // 방은 있으되 방에 사람이 아무도 없는 경우   
+    // 방은 있으되 방에 사람이 아무도 없는 경우
     if(room[roomcnt].roomid == null)
       {
         room[roomcnt].userid = data;
         room[roomcnt].roomcode = data.roomid;
         socket.join(data.roomid);
-        console.log(room[roomcnt].userid);
+        console.log(room[roomcnt].roomcode);
       }
     // 방에 6명이 있고 방이 없을 경우 방을 생성하는 if문
     else if(!(room[roomcnt].userid = data))
