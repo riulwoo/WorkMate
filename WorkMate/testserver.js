@@ -151,12 +151,11 @@ io.on('connection', function(socket) {
     // 받아온 data 값을 userroom.userid 안에서 null값을 체크해 값을 넣는다 
     // data = {id : id, nick : nickname, score : 0}
     // 방은 있으되 방에 사람이 아무도 없는 경우
-    if(room[roomcnt].roomid == null)
+    if(room[roomcnt].roomCode == null)
       {
         room[roomcnt].userid = data;
-        room[roomcnt].roomcode = data.roomid;
+        room[roomcnt].roomCode = data.roomid;
         socket.join(data.roomid);
-        console.log('룸 속성자 : ' + room[roomcnt].roomcode);
       }
     // 방에 6명이 있고 방이 없을 경우 방을 생성하는 if문
     else if(!(room[roomcnt].userid = data))
