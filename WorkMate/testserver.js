@@ -81,7 +81,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
     for( let i = 0 ; i < 6 ; i++) {
       if(this.roomCode != null && this.players[i].id == id) {
         return false;
-      }else if (this.roomCode != null && this.player[i].id != id) {
+      }else if (this.roomCode != null && this.players[i].id != id) {
         this.players.push({ id: id, nick: nick, score: score });
         return true;
       }else if (this.roomCode == null) {
