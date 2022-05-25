@@ -95,6 +95,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   }
 
   deleteuser(id){
+    console.log('우왁굳'); 
     var a = [this.player1, this.player2, this.player3,this.player4, this.player5, this.player6];
     for(var i = 0 ; i < 6 ; i++)
       {
@@ -105,7 +106,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
             nick : null,
             score : null,
           }
-             console.log('우왁굳'); 
+             console.log('비챤'); 
         }
       }
   } 
@@ -238,13 +239,13 @@ io.on('connection', function(socket) {
   socket.on('matchStart', function(data) {  // data = 클라이언트에서 넘어오는 유저정보
     // 받아온 data 값을 userroom.userid 안에서 null값을 체크해 값을 넣는다 
     // data = {id : id, nick : nickname, score : 0}
-    // 방은 있으되 방에 사람이 아무도 없는 경우    
-    console.log('매칭시작');
+    // 방은 있으되 방에 사람이 아무도 없는 경우   
     if(room[roomcnt].roomid == null)
       {
         room[roomcnt].setuser(data);
         room[roomcnt].roomcode = data.roomid;
         socket.join(data.roomid);
+        console.log(data.roomid);
       }
     // 방에 6명이 있고 방이 없을 경우 방을 생성하는 if문
     else if(!room[roomcnt].setuser(data))
@@ -326,7 +327,7 @@ io.on('connection', function(socket) {
 
   socket.on('matchingover', function (data) { // 매칭 종료 버튼을 눌렀을 때 받는 정보 data = myId
     // id값에 해당하는 join했던 room과 room객체를 찾아 disconnect와 
-    console.log('우왕굳');
+    console.log(data);
     var checkdata = [];
     for(var i ; i < room.length ; i++)
       {
@@ -337,6 +338,7 @@ io.on('connection', function(socket) {
             if(data.id == checkdata[j])
             {
               socket.leave(room[i].roomid);
+              console.log(room[i].roomid);
               room[i].deleteuser(data);
             }
           }
