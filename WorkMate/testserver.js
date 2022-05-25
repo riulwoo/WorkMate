@@ -69,14 +69,14 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   }
   
   // 라운드별로 userroom 객체내의 탈락한 player들을 null 입력
-  get userId() {
+  get userid() {
     const playersId = this.players.map((players) => players.id);    
     return playersId;
   }
 
   
   // 매칭시 player1~6까지 null이 있는지 체크, null이 없다면 false반환
-  set userId(data) {
+  set userid(data) {
     const { id, nick, score } = data;
     this.players.forEach((x, index) => {
       if (x.id === null && index === id) {
