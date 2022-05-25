@@ -329,7 +329,7 @@ io.on('connection', function(socket) {
     // id값에 해당하는 join했던 room과 room객체를 찾아 disconnect와 
     console.log(data);
     var checkdata = [];
-    for(var i ; i < room.length ; i++)
+    for(var i = 0; i < room.length ; i++)
       {
         checkdata = room[i].userid;
 
