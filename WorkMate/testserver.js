@@ -153,7 +153,8 @@ io.on('connection', function(socket) {
     // 방은 있으되 방에 사람이 아무도 없는 경우   
     if(room[roomcnt].roomid == null)
       {
-        room[roomcnt].userid = data;
+        //room[roomcnt].userid = data;
+        room[roomcnt].userid(data);
         room[roomcnt].roomcode = data.roomid;
         socket.join(data.roomid);
         console.log(data.roomid);
@@ -165,7 +166,7 @@ io.on('connection', function(socket) {
         room[roomcnt].roomcode = data.roomid;
         socket.join(data.roomid);
         room[roomcnt] = new userroom();
-        room[roomcnt].userid = data;
+        //room[roomcnt].userid = data;
         // 처음 matchtimeover 메세지를 보낸 유저기준으로 방의 인원을 체크하여
         // matchsuccess를 중복하여 보내지 않기 위한 변수 
         cnt = true;
@@ -243,10 +244,10 @@ io.on('connection', function(socket) {
     for(let i = 0; i < room.length ; i++)
       {
         checkdata = room[i].userid;
+        console.log('들어간 정보 : ' + room[i].userid);
 
         for(let j = 0 ; j < checkdata.length ; j++)
           {
-            console.log('들어간 정보 : ' + room[i].userid);
             if(data == checkdata[j])
             {
               socket.leave(room[i].roomid);
