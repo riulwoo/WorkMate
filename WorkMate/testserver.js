@@ -332,9 +332,11 @@ io.on('connection', function(socket) {
     for(var i = 0; i < room.length ; i++)
       {
         checkdata = room[i].userid;
+        console.log(checkdata);
 
         for(var j = 0 ; j < checkdata.length ; j++)
           {
+            console.log(checkdata[j]);
             if(data == checkdata[j])
             {
               console.log(room[i].roomid);
