@@ -79,7 +79,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   set userId(data) {
     const { id, nick, score } = data;
     this.players.forEach((x, index) => {
-      if x.id === null && index === id) {
+      if (x.id === null && index === id) {
         x.id = id;
         x.nick = nick;
         x.score = score;
