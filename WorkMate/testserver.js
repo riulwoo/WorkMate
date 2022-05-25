@@ -62,7 +62,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   this.gameName;
 
   // 플레이어 1~6명의 정보
-    this.players = [];
+    this.players = [6];
     for (let i = 0; i < 6; i++) {
       this.players.push({ id: null, nick: null, score: null });
     }
