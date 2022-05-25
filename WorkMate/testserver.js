@@ -127,6 +127,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   
   // 매칭시 player1~6까지 null이 있는지 체크, null이 없다면 false반환
   setuser(data){
+    console.log(data);
     if(this.player1 == null)
     {
       this.player1.id = data.id;
