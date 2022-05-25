@@ -260,7 +260,7 @@ io.on('connection', function(socket) {
               console.log('[matchingover] leave 후 조인 방 정보 : ' + room[i].roomid);
               checkdata.splice(0,1);
               console.log('[matchingover] 유저 정보삭제 후 정보 : ' + checkdata[i]);
-              console.long('');
+              console.log('');
             }
           }
         
