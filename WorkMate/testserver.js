@@ -112,7 +112,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   } 
   
   // 라운드별로 userroom 객체내의 탈락한 player들을 null 입력
-  get userid(){      // 최종 우승자 판별
+  get userid() {      // 최종 우승자 판별
     
     let players = [];
     players[0] = this.player1.id;
