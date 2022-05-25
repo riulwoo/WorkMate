@@ -52,7 +52,7 @@
         var userinfo = {};
         var myId;
         var socket = io();
-        Matchbtn.addEventListener('click', match);
+        Matchbtn.addEventListener("click", match);
         Croombtn.addEventListener("click", function () {
           console.log("create room 눌림 " + myId + userinfo[myId]);
           socket.emit('createroom', {
