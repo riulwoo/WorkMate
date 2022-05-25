@@ -259,7 +259,7 @@ io.on('connection', function(socket) {
     for(let i = 0; i < room.length ; i++)
       {
         checkdata = room[i].userid;
-        console.log('[matchingover] 들어간 정보 : ' + checkdata);
+        console.log('[matchingover] 들어간 정보 : ' + room[i].userid);
 
         for(let j = 0 ; j < checkdata.length ; j++)
           {
@@ -268,7 +268,7 @@ io.on('connection', function(socket) {
               socket.leave(room[i].roomid);
               room[i].deleteUser(id); 
               console.log('[matchingover] leave 후 조인 방 정보 : ' + room[i].roomid);
-              console.log('[matchingover] 유저 정보삭제 후 정보 : ' + checkdata);
+              console.log('[matchingover] 유저 정보삭제 후 정보 : ' + room[i].userid);
               console.log('');
             }
           }
