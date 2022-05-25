@@ -331,10 +331,12 @@ io.on('connection', function(socket) {
     var checkdata = [];
     for(var i = 0; i < room.length ; i++)
       {
+        console.log(room.length);
         checkdata = room[i].userid;
 
         for(var j = 0 ; j < checkdata.length ; j++)
           {
+            console.log(checkdata.length);
             if(data == checkdata[j])
             {
               socket.leave(room[i].roomid);
