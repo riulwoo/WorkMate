@@ -159,7 +159,7 @@ io.on('connection', function(socket) {
         console.log(data.roomid);
       }
     // 방에 6명이 있고 방이 없을 경우 방을 생성하는 if문
-    else if(!room[roomcnt].userid = data)
+    else if((!room[roomcnt].userid = data))
       { 
         roomcnt++
         room[roomcnt].roomcode = data.roomid;
