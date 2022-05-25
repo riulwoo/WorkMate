@@ -77,7 +77,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   
   // 매칭시 player1~6까지 null이 있는지 체크, null이 없다면 false반환
   set userid(data) {
-    const { id, nick, score } = data;
+    const { id, roomid, nick, score } = data;
     this.players.forEach((x, index) => {
       if (x.id === null && index === id) {
         x.id = id;
@@ -153,8 +153,7 @@ io.on('connection', function(socket) {
     // 방은 있으되 방에 사람이 아무도 없는 경우   
     if(room[roomcnt].roomid == null)
       {
-        //room[roomcnt].userid = data;
-        room[roomcnt].userid(data);
+        room[roomcnt].userid = data;
         room[roomcnt].roomcode = data.roomid;
         socket.join(data.roomid);
         console.log(data.roomid);
@@ -166,7 +165,7 @@ io.on('connection', function(socket) {
         room[roomcnt].roomcode = data.roomid;
         socket.join(data.roomid);
         room[roomcnt] = new userroom();
-        //room[roomcnt].userid = data;
+        room[roomcnt].userid = data;
         // 처음 matchtimeover 메세지를 보낸 유저기준으로 방의 인원을 체크하여
         // matchsuccess를 중복하여 보내지 않기 위한 변수 
         cnt = true;
