@@ -31,7 +31,7 @@
 
 <script>
         var canvas = document.getElementById("myCanvas");
-        var matchbtn = document.getElementById("matchStart"); //매칭하기 버튼
+        var Matchbtn = document.getElementById("matchStart"); //매칭하기 버튼
         var cancelbtn = document.getElementById("matchcancel"); //방나가기 / 매치 나가기 버튼
         var Croombtn = document.getElementById("createroom"); //방만들기 버튼 
         var Jroombtn = document.getElementById("joinroom"); //방 입장 버튼
@@ -52,9 +52,9 @@
         var userinfo = {};
         var myId;
         var socket = io();
-        matchbtn.addEventListener("click", match);
-        Croombtn.addEventListener('click', function () {
-          console.log('create room 눌림 ' + myId + userinfo[myId]);
+        Matchbtn.addEventListener('click', match);
+        Croombtn.addEventListener("click", function () {
+          console.log("create room 눌림 " + myId + userinfo[myId]);
           socket.emit('createroom', {
             id : "hi", 
             roomid : roomid, 
@@ -109,7 +109,7 @@
             updateState(data.id, data.x, data.y);
         })
 
-        function match() {
+        function match(e) {
           let player = userinfo[myId];        // 자신의 정보불러옴
           let nickname = nicktxt.value;
           roomid  =
