@@ -326,6 +326,7 @@ io.on('connection', function(socket) {
 
   socket.on('matchingover', function (data) { // 매칭 종료 버튼을 눌렀을 때 받는 정보 data = myId
     // id값에 해당하는 join했던 room과 room객체를 찾아 disconnect와 
+    console.log('우왕굳');
     var checkdata = [];
     for(var i ; i < room.length ; i++)
       {
@@ -339,7 +340,7 @@ io.on('connection', function(socket) {
               room[i].deleteuser(data);
             }
           }
-        console.log('우왕굳');
+        
       }
   })
 

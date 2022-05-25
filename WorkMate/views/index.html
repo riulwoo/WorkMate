@@ -71,7 +71,7 @@
         })
 
         cancelbtn.addEventListener("click",function () {
-          socket.emit('matchingover', myId);
+          socket.emit("matchingover", myId);
           console.log('나가기 눌림');
         })
         function joinUser(id,color,x,y){
@@ -117,7 +117,7 @@
           roomid  =
           (new Date().getTime() + Math.random()).toString(36).substring(2,7);
           
-          socket.emit('matchstart', {
+          socket.emit("matchstart", {
             id : player,
             roomid : roomid,
             nick : nickname, 
