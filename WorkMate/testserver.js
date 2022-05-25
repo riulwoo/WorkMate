@@ -65,10 +65,10 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
     this.players = [];
     for (let i = 1; i < 7; i++) {
       this.players.push({ id: null, nick: null, score: null });
+    }
   }
 
-  deleteuser(id){
-    console.log('우왁굳'); 
+  deleteuser(id) {
     var a = [this.player1, this.player2, this.player3,this.player4, this.player5, this.player6];
     for(var i = 0 ; i < 6 ; i++)
       {
@@ -79,7 +79,6 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
             nick : null,
             score : null,
           }
-             console.log('비챤'); 
         }
       }
   } 
