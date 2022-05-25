@@ -243,17 +243,31 @@ io.on('connection', function(socket) {
   
   // 클라이언트에서 매칭을 할 시 첫번째로 넘어오는 유저 정보 정보는 방 객체에 저장  
   socket.on('matchStart', function(data) {  // data = 클라이언트에서 넘어오는 유저정보
-        // 받아온 data 값을 userroom.userid 안에서 null값을 체크해 값을 넣는다 
-        // data = {id : id, nick : nickname, score : 0}
-        if(!room[roomcnt].userid(data)) // 방에 6명이 찼을 경우 방을 생성하는 if문
-        { 
-          roomcnt++
-          room[roomcnt].roomcode = data.roomid;
-          room[roomcnt] = new userroom();
-          room[roomcnt].userid(data);
-// 처음 matchtimeover 메세지를 보낸 유저기준으로 방의 인원을 체크하여 matchsuccess를 중복하여 보내지 않기 위한 변수 
-          cnt = true;
-        }
+    // 받아온 data 값을 userroom.userid 안에서 null값을 체크해 값을 넣는다 
+    // data = {id : id, nick : nickname, score : 0}
+    // 방은 있으되 방에 사람이 아무도 없는 경우    
+    if(room[roomcnt].roomid == null)
+      {
+        room[roomcnt].userid(data);
+        room[roomcnt].roomcode = data.roomid;
+        socket.join(data.roomid);
+      }
+    // 방에 6명이 있고 방이 없을 경우 방을 생성하는 if문
+    else if(!room[roomcnt].userid(data))
+      { 
+        roomcnt++
+        room[roomcnt].roomcode = data.roomid;
+        socket.join(data.roomid);
+        room[roomcnt] = new userroom();
+        room[roomcnt].userid(data);
+        // 처음 matchtimeover 메세지를 보낸 유저기준으로 방의 인원을 체크하여
+        // matchsuccess를 중복하여 보내지 않기 위한 변수 
+        cnt = true;
+      }
+    else
+      {
+        socket.join(room[roomcnt].roomcode);
+      }    
   });
   // 각 클라이언트마다 mto메시지를 보낸다 이걸 어떻게 처리해야하나
   // 1번째 사람의 mto메시지만 받고 나머지는 무시한다.
@@ -304,8 +318,7 @@ io.on('connection', function(socket) {
       // roomusers에게만 보내도록 추후 
       // 랜덤 방 코드 생성
       // DB에 userid, roomid, score, nick 삽입
-      socket.join(data.roomid)
-      io.to(data.roomid).emit('matchsuccess', function () {
+      io.to(room[userroomcnt].roomid).emit('matchsuccess', function () {
         // app.get('/', (req, res) => {
         //   res.sendFile(__dirname + '/views/index.html')
         // })
@@ -320,9 +333,10 @@ io.on('connection', function(socket) {
   socket.on('matchingover', function (data) { // 매칭 종료 버튼을 눌렀을 때 받는 정보
     
   })
-  
+
+  // 
   socket.on('send_location', function(data) {
-    io.to('방코드').emit('update_state', {
+    socket.emit('update_state', {
       id: data.id,
       x: data.x,
       y: data.y
