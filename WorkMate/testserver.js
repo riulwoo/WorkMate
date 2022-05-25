@@ -267,7 +267,7 @@ io.on('connection', function(socket) {
     // 받아온 id값을 어느방에 있는지 체크하고 > 이미 있음
     // 그 방의 유저수를 체크하는 userid를 실행 > 배열.length가 1 이면 userroom.asd = true;
     // 2번째 사람이 왔음 > 근데 해당하는 userroom.asd가 true이면 그냥 넘어감
-    let clientSocket = data;
+    let clientSocket = data.id;
     let checkdata = [];
     let userroomcnt = 0;
     let a = 0;
@@ -296,20 +296,19 @@ io.on('connection', function(socket) {
     else
     {
       // 클라이언트에서 다시 매칭하라고 해야함
-      io.to('방코드').emit('matchfail');
+      socket.emit('matchfail');
     }
-        
+    
     if(room[userroomcnt].alreadyUser) 
     {
       // roomusers에게만 보내도록 추후 
       // 랜덤 방 코드 생성
       // DB에 userid, roomid, score, nick 삽입
-      
-      io.to('방코드').emit('matchsuccess', function () {
+      socket.join(data.roomid)
+      io.to(data.roomid).emit('matchsuccess', function () {
         // app.get('/', (req, res) => {
         //   res.sendFile(__dirname + '/views/index.html')
         // })
-        
         room[userroomcnt].alreadyUser = false;
         cnt = false;
         roomcnt++;

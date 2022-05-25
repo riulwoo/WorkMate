@@ -123,7 +123,10 @@
           // gif띄우는건 css속성 가져와서 destroy하면 될듯
           setTimeout(()=>{
             // gif 없앤다
-            socket.emit('matchtimeover', myId);    
+            socket.emit('matchtimeover', {
+              id : myId,
+              roomid : roomid
+            });    
             // 15초후 서버에 타임오버 메시지
             }, 1500)
           }
