@@ -160,8 +160,8 @@ io.on('connection', function(socket) {
         room[roomcnt].userid = data;
         room[roomcnt].roomCode = data.roomid;
         socket.join(data.roomid);
-        console.log('처음 방이 만들어졌습니다.  //' + '방코드 : ' + room[0].roomid);
-        console.log('[matchStart] 들어간 유저 정보 : ' + room[0].userid);
+        console.log('처음 방이 만들어졌습니다.  //' + '  방코드 : ' + room[roomcnt].roomCode);
+        console.log('[matchStart] 들어간 유저 정보 : ' + room[roomcnt].userid);
       }
     // 방에 6명이 있고 방이 없을 경우 방을 생성하는 if문
     else if(!(room[roomcnt].userid = data))
@@ -178,8 +178,8 @@ io.on('connection', function(socket) {
     else
       {
         socket.join(room[roomcnt].roomcode);
-        console.log('매칭 유저가 추가되었습니다.' + '방코드 : ' + room[0].roomid);
-        console.log('[matchStart] 들어간 유저 정보 : ' + room[0].userid);
+        console.log('매칭 유저가 추가되었습니다.  //' + '  방코드 : ' + room[roomcnt].roomCode);
+        console.log('[matchStart] 들어간 유저 정보 : ' + room[roomcnt].userid);
       }    
   });
   // 각 클라이언트마다 mto메시지를 보낸다 이걸 어떻게 처리해야하나
