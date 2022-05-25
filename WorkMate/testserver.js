@@ -60,7 +60,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
 
   // 게임배열 
   this.gameName;
-    
+
   // 플레이어 1~6명의 정보
     this.players = [];
     for (let i = 1; i < 7; i++) {
@@ -78,18 +78,17 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   // 매칭시 player1~6까지 null이 있는지 체크, null이 없다면 false반환
   set userid(data) {
     const { id, roomid, nick, score } = data;
-    this.players.forEach((player, index) => {
-      if (this.roomCode == null) {
-        player.id = id;
-        player.nick = nick;
-        player.score = score;
+    for( let i = 0 ; i < 6 ; i++) {
+      if(this.roomCode != null && this.player[i].id == id) {
+        return false;
+      }else if (this.roomCode != null && this.player[i].id != id) {
+        this.players.push({ id: id, nick: nick, score: score });
         return true;
-      } else if(this.roomCode != null && this.player[index-1].id != id){
-        player.id = id;
-        player.nick = nick;
-        player.score = score;
+      }else if (this.roomCode == null) {
+        this.players.push({ id: id, nick: nick, score: score });
         return true;
-      } else return false;
+      }
+    }
     });
   }
 }
@@ -162,16 +161,17 @@ io.on('connection', function(socket) {
         room[roomcnt].userid = data;
         room[roomcnt].roomCode = data.roomid;
         socket.join(data.roomid);
-        console.log(room[roomcnt].players[0].id);
+        console.log('처음 방이 만들어졌습니다.');
       }
     // 방에 6명이 있고 방이 없을 경우 방을 생성하는 if문
     else if(!(room[roomcnt].userid = data))
       { 
-        roomcnt++
+        roomcnt++;
         room[roomcnt].roomcode = data.roomid;
         socket.join(data.roomid);
         room[roomcnt] = new userroom();
         room[roomcnt].userid = data;
+        console.log('매칭 유저가 추가되었습니다.');
         // 처음 matchtimeover 메세지를 보낸 유저기준으로 방의 인원을 체크하여
         // matchsuccess를 중복하여 보내지 않기 위한 변수 
         cnt = true;
@@ -256,9 +256,9 @@ io.on('connection', function(socket) {
             if(data == checkdata[j])
             {
               socket.leave(room[i].roomid);
-              console.log(room[i].roomid);
+              console.log('조인 방 정보 : ' + room[i].roomid);
               room[i].splice(0,1);
-              console.log(test1[j].id);
+              console.log('클래스 삭제 후 정보 : ' + checkdata[i].id);
             }
           }
         

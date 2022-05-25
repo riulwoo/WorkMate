@@ -38,7 +38,7 @@
         var Jroombtn = document.getElementById("joinroom"); //방 입장 버튼
         var nicktxt = document.getElementById("nick");
         var roomid = '';
-
+        var a = 1;
   
         function PlayerBall(id){ //자신이 서버랑 주고받을 정보들
             this.id = id;
@@ -75,7 +75,7 @@
           console.log('나가기 눌림');
         })
         function joinUser(id,color,x,y){
-            let player = new Playerplayer(id);
+            let player = new PlayerBall(id);
             player.color = color;
             player.x = x;
             player.y = y;
@@ -101,19 +101,19 @@
         socket.on('user_id', function(data){
             myId = data;
         })
-        socket.on('join_user', function(data){ //html을 접속했을 때 발생
+       /* socket.on('join_user', function(data){ //html을 접속했을 때 발생
             joinUser(data.id, data.color, data.x, data.y);
         })
         socket.on('leave_user', function(data){ //html를 나갔을 때 발생
             leaveUser(data);
-        })
+        })*/
         socket.on('update_state', function(data){ // setinterval 마다 발생
             updateState(data.id, data.x, data.y);
         })
 
         function match(e) {
           let player = userinfo[myId];        // 자신의 정보불러옴
-          let nickname = nicktxt.value;
+          let nickname = "nickname " + a;
           roomid  =
           (new Date().getTime() + Math.random()).toString(36).substring(2,7);
           
