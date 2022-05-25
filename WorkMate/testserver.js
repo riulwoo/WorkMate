@@ -70,7 +70,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
 
   deleteUser(id, j) {
     //this.players.forEach((players, index) => {
-    let j = this.j
+    let j = this.j;
       if(this.players.id[j] === id)
         this.players.splice(j, 1, { id: null, nick: null, score: null });
     //});
@@ -109,9 +109,6 @@ var userinfo = {}; //유저들의 정보모음집
 
 
 // 목적이나 용도 따로 작성 필요
-let a = false;
-let i = 0;
-let j = 0;
 let roomcnt = 0;
 let room = new Array();
 let cnt = true;
@@ -207,13 +204,12 @@ io.on('connection', function(socket) {
     let clientSocket = userId;
     let checkdata = [];
     let userroomcnt = 0;
-    let a = 0;
     
-    for ( i = 0 ; i < room.length ; i++)  //유저의 id를 몇번 방에 있는 지 확인 하는 for문
+    for (let i = 0 ; i < room.length ; i++)  //유저의 id를 몇번 방에 있는 지 확인 하는 for문
       {
         // room안에 있는 socket.id를 하나하나 확인하기 위한 변수
         checkdata = room[i].userid;
-        for( j = 0 ; j < 6 ; j++) 
+        for(let j = 0 ; j < 6 ; j++) 
           {
             // 방안에 유저의 정보를 체크하여 방의 위치 확인 
             if(clientSocket == checkdata[j]) 
