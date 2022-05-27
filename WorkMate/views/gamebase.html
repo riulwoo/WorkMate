@@ -5,14 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WorkMate</title>
+    <title>Professor VS Student</title>
     <style>
         * {padding : 0; margin: 0;}
         canvas {background: #eee; display: block; margin : 0 auto;}
     </style>
     
     <script src="/socket.io/socket.io.js"></script>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
 
 </head>
 <body>
@@ -27,16 +26,16 @@
         var leftPressed = false;
         var upPressed = false;
         var downPressed = false;
-        function Playerplayer(id){
+        function PlayerBall(id){
             this.id = id;
             this.color = "#FF00FF";
             this.x = 1024/2;
             this.y = 768/2;
         }
         
-        var userpool  = [];    // user's socket ids   // balls
-        var userinfo = {};     // x, y , color        // ballmap
-        var myId;              // client's socket id  // ball = player
+        var balls  = [];
+        var ballMap = {};
+        var myId;
 
         document.addEventListener("keydown", keyDownHandler,false);
         document.addEventListener("keyup", keyUpHandler,false);
@@ -71,36 +70,36 @@
             }
         }
 
-      // 게임 내의 플레이어들의 정보를 다룰 때 사용
         function joinUser(id,color,x,y){
-            let player = new Playerplayer(id);
-            player.color = color;
-            player.x = x;
-            player.y = y;
+            let ball = new PlayerBall(id);
+            ball.color = color;
+            ball.x = x;
+            ball.y = y;
 
-            userpool.push(player);
-            userinfo[id] = player;
+            balls.push(ball);
+            ballMap[id] = ball;
 
-            return player;
+            return ball;
         }
 
         function leaveUser(id){
-            for(var i = 0 ; i < userpool.length; i++){
-                if(userpool[i].id == id){
-                    userpool.splice(i,1);
+            for(var i = 0 ; i < balls.length; i++){
+                if(balls[i].id == id){
+                    balls.splice(i,1);
                     break;
                 }
             }
-            delete userinfo[id];
+            delete ballMap[id];
         }
 
         function updateState(id,x,y){
-            let player = userinfo[id];
-            if(!player){
+            let ball = ballMap[id];
+            if(!ball){
                 return;
             }
-            player.x = x;
-            player.y = y;
+            ball.x = x;
+            ball.y = y;
+
         }
 
         var socket = io();
@@ -108,18 +107,18 @@
         socket.on('user_id', function(data){
             myId = data;
         });
-        socket.on('join_user', function(data){ 
+        socket.on('join_user', function(data){
             joinUser(data.id, data.color, data.x, data.y);
         })
-        socket.on('leave_user', function(data){ 
+        socket.on('leave_user', function(data){
             leaveUser(data);
         })
-        socket.on('update_state', function(data){ 
+        socket.on('update_state', function(data){
             updateState(data.id, data.x, data.y);
         })
         
         function sendData() {
-            let curPlayer = userinfo[myId];
+            let curPlayer = ballMap[myId];
             let data = {};
             data = {
                 id : curPlayer.id,
@@ -127,30 +126,29 @@
                 y: curPlayer.y,
             };
             if(data){
-                socket.emit("send_location", data); 
+                socket.emit("send_location", data);
             }
         }
 
-        // 플레이어 그리기
         function renderPlayer() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-                for (let i = 0; i < players.length; i++) {
-                    let player = players[i];
+                for (let i = 0; i < balls.length; i++) {
+                    let ball = balls[i];
                     
-                    ctx.fillStyle = player.color;
+                    ctx.fillStyle = ball.color;
                     ctx.beginPath();
-                    ctx.arc(player.x, player.y, radius, 0, Math.PI * 2, false);
+                    ctx.arc(ball.x, ball.y, radius, 0, Math.PI * 2, false);
                     ctx.closePath();
                     ctx.fill();
                     
                     ctx.beginPath();
                     ctx.font = '15px Arial';
-                    ctx.fillText(`player ${i}`,player.x-radius-7, player.y-radius);  // 닉네임 수정 해야됨
+                    ctx.fillText(`player ${i}`,ball.x-radius-7, ball.y-radius);
                     ctx.closePath();
                 }
 
-                let curPlayer = userinfo[myId];
+                let curPlayer = ballMap[myId];
                 
                 if (rightPressed){
                     curPlayer.x += playerSpeed;
@@ -171,9 +169,8 @@
             renderPlayer();
         }
         
-        setInterval(update, 10); // 0.01초마다 update함수를 실행
+        setInterval(update, 10);
 
     </script>
 
 </body>
-</html><!-- index.html -->
