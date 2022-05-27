@@ -275,10 +275,9 @@ io.on('connection', function(socket) {
 
   socket.on('startgame', function(id) {
     let checkid = [];
-    let a = 0;
     room.forEach((temp, index) => 
       {
-        checkid = temp[a].userid;
+        checkid = temp.userid;
       
         for(let i = 0; i< 6; i++) 
         {
