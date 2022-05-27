@@ -114,20 +114,20 @@
         socket.on('leave_user', function(data){ //html를 나갔을 때 발생
             leaveUser(data);
         })*/
-        socket.on('gamestart', function(url) {
+        socket.on('gamestart', function() {
           var ajaxOption = {
-                url : url,
+                url : "/gamebase.html",
                 async : true,
                 type : "GET",
                 dataType : "html",
                 cache : false
           };
           
-          $.ajax(ajaxOption).done(function(data){
+          $.ajax(ajaxOption).success(function(url){
             // Contents 영역 삭제
             $('#test').children().remove();
             // Contents 영역 교체
-            $('#test').html(data);
+            $('#test').html(url);
           });
         })
 
