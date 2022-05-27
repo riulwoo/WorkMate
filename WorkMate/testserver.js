@@ -274,7 +274,7 @@ io.on('connection', function(socket) {
   })
 
   socket.on('startgame', function(id) {
-    room.foreach((room, index) => {
+    room.forEach((room, index) => {
       if(room[index].userid === id) {
         io.to(room.roomCode).emit('gamestart', "/views/gamebase.html");
       }
