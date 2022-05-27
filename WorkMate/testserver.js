@@ -275,9 +275,10 @@ io.on('connection', function(socket) {
 
   socket.on('startgame', function(id) {
     let checkid = [];
+    let a = 0;
     room.forEach((temp, index) => 
       {
-        checkid = temp[index].userid;
+        checkid = temp[a].userid;
       
         for(let i = 0; i< 6; i++) 
         {
@@ -286,6 +287,7 @@ io.on('connection', function(socket) {
             io.to(room[index].roomCode).emit('gamestart', "/views/gamebase.html");
           }
         }
+        a++;
       });
   })
 
