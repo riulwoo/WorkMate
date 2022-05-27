@@ -26,8 +26,12 @@
   <input type="button" id="joinroom" width = "200" height = "50" value="입장하기">
   <input type="text" id="nick" >
   <input type="button" id="matchcancel" width = "200" height = "50" value="나가기">
+  <input type="button" id="start" width = "200" height = "50" value="게임시작">
   <canvas id = "myCanvas" width ="1024" height = "768"></canvas>   
-  
+  <div id="test">
+  <canvas id = "tc" width ="1024" height = "768"></canvas>   
+    
+  </div>
 </div>
 
 <script>
@@ -36,6 +40,7 @@
         var cancelbtn = document.getElementById("matchcancel"); //방나가기 / 매치 나가기 버튼
         var Croombtn = document.getElementById("createroom"); //방만들기 버튼 
         var Jroombtn = document.getElementById("joinroom"); //방 입장 버튼
+        var start = document.getElementById("start"); //게임 시작 버튼
         var nicktxt = document.getElementById("nick");
         var roomid = '';
         var a = 1;
@@ -69,7 +74,11 @@
             nick : nickname
           }); 
         })
+        start.addEventListener("click", function () {
+          socket.emit('startgame', myId);
+        })
 
+          
         cancelbtn.addEventListener("click",function () {
           socket.emit("matchingover", myId);
           console.log('나가기 눌림');
@@ -107,6 +116,24 @@
         socket.on('leave_user', function(data){ //html를 나갔을 때 발생
             leaveUser(data);
         })*/
+        socket.on('gamestart', function(url) {
+          var ajaxOption = {
+                url : url,
+                async : true,
+                type : "POST",
+                dataType : "html",
+                cache : false
+          };
+          
+          $.ajax(ajaxOption).done(function(data){
+            // Contents 영역 삭제
+            $('#test').children().remove();
+            // Contents 영역 교체
+            $('#test').html(data);
+          });
+        })
+
+  
         socket.on('update_state', function(data){ // setinterval 마다 발생
             updateState(data.id, data.x, data.y);
         })

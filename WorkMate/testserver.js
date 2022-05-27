@@ -24,6 +24,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
 })
 
+
 function getPlayerColor() {
   return "#" + Math.floor(Math.random() * 16777215).toString(16);  
 }
@@ -270,6 +271,16 @@ io.on('connection', function(socket) {
           }
         
       }
+  })
+
+  socket.on('startgame', function(id) {
+    room.foreach((room, index) => {
+      if(room[index].userid === id) {
+        io.to(room.roomCode).emit('gamestart', "/views/gamebase.html");
+      }
+    })
+    
+    io.to().emit('broadcast', msg.msg); 
   })
 
   // 
