@@ -21,13 +21,11 @@ server.listen(process.env.PORT || 3000, ()=> {
 
 app.use(express.static('views'))
 
-app.use('/gamebase.html', express.static(__dirname + '/test/server.js'))
-
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
 })
 
-app.get('/gamebase.html', (req, res) => {
+app.get('/gamebase', (req, res) => {
   res.sendFile(__dirname + '/views/gamebase.html')
 })
 
