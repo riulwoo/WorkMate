@@ -274,13 +274,19 @@ io.on('connection', function(socket) {
   })
 
   socket.on('startgame', function(id) {
-    room.forEach((room, index) => {
-      if(room[index].userid === id) {
-        io.to(room.roomCode).emit('gamestart', "/views/gamebase.html");
-      }
-    })
-    
-    io.to().emit('broadcast', msg.msg); 
+    let checkid = [];
+    room.forEach((room, index) => 
+      {
+        checkid = room[index].userid;
+      
+        for(let i = 0; i< 6; i++) 
+        {
+          if(checkid[i] === id) 
+          {
+            io.to(room.roomCode).emit('gamestart', "/views/gamebase.html");
+          }
+        }
+      });
   })
 
   // 
