@@ -286,7 +286,6 @@ io.on('connection', function(socket) {
             io.to(room[index].roomCode).emit('gamestart', "/views/gamebase.html");
           }
         }
-        a++;
       });
   })
 
