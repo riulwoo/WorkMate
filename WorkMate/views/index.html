@@ -16,11 +16,12 @@
     </style>
     
     <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
 
 </head>
 <body>
 
-<div>
+<div id="test">
   <input type="button" id="matchStart" width = "200" height = "50" value="매칭하기">
   <input type="button" id="createroom" width = "200" height = "50" value="방만들기">
   <input type="button" id="joinroom" width = "200" height = "50" value="입장하기">
@@ -28,10 +29,7 @@
   <input type="button" id="matchcancel" width = "200" height = "50" value="나가기">
   <input type="button" id="start" width = "200" height = "50" value="게임시작">
   <canvas id = "myCanvas" width ="1024" height = "768"></canvas>   
-  <div id="test">
-  <canvas id = "tc" width ="1024" height = "768"></canvas>   
-    
-  </div>
+
 </div>
 
 <script>
