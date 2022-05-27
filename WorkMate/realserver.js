@@ -135,7 +135,7 @@ function joinGame(socket){
     return player;
 }
 
-function endGame(socket){
+function exitGame(socket){
     for( var i = 0 ; i < userpool.length; i++){
         if(userpool[i].id == socket.id){
             userpool.splice(i,1);
