@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
 })
 app.get('/views/gamebase.html', (req, res) => {
-  res.sendFile(__dirname + '/views/index.html')
+  res.sendFile(__dirname + '/views/gamebase.html')
 })
 
 function getPlayerColor() {
