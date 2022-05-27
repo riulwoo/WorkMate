@@ -23,7 +23,9 @@ app.use(express.static('views'))
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
 })
-
+app.get('/views/gamebase.html', (req, res) => {
+  res.sendFile(__dirname + '/views/index.html')
+})
 
 function getPlayerColor() {
   return "#" + Math.floor(Math.random() * 16777215).toString(16);  
