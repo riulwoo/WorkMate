@@ -284,7 +284,8 @@ io.on('connection', function(socket) {
         {
           if(checkid[i] === id) 
           {
-            io.to(temp.roomCode).emit('gamestart', "/views/gamebase.html");
+            //io.to(temp.roomCode)
+            socket.broadcast.emit('gamestart', "/views/gamebase.html");
           }
         }
       });
