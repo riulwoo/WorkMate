@@ -6,7 +6,7 @@ html, body {
 
 #main {
 	height: 100%;
-	background-image: url("/assets/img/office.png");
+	background-image: url("https://cdn.discordapp.com/attachments/980090904394219562/980091276286365706/office.png");
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -38,7 +38,7 @@ html, body {
 	width: 300px;
 	height: 200px;
 	position: relative;
-	background-image: url("/assets/img/logo.png");
+	background-image: url("https://cdn.discordapp.com/attachments/980090904394219562/980091289414557736/logo.png");
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: contain;
