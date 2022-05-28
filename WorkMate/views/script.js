@@ -89,9 +89,9 @@ var Matchbtn = document.getElementById("matchStart"); //매칭하기 버튼
           
           $.ajax(ajaxOption).success(function(url){
             // Contents 영역 삭제
-            $('#test').children().remove();
+            $('#main').children().remove();
             // Contents 영역 교체
-            $('#test').html(url);
+            $('#main').html(url);
           });
         })
 
