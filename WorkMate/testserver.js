@@ -169,7 +169,7 @@ io.on('connection', function(socket) {
       {
         room[roomcnt].userid = data;
         room[roomcnt].roomCode = data.roomid;
-        socket.join(data.roomid);
+        socket.join(room[roomcnt].roomCode);
         console.log('처음 방이 만들어졌습니다.  //' + '  방코드 : ' + room[roomcnt].roomCode);
         console.log('[matchStart] 들어간 유저 정보 : ' + room[roomcnt].userid);
               console.log('');
@@ -179,7 +179,7 @@ io.on('connection', function(socket) {
       { 
         roomcnt++;
         room[roomcnt].roomcode = data.roomid;
-        socket.join(data.roomid);
+        socket.join(room[roomcnt].roomCode);
         room[roomcnt] = new userroom();
         room[roomcnt].userid = data;
         // 처음 matchtimeover 메세지를 보낸 유저기준으로 방의 인원을 체크하여
