@@ -80,9 +80,15 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
       for (let i = 0; i < 6 ; i++)
       {
         if(this.players[i] == null)
+        {
           a++;
-        if(a == 6)
+         console.log('조금 됐다');  
+        }
+        if(a == 6) 
+        {
+          console.log('시발됐다');
           return true;
+        }
       }
     //});
   }
