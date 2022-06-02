@@ -77,11 +77,11 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
     //this.players.forEach((players, index) => {
       if(this.players[j].id === id)
         this.players.splice(j, 1, { id: null, nick: null, score: null });
-      if()
+   /*   if()
       {
         console.log('여기 됐음');
         return true;
-      }
+      }*/
     //});
   }
   
