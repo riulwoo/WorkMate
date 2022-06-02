@@ -77,6 +77,8 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
     //this.players.forEach((players, index) => {
       if(this.players[j].id === id)
         this.players.splice(j, 1, { id: null, nick: null, score: null });
+      if(this.players == null)
+        return true;
     //});
   }
   
@@ -283,8 +285,8 @@ io.on('connection', function(socket) {
             if(id == checkdata[j])
             {
               socket.leave(room[i].roomCode);
-              room[i].deleteUser(id, j); 
-              if(checkdata.length - 1 == 0)
+              
+              if(room[i].deleteUser(id, j))
                 room[i].roomCode = null;
               console.log('[matchcancel] leave 후 조인 방 정보 : ' + room[i].roomCode);
               console.log('[matchcancel] 유저 정보삭제 후 정보 : ' + room[i].userid);
