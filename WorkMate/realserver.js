@@ -149,6 +149,28 @@ io.on('connection', function(socket) {
 
   socket.on('disconnect', function(reason){
     console.log(`${socket.id}님이 %{reason}의 이유로 퇴장하셨습니다.`)
+    let checkdata = [];
+    for(let i = 0; i < room.length ; i++)
+      {
+        checkdata = room[i].userid;
+        console.log('[matchingover] 들어간 정보 : ' + room[i].userid);
+
+        for(let j = 0 ; j < checkdata.length ; j++)
+          {
+            if(socket.id == checkdata[j])
+            {
+              socket.leave(room[i].roomCode);
+              room[i].deleteUser(socket.id, j); 
+              console.log('[matchingover] leave 후 조인 방 정보 : ' + room[i].roomCode);
+              console.log('[matchingover] 유저 정보삭제 후 정보 : ' + room[i].userid);
+              console.log('');
+            }
+          }
+        
+      }
+
+
+    
     exitGame(socket);
     socket.broadcast.emit('leave_user',socket.id);    
   });
