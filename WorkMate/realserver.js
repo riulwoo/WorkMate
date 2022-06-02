@@ -257,7 +257,6 @@ io.on('connection', function(socket) {
     {
       socket.emit('matchfail',function () {
         roomout(userId);        
-      }
       });
     }
     
