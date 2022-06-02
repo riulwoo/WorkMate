@@ -278,12 +278,11 @@ io.on('connection', function(socket) {
         {
           if(checkid[j] === id) 
           {
-            io.to(room[i].roomCode).emit('gamestart', "/views/gamebase.html", function () {
+            io.to(room[i].roomCode).emit('gamestart', "/views/gamebase.html");
               room[i].alreadyUser = false;
               cnt = false;
               roomcnt++;
               room[roomcnt] = new userroom();
-            });
             break;
           }
         }
