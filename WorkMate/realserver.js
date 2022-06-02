@@ -145,34 +145,35 @@ function exitGame(socket){
     delete userinfo[socket.id];
 }
 
-
-io.on('connection', function(socket) {
-  console.log(`${socket.id}님이 입장하셨습니다.`);
-
-  socket.on('disconnect', function(reason){
-    console.log(`${socket.id}님이 %{reason}의 이유로 퇴장하셨습니다.`)
-    let checkdata = [];
+function roomout(id) {
+  let checkdata = [];
     for(let i = 0; i < room.length ; i++)
       {
         checkdata = room[i].userid;
-        console.log('[matchingover] 들어간 정보 : ' + room[i].userid);
+        console.log('[matchcancel] 들어간 정보 : ' + room[i].userid);
 
         for(let j = 0 ; j < checkdata.length ; j++)
           {
-            if(socket.id == checkdata[j])
+            if(id == checkdata[j])
             {
               socket.leave(room[i].roomCode);
-              room[i].deleteUser(socket.id, j); 
-              console.log('[matchingover] leave 후 조인 방 정보 : ' + room[i].roomCode);
-              console.log('[matchingover] 유저 정보삭제 후 정보 : ' + room[i].userid);
+              
+              if(room[i].deleteUser(id, j)) room[i].roomCode = null;
+              
+              console.log('[matchcancel] leave 후 조인 방 정보 : ' + room[i].roomCode);
+              console.log('[matchcancel] 유저 정보삭제 후 정보 : ' + room[i].userid);
               console.log('');
             }
           }
         
       }
+}
+io.on('connection', function(socket) {
+  console.log(`${socket.id}님이 입장하셨습니다.`);
 
-
-    
+  socket.on('disconnect', function(reason){
+    console.log(`${socket.id}님이 %{reason}의 이유로 퇴장하셨습니다.`)
+    roomout(socket.id);    
     exitGame(socket);
     socket.broadcast.emit('leave_user',socket.id);    
   });
@@ -254,8 +255,10 @@ io.on('connection', function(socket) {
     }
     else
     {
-      // 클라이언트에서 다시 매칭하라고 해야함
-      socket.emit('matchfail');
+      socket.emit('matchfail',function () {
+        roomout(userId);        
+      }
+      });
     }
     
     if(room[userroomcnt].alreadyUser) 
@@ -272,37 +275,13 @@ io.on('connection', function(socket) {
     }
   }) // end of mto
 
-  socket.on('matchcancel', function (id) { // 매칭 종료 버튼을 눌렀을 때 받는 정보 data = myId
-    // id값에 해당하는 join했던 room과 room객체를 찾아 disconnect와 
-    
-    let checkdata = [];
-    for(let i = 0; i < room.length ; i++)
-      {
-        checkdata = room[i].userid;
-        console.log('[matchcancel] 들어간 정보 : ' + room[i].userid);
-
-        for(let j = 0 ; j < checkdata.length ; j++)
-          {
-            if(id == checkdata[j])
-            {
-              socket.leave(room[i].roomCode);
-              
-              if(room[i].deleteUser(id, j))
-              {
-                console.log('여기 됐음');
-                room[i].roomCode = null;
-              }
-              console.log('[matchcancel] leave 후 조인 방 정보 : ' + room[i].roomCode);
-              console.log('[matchcancel] 유저 정보삭제 후 정보 : ' + room[i].userid);
-              console.log('');
-            }
-          }
-        
-      }
+  socket.on('matchcancel', function (id) {
+    roomout(id);
   })
 
   socket.on('startgame', function(id) {
     let checkid = [];
+    // 받은 유저 아이디의 룸코드를 받아와 시작하는 코드
     room.forEach((temp, index) => 
       {
         checkid = temp.userid;
@@ -311,8 +290,12 @@ io.on('connection', function(socket) {
         {
           if(checkid[i] === id) 
           {
-            //io.to(temp.roomCode)
-            io.to(temp.roomCode).emit('gamestart', "/views/gamebase.html");
+            io.to(temp.roomCode).emit('gamestart', "/views/gamebase.html",function () {
+              room[userroomcnt].alreadyUser = false;
+              cnt = false;
+              roomcnt++;
+              room[roomcnt] = new userroom();
+            });
           }
         }
       });
