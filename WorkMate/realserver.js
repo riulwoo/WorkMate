@@ -94,6 +94,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
     const { id, roomid, nick, score } = data;
     for(let i = 0 ; i < 6 ; i++) {
       if(this.roomCode != null && this.players[5].id != null) {
+        console.log('여기 들어왔당');
         return false;
       }else if (this.roomCode != null && this.players[i].id == null) {
         this.players.splice(i, 1, { id: id, nick: nick, score: score });
@@ -197,6 +198,7 @@ io.on('connection', function(socket) {
     // 방에 6명이 있고 방이 없을 경우 방을 생성하는 if문
     else if(!(room[roomcnt].userid = data))
       { 
+        console.log('여기 들어왔당');
         roomcnt++;
         room[roomcnt].roomCode = data.roomid;
         socket.join(room[roomcnt].roomCode);
