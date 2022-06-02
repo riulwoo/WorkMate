@@ -196,7 +196,7 @@ io.on('connection', function(socket) {
               console.log('');
       }
     // 방에 6명이 있고 방이 없을 경우 방을 생성하는 if문
-    else if(room[roomcnt].userid = data) == false)
+    else if((room[roomcnt].userid = data) == false)
       { 
         console.log('여기 들어왔당');
         roomcnt++;
