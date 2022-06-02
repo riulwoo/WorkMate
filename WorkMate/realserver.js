@@ -98,11 +98,9 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
         return false;
       }else if (this.roomCode != null && this.players[i].id == null) {
         this.players.splice(i, 1, { id: id, nick: nick, score: score });
-        console.log('여기 들어왔다구');
         return true;
       }else if (this.roomCode == null) {
         this.players.splice(i, 1, { id: id, nick: nick, score: score });
-        console.log('여기 들어왔다구');
         return true;
       }
     }
@@ -198,7 +196,7 @@ io.on('connection', function(socket) {
               console.log('');
       }
     // 방에 6명이 있고 방이 없을 경우 방을 생성하는 if문
-    else if(!(room[roomcnt].userid = data))
+    else if(room[roomcnt].userid = data) == false)
       { 
         console.log('여기 들어왔당');
         roomcnt++;
