@@ -5,15 +5,6 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const fs = require('fs');
 
-const mysql = require('mysql')
-var connection =mysql.createConnection({
-  host : 'localhost',    // 호스트 주소
-  user : 'workmate',
-  password : 'workmate123',
-  database : 'workmate'
-})
-
-// connection.connect();
 
 server.listen(process.env.PORT || 3000, ()=> {
   console.log("서버가 대기중입니다.");
@@ -117,8 +108,6 @@ let room = new Array();
 let cnt = true;
 room[0] = new userroom();
 
-
-
 // id 값 받아서 비교해서 userinfo의 값을 userroom에 넣자
 
 var userpool = [];  // 총 인원
@@ -180,9 +169,10 @@ io.on('connection', function(socket) {
   
   let newplayer = joinGame(socket);
   socket.emit('user_id', socket.id);
+
   
   // 클라이언트에서 매칭을 할 시 첫번째로 넘어오는 유저 정보 정보는 방 객체에 저장  
-  socket.on('matchStart', function(data) {  // data = 클라이언트에서 넘어오는 유저정보
+  socket.on('matchStart', function(data) {  // 매칭 하기 버튼 
     // 받아온 data 값을 userroom.userid 안에서 null값을 체크해 값을 넣는다 
     // data = {id : id, nick : nickname, score : 0}
     // 방은 있으되 방에 사람이 아무도 없는 경우
@@ -216,8 +206,7 @@ io.on('connection', function(socket) {
               console.log('');
       }    
   });
-  // 각 클라이언트마다 mto메시지를 보낸다 이걸 어떻게 처리해야하나
-  // 1번째 사람의 mto메시지만 받고 나머지는 무시한다.
+
   
   socket.on('matchtimeover', function(userId) { //매칭 종료버튼, 매칭 타이머 초과 시 받는 정보
     // 클라이언트에서 emit data {socket.id}
@@ -240,13 +229,14 @@ io.on('connection', function(socket) {
           {
             // 방안에 유저의 정보를 체크하여 방의 위치 확인 
             if(clientSocket == checkdata[j]) 
-            {
+            { 
               // mto를 보낸 유저의 방 번호를 알 수 있다.
               userroomcnt = i;
               break;
              }
           }
       }
+    
     //방안에 유저가 있는 게 확인 되었을 때 그 방안의 인원을 체크하는 코드
     let array = room[userroomcnt].userid;
     if(array>2 && cnt == true)
@@ -255,16 +245,13 @@ io.on('connection', function(socket) {
     }
     else
     {
-      socket.emit('matchfail',function () {
+      socket.emit('matchfail',function () { 
         roomout(userId);        
       });
     }
     
     if(room[userroomcnt].alreadyUser) 
     {
-      // roomusers에게만 보내도록 추후 
-      // 랜덤 방 코드 생성
-      // DB에 userid, roomid, score, nick 삽입
       io.to(room[userroomcnt].roomCode).emit('matchsuccess', "views/gamebase.html", function () {
         room[userroomcnt].alreadyUser = false;
         cnt = false;
@@ -274,31 +261,36 @@ io.on('connection', function(socket) {
     }
   }) // end of mto
 
-  socket.on('matchcancel', function (id) {
+  
+  socket.on('matchcancel', function (id) { //매칭 중일 때 나가기 버튼
     roomout(id);
   })
 
-  socket.on('startgame', function(id) {
+  
+  socket.on('startgame', function(id) { // 방안에서 게임 시작 버튼
     let checkid = [];
     // 받은 유저 아이디의 룸코드를 받아와 시작하는 코드
-    room.forEach((temp, index) => 
+    for (let i = 0; i < room.length; i++)
       {
-        checkid = temp.userid;
+        checkid = room[i].userid;
       
-        for(let i = 0; i< 6; i++) 
+        for(let j = 0; j< 6; j++) 
         {
-          if(checkid[i] === id) 
+          if(checkid[j] === id) 
           {
-            io.to(temp.roomCode).emit('gamestart', "/views/gamebase.html",function () {
-              room[userroomcnt].alreadyUser = false;
+            io.to(room[i].roomCode).emit('gamestart', "/views/gamebase.html", function () {
+              room[i].alreadyUser = false;
               cnt = false;
               roomcnt++;
               room[roomcnt] = new userroom();
             });
+            break;
           }
         }
       });
   })
+
+  
   for (var i = 0 ; i < userpool.length; i++){
         let player = userpool[i];
         socket.emit('join_user', {
