@@ -79,7 +79,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
         this.players.splice(j, 1, { id: null, nick: null, score: null });
       for (let i = 0; i < 6 ; i++)
       {
-        if(this.players[i] == null)
+        if(this.players[i].id == null)
         {
           a++;
          console.log('조금 됐다');  
