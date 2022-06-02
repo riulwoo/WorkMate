@@ -134,7 +134,22 @@ function exitGame(socket){
     delete userinfo[socket.id];
 }
 
-function roomout(id) {
+
+io.on('connection', function(socket) {
+  console.log(`${socket.id}님이 입장하셨습니다.`);
+  
+  let newplayer = joinGame(socket);
+  socket.emit('user_id', socket.id);
+
+  socket.on('disconnect', function(reason){
+    console.log(`${socket.id}님이 %{reason}의 이유로 퇴장하셨습니다.`)
+    roomout(socket.id);    
+    exitGame(socket);
+    socket.broadcast.emit('leave_user',socket.id);    
+  });
+  
+
+  function roomout(id) {
   let checkdata = [];
     for(let i = 0; i < room.length ; i++)
       {
@@ -157,19 +172,8 @@ function roomout(id) {
         
       }
 }
-io.on('connection', function(socket) {
-  console.log(`${socket.id}님이 입장하셨습니다.`);
 
-  socket.on('disconnect', function(reason){
-    console.log(`${socket.id}님이 %{reason}의 이유로 퇴장하셨습니다.`)
-    roomout(socket.id);    
-    exitGame(socket);
-    socket.broadcast.emit('leave_user',socket.id);    
-  });
   
-  let newplayer = joinGame(socket);
-  socket.emit('user_id', socket.id);
-
   
   // 클라이언트에서 매칭을 할 시 첫번째로 넘어오는 유저 정보 정보는 방 객체에 저장  
   socket.on('matchStart', function(data) {  // 매칭 하기 버튼 
