@@ -77,15 +77,8 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
     let a = 0;
       if(this.players[j].id === id)
         this.players.splice(j, 1, { id: null, nick: null, score: null });
-    this.players.forEach((player, index) {
-      if(player.id == null)
-        a++;
-    })
-        if(a == 6) 
-        {
-          return true;
-        }
-    //});
+    this.players.forEach((player, index) { if(player.id == null) a++;  })
+        if(a == 6) return true;
   }
   
   // 라운드별로 userroom 객체내의 탈락한 player들을 null 입력
