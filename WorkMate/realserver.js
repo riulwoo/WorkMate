@@ -260,10 +260,7 @@ io.on('connection', function(socket) {
       // roomusers에게만 보내도록 추후 
       // 랜덤 방 코드 생성
       // DB에 userid, roomid, score, nick 삽입
-      io.to(room[userroomcnt].roomid).emit('matchsuccess', function () {
-        // app.get('/', (req, res) => {
-        //   res.sendFile(__dirname + '/views/index.html')
-        // })
+      io.to(room[userroomcnt].roomCode).emit('matchsuccess', "views/gamebase.html", function () {
         room[userroomcnt].alreadyUser = false;
         cnt = false;
         roomcnt++;
@@ -272,14 +269,14 @@ io.on('connection', function(socket) {
     }
   }) // end of mto
 
-  socket.on('matchingover', function (id) { // 매칭 종료 버튼을 눌렀을 때 받는 정보 data = myId
+  socket.on('matchcancel', function (id) { // 매칭 종료 버튼을 눌렀을 때 받는 정보 data = myId
     // id값에 해당하는 join했던 room과 room객체를 찾아 disconnect와 
     
     let checkdata = [];
     for(let i = 0; i < room.length ; i++)
       {
         checkdata = room[i].userid;
-        console.log('[matchingover] 들어간 정보 : ' + room[i].userid);
+        console.log('[matchcancel] 들어간 정보 : ' + room[i].userid);
 
         for(let j = 0 ; j < checkdata.length ; j++)
           {
@@ -287,8 +284,10 @@ io.on('connection', function(socket) {
             {
               socket.leave(room[i].roomCode);
               room[i].deleteUser(id, j); 
-              console.log('[matchingover] leave 후 조인 방 정보 : ' + room[i].roomCode);
-              console.log('[matchingover] 유저 정보삭제 후 정보 : ' + room[i].userid);
+              if(checkdata.length - 1 == 0)
+                room[i].roomCode = null;
+              console.log('[matchcancel] leave 후 조인 방 정보 : ' + room[i].roomCode);
+              console.log('[matchcancel] 유저 정보삭제 후 정보 : ' + room[i].userid);
               console.log('');
             }
           }
@@ -328,13 +327,13 @@ io.on('connection', function(socket) {
         color: newplayer.color,
     });
 
-    socket.on('send_location', function(data) {
-            socket.broadcast.emit('update_state', {
-                id: data.id,
-                x: data.x,
-                y: data.y,
-            })
-    })
+  socket.on('send_location', function(data) {
+          socket.broadcast.emit('update_state', {
+              id: data.id,
+              x: data.x,
+              y: data.y,
+          })
+  })
 });
 
 

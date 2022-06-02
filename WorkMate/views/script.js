@@ -42,7 +42,7 @@ var Matchbtn = document.getElementById("matchStart"); //매칭하기 버튼
 
           
         cancelbtn.addEventListener("click",function () {
-          socket.emit("matchingover", myId);
+          socket.emit("matchcancel", myId);
           console.log('나가기 눌림');
         })
         function joinUser(id,color,x,y){
@@ -72,12 +72,23 @@ var Matchbtn = document.getElementById("matchStart"); //매칭하기 버튼
         socket.on('user_id', function(data){
             myId = data;
         })
-       /* socket.on('join_user', function(data){ //html을 접속했을 때 발생
-            joinUser(data.id, data.color, data.x, data.y);
+
+        socket.on('matchsuccess', function() {
+          var ajaxOption = {
+                url : "/gamebase",
+                async : true,
+                type : "GET",
+                dataType : "html",
+                cache : false
+          };
+          
+          $.ajax(ajaxOption).success(function(url){
+            // Contents 영역 삭제
+            $('#main').children().remove();
+            // Contents 영역 교체
+            $('#main').html(url);
+          });
         })
-        socket.on('leave_user', function(data){ //html를 나갔을 때 발생
-            leaveUser(data);
-        })*/
         socket.on('gamestart', function() {
           var ajaxOption = {
                 url : "/gamebase",

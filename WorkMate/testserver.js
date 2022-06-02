@@ -178,7 +178,7 @@ io.on('connection', function(socket) {
     else if(!(room[roomcnt].userid = data))
       { 
         roomcnt++;
-        room[roomcnt].roomcode = data.roomid;
+        room[roomcnt].roomCode = data.roomid;
         socket.join(room[roomcnt].roomCode);
         room[roomcnt] = new userroom();
         room[roomcnt].userid = data;
@@ -188,7 +188,7 @@ io.on('connection', function(socket) {
       }
     else
       {
-        socket.join(room[roomcnt].roomcode);
+        socket.join(room[roomcnt].roomCode);
         console.log('매칭 유저가 추가되었습니다.  //' + '  방코드 : ' + room[roomcnt].roomCode);
         console.log('[matchStart] 들어간 유저 정보 : ' + room[roomcnt].userid);
               console.log('');
@@ -242,7 +242,7 @@ io.on('connection', function(socket) {
       // roomusers에게만 보내도록 추후 
       // 랜덤 방 코드 생성
       // DB에 userid, roomid, score, nick 삽입
-      io.to(room[userroomcnt].roomid).emit('matchsuccess', function () {
+      io.to(room[userroomcnt].roomCode).emit('matchsuccess', function () {
         // app.get('/', (req, res) => {
         //   res.sendFile(__dirname + '/views/index.html')
         // })
@@ -254,21 +254,24 @@ io.on('connection', function(socket) {
     }
   }) // end of mto
 
-  socket.on('matchingover', function (id) { // 매칭 종료 버튼을 눌렀을 때 받는 정보 data = myId
+  socket.on('matchcancel', function (id) { // 매칭 종료 버튼을 눌렀을 때 받는 정보 data = myId
     // id값에 해당하는 join했던 room과 room객체를 찾아 disconnect와 
     
     let checkdata = [];
     for(let i = 0; i < room.length ; i++)
       {
         checkdata = room[i].userid;
-        console.log('[matchingover] 들어간 정보 : ' + room[i].userid);
+        console.log('[matchcancel] 들어간 정보 : ' + room[i].userid);
 
         for(let j = 0 ; j < checkdata.length ; j++)
           {
             if(id == checkdata[j])
             {
-              socket.leave(room[i].roomid);
-              room[i].deleteUser(id, j); 
+              socket.leave(room[i].roomCode);
+              room[i].deleteUser(id, j);
+              // 방에 사람이 아무도 없을경우 roomCode를 초기화
+              if()
+                room[i].roomCode = null;
               console.log('[matchingover] leave 후 조인 방 정보 : ' + room[i].roomid);
               console.log('[matchingover] 유저 정보삭제 후 정보 : ' + room[i].userid);
               console.log('');
