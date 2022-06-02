@@ -77,8 +77,11 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
     //this.players.forEach((players, index) => {
       if(this.players[j].id === id)
         this.players.splice(j, 1, { id: null, nick: null, score: null });
-      if(this.players == null)
+      if()
+      {
+        console.log('여기 됐음');
         return true;
+      }
     //});
   }
   
@@ -281,6 +284,7 @@ io.on('connection', function(socket) {
       {
         checkdata = room[i].userid;
         console.log('[matchcancel] 들어간 정보 : ' + room[i].userid);
+        console.log('배열 길이 : ' + checkdata.length);
 
         for(let j = 0 ; j < checkdata.length ; j++)
           {
