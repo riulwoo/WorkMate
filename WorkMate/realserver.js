@@ -94,13 +94,15 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
     const { id, roomid, nick, score } = data;
     for(let i = 0 ; i < 6 ; i++) {
       if(this.roomCode != null && this.players[5].id != null) {
-        console.log('여기 들어왔당');
+        console.log('여기 들어왔다구');
         return false;
       }else if (this.roomCode != null && this.players[i].id == null) {
         this.players.splice(i, 1, { id: id, nick: nick, score: score });
+        console.log('여기 들어왔다구');
         return true;
       }else if (this.roomCode == null) {
         this.players.splice(i, 1, { id: id, nick: nick, score: score });
+        console.log('여기 들어왔다구');
         return true;
       }
     }
@@ -200,9 +202,9 @@ io.on('connection', function(socket) {
       { 
         console.log('여기 들어왔당');
         roomcnt++;
+        room[roomcnt] = new userroom();
         room[roomcnt].roomCode = data.roomid;
         socket.join(room[roomcnt].roomCode);
-        room[roomcnt] = new userroom();
         room[roomcnt].userid = data;
         // 처음 matchtimeover 메세지를 보낸 유저기준으로 방의 인원을 체크하여
         // matchsuccess를 중복하여 보내지 않기 위한 변수 
