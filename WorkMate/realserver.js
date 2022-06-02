@@ -188,7 +188,7 @@ io.on('connection', function(socket) {
     // 방은 있으되 방에 사람이 아무도 없는 경우
     if(room[roomcnt].roomCode == null)
       {
-        room[roomcnt].insertuserid(data;)
+        room[roomcnt].insertuserid(data)
         room[roomcnt].roomCode = data.roomid;
         socket.join(room[roomcnt].roomCode);
         console.log('처음 방이 만들어졌습니다.  //' + '  방코드 : ' + room[roomcnt].roomCode);
