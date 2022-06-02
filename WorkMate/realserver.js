@@ -287,7 +287,10 @@ io.on('connection', function(socket) {
               socket.leave(room[i].roomCode);
               
               if(room[i].deleteUser(id, j))
+              {
+                console.log('여기 됐음');
                 room[i].roomCode = null;
+              }
               console.log('[matchcancel] leave 후 조인 방 정보 : ' + room[i].roomCode);
               console.log('[matchcancel] 유저 정보삭제 후 정보 : ' + room[i].userid);
               console.log('');
