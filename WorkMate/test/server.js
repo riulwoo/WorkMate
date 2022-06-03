@@ -6,7 +6,7 @@ const fs = require('fs');
 app.listen(8000);
 
 function handler (req, res) {
-    fs.readFile(__dirname + '/views/gamebase.html', function( err, data) {
+    fs.readFile(__dirname + 'gamebase.html', function( err, data) {
         if(err){
             res.writeHead(500);
             return res.end('Error loading index.html');
