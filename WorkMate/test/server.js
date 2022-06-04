@@ -3,7 +3,7 @@ const app = require('http').createServer(handler);
 const io = require('socket.io')(app);
 const fs = require('fs');
 
-app.listen(8000);
+app.listen(3837);
 
 function handler (req, res) {
     fs.readFile(__dirname + 'gamebase.html', function( err, data) {
