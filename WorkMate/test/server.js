@@ -102,8 +102,8 @@ io.on('connection', function(socket) {
                 y: data.y,
             })
     })
-    })
 })
+
 
 //1.socket.on에서 초마다 반복 실행이 안되는 점 -해결?
 //2.matchtimer 함수에서 메시지 전송이 안되는 점 
