@@ -237,14 +237,14 @@ io.on('connection', function(socket) {
           if(checkid[j] === id) 
           {
             let player = room[i].userid;
-            player.forEach((playerId, index) => {
+            for(let i = 0 ; i < player.length ; i++) {
               io.to(room[i].roomCode).emit('join_user', {
                     id: playerId,
                     x: 1024/2,
                     y: 768/2,
                     color : getPlayerColor()
                   });
-            });
+            }
             io.to(room[i].roomCode).emit('gamestart', "/views/gamebase.html");
             
             room[i].alreadyUser = false;
