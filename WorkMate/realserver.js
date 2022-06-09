@@ -272,7 +272,7 @@ io.on('connection', function(socket) {
                   });
             }
             
-            socket.broadcast.emit('join_user',{
+            io.to(room[i].roomCode).emit('join_user',{
                   id: socket.id,
                   x: newplayer.x,
                   y: newplayer.y,
