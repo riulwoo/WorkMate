@@ -236,10 +236,9 @@ io.on('connection', function(socket) {
         {
           if(checkid[j] === id) 
           {
-            let player = room[i].userid;
             for(let t = 0 ; t < player.length ; t++) {
               io.to(room[i].roomCode).emit('join_user', {
-                    id: player[t],
+                    id: checkid[t],
                     x: 1024/2,
                     y: 768/2,
                     color : getPlayerColor()

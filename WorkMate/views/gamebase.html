@@ -78,7 +78,7 @@
 
             balls.push(ball);
             ballMap[id] = ball;
-
+            console.log('asd');            
             return ball;
         }
 
@@ -109,6 +109,7 @@
         });
         socket.on('join_user', function(data){
             joinUser(data.id, data.color, data.x, data.y);
+          console.log('데이터 생성완료');
         })
         socket.on('leave_user', function(data){
             leaveUser(data);
