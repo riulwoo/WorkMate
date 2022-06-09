@@ -46,7 +46,6 @@ function joinGame(socket){    // id
     let player = new Player(socket);  // x,y, nickname
 
     userpool.push(player);
-    matchinguser.push(player);
     userinfo[socket.id] = player;
 
     return player;
