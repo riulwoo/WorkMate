@@ -262,7 +262,7 @@ io.on('connection', function(socket) {
         {
           if(checkid[j] === id) 
           {
-            io.to(room[i].roomCode).emit('gamestart', "/views/gamebase.html");
+            socket.to(room[i].roomCode).emit('gamestart', "/views/gamebase.html");
             for(let t = 0 ; t < checkid.length ; t++) {
               io.to(room[i].roomCode).emit('join_user', {
                 id: checkid[t],
@@ -271,13 +271,6 @@ io.on('connection', function(socket) {
                 color : getPlayerColor()
               });
             }
-            
-            socket.broadcast.emit('join_user',{
-                  id: socket.id,
-                  x: newplayer.x,
-                  y: newplayer.y,
-                  color: newplayer.color,
-            });
             room[i].alreadyUser = false;
             cnt = false;
             roomcnt++;
