@@ -90,10 +90,11 @@ var Matchbtn = document.getElementById("matchStart"); //매칭하기 버튼
           });
         })
         socket.on('gamestart', function() {
-          var ajaxOption = {
+          $('#main').load('gamebase.html');
+          /*var ajaxOption = {
                 url : "/gamebase",
                 async : true,
-                type : "GET",
+                type : "GET", 
                 dataType : "html",
                 cache : false
           };
@@ -103,7 +104,7 @@ var Matchbtn = document.getElementById("matchStart"); //매칭하기 버튼
             $('#main').children().remove();
             // Contents 영역 교체
             $('#main').html(url);
-          });
+          });*/
         })
 
   
