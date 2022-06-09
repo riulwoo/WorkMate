@@ -282,7 +282,7 @@ io.on('connection', function(socket) {
       }
   })
 
-  socket.emit('join_user',{
+  socket.broadcast.emit('join_user',{
         id: socket.id,
         x: newplayer.x,
         y: newplayer.y,
