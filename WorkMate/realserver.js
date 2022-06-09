@@ -272,6 +272,12 @@ io.on('connection', function(socket) {
                   });
             }
             
+            socket.broadcast.emit('join_user',{
+                  id: socket.id,
+                  x: newplayer.x,
+                  y: newplayer.y,
+                  color: newplayer.color,
+            });
             room[i].alreadyUser = false;
             cnt = false;
             roomcnt++;
@@ -282,12 +288,6 @@ io.on('connection', function(socket) {
       }
   })
 
-  socket.broadcast.emit('join_user',{
-        id: socket.id,
-        x: newplayer.x,
-        y: newplayer.y,
-        color: newplayer.color,
-    });
   socket.on('send_location', function(data) {
           socket.broadcast.emit('update_state', {
               id: data.id,
