@@ -251,7 +251,7 @@ io.on('connection', function(socket) {
   })
 
   
-  io.on('startgame', function(id) { // 방안에서 게임 시작 버튼
+  socket.on('startgame', function(id) { // 방안에서 게임 시작 버튼
     let checkid = [];
     // 받은 유저 아이디의 룸코드를 받아와 시작하는 코드
     for (let i = 0; i < room.length; i++)
