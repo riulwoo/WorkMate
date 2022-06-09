@@ -27,22 +27,6 @@ function getPlayerColor() {
 const startX = 1024/2;
 const startY = 768/2;
 
-class PlayerBall{
-    constructor(socket){
-        this.socket = socket;
-        this.x = startX;
-        this.y = startY;
-        this.score = 0;
-        this.nick = "player";
-        this.color = getPlayerColor(); // 백그라운드 이미지로 대체
-    }
-
-    get id() {
-        return this.socket.id;
-    }
-}
-
-
 class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플레이하는 유저의 정보도 알아야 게임이 됨
   constructor(){
   // 방안에 유저가 들어가 있는지 체크
@@ -108,43 +92,14 @@ let room = new Array();
 let cnt = true;
 room[0] = new userroom();
 
-// id 값 받아서 비교해서 userinfo의 값을 userroom에 넣자
-
-var userpool = [];  // 총 인원
-var matchinguser = [];                    // 게임참여인원은 빠짐 입장대기방
-var userinfo = {};
-
-function joinGame(socket){
-    let player = new PlayerBall(socket);
-
-    userpool.push(player);
-    matchinguser.push(player); 
-    userinfo[socket.id] = player;
-
-    return player;
-}
-
-function exitGame(socket){
-    for( var i = 0 ; i < userpool.length; i++){
-        if(userpool[i].id == socket.id){
-            userpool.splice(i,1);
-            break
-        }
-    }
-    delete userinfo[socket.id];
-}
-
-
 io.on('connection', function(socket) {
   console.log(`${socket.id}님이 입장하셨습니다.`);
-  
-  let newplayer = joinGame(socket);
+
   socket.emit('user_id', socket.id);
 
   socket.on('disconnect', function(reason){
     console.log(`${socket.id}님이 %{reason}의 이유로 퇴장하셨습니다.`)
-    roomout(socket.id);    
-    exitGame(socket);
+    roomout(socket.id);
     socket.broadcast.emit('leave_user',socket.id);    
   });
   
@@ -281,7 +236,17 @@ io.on('connection', function(socket) {
         {
           if(checkid[j] === id) 
           {
+            
             io.to(room[i].roomCode).emit('gamestart', "/views/gamebase.html");
+                  let player = room[i].userid;
+            player.forEach((playerId, index) => {
+              io.to(room[i].roomCode).emit('join_user', {
+                    id: playerId.id,
+                    color : getPlayerColor(),
+                    x: 1024/2,
+                    y: 768/2
+                  });
+            });
               room[i].alreadyUser = false;
               cnt = false;
               roomcnt++;
@@ -292,25 +257,21 @@ io.on('connection', function(socket) {
       }
   })
 
+
+
+
+
   
-  for (var i = 0 ; i < userpool.length; i++){
-        let player = userpool[i];
-        io.to(room[userroomcnt].roomCode).emit('join_user', {
-            id: player.id,
-            x: player.x,
-            y: player.y,
-            color: player.color,
-        });
-    }
-  io.to(room[userroomcnt].roomCode).emit('join_user',{
+    /*
+  io.to(room[].roomCode).emit('join_user',{
         id: socket.id,
         x: newplayer.x,
         y: newplayer.y,
         color: newplayer.color,
     });
-
+*/
   socket.on('send_location', function(data) {
-          io.to(room[userroomcnt].roomCode).emit('update_state', {
+          socket.broadcast.emit('update_state', {
               id: data.id,
               x: data.x,
               y: data.y,
