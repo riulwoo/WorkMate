@@ -67,7 +67,7 @@ var Matchbtn = document.getElementById("matchStart"); //매칭하기 버튼
             delete userinfo[id];
         }
         socket.on('matchfail', function(data) {
-           alert('다시 시도해주세요 찐따련아');
+           alert('다시 시도해주세요');
         })
         socket.on('user_id', function(data){
             myId = data;

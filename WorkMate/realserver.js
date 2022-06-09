@@ -295,14 +295,14 @@ io.on('connection', function(socket) {
   
   for (var i = 0 ; i < userpool.length; i++){
         let player = userpool[i];
-        socket.emit('join_user', {
+        io.to(room[userroomcnt].roomCode).emit('join_user', {
             id: player.id,
             x: player.x,
             y: player.y,
             color: player.color,
         });
     }
-  socket.broadcast.emit('join_user',{
+  io.to(room[userroomcnt].roomCode).emit('join_user',{
         id: socket.id,
         x: newplayer.x,
         y: newplayer.y,
@@ -310,7 +310,7 @@ io.on('connection', function(socket) {
     });
 
   socket.on('send_location', function(data) {
-          socket.broadcast.emit('update_state', {
+          io.to(room[userroomcnt].roomCode).emit('update_state', {
               id: data.id,
               x: data.x,
               y: data.y,
