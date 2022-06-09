@@ -27,6 +27,31 @@ function getPlayerColor() {
 const startX = 1024/2;
 const startY = 768/2;
 
+class Player {
+  constructor(socket){
+    this.socket = socket;
+    this.x = startX;
+    this.y = startY;
+    this.score = 0;
+    this.nick = "player";
+    this.color = getPlayerColor();
+  }
+
+  get id() {
+    return this.socket.id;
+  }
+}
+
+function joinGame(socket){    // id
+    let player = new Player(socket);  // x,y, nickname
+
+    userpool.push(player);
+    matchinguser.push(player);
+    userinfo[socket.id] = player;
+
+    return player;
+}
+
 class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플레이하는 유저의 정보도 알아야 게임이 됨
   constructor(){
   // 방안에 유저가 들어가 있는지 체크
@@ -103,6 +128,8 @@ io.on('connection', function(socket) {
     socket.broadcast.emit('leave_user',socket.id);    
   });
   
+  let newplayer = joinGame(socket);
+  socket.emit('user_id', socket.id);
 
   function roomout(id) {
   let checkdata = [];
@@ -256,19 +283,12 @@ io.on('connection', function(socket) {
       }
   })
 
-
-
-
-
-  
-    /*
-  io.to(room[].roomCode).emit('join_user',{
+  socket.emit('join_user',{
         id: socket.id,
         x: newplayer.x,
         y: newplayer.y,
         color: newplayer.color,
     });
-*/
   socket.on('send_location', function(data) {
           socket.broadcast.emit('update_state', {
               id: data.id,
