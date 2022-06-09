@@ -107,12 +107,7 @@
         socket.on('user_id', function(data){
             myId = data;
         });
-        socket.on('join_user', function(data){
-            joinUser(data.id, data.color, data.x, data.y);
-        })
-        socket.on('leave_user', function(data){
-            leaveUser(data);
-        })
+        
         socket.on('update_state', function(data){
             updateState(data.id, data.x, data.y);
         })

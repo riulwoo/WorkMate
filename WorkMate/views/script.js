@@ -72,7 +72,12 @@ var Matchbtn = document.getElementById("matchStart"); //매칭하기 버튼
         socket.on('user_id', function(data){
             myId = data;
         })
-
+        socket.on('join_user', function(data){
+            joinUser(data.id, data.color, data.x, data.y);
+        })
+        socket.on('leave_user', function(data){
+            leaveUser(data);
+        })
         socket.on('matchsuccess', function() {
           var ajaxOption = {
                 url : "/gamebase",
