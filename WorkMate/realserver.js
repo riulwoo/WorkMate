@@ -236,21 +236,21 @@ io.on('connection', function(socket) {
         {
           if(checkid[j] === id) 
           {
-            
-            io.to(room[i].roomCode).emit('gamestart', "/views/gamebase.html");
-                  let player = room[i].userid;
+            let player = room[i].userid;
             player.forEach((playerId, index) => {
               io.to(room[i].roomCode).emit('join_user', {
                     id: playerId,
-                    color : getPlayerColor(),
                     x: 1024/2,
-                    y: 768/2
+                    y: 768/2,
+                    color : getPlayerColor();
                   });
             });
-              room[i].alreadyUser = false;
-              cnt = false;
-              roomcnt++;
-              room[roomcnt] = new userroom();
+            io.to(room[i].roomCode).emit('gamestart', "/views/gamebase.html");
+                
+            room[i].alreadyUser = false;
+            cnt = false;
+            roomcnt++;
+            room[roomcnt] = new userroom();
             break;
           }
         }
