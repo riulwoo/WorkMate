@@ -242,11 +242,11 @@ io.on('connection', function(socket) {
                     id: playerId,
                     x: 1024/2,
                     y: 768/2,
-                    color : getPlayerColor();
+                    color : getPlayerColor()
                   });
             });
             io.to(room[i].roomCode).emit('gamestart', "/views/gamebase.html");
-                
+            
             room[i].alreadyUser = false;
             cnt = false;
             roomcnt++;
