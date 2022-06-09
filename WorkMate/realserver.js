@@ -265,14 +265,14 @@ io.on('connection', function(socket) {
             io.to(room[i].roomCode).emit('gamestart', "/views/gamebase.html");
             for(let t = 0 ; t < checkid.length ; t++) {
               io.to(room[i].roomCode).emit('join_user', {
-                    id: checkid[t],
-                    x: 1024/2,
-                    y: 768/2,
-                    color : getPlayerColor()
-                  });
+                id: checkid[t],
+                x: 1024/2,
+                y: 768/2,
+                color : getPlayerColor()
+              });
             }
             
-            io.to(room[i].roomCode).emit('join_user',{
+            socket.emit('join_user',{
                   id: socket.id,
                   x: newplayer.x,
                   y: newplayer.y,
