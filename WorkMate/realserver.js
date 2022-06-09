@@ -241,7 +241,7 @@ io.on('connection', function(socket) {
                   let player = room[i].userid;
             player.forEach((playerId, index) => {
               io.to(room[i].roomCode).emit('join_user', {
-                    id: playerId.id,
+                    id: playerId,
                     color : getPlayerColor(),
                     x: 1024/2,
                     y: 768/2
