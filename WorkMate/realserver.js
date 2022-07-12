@@ -262,7 +262,7 @@ io.on('connection', function(socket) {
         {
           if(checkid[j] === id) 
           {
-            io.sockets.in(room[i].roomCode).emit('gamestart', "/views/gamebase.html");
+            io.sockets.to(room[i].roomCode).emit('gamestart', "/views/gamebase.html");
             for(let t = 0 ; t < checkid.length ; t++) {
               io.sockets.in(room[i].roomCode).emit('join_user', {
                 id: checkid[t],

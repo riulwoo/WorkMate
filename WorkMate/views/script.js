@@ -1,4 +1,4 @@
-var Matchbtn = document.getElementById("matchStart"); //매칭하기 버튼
+        var Matchbtn = document.getElementById("matchStart"); //매칭하기 버튼
         var cancelbtn = document.getElementById("matchcancel"); //방나가기 / 매치 나가기 버튼
         var Croombtn = document.getElementById("createroom"); //방만들기 버튼 
         var Jroombtn = document.getElementById("joinroom"); //방 입장 버튼
