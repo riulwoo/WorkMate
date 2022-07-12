@@ -72,12 +72,6 @@
         socket.on('user_id', function(data){
             myId = data;
         })
-        socket.on('join_user', function(data){
-            joinUser(data.id, data.color, data.x, data.y);
-        })
-        socket.on('leave_user', function(data){
-            leaveUser(data);
-        })
         socket.on('matchsuccess', function() {
           //location.replace('gamebase.html')
           var ajaxOption = {
@@ -113,12 +107,6 @@
             $('#main').html(url);
           });
         })
-
-  
-        socket.on('update_state', function(data){ // setinterval 마다 발생
-            updateState(data.id, data.x, data.y);
-        })
-
         function match(e) {
           let player = userinfo[myId];        // 자신의 정보불러옴
           let nickname = "nickname " + a;

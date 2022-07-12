@@ -78,7 +78,7 @@
 
             balls.push(ball);
             ballMap[id] = ball;
-            console.log('asd');            
+                    
             return ball;
         }
 
@@ -101,31 +101,26 @@
             ball.y = y;
 
         }
-
-        var socket = io();
-
-        socket.on('user_id', function(data){
-            myId = data;
-        });
         socket.on('join_user', function(data){
+            console.log('asd');    
             joinUser(data.id, data.color, data.x, data.y);
         })
         socket.on('update_state', function(data){
             updateState(data.id, data.x, data.y);
         })
         
-        function sendData() {
-            let curPlayer = ballMap[myId];
-            let data = {};
-            data = {
-                id : curPlayer.id,
-                x: curPlayer.x,
-                y: curPlayer.y,
-            };
-            if(data){
-                socket.emit("send_location", data);
-            }
-        }
+        // function sendData() {
+        //     let curPlayer = ballMap[myId];
+        //     let data = {};
+        //     data = {
+        //         id : curPlayer.id,
+        //         x: curPlayer.x,
+        //         y: curPlayer.y,
+        //     };
+        //     if(data){
+        //         socket.emit("send_location", data);
+        //     }
+        // }
 
         function renderPlayer() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -159,14 +154,16 @@
                 if(downPressed ){
                     curPlayer.y += playerSpeed;
                 }
-                sendData();
+                //sendData();
             }
 
         function update() {
+            console.log(balls);
             renderPlayer();
         }
         
-        setInterval(update, 10);
+        update();
+        //setInterval(update, 10);
 
     </script>
 
