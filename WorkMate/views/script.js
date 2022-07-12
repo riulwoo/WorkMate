@@ -79,7 +79,8 @@ var Matchbtn = document.getElementById("matchStart"); //매칭하기 버튼
             leaveUser(data);
         })
         socket.on('matchsuccess', function() {
-          var ajaxOption = {
+          location.replace('gamebase.html')
+          /*var ajaxOption = {
                 url : "/gamebase",
                 async : true,
                 type : "GET",
@@ -92,11 +93,12 @@ var Matchbtn = document.getElementById("matchStart"); //매칭하기 버튼
             $('#main').children().remove();
             // Contents 영역 교체
             $('#main').html(url);
-          });
+          });*/
         })
         socket.on('gamestart', function() {
-          $('#main').load('gamebase.html');
-          /*var ajaxOption = {
+          location.replace('gamebase.html')
+          /*$('#main').load('gamebase.html');
+          var ajaxOption = {
                 url : "/gamebase",
                 async : true,
                 type : "GET", 
