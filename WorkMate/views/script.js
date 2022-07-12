@@ -79,8 +79,8 @@
             leaveUser(data);
         })
         socket.on('matchsuccess', function() {
-          location.replace('gamebase.html')
-          /*var ajaxOption = {
+          //location.replace('gamebase.html')
+          var ajaxOption = {
                 url : "/gamebase",
                 async : true,
                 type : "GET",
@@ -93,11 +93,11 @@
             $('#main').children().remove();
             // Contents 영역 교체
             $('#main').html(url);
-          });*/
+          });
         })
         socket.on('gamestart', function() {
-          location.replace('gamebase.html')
-          /*$('#main').load('gamebase.html');
+          //location.replace('gamebase.html')
+          $('#main').load('gamebase.html');
           var ajaxOption = {
                 url : "/gamebase",
                 async : true,
@@ -111,7 +111,7 @@
             $('#main').children().remove();
             // Contents 영역 교체
             $('#main').html(url);
-          });*/
+          });
         })
 
   
