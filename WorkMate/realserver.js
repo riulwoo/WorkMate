@@ -263,6 +263,7 @@ io.on('connection', function(socket) {
           if(checkid[j] === id) 
           {
             io.sockets.to(room[i].roomCode).emit('gamestart', "/views/gamebase.html");
+            console.log('여기됨1');
             for(let t = 0 ; t < checkid.length ; t++) {
               io.sockets.in(room[i].roomCode).emit('join_user', {
                 id: checkid[t],
@@ -271,6 +272,7 @@ io.on('connection', function(socket) {
                 color : getPlayerColor()
               });
             }
+            console.log('여기됨2');
             room[i].alreadyUser = false;
             cnt = false;
             roomcnt++;
