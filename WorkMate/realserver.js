@@ -123,7 +123,7 @@ io.on('connection', function(socket) {
 
   socket.on('disconnect', function(reason){
     console.log(`${socket.id}님이 %{reason}의 이유로 퇴장하셨습니다.`)
-    roomout(socket.id);
+    //roomout(socket.id);
     socket.broadcast.emit('leave_user',socket.id);    
   });
   
