@@ -190,6 +190,8 @@ io.on('connection', function(socket) {
         roomout(userId);
       });
     }
+    else
+      console.log('아무일도 일어나지 않았다.')
   }  
   
   // 클라이언트에서 매칭을 할 시 첫번째로 넘어오는 유저 정보 정보는 방 객체에 저장  
