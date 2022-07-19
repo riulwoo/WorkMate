@@ -161,7 +161,6 @@ io.on('connection', function(socket) {
             userroomcnt = i;
             
           console.log('유저 id 찾기 완료');
-            break;
           }
         }
       }
