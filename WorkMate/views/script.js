@@ -34,7 +34,7 @@ socket.emit('createroom', {
 Jroombtn.addEventListener('click', function () {
 console.log('join room 눌림');
   if(rmcodetxt == null || rmcodetxt == '')
-    alert('방 코드를 입력해주세요')
+    alert('방 코드를 입력해주세요\n' + '입력받은 방코드 : ' + rmcodetxt)
 socket.emit('joinroom', {
   id : myId, 
   roomid : rmcodetxt,
