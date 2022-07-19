@@ -255,7 +255,7 @@ io.on('connection', function(socket) {
     try {
       socket.join(roomid);
       console.log('타이머 종료 완료' + id + ' / ' + roomid);
-    } catch() {
+    } catch {
       socket.emit('joinfail');
     }finally{
       
@@ -279,3 +279,4 @@ io.on('connection', function(socket) {
 
 
 
+//SocketException e
