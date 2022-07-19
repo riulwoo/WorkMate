@@ -266,9 +266,10 @@ io.on('connection', function(socket) {
                 x: 1024/2,
                 y: 768/2,
                 color : getPlayerColor()
-                console.log('유저 데이터 전송완료');
               });
+              console.log('유저 데이터 전송완료');
             }
+            console.log('유저 데이터 전송완료');
             room[i].alreadyUser = false;
             cnt = false;
             roomcnt++;
