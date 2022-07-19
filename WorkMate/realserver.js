@@ -248,6 +248,7 @@ io.on('connection', function(socket) {
     room[roomcnt].roomCode = data.roomid;
     socket.join(room[roomcnt].roomCode);
     room[roomcnt].insertuserid(data);
+      console.log('방 생성 완료' + id + ' / ' + roomid);
   })
 
   socket.on('joinroom', (data)=>{
