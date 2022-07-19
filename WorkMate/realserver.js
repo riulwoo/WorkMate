@@ -218,7 +218,6 @@ io.on('connection', function(socket) {
         room[roomcnt].insertuserid(data);
         // 처음 matchtimeover 메세지를 보낸 유저기준으로 방의 인원을 체크하여
         // matchsuccess를 중복하여 보내지 않기 위한 변수 
-        cnt = true;
       }
     else
       {
