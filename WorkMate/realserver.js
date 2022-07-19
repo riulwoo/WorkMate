@@ -250,7 +250,7 @@ io.on('connection', function(socket) {
     room[roomcnt].insertuserid(data);
   })
 
-  socket.on('joinroom' (data)=>{
+  socket.on('joinroom', (data)=>{
     const {id, roomid, nickname} = data;
     try {
       socket.join(roomid);
