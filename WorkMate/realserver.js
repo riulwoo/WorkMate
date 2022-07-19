@@ -181,7 +181,6 @@ io.on('connection', function(socket) {
         room[userroomcnt].alreadyUser = false;
         roomcnt++;
         room[roomcnt] = new userroom();
-      });
     }
     else if(array < 2){
       socket.emit('matchfail',function () {
