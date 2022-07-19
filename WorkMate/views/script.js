@@ -3,8 +3,8 @@ var cancelbtn = document.getElementById("matchcancel"); //방나가기 / 매치 
 var Croombtn = document.getElementById("createroom"); //방만들기 버튼 
 var Jroombtn = document.getElementById("joinroom"); //방 입장 버튼
 var start = document.getElementById("start"); //게임 시작 버튼
-var nickname = document.getElementById("nick").value; // 닉네임
-var rmcodetxt = document.getElementById("roomcode").value; // 입력받은 룸 코드
+var nickname = document.getElementById('nick').value; // 닉네임
+var rmcodetxt = document.getElementById('roomcode').value; // 입력받은 룸 코드
 var roomid = '';
 var a = 1;
   
