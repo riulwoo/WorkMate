@@ -3,8 +3,8 @@ var cancelbtn = document.getElementById("matchcancel"); //방나가기 / 매치 
 var Croombtn = document.getElementById("createroom"); //방만들기 버튼 
 var Jroombtn = document.getElementById("joinroom"); //방 입장 버튼
 var start = document.getElementById("start"); //게임 시작 버튼
-var nickname = document.getElementById('nick').value; // 닉네임
-var rmcodetxt = document.getElementById('roomcode').value; // 입력받은 룸 코드
+var nickname = document.getElementById("nick"); // 닉네임
+var rmcodetxt = document.getElementById("roomcode"); // 입력받은 룸 코드
 var roomid = '';
 var a = 1;
   
@@ -24,21 +24,21 @@ var socket = io();
 Matchbtn.addEventListener("click", match);
 Croombtn.addEventListener("click", function () {
 roomid = (new Date().getTime() + Math.random()).toString(36).substring(2,7);
-console.log("create room 눌림 " + myId + roomid + ' ' + nickname);
+console.log("create room 눌림 " + myId + roomid + ' ' + nickname.value);
 socket.emit('createroom', {
   id : myId, 
   roomid : roomid, 
-  nick : nickname
+  nick : nickname.value
 }); 
 })
 Jroombtn.addEventListener('click', function () {
 console.log('join room 눌림');
-  if(rmcodetxt == null || rmcodetxt == '')
-    alert('방 코드를 입력해주세요\n' + '입력받은 방코드 : ' + rmcodetxt)
+  if(rmcodetxt.value == null || rmcodetxt.value == '')
+    alert('방 코드를 입력해주세요\n' + '입력받은 방코드 : ' + rmcodetxt.value)
 socket.emit('joinroom', {
   id : myId, 
-  roomid : rmcodetxt,
-  nick : nickname
+  roomid : rmcodetxt.value,
+  nick : nickname.value 
 }); 
 })
 start.addEventListener("click", function () {
@@ -99,7 +99,7 @@ roomid  =
 socket.emit("matchStart", {
   id : myId,
   roomid : roomid,
-  nick : nickname, 
+  nick : nickname.value, 
   score : 0
 });
 console.log("매치 시작 보냈다?");
