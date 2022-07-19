@@ -52,7 +52,6 @@
             myId = data;
         })
         socket.on('matchsuccess', function() {
-          //location.replace('gamebase.html')
           var ajaxOption = {
                 url : "/gamebase",
                 async : true,
@@ -69,7 +68,6 @@
           });
         })
         socket.on('gamestart', function() {
-          //location.replace('gamebase.html')
           $('#main').load('gamebase.html');
           var ajaxOption = {
                 url : "/gamebase",
@@ -99,13 +97,10 @@
             score : 0
           });
           console.log("매치 시작 보냈다?");
-          // 데이터 넣고 서버에 스타트메시지
-          // gif로 로딩중이미지 띄움
-          // gif띄우는건 css속성 가져와서 destroy하면 될듯
-          /*setTimeout(()=>{
+          setTimeout(()=>{
             // gif 없앤다
             socket.emit('matchtimeover', myId);    
-            // 15초후 서버에 타임오버 메시지
-            }, 1500)*/
+            // 30초후 서버에 타임오버 메시지
+            }, 3000)
           }
         
