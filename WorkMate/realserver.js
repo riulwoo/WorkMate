@@ -260,7 +260,7 @@ io.on('connection', function(socket) {
     } catch {
       socket.emit('joinfail');
     }finally{
-      
+      console.log(socket.rooms);
     }
   })
 
