@@ -16,6 +16,10 @@
 </head>
 <body>
     <canvas id = "myCanvas" width ="1024" height = "768"></canvas>
+  <div style="display:none;">
+  <img id="target" src='https://media.discordapp.net/attachments/980090904394219562/996375515952857088/1.png'/>
+  </div>
+
     <script>
         var canvas = document.getElementById("myCanvas");
         var ctx = canvas.getContext("2d");
@@ -27,6 +31,7 @@
         var upPressed = false;
         var downPressed = false;
         function PlayerBall(id){
+            context.drawImage(document.getElementById('target'), 0, 0)
             this.id = id;
             this.color = "#FF00FF";
             this.x = 1024/2;
