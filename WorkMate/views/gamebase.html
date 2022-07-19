@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WorkMate-Base</title>
+    <title>Professor VS Student</title>
     <style>
         * {padding : 0; margin: 0;}
         canvas {background: #eee; display: block; margin : 0 auto;}
@@ -16,10 +16,6 @@
 </head>
 <body>
     <canvas id = "myCanvas" width ="1024" height = "768"></canvas>
-  <div style="display:none;">
-  <img id="target" src='https://media.discordapp.net/attachments/980090904394219562/996375515952857088/1.png'/>
-  </div>
-
     <script>
         var canvas = document.getElementById("myCanvas");
         var ctx = canvas.getContext("2d");
@@ -82,7 +78,7 @@
 
             balls.push(ball);
             ballMap[id] = ball;
-
+                    
             return ball;
         }
 
@@ -105,20 +101,13 @@
             ball.y = y;
 
         }
-
-        var socket = io();
-
-        socket.on('user_id', function(data){
-            myId = data;
-        });
         socket.on('join_user', function(data){
-            joinUser(data.id, data.color, data.x, data.y);
-        })
-        socket.on('leave_user', function(data){
-            leaveUser(data);
+          console.log('join_user 성공')
+          joinUser(data.id, data.color, data.x, data.y);
         })
         socket.on('update_state', function(data){
-            updateState(data.id, data.x, data.y);
+          console.log('update_state 성공')
+          updateState(data.id, data.x, data.y);
         })
         
         function sendData() {
@@ -136,13 +125,13 @@
 
         function renderPlayer() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.drawImage(document.getElementById('target'),ball.x,ball.y,radius,0);
+            
                 for (let i = 0; i < balls.length; i++) {
                     let ball = balls[i];
                     
                     ctx.fillStyle = ball.color;
                     ctx.beginPath();
-                   
+                    ctx.arc(ball.x, ball.y, radius, 0, Math.PI * 2, false);
                     ctx.closePath();
                     ctx.fill();
                     
@@ -170,12 +159,11 @@
             }
 
         function update() {
+            console.log(balls);
             renderPlayer();
         }
-        
         setInterval(update, 10);
 
     </script>
 
 </body>
-</html><!-- index.html -->
