@@ -68,6 +68,7 @@
           });
         })
         socket.on('gamestart', function() {
+          console.log('게임 스타트');
           $('#main').load('gamebase.html');
           var ajaxOption = {
                 url : "/gamebase",

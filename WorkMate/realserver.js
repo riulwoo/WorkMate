@@ -159,6 +159,8 @@ io.on('connection', function(socket) {
           if(checkid[j] === id) 
           {
             userroomcnt = i;
+            
+          console.log('유저 id 찾기 완료');
             break;
           }
         }
@@ -167,6 +169,7 @@ io.on('connection', function(socket) {
     //방안에 유저가 있는 게 확인 되었을 때 그 방안의 인원을 체크하는 코드
     if(array >= 2 && room[userroomcnt].alreadyUser)
     {
+          console.log('유저 인원체크 완료');
       io.sockets.to(room[userroomcnt].roomCode).emit('gamestart', "/views/gamebase.html");
       for(let t = 0 ; t < checkid.length ; t++) {
       //io.sockets.to(room[i].roomCode).emit('join_user', {
@@ -183,6 +186,7 @@ io.on('connection', function(socket) {
       room[roomcnt] = new userroom();
     }
     else if(array < 2){
+          console.log('게임 시작 실패 완료');
       socket.emit('matchfail',function () {
         roomout(userId);
       });
@@ -237,6 +241,7 @@ io.on('connection', function(socket) {
   
   socket.on('startgame', function(id) { // 방안에서 게임 시작 버튼
     gamestart(id);
+          console.log('게임시작 버튼 실행');
   })
 
   socket.on('send_location', function(data) {
