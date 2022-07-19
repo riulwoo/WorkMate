@@ -23,7 +23,8 @@ var myId;
 var socket = io();
 Matchbtn.addEventListener("click", match);
 Croombtn.addEventListener("click", function () {
-console.log("create room 눌림 " + myId + userinfo[myId]);
+roomid = (new Date().getTime() + Math.random()).toString(36).substring(2,7);
+console.log("create room 눌림 " + myId + roomid);
 socket.emit('createroom', {
   id : myId, 
   roomid : roomid, 
