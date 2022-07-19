@@ -269,7 +269,6 @@ io.on('connection', function(socket) {
               });
               console.log('유저 데이터 전송완료');
             }
-            console.log('유저 데이터 전송완료');
             room[i].alreadyUser = false;
             cnt = false;
             roomcnt++;
