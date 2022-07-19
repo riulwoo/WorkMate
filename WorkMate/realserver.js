@@ -166,7 +166,7 @@ io.on('connection', function(socket) {
       }
     let array = room[userroomcnt].userid;
     //방안에 유저가 있는 게 확인 되었을 때 그 방안의 인원을 체크하는 코드
-    if(array >= 2 && room[userroomcnt].alreadyUser)
+    if(array.length >= 2 && room[userroomcnt].alreadyUser)
     {
           console.log('유저 인원체크 완료');
       io.sockets.to(room[userroomcnt].roomCode).emit('gamestart', "/views/gamebase.html");
@@ -184,7 +184,7 @@ io.on('connection', function(socket) {
       roomcnt++;
       room[roomcnt] = new userroom();
     }
-    else if(array < 2){
+    else if(array.length < 2){
           console.log('게임 시작 실패 완료');
       socket.emit('matchfail',function () {
         roomout(userId);
