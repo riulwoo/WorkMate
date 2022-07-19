@@ -276,7 +276,3 @@ io.on('connection', function(socket) {
   })
 });
 
-
-
-
-//SocketException e
