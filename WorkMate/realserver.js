@@ -261,7 +261,7 @@ io.on('connection', function(socket) {
             io.sockets.to(room[i].roomCode).emit('gamestart', "/views/gamebase.html");
             for(let t = 0 ; t < checkid.length ; t++) {
               //io.sockets.to(room[i].roomCode).emit('join_user', {
-              io.to(room[i].roomcode).emit('join_user', {
+              io.emit('join_user', {
                 id: checkid[t],
                 x: 1024/2,
                 y: 768/2,
