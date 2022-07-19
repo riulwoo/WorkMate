@@ -160,7 +160,8 @@ io.on('connection', function(socket) {
           {
             userroomcnt = i;
             
-          console.log('유저 id 찾기 완료');
+            console.log('유저 id 찾기 완료');
+            break;
           }
         }
       }
@@ -239,7 +240,28 @@ io.on('connection', function(socket) {
   socket.on('matchcancel', function (id) { //매칭 중일 때 나가기 버튼
     roomout(id);
   })
-  
+
+  socket.on('createroom', (data)=> {
+    const {id, roomid, nickname} = data;
+    roomcnt++;
+    room[roomcnt] = new userroom();
+    room[roomcnt].roomCode = data.roomid;
+    socket.join(room[roomcnt].roomCode);
+    room[roomcnt].insertuserid(data);
+  })
+
+  socket.on('joinroom' (data)=>{
+    const {id, roomid, nickname} = data;
+    try {
+      socket.join(roomid);
+      console.log('타이머 종료 완료' + id + ' / ' + roomid);
+    } catch() {
+      socket.emit('joinfail');
+    }finally{
+      
+    }
+  })
+
   socket.on('startgame', function(id) { // 방안에서 게임 시작 버튼
     gamestart(id);
           console.log('게임시작 버튼 실행');
