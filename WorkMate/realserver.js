@@ -178,9 +178,9 @@ io.on('connection', function(socket) {
           });
           console.log('유저 데이터 전송완료');
         }
-        room[userroomcnt].alreadyUser = false;
-        roomcnt++;
-        room[roomcnt] = new userroom();
+      room[userroomcnt].alreadyUser = false;
+      roomcnt++;
+      room[roomcnt] = new userroom();
     }
     else if(array < 2){
       socket.emit('matchfail',function () {
