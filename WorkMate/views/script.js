@@ -101,7 +101,7 @@
           setTimeout(()=>{
             // gif 없앤다
             socket.emit('matchtimeover', myId);    
-            // 30초후 서버에 타임오버 메시지
-            }, 500)
+            // 1초후 서버에 타임오버 메시지
+            }, 10000)
           }
         
