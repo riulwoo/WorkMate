@@ -102,10 +102,12 @@
 
         }
         socket.on('join_user', function(data){
-            joinUser(data.id, data.color, data.x, data.y);
+          console.log('join_user 성공')
+          joinUser(data.id, data.color, data.x, data.y);
         })
         socket.on('update_state', function(data){
-            updateState(data.id, data.x, data.y);
+          console.log('update_state 성공')
+          updateState(data.id, data.x, data.y);
         })
         
         function sendData() {
