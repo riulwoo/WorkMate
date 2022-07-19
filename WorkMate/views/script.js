@@ -40,32 +40,11 @@
           socket.emit('startgame', myId);
         })
 
-          
         cancelbtn.addEventListener("click",function () {
           socket.emit("matchcancel", myId);
           console.log('나가기 눌림');
         })
-        function joinUser(id,color,x,y){
-            let player = new PlayerBall(id);
-            player.color = color;
-            player.x = x;
-            player.y = y;
-
-            userpool.push(player);
-            userinfo[id] = player;
-
-            return player;
-        }
-
-        function leaveUser(id){
-            for(var i = 0 ; i < userpool.length; i++){
-                if(userpool[i].id == id){
-                    userpool.splice(i,1);
-                    break;
-                }
-            }
-            delete userinfo[id];
-        }
+        
         socket.on('matchfail', function(data) {
            alert('다시 시도해주세요');
         })
