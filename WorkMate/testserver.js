@@ -14,7 +14,7 @@ var connection =mysql.createConnection({
 
 // connection.connect();
 
-server.listen(process.env.PORT || 5000, ()=> {
+server.listen(process.env.PORT || 3000, ()=> {
   console.log("서버가 대기중입니다.");
 })
 
