@@ -77,24 +77,24 @@ socket.on('user_id', function(data){
 socket.on('gamestart', function() {
 console.log('게임 스타트');
 $('#main').load('./game/space_race/index.html');
-var ajaxOption = {
-      url : "./game/space_race/index.html",
-      async : true,
-      type : "GET", 
-      dataType : "html",
-      cache : false
-};
+// var ajaxOption = {
+//       url : "./game/space_race/index.html",
+//       async : true,
+//       type : "GET", 
+//       dataType : "html",
+//       cache : false
+// };
 
-$.ajax(ajaxOption).success(function(url){
-  // Contents 영역 삭제
-  $('#main').children().remove();
-  // Contents 영역 교체
-  try {
-    $('#main').html(url);
-  }catch {
-    console.log('안됨');
-  }
-});
+// $.ajax(ajaxOption).success(function(url){
+//   // Contents 영역 삭제
+//   $('#main').children().remove();
+//   // Contents 영역 교체
+//   try {
+//     $('#main').html(url);
+//   }catch {
+//     console.log('안됨');
+//   }
+// });
 })
 
 function match(e) {
