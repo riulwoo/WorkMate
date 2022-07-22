@@ -16,6 +16,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/base.html')
 })
 
+
 function getPlayerColor() {
   return "#" + Math.floor(Math.random() * 16777215).toString(16);  
 }

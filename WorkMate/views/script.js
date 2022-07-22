@@ -56,27 +56,29 @@ socket.on('matchfail', function(data) {
 socket.on('user_id', function(data){
   myId = data;
 })
-socket.on('matchsuccess', function() {
-var ajaxOption = {
-      url : "/gamebase",
-      async : true,
-      type : "GET",
-      dataType : "html",
-      cache : false
-};
 
-$.ajax(ajaxOption).success(function(url){
-  // Contents 영역 삭제
-  $('#main').children().remove();
-  // Contents 영역 교체
-  $('#main').html(url);
-});
-})
+// socket.on('matchsuccess', function() {
+// var ajaxOption = {
+//       url : "/gamebase",
+//       async : true,
+//       type : "GET",
+//       dataType : "html",
+//       cache : false
+// };
+
+// $.ajax(ajaxOption).success(function(url){
+//   // Contents 영역 삭제
+//   $('#main').children().remove();
+//   // Contents 영역 교체
+//   $('#main').html(url);
+// });
+// })
+
 socket.on('gamestart', function() {
 console.log('게임 스타트');
-$('#main').load('gamebase.html');
+$('#main').load('/game/space_race/index.html');
 var ajaxOption = {
-      url : "/gamebase",
+      url : "/game/space_race/index.html",
       async : true,
       type : "GET", 
       dataType : "html",
@@ -90,6 +92,7 @@ $.ajax(ajaxOption).success(function(url){
   $('#main').html(url);
 });
 })
+
 function match(e) {
 let player = userinfo[myId];        // 자신의 정보불러옴
 let nickname = "nickname " + a;
