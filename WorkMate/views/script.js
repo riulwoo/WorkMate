@@ -76,9 +76,9 @@ socket.on('user_id', function(data){
 
 socket.on('gamestart', function() {
 console.log('게임 스타트');
-$('#main').load('game/space_race/index.html');
+$('#main').load('/game/space_race/index.html');
 var ajaxOption = {
-      url : "game/space_race/index.html",
+      url : "/game/space_race/index.html",
       async : true,
       type : "GET", 
       dataType : "html",
@@ -89,7 +89,11 @@ $.ajax(ajaxOption).success(function(url){
   // Contents 영역 삭제
   $('#main').children().remove();
   // Contents 영역 교체
-  $('#main').html(url);
+  try {
+    $('#main').html(url);
+  }catch {
+    console.log('안됨');
+  }
 });
 })
 
