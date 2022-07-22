@@ -171,7 +171,7 @@ io.on('connection', function(socket) {
     if(array.length >= 2 && room[userroomcnt].alreadyUser)
     {
           console.log('유저 인원체크 완료');
-      io.sockets.to(room[userroomcnt].roomCode).emit('gamestart', "/views/gamebase.html");
+      io.sockets.to(room[userroomcnt].roomCode).emit('gamestart');
       for(let t = 0 ; t < checkid.length ; t++) {
       //io.sockets.to(room[i].roomCode).emit('join_user', {
           io.emit('join_user', {
