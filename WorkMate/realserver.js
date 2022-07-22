@@ -13,7 +13,7 @@ server.listen(process.env.PORT || 3000, ()=> {
 //app.use(express.static('views'))
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/game/space_race/index.html')
+  res.sendFile(__dirname + '/views/game/space_race/index.html')
 })
 
 
