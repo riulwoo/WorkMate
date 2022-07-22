@@ -76,7 +76,7 @@ socket.on('user_id', function(data){
 
 socket.on('gamestart', function() {
 console.log('게임 스타트');
-$('#main').load('./game/space_race/index.html');
+$('#main').load('/gamebase.html');
 // var ajaxOption = {
 //       url : "./game/space_race/index.html",
 //       async : true,
