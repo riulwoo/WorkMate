@@ -251,6 +251,9 @@ io.on('connection', function(socket) {
   
   socket.on('matchtimeover', function(id) { //매칭 종료버튼, 매칭 타이머 초과 시 받는 정보
     // 클라이언트에서 data {socket.id}
+    for (let index = 0; index < room.length; index++) {
+      console.log(room[index].userid);
+    }
     gamestart(id);
           console.log('타이머 종료 완료');
   }) // end of mto
