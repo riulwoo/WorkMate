@@ -204,7 +204,7 @@ io.on('connection', function(socket) {
     // 방은 있으되 방에 사람이 아무도 없는 경우
 
     //만들어야할것 1. 재활용
-    for (let i = 0; i < room.length; i++) {
+    for (let i = 0; i <= room.length; i++) {
       if(room[i].check = 'm') {
         roomcnt = i;
         }
@@ -234,8 +234,6 @@ io.on('connection', function(socket) {
           socket.join(room[roomcnt].roomCode);
           room[roomcnt].insertuserid(data);
           break;
-          // 처음 matchtimeover 메세지를 보낸 유저기준으로 방의 인원을 체크하여
-          // matchsuccess를 중복하여 보내지 않기 위한 변수 
         }
       else if(room[roomcnt].check = 'm')
         {
