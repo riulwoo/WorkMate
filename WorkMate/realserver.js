@@ -225,7 +225,7 @@ io.on('connection', function(socket) {
           break;
         }
       // 방에 6명이 있고 방이 없을 경우 방을 생성하는 if문
-      else if(!(room[roomcnt].insertuserid(data)) && room[roomcnt].alreadyUser = false)
+      else if(!(room[roomcnt].insertuserid(data)) && room[roomcnt].alreadyUser == false)
         {
           roomcnt = room.length + 1;
           room[roomcnt] = new userroom();
