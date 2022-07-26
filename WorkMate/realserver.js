@@ -119,9 +119,12 @@ io.on('connection', function(socket) {
   socket.on('disconnect', function(reason){
     console.log(`${socket.id}님이 %{reason}의 이유로 퇴장하셨습니다.`)
     roomout(socket.id);
-                console.log('[matchcancel] leave 후 조인 방 정보 : ' + room[1].roomCode);
-                console.log('[matchcancel] 유저 정보삭제 후 정보 : ' + room[1].userid);
-                console.log('[matchcancel]  : ' + room[1].check);
+    for( let i = 0; i < room.length; i++) {
+      console.log('[matchcancel] leave 후 조인 방 정보 : ' + i + ' [ ' + room[i].roomCode + ' ] ');
+      console.log('[matchcancel] 유저 정보삭제 후 정보 : '+ i + ' [ ' + room[i].userid + ' ] ');
+      console.log('[matchcancel]  : '+ i + ' [ ' + room[i].check + ' ] ');
+    }
+
     socket.broadcast.emit('leave_user',socket.id);
   });
   
@@ -260,7 +263,7 @@ io.on('connection', function(socket) {
     roomout(id);
   })
 
-  socket.on('createroom', function(data) {
+  socket.on('createroom', function (data) {
     const {id, roomid, nick, score} = data;
     roomcnt = room.length;
     room[roomcnt] = new userroom();
