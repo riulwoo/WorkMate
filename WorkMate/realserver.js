@@ -274,6 +274,7 @@ io.on('connection', function(socket) {
   socket.on('joinroom', (data)=>{
     const {id, roomid, nick, score} = data;
     for(let i = 0; i < room.length ; i++) {
+      console.log(room[i].roomCode);
         if(room[i].roomCode == roomid) {
           socket.join(roomid);
           roomcnt = i;
