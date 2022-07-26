@@ -137,7 +137,6 @@ io.on('connection', function(socket) {
             if(id == checkdata[j])
             {
               socket.leave(room[i].roomCode);
-              
               if(room[i].deleteUser(id, j)) {
                 room[i].roomCode = null;
                 room[i].check = '';
