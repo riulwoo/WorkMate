@@ -140,7 +140,7 @@ io.on('connection', function(socket) {
               
               if(room[i].deleteUser(id, j)) {
                 room[i].roomCode = null;
-                room[i].check = null;
+                room[i].check = '';
               }
               console.log('[matchcancel] leave 후 조인 방 정보 : ' + room[i].roomCode);
               console.log('[matchcancel] 유저 정보삭제 후 정보 : ' + room[i].userid);
@@ -274,11 +274,9 @@ io.on('connection', function(socket) {
     const {id, roomid, nick, score} = data;
     try {
       socket.join(roomid);
-      console.log('타이머 종료 완료' + id + ' / ' + roomid);
+      socket.insertuserid(data);
     } catch {
       socket.emit('joinfail');
-    }finally{
-      console.log(socket.rooms);
     }
   })
 
