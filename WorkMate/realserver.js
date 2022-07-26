@@ -281,6 +281,7 @@ io.on('connection', function(socket) {
         }
         else {
           socket.emit('joinfail');
+          break;
         }
       }
     // try {
