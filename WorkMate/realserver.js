@@ -264,24 +264,22 @@ io.on('connection', function(socket) {
   })
 
   socket.on('createroom', function (data) {
-    const {id, roomid, nick, score} = data;
     roomcnt = room.length;
     room[roomcnt] = new userroom();
     room[roomcnt].check = 'p';
-    room[roomcnt].roomCode = roomid;
+    room[roomcnt].roomCode = data.roomid;
     socket.join(room[roomcnt].roomCode);
     room[roomcnt].insertuserid(data);
-      console.log('방 생성 완료' + id + ' / ' + roomid);
+      console.log('방 생성 완료' + id + ' / ' + data.roomid);
       console.log(socket.rooms);
       console.log('[createroom] 들어간 유저 정보 : ' + room[roomcnt].userid);
   })
   
   socket.on('joinroom', function (data) {
-    const {id, roomid, nick, score} = data;
     for(let i = 0; i < room.length ; i++) {
       console.log(room[i].roomCode);
-        if(room[i].roomCode == roomid) {
-          socket.join(roomid);
+        if(room[i].roomCode == data.roomid) {
+          socket.join(data.roomid);
           roomcnt = i;
           break;
         }
