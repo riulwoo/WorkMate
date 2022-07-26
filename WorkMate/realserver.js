@@ -276,10 +276,11 @@ io.on('connection', function(socket) {
     try {
       socket.join(roomid);
       socket.insertuserid(data);
-      console.log(socket.rooms);
-      console.log('[joinroom] 들어간 유저 정보 : ' + room[roomcnt].userid);
     } catch {
       socket.emit('joinfail');
+    }finally{
+      console.log(socket.rooms);
+      console.log('[joinroom] 들어간 유저 정보 : ' + room[roomcnt].userid);
     }
   })
 
