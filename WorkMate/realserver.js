@@ -141,6 +141,7 @@ io.on('connection', function(socket) {
               if(room[i].deleteUser(id, j)) {
                 room[i].roomCode = null;
                 room[i].check = '';
+                room[i].alreadyUser = true;
               }
               console.log('[matchcancel] leave 후 조인 방 정보 : ' + room[i].roomCode);
               console.log('[matchcancel] 유저 정보삭제 후 정보 : ' + room[i].userid);
