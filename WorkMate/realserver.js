@@ -204,11 +204,11 @@ io.on('connection', function(socket) {
     // 방은 있으되 방에 사람이 아무도 없는 경우
 
     //만들어야할것 1. 재활용
-    for (let i = 0; i <= room.length; i++) {
-      if(room[i].check = 'm') {
+    for (let i = 0; i < room.length; i++) {
+      if(room[i].check == 'm') {
         roomcnt = i;
         }
-      else if(room[i].check = '') {
+      else if(room[i].check == '') {
         roomcnt = i;
         }
       
