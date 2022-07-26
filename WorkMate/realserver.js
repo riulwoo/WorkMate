@@ -218,7 +218,7 @@ io.on('connection', function(socket) {
         roomcnt = i;
         }
       
-      if(room[roomcnt].roomCode == null && room[roomcnt].check == '')
+      if(room[roomcnt].roomCode == null && room[roomcnt].check == '') //문제 3
         {
           room[roomcnt].check = 'm';
           room[roomcnt].insertuserid(data)
@@ -278,8 +278,9 @@ io.on('connection', function(socket) {
   socket.on('joinroom', function (data) {
     for(let i = 0; i < room.length ; i++) {
       console.log(room[i].roomCode);
-        if(room[i].roomCode == data.roomid) {
+        if(room[i].roomCode == data.roomid) { //문제 3-1
           socket.join(data.roomid);
+      
           roomcnt = i;
           break;
         }
