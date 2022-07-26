@@ -275,12 +275,12 @@ io.on('connection', function(socket) {
     const {id, roomid, nick, score} = data;
     for(let i = 0; i < room.length ; i++) {
         if(room[i].roomCode == roomid) {
+          socket.join(roomid);
           roomcnt = i;
           break;
         }
       }
     try {
-      socket.join(roomid);
       room[roomcnt].insertuserid(data);
     } catch {
        socket.emit('joinfail');
