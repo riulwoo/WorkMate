@@ -43,6 +43,7 @@ socket.emit('joinroom', {
   score : 0
 }); 
 })
+socket.on('joinfail')
 start.addEventListener("click", function () {
 socket.emit('startgame', myId);
 })

@@ -275,22 +275,19 @@ io.on('connection', function(socket) {
     const {id, roomid, nick, score} = data;
     for(let i = 0; i < room.length ; i++) {
         if(room[i].roomCode == roomid) {
-            socket.join(roomid);
-            room[i].insertuserid(data);
-            console.log(socket.rooms);
-            console.log('[joinroom] 들어간 유저 정보 : ' + room[roomcnt].userid);
-          break;
-        }
-        else {
-          socket.emit('joinfail');
+          roomcnt = i;
           break;
         }
       }
-    // try {
-    // } catch {
-    //   socket.emit('joinfail');
-    // }finally{
-    // }
+    try {
+      socket.join(roomid);
+      room[roomcnt].insertuserid(data);
+    } catch {
+       socket.emit('joinfail');
+    }finally{
+      console.log(socket.rooms);
+      console.log('[joinroom] 들어간 유저 정보 : ' + room[roomcnt].userid);
+    }
   })
 
   socket.on('startgame', function(id) { // 방안에서 게임 시작 버튼
@@ -315,3 +312,5 @@ io.on('connection', function(socket) {
   
 });
 
+
+      
