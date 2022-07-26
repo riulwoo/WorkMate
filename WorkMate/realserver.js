@@ -100,7 +100,6 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   }
 }
 
-
 //-------------------------- 지역 변수 --------------------------------
 var userpool = []; //페이지 접속한 총인원
 var userinfo = {}; //유저들의 정보모음집
@@ -206,7 +205,7 @@ io.on('connection', function(socket) {
     else
       console.log('아무일도 일어나지 않았다.')
   }  
-  
+
   // 클라이언트에서 매칭을 할 시 첫번째로 넘어오는 유저 정보 정보는 방 객체에 저장  
   socket.on('matchStart', function(data) {  // 매칭 하기 버튼 
     // 받아온 data 값을 userroom.userid 안에서 null값을 체크해 값을 넣는다 
@@ -221,7 +220,9 @@ io.on('connection', function(socket) {
       else if(room[i].check == '') {
         roomcnt = i;
         }
-      
+      else {
+        roomcnt = room.length - 1;
+      }
       if(room[roomcnt].roomCode == null && room[roomcnt].check == '') //문제 3
         {
           room[roomcnt].check = 'm';
@@ -245,7 +246,7 @@ io.on('connection', function(socket) {
           console.log('[matchStart] 들어간 유저 정보 : ' + room[roomcnt].userid);
           break;
         }
-      else if(room[roomcnt].check == 'm')
+      else if(room[roomcnt].insertuserid(data) && room[roomcnt].check == 'm')
         {
           socket.join(room[roomcnt].roomCode);
           console.log('매칭 유저가 추가되었습니다.  //' + '  방코드 : ' + room[roomcnt].roomCode);
@@ -255,21 +256,23 @@ io.on('connection', function(socket) {
     }
   });
 
-  
+
   socket.on('matchtimeover', function(id) { //매칭 종료버튼, 매칭 타이머 초과 시 받는 정보
     // 클라이언트에서 data {socket.id}
     gamestart(id);
           console.log('타이머 종료 완료');
   }) // end of mto
 
-  
+
   socket.on('matchcancel', function (id) { //매칭 중일 때 나가기 버튼
     roomout(id);
   })
 
   socket.on('createroom', function (data) {
-    roomcnt = room.length;
-    room[roomcnt] = new userroom();
+    if(room[room.length-1].roomCode !== null) {
+      roomcnt = room.length;
+      room[roomcnt] = new userroom();
+    }
     room[roomcnt].check = 'p';
     room[roomcnt].roomCode = data.roomid;
     socket.join(room[roomcnt].roomCode);
