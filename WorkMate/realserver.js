@@ -276,6 +276,7 @@ io.on('connection', function(socket) {
     try {
       for(let i = 0; i < room.length ; i++) {
         if(room[i].roomCode == roomid) {
+          console.log('체크완료');
           room[i].insertuserid(data);
           break;
         }
