@@ -144,9 +144,13 @@ io.on('connection', function(socket) {
             {
               socket.leave(room[i].roomCode);
               if(room[i].deleteUser(id, j)) {
-                room[i].roomCode = null;
-                room[i].check = '';
-                room[i].alreadyUser = true;
+                // room[i].roomCode = null;
+                // room[i].check = '';
+                // room[i].alreadyUser = true;
+                const temproom = room.filter((room, index) => {
+                  if(index !== i) return room;
+                })
+                room = temproom;
                 break;
               }
             }
@@ -280,19 +284,19 @@ io.on('connection', function(socket) {
       console.log(room[i].roomCode);
         if(room[i].roomCode == data.roomid) { //문제 3-1
           socket.join(data.roomid);
-      
-          roomcnt = i;
+          room[i].insertuserid(data);
+          console.log(socket.rooms);
+          console.log('[joinroom] 들어간 유저 정보 : ' + room[roomcnt].userid);
           break;
         }
+        else socket.emit('joinfail');
       }
-    try {
-      room[roomcnt].insertuserid(data);
-    } catch {
-       socket.emit('joinfail');
-    }finally{
-      console.log(socket.rooms);
-      console.log('[joinroom] 들어간 유저 정보 : ' + room[roomcnt].userid);
-    }
+    // try {
+    // } catch {
+    //    socket.emit('joinfail');
+    // }finally{
+
+    // }
   })
 
   socket.on('startgame', function(id) { // 방안에서 게임 시작 버튼
