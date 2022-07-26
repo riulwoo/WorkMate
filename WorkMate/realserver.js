@@ -164,8 +164,7 @@ io.on('connection', function(socket) {
           if(checkid[j] === id) 
           {
             userroomcnt = i;
-            
-            console.log('유저 id 찾기 완료');
+            console.log('유저 id 찾기 완료 : ' + i);
             break;
           }
         }
