@@ -277,6 +277,8 @@ io.on('connection', function(socket) {
         if(room[i].roomCode == roomid) {
             socket.join(roomid);
             room[i].insertuserid(data);
+            console.log(socket.rooms);
+            console.log('[joinroom] 들어간 유저 정보 : ' + room[roomcnt].userid);
           break;
         }
         else {
@@ -288,8 +290,6 @@ io.on('connection', function(socket) {
     // } catch {
     //   socket.emit('joinfail');
     // }finally{
-    //   console.log(socket.rooms);
-    //   console.log('[joinroom] 들어간 유저 정보 : ' + room[roomcnt].userid);
     // }
   })
 
