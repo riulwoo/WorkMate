@@ -43,7 +43,9 @@ socket.emit('joinroom', {
   score : 0
 }); 
 })
-socket.on('joinfail')
+socket.on('joinfail', ()=>{
+  console.log('조인 실패용');
+})
 start.addEventListener("click", function () {
 socket.emit('startgame', myId);
 })
