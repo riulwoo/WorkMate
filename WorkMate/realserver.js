@@ -227,7 +227,7 @@ io.on('connection', function(socket) {
       // 방에 6명이 있고 방이 없을 경우 방을 생성하는 if문
       else if(!(room[roomcnt].insertuserid(data)) && room[roomcnt].alreadyUser == false)
         {
-          roomcnt = room.length + 1;
+          roomcnt = room.length;
           room[roomcnt] = new userroom();
           room[roomcnt].check = 'm';
           room[roomcnt].roomCode = data.roomid;
@@ -261,7 +261,7 @@ io.on('connection', function(socket) {
 
   socket.on('createroom', (data)=> {
     const {id, roomid, nick, score} = data;
-    roomcnt = room.length + 1;
+    roomcnt = room.length;
     room[roomcnt] = new userroom();
     room[roomcnt].check = 'p';
     room[roomcnt].roomCode = roomid;
