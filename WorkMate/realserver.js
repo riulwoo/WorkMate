@@ -54,8 +54,6 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   this.alreadyUser = true;
   // 생성된 방이 matching 인지 private인지 체크
   this.check = '';
-  // 방 유저가 2~5명으로 시작했을 때 체크
-  this.checkUser = false;
   // 방 코드
   this.roomCode = null;
   // 라운드 구별 변수
