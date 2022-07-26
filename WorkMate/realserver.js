@@ -157,8 +157,9 @@ io.on('connection', function(socket) {
     // 받은 유저 아이디의 룸코드를 받아와 시작하는 코드
     for (let i = 0; i < room.length; i++)
       {
+        console.log('게임스타트 유저 정보' + room[i].userid);
         checkid = room[i].userid;
-        for(let j = 0; j< 6; j++) 
+        for(let j = 0; j< 6; j++)
         {
           if(checkid[j] === id) 
           {
