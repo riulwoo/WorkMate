@@ -274,8 +274,13 @@ io.on('connection', function(socket) {
   socket.on('joinroom', (data)=>{
     const {id, roomid, nick, score} = data;
     try {
+      for(let i = 0; i < room.length ; i++) {
+        if(room[i].roomCode == roomid) {
+          room[i].insertuserid(data);
+          break;
+        }
+      }
       socket.join(roomid);
-      socket.insertuserid(data);
     } catch {
       socket.emit('joinfail');
     }finally{
