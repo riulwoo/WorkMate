@@ -273,15 +273,15 @@ io.on('connection', function(socket) {
 
   socket.on('joinroom', (data)=>{
     const {id, roomid, nick, score} = data;
-    try {
-      for(let i = 0; i < room.length ; i++) {
+    for(let i = 0; i < room.length ; i++) {
         if(room[i].roomCode == roomid) {
-          console.log('체크완료');
-          socket.join(roomid);
-          room[i].insertuserid(data);
+          roomcnt = i;
           break;
         }
       }
+    try {
+      socket.join(roomid);
+      room[roomcnt].insertuserid(data);
     } catch {
       socket.emit('joinfail');
     }finally{
