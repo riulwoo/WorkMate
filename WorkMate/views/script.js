@@ -28,7 +28,8 @@ console.log("create room 눌림 " + myId + roomid + ' ' + nickname.value);
 socket.emit('createroom', {
   id : myId, 
   roomid : roomid, 
-  nick : nickname.value
+  nick : nickname.value,
+  score : 0
 }); 
 })
 Jroombtn.addEventListener('click', function () {
@@ -38,7 +39,8 @@ console.log('join room 눌림');
 socket.emit('joinroom', {
   id : myId, 
   roomid : rmcodetxt.value,
-  nick : nickname.value 
+  nick : nickname.value,
+  score : 0
 }); 
 })
 start.addEventListener("click", function () {

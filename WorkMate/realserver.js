@@ -264,11 +264,11 @@ io.on('connection', function(socket) {
   })
 
   socket.on('createroom', (data)=> {
-    const {id, roomid, nickname} = data;
+    const {id, roomid, nick, score} = data;
     roomcnt = room.length + 1;
     room[roomcnt] = new userroom();
     room[roomcnt].check = 'p';
-    room[roomcnt].roomCode = data.roomid;
+    room[roomcnt].roomCode = roomid;
     socket.join(room[roomcnt].roomCode);
     room[roomcnt].insertuserid(data);
       console.log('방 생성 완료' + id + ' / ' + roomid);
@@ -276,7 +276,7 @@ io.on('connection', function(socket) {
   })
 
   socket.on('joinroom', (data)=>{
-    const {id, roomid, nickname} = data;
+    const {id, roomid, nick, score} = data;
     try {
       socket.join(roomid);
       console.log('타이머 종료 완료' + id + ' / ' + roomid);
