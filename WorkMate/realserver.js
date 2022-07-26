@@ -260,7 +260,7 @@ io.on('connection', function(socket) {
     roomout(id);
   })
 
-  socket.on('createroom', (data)=> {
+  socket.on('createroom', function(data) {
     const {id, roomid, nick, score} = data;
     roomcnt = room.length;
     room[roomcnt] = new userroom();
@@ -273,7 +273,7 @@ io.on('connection', function(socket) {
       console.log('[createroom] 들어간 유저 정보 : ' + room[roomcnt].userid);
   })
   
-  socket.on('joinroom', (data)=>{
+  socket.on('joinroom', function (data) {
     const {id, roomid, nick, score} = data;
     for(let i = 0; i < room.length ; i++) {
       console.log(room[i].roomCode);
