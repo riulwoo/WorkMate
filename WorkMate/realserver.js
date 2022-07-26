@@ -281,7 +281,7 @@ io.on('connection', function(socket) {
   
   socket.on('joinroom', function (data) {
     for(let i = 0; i < room.length ; i++) {
-      console.log(room[i].roomCode);
+      console.log('들어갈려는 방 코드 : ' + room[i].roomCode + ' / ' + '입력받은 방 코드 : ' + data.roomid);
         if(room[i].roomCode == data.roomid) { //문제 3-1
           socket.join(data.roomid);
           room[i].insertuserid(data);
