@@ -268,6 +268,7 @@ io.on('connection', function(socket) {
     room[roomcnt].insertuserid(data);
       console.log('방 생성 완료' + id + ' / ' + roomid);
       console.log(socket.rooms);
+      console.log('[createroom] 들어간 유저 정보 : ' + room[roomcnt].userid);
   })
 
   socket.on('joinroom', (data)=>{
@@ -275,6 +276,8 @@ io.on('connection', function(socket) {
     try {
       socket.join(roomid);
       socket.insertuserid(data);
+      console.log(socket.rooms);
+      console.log('[joinroom] 들어간 유저 정보 : ' + room[roomcnt].userid);
     } catch {
       socket.emit('joinfail');
     }
