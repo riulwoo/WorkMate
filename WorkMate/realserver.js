@@ -226,15 +226,15 @@ io.on('connection', function(socket) {
         }
       // 방에 6명이 있고 방이 없을 경우 방을 생성하는 if문
       else if(!(room[roomcnt].insertuserid(data)))
-        { 
-          console.log('다음 방이 만들어졌습니다.  //' + '  방코드 : ' + room[roomcnt].roomCode);
-          console.log('[matchStart] 들어간 유저 정보 : ' + room[roomcnt].userid);
+        {
           roomcnt++;
           room[roomcnt] = new userroom();
           room[roomcnt].check = 'm';
           room[roomcnt].roomCode = data.roomid;
           socket.join(room[roomcnt].roomCode);
           room[roomcnt].insertuserid(data);
+          console.log('다음 방이 만들어졌습니다.  //' + '  방코드 : ' + room[roomcnt].roomCode);
+          console.log('[matchStart] 들어간 유저 정보 : ' + room[roomcnt].userid);
           break;
         }
       else if(room[roomcnt].check = 'm')
@@ -261,7 +261,7 @@ io.on('connection', function(socket) {
 
   socket.on('createroom', (data)=> {
     const {id, roomid, nickname} = data;
-    roomcnt++;
+    roomcnt = room.length + 1;
     room[roomcnt] = new userroom();
     room[roomcnt].check = 'p';
     room[roomcnt].roomCode = data.roomid;
