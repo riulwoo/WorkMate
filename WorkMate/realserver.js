@@ -277,11 +277,11 @@ io.on('connection', function(socket) {
       for(let i = 0; i < room.length ; i++) {
         if(room[i].roomCode == roomid) {
           console.log('체크완료');
+          socket.join(roomid);
           room[i].insertuserid(data);
           break;
         }
       }
-      socket.join(roomid);
     } catch {
       socket.emit('joinfail');
     }finally{
