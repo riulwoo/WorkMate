@@ -53,9 +53,9 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   // 방안에 유저가 들어가 있는지 체크
   this.alreadyUser = true;
   // 생성된 방이 matching 인지 private인지 체크
-  // this.match = false;
-  // this.private = false;
   this.check = '';
+  // 방 유저가 2~5명으로 시작했을 때 체크
+  this.checkUser = false;
   // 방 코드
   this.roomCode = null;
   // 라운드 구별 변수
@@ -186,7 +186,8 @@ io.on('connection', function(socket) {
           console.log('유저 데이터 전송완료');
         }
       room[userroomcnt].alreadyUser = false;
-      roomcnt++;
+      room[userroomcnt].check = 's';
+      roomcnt = room.length;
       room[roomcnt] = new userroom();
     }
     else if(array.length < 2){
