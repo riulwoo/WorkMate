@@ -286,7 +286,7 @@ io.on('connection', function(socket) {
           socket.join(data.roomid);
           room[i].insertuserid(data);
           console.log(socket.rooms);
-          console.log('[joinroom] 들어간 유저 정보 : ' + room[roomcnt].userid);
+          console.log('[joinroom] 들어간 유저 정보 : ' + room[i].userid);
           break;
         }
         else socket.emit('joinfail');
