@@ -11,7 +11,7 @@ server.listen(process.env.PORT || 3000, ()=> {
 });
 app.use(express.static(path.join(__dirname, 'views')));
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/views/game/space_race/space_race.html')
+  res.sendFile(__dirname + '/views/game/space_race/space_race.html');
 });
 
 function getPlayerColor() {
