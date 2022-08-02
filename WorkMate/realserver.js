@@ -45,7 +45,6 @@ function joinGame(socket){    // id
 
 class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플레이하는 유저의 정보도 알아야 게임이 됨
   constructor(){
-    this.alreadyUser = true;      // 방안에 유저가 들어가 있는지 체크
     this.check = '';              // 생성된 방이 matching 인지 private인지 체크
     this.roomCode = null;         // 방 코드
     this.roundCheck = -1;         // 라운드 구별 변수
@@ -113,54 +112,40 @@ io.on('connection', function(socket) {
   
   let newplayer = joinGame(socket);
   socket.emit('user_id', socket.id);
-  
-  function roomout(id) {
-  let checkdata = [];
-    for(let i = 0; i < room.length ; i++)
-      {
-        checkdata = room[i].userid;
-        console.log('[matchcancel] 들어간 정보 : ' + room[i].userid);
 
-        for(let j = 0 ; j < checkdata.length ; j++)
-          {
-            if(id == checkdata[j])
-            {
-              socket.leave(room[i].roomCode);
-              if(room[i].deleteUser(id, j)) {
-                const temproom = room.filter((room, index) => {
-                  if(index !== i) return room;
-                })
-                room = temproom;
-                break;
-              }
-            }
-          }
-      }
-}
+  function CreateRoom(key) { //방의 조건을 확인해서 방을 만들어주는 함수
+    const check = room[room.length - 1].check;
+    const data = room[room.length - 1].userid.filter((_null) => {
+      if(_null != null) return _null;
+    }) 
+    check == '' || (data.length != 6 && check == 'm' && key)  ?  return true; : room[room.length] = new userroom();
+    // 방만들기로 방에 데이터를 넣으려는 사람의 조건은 없다 => 0번에 매칭 , 새로운 사람이 방만들기로 데이터 입력하려고 createroom(); 이 조건이 없다
+  }
+
+  function getRoomIndex(Id) { //현재 내가 어떤 방에 들어가있는지 체크하는 함수
+    const index = room.filter((ele_room, index) => {
+      ele_room.userid.filter((ele_userid)=> ele_userid == id) return index;
+    });
+    return index;
+  }  
+  
+  function roomout(id) { // 데이터 삭제 함수
+    const index = getRoomIndex(id);
+    socket.leave(room[index].roomCode);
+    if(room[index].deleteUser(id, j)) {
+      const temproom = room.filter((room, index) => {
+        if(index !== i) return room;
+      })
+    room = temproom;
+    }
+  }
 
   function gamestart(id) {
-    let checkid = [];
-    let userroomcnt = 0;
-    // 받은 유저 아이디의 룸코드를 받아와 시작하는 코드
-    for (let i = 0; i < room.length; i++)
-      {
-        console.log('게임스타트 유저 정보' + room[i].userid);
-        checkid = room[i].userid;
-        for(let j = 0; j< 6; j++)
-        {
-          if(checkid[j] === id) 
-          {
-            userroomcnt = i;
-            console.log('유저 id 찾기 완료 : ' + i + ' / ' + userroomcnt);
-            break;
-          }
-        }
-      }
+    let userroomcnt = getRoomIndex(id);
     const array = room[userroomcnt].userid.filter((id) => id != null);
-    //방안에 유저가 있는 게 확인 되었을 때 그 방안의 인원을 체크하는 코드
-    if(array.length >= 2 && room[userroomcnt].alreadyUser)
+    if(array.length >= 2 && room[userroomcnt].check != 's') //방안에 유저가 있는 게 확인 되었을 때 그 방안의 인원을 체크하는 코드
     {
-          console.log('유저 인원체크 완료');
+      console.log('유저 인원체크 완료');
       io.sockets.to(room[userroomcnt].roomCode).emit('gamestart');
       for(let t = 0 ; t < checkid.length ; t++) {
       //io.sockets.to(room[i].roomCode).emit('join_user', {
@@ -172,25 +157,18 @@ io.on('connection', function(socket) {
           });
           console.log('유저 데이터 전송완료');
         }
-      room[userroomcnt].alreadyUser = false;
       room[userroomcnt].check = 's';
-      roomcnt = room.length;
-      room[roomcnt] = new userroom();
+      CreateRoom();
     }
     else if(array.length < 2){
-          console.log('게임 시작 실패 완료');
-      socket.emit('matchfail',function () {
-        roomout(id);
-      });
+      socket.emit('matchfail', roomout(id));
     }
-    else
-      console.log('아무일도 일어나지 않았다.')
-  }  
+  }
 
-  socket.on('matchStart', function(data) {  // 매칭 하기 버튼 
+  socket.on('matchStart', function(data) {  // 매칭 하기 버튼
     for (let i = 0; i < room.length; i++) {
       if(room[i].check == 'm') {
-        roomcnt = i;
+        roomcnt = i;                
         }
       else if(room[i].check == '') {
         roomcnt = i;
@@ -198,6 +176,7 @@ io.on('connection', function(socket) {
       else {
         roomcnt = room.length - 1;
       }
+    
       if(room[roomcnt].roomCode == null && room[roomcnt].check == '')
         {
           room[roomcnt].check = 'm';
@@ -208,11 +187,18 @@ io.on('connection', function(socket) {
           console.log('[matchStart] 들어간 유저 정보 : ' + room[roomcnt].userid);
           break;
         }
+        else if(room[roomcnt].insertuserid(data) && room[roomcnt].check == 'm')
+        {
+          socket.join(room[roomcnt].roomCode);
+          console.log('매칭 유저가 추가되었습니다.  //' + '  방코드 : ' + room[roomcnt].roomCode);
+          console.log('[matchStart] 들어간 유저 정보 : ' + room[roomcnt].userid);
+          break;
+        }
       // 방에 6명이 있고 방이 없을 경우 방을 생성하는 if문
-      else if(!(room[roomcnt].insertuserid(data)) && room[roomcnt].alreadyUser == false)
+      else if(!(room[roomcnt].insertuserid(data)) && room[roomcnt].check == 'm' && room[roomcnt].alreadyUser == false)  //6명 매칭 중일때 // match time over는 게임중일때만 온다
         {
           roomcnt = room.length;
-          room[roomcnt] = new userroom();
+          room[roomcnt] = new userroom(); // boolean = createroom return true 
           room[roomcnt].check = 'm';
           room[roomcnt].roomCode = data.roomid;
           socket.join(room[roomcnt].roomCode);
@@ -221,13 +207,7 @@ io.on('connection', function(socket) {
           console.log('[matchStart] 들어간 유저 정보 : ' + room[roomcnt].userid);
           break;
         }
-      else if(room[roomcnt].insertuserid(data) && room[roomcnt].check == 'm')
-        {
-          socket.join(room[roomcnt].roomCode);
-          console.log('매칭 유저가 추가되었습니다.  //' + '  방코드 : ' + room[roomcnt].roomCode);
-          console.log('[matchStart] 들어간 유저 정보 : ' + room[roomcnt].userid);
-          break;
-        }
+      
     }
   });
 
@@ -242,21 +222,19 @@ io.on('connection', function(socket) {
     roomout(id);
   })
 
-  socket.on('createroom', function (data) {
-    if(room[room.length-1].roomCode !== null) {
-      roomcnt = room.length;
-      room[roomcnt] = new userroom();
-    }
-    room[roomcnt].check = 'p';
-    room[roomcnt].roomCode = data.roomid;
-    socket.join(room[roomcnt].roomCode);
-    room[roomcnt].insertuserid(data);
-    console.log('방 생성 완료' + data.id + ' / ' + data.roomid);
+  socket.on('createroom', function (data) { // data {id, roomid, nick, score}
+    const {id, roomid, nick, score} = data;
+    CreateRoom(false); // false > 방 생성
+    room[room.length - 1].check = 'p';
+    room[room.length - 1].roomCode = roomid;
+    socket.join(room[room.length - 1].roomCode);
+    room[room.length - 1].insertuserid(data);
+    console.log('방 생성 완료' + id + ' / ' + roomid);
     console.log(socket.rooms);
-    console.log('[createroom] 들어간 유저 정보 : ' + room[roomcnt].userid);
+    console.log('[createroom] 들어간 유저 정보 : ' + room[room.length - 1].userid);
   })
   
-  socket.on('joinroom', function (data) {
+  socket.on('joinroom', function (data) {    // data {id, roomid, nick, score}
     for(let i = 0; i < room.length ; i++) {
       console.log('들어갈려는 방 코드 : ' + room[i].roomCode + ' / ' + '입력받은 방 코드 : ' + data.roomid);
         if(room[i].roomCode == data.roomid) {
