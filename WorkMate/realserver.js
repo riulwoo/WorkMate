@@ -180,7 +180,7 @@ io.on('connection', function(socket) {
     else if(array.length < 2){
           console.log('게임 시작 실패 완료');
       socket.emit('matchfail',function () {
-        roomout(userId);
+        roomout(id);
       });
     }
     else

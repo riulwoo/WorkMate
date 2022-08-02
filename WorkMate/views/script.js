@@ -57,6 +57,7 @@ console.log('나가기 눌림');
 
 socket.on('matchfail', function(data) {
  alert('다시 시도해주세요');
+  location.reload();
 })
 socket.on('user_id', function(data){
   myId = data;
