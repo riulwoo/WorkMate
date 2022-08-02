@@ -155,7 +155,7 @@ io.on('connection', function(socket) {
           }
         }
       }
-    const array = room[userroomcnt].userid.filter((id) => id !== null);
+    const array = room[userroomcnt].userid.filter((id) => id != null);
     //방안에 유저가 있는 게 확인 되었을 때 그 방안의 인원을 체크하는 코드
     if(array.length >= 2 && room[userroomcnt].alreadyUser)
     {
