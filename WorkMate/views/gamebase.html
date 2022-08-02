@@ -76,8 +76,8 @@
             ball.x = x;
             ball.y = y;
 
-            balls.push(ball);
-            ballMap[id] = ball;
+            balls.push(ball);        // 이동과 표현을 관리하는 배열
+            ballMap[id] = ball;      // 접속을 관리하는 배열
                     
             return ball;
         }
@@ -104,6 +104,7 @@
         socket.on('join_user', function(data){
           console.log('join_user 성공')
           joinUser(data.id, data.color, data.x, data.y);
+          renderPlayer();          
         })
         socket.on('update_state', function(data){
           console.log('update_state 성공')
