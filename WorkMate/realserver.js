@@ -7,11 +7,11 @@ const fs = require('fs');
 
 server.listen(process.env.PORT || 3000, ()=> {
   console.log("서버가 대기중입니다.");
-})
-app.use(express.static('views'))
+});
+app.use(express.static(path.join(__dirname, 'views')));
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html')
-})
+  res.sendFile(__dirname + '/views/index.html')
+});
 
 function getPlayerColor() {
   return "#" + Math.floor(Math.random() * 16777215).toString(16);  
