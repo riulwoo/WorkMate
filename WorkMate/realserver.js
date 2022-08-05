@@ -119,7 +119,6 @@ io.on('connection', function(socket) {
       if(_null != null) return _null;
     }) 
     check == '' || (data.length != 6 && check == 'm' && key)  ?  return true; : room[room.length] = new userroom();
-    // 방만들기로 방에 데이터를 넣으려는 사람의 조건은 없다 => 0번에 매칭 , 새로운 사람이 방만들기로 데이터 입력하려고 createroom(); 이 조건이 없다
   }
 
   function getRoomIndex(Id) { //현재 내가 어떤 방에 들어가있는지 체크하는 함수
@@ -207,14 +206,13 @@ io.on('connection', function(socket) {
           console.log('[matchStart] 들어간 유저 정보 : ' + room[roomcnt].userid);
           break;
         }
-      
     }
   });
 
 
   socket.on('matchtimeover', function(id) { //매칭 종료버튼, 매칭 타이머 초과 시 받는 정보
     gamestart(id);
-          console.log('타이머 종료 완료');
+    console.log('타이머 종료 완료');
   })
 
 

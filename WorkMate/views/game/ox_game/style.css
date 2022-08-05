@@ -1,0 +1,105 @@
+html, body {
+	margin: 0;
+	height: 100%;
+	overflow: hidden;
+  font-family: 'Press Start 2P', cursive;
+  
+}
+
+.center {
+	position: absolute; 
+	left: 50%; top: 50%; 
+  	transform: translate(-50%, -50%);
+	text-align: center;
+  
+}
+
+#score {
+	color: black;
+	font-size: 30px;
+	text-shadow: 2px 2px 2px gray;
+}
+
+#selection {
+	position: absolute; 
+	left: 50%; top: 17%; 
+  	transform: translate(-50%, -83%);
+	text-align: center;
+}
+
+#quiz {
+	position: absolute; 
+	left: 50%; top: 12%; 
+  	transform: translate(-50%, -88%);
+	text-align: center;
+	font-size: 30px;
+  
+}
+
+.move {
+	position: absolute; left: 50%; top: 50%;
+	transform: translate(-50%, -50%);
+	color: #EEFE84;
+	font-size: 100px;
+}
+
+#ox {
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	height: 75%;
+	position: absolute;
+	top: 25%;
+	border-top: 3px solid;
+	background-color: #eeeeee;
+}
+
+#o {
+	position: absolute;
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+	width: 50%;
+	height: 100%;
+	display: inline-block;
+	background-color: #87AFFE;
+}
+
+#x {
+	position: absolute;
+	top: 0%;
+	left: 50%;
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+	width: 50%;
+	height: 100%;
+	display: inline-block;
+	text-align: center;
+	background-color: #FE8787;
+}
+
+.mark {
+	margin: 0px;
+	padding: 0px;
+	font-size: 200px;
+	text-align: center;
+	position: absolute; 
+	left: 50%; top: 50%; 
+  transform: translate(-50%, -50%);
+	color: white;
+	font-weight: bold;
+}
+
+#count
+{
+	z-index : 1; /* z 축을 속성들끼리 비교해서, 가장 큰 값이 맨 앞에 위치하도록 한다. */
+	display: none;
+	position: absolute; 
+	left: 50%; top: 50%; 
+  	transform: translate(-50%, -50%);
+	text-align: center;
+	color: #90DBA2;
+	font-size: 148pt;
+}
+
