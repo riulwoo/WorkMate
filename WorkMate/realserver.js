@@ -118,7 +118,7 @@ io.on('connection', function(socket) {
     const data = room[room.length - 1].userid.filter((_null) => {
       if(_null != null) return _null;
     }) 
-    check == '' || (data.length != 6 && check == 'm' && key)  ?  true : room[room.length] = new userroom();
+    return check == '' || (data.length != 6 && check == 'm' && key)  ?  true : room[room.length] = new userroom();
   }
 
   function getRoomIndex(Id) { //현재 내가 어떤 방에 들어가있는지 체크하는 함수
