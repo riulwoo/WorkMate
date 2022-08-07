@@ -118,12 +118,12 @@ io.on('connection', function(socket) {
     const data = room[room.length - 1].userid.filter((_null) => {
       if(_null != null) return _null;
     }) 
-    check == '' || (data.length != 6 && check == 'm' && key)  ?  return true; : room[room.length] = new userroom();
+    check == '' || (data.length != 6 && check == 'm' && key)  ?  true : room[room.length] = new userroom();
   }
 
   function getRoomIndex(Id) { //현재 내가 어떤 방에 들어가있는지 체크하는 함수
-    const index = room.filter((ele_room, index) => {
-      ele_room.userid.filter((ele_userid)=> ele_userid == id) return index;
+    const index = room.filter((ele_room, _index) => {
+      ele_room.userid.filter((ele_userid)=> {if(ele_userid == Id)return _index;});
     });
     return index;
   }  
