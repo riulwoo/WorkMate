@@ -33,7 +33,7 @@
             this.y = 768/2;
         }
         
-        var balls  = [];
+        var balls  = [];  
         var ballMap = {};
         var myId;
 
@@ -99,7 +99,6 @@
             }
             ball.x = x;
             ball.y = y;
-
         }
         socket.on('join_user', function(data){
           console.log('join_user 성공')

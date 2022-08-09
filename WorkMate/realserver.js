@@ -9,10 +9,17 @@ const path = require('path');
 server.listen(process.env.PORT || 3000, ()=> {
   console.log("서버가 대기중입니다.");
 });
-app.use(express.static(path.join(__dirname, 'views')));
+
+app.use(express.static('views'));
+app.use('/views', express.static(__dirname + 'game'));
+
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/views/game/space_race/space_race.html');
+  res.sendFile(__dirname + '/views/index.html');
 });
+
+app.get('/gamebase', (req, res) =>{
+  res.sendFile(__dirname + '/views/game/' + game)  // game : 랜덤한 게임의 경로를 문자열로 변수화
+})
 
 function getPlayerColor() {
   return "#" + Math.floor(Math.random() * 16777215).toString(16);  
@@ -34,6 +41,7 @@ class Player {
     return this.socket.id;
   }
 }
+
 function joinGame(socket){    // id
     let player = new Player(socket);  // x,y, nickname
 
@@ -48,36 +56,72 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
     this.check = '';              // 생성된 방이 matching 인지 private인지 체크
     this.roomCode = null;         // 방 코드
     this.roundCheck = -1;         // 라운드 구별 변수
-    this.gameName;                // 게임배열 
-    this.players = [];          // 플레이어 1~6명의 정보
+    this.gameName = ['null', 'null', 'null'];                // 게임배열 랜덤으로 게임을 시작하기위한 변수
+    this.users = [];          // 플레이어 1~6명의 정보
     for (let i = 0; i < 6; i++) {
-      this.players.push({ id: null, nick: null, score: null });
+      this.users.push({ id: null, nick: null, score: null });
     }
+    this.players = [];
   }
+  // room[roomcnt].players.push(room[roomcnt].PlayerBall(id,nick))
+  // 변수.players[]
+  PlayerBall(id, nick){
+    this.id = id;
+    this.color = "#FF00FF";
+    this.x = 1024/2;
+    this.y = 768/2;
+    if(nick == null)
+        this.nick = "player " + Math.floor(Math.random()*100);
+    else
+        this.nick = nick;
+    // 플레이어의 앞, 뒤, 왼, 오 이미지 => 현재 앞모습 이미지 밖에 없음
+    this.asset = ['https://cdn.discordapp.com/attachments/980090904394219562/1004271208226881606/1.png',
+                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271284735193139/4.png',
+                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271240271376385/4.png',
+                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271430722146345/3.png'];
+
+    // 키 입력 받을 시 이미지
+    this.currentImage = new Image();
+    this.currentImage.src = this.asset[0];
+}
+
+  pushplayers(){
+    this.users.forEach((e, i) => {
+      if(e.id !==null) {
+        let player = new PlayerBall(e.id, e.nick);
+        players[e.id].push(player);
+      }
+    });
+  }
+  
   deleteUser(id, j) {
     let a = 0;
-      if(this.players[j].id === id)
-        this.players.splice(j, 1, { id: null, nick: null, score: null });
-    this.players.forEach((player, index) => { if(player.id == null) a++;  });
+      if(this.users[j].id === id)
+        this.users.splice(j, 1, { id: null, nick: null, score: null });
+    this.users.forEach((player, index) => { if(player.id == null) a++;  });
         if(a == 6) return true;
   }
   // 라운드별로 userroom 객체내의 탈락한 player들을 null 입력
   get userid() {
-    const playersId = this.players.map((players) => players.id);
-    return playersId;
+    const usersId = this.users.map((user) => user.id);
+    return usersId;
+  }
+
+  get userinfo(){
+    return users;
   }
   // 매칭시 player1~6까지 null이 있는지 체크, null이 없다면 false반환
   insertuserid(data) {
     const { id, roomid, nick, score } = data;
     for(let i = 0 ; i < 6 ; i++) {
-      if(this.roomCode != null && this.players[5].id != null) {
+      if(this.roomCode != null && this.users[5].id != null) {
         console.log('여기 들어왔다구');
         return false;
-      }else if (this.roomCode != null && this.players[i].id == null) {
-        this.players.splice(i, 1, { id: id, nick: nick, score: score });
+      }else if (this.roomCode != null && this.users[i].id == null) {
+        this.users.splice(i, 1, { id: id, nick: nick, score: score });
         return true;
       }else if (this.roomCode == null) {
-        this.players.splice(i, 1, { id: id, nick: nick, score: score });
+        this.users.splice(i, 1, { id: id, nick: nick, score: score });
         return true;
       }
     }
@@ -145,70 +189,65 @@ io.on('connection', function(socket) {
     if(array.length >= 2 && room[userroomcnt].check != 's') //방안에 유저가 있는 게 확인 되었을 때 그 방안의 인원을 체크하는 코드
     {
       console.log('유저 인원체크 완료');
-      io.sockets.to(room[userroomcnt].roomCode).emit('gamestart');
-      for(let t = 0 ; t < checkid.length ; t++) {
-      //io.sockets.to(room[i].roomCode).emit('join_user', {
-          io.emit('join_user', {
-            id: checkid[t],
-            x: 1024/2,
-            y: 768/2,
-            color : getPlayerColor()
-          });
-          console.log('유저 데이터 전송완료');
-        }
+      room[userroomcnt].pushplayers();
+      // json 객체 변수
+      io.sockets.to(room[userroomcnt].roomCode).emit('gamestart', //객체 변수);
+      
       room[userroomcnt].check = 's';
-      CreateRoom();
+      CreateRoom(false);
     }
     else if(array.length < 2){
       socket.emit('matchfail', roomout(id));
     }
   }
 
-  socket.on('matchStart', function(data) {  // 매칭 하기 버튼
-    for (let i = 0; i < room.length; i++) {
-      if(room[i].check == 'm') {
-        roomcnt = i;                
-        }
-      else if(room[i].check == '') {
-        roomcnt = i;
-        }
-      else {
-        roomcnt = room.length - 1;
-      }
-    
-      if(room[roomcnt].roomCode == null && room[roomcnt].check == '')
-        {
-          room[roomcnt].check = 'm';
-          room[roomcnt].insertuserid(data)
-          room[roomcnt].roomCode = data.roomid;
-          socket.join(room[roomcnt].roomCode);
-          console.log('처음 방이 만들어졌습니다.  //' + '  방코드 : ' + room[roomcnt].roomCode);
-          console.log('[matchStart] 들어간 유저 정보 : ' + room[roomcnt].userid);
-          break;
-        }
-        else if(room[roomcnt].insertuserid(data) && room[roomcnt].check == 'm')
-        {
-          socket.join(room[roomcnt].roomCode);
-          console.log('매칭 유저가 추가되었습니다.  //' + '  방코드 : ' + room[roomcnt].roomCode);
-          console.log('[matchStart] 들어간 유저 정보 : ' + room[roomcnt].userid);
-          break;
-        }
-      // 방에 6명이 있고 방이 없을 경우 방을 생성하는 if문
-      else if(!(room[roomcnt].insertuserid(data)) && room[roomcnt].check == 'm' && room[roomcnt].alreadyUser == false)  //6명 매칭 중일때 // match time over는 게임중일때만 온다
-        {
-          roomcnt = room.length;
-          room[roomcnt] = new userroom(); // boolean = createroom return true 
-          room[roomcnt].check = 'm';
-          room[roomcnt].roomCode = data.roomid;
-          socket.join(room[roomcnt].roomCode);
-          room[roomcnt].insertuserid(data);
-          console.log('다음 방이 만들어졌습니다.  //' + '  방코드 : ' + room[roomcnt].roomCode);
-          console.log('[matchStart] 들어간 유저 정보 : ' + room[roomcnt].userid);
-          break;
-        }
+  function insert(key, data) { //매칭, 방만들기, joinroom 
+    let {id, roomid, nick, score} = data; //유저 데이터
+    const roomcnt = room.findIndex((e) => e.check === 'm'); //매칭중인 방의 인덱스
+    roomcnt = roomcnt == -1 ? room.findIndex((e) => e.check === '') : roomcnt;
+    let ck, Index, roomcode; //삽입될 데이터들
+    console.log(`[matchstart] 매칭 , 처음 입장 체크 코드 : ${roomcnt}`);
+    switch(key) { //함수 실행시 매칭, 방만들기, 방입장 3개중 어떤 것인지 체크
+      case 'p':
+        CreateRoom(false);
+        Index = room.length - 1;
+        ck = 'p';
+        console.log(`[createroom] 만들어진 방 check 변수 : ${room.check}`);
+        break;
+      case 'm': //처음들어온 사람은 무조건 index -1
+        CreateRoom(true);
+        Index = roomcnt;
+        ck = 'm';
+        if(room[Index].roomCode !== null) roomid = room[Index].roomCode;
+        console.log(`[matchstart] 삽입될 데이터 정보 : ${Index} , ${roomid}`);
+        break;
+      case 'j':
+        Index = room.findIndex((e) => e.roomCode == roomid);
+        ck = 'p';
+        console.log(`[joinroom] 들어갈 방 코드 확인 여부 : ${Index}`);
+        break;
     }
+      try {
+        if(room[Index].check !== 's') {
+          console.log(`[Index 확인 완료]`);
+          room[Index].check = ck;
+          console.log(`[Check 데이터] : ${room[Index].check}`);
+          room[Index].roomCode = roomid;
+          console.log(`[roomCode 데이터] : ${room[Index].roomCode}`);
+          socket.join(room[Index].roomCode);
+          console.log(`[join 데이터] : ${socket.rooms}`);
+          room[Index].insertuserid(data);
+          console.log(`[insertuserid 데이터] : ${room[Index].userid}`);
+        }
+      } catch {
+        socket.emit('joinfail');
+        console.log(`[조인실패]`)
+      } 
+  }  
+  
+  socket.on('matchStart', function(data) { 
+    insert('m', data);
   });
-
 
   socket.on('matchtimeover', function(id) { //매칭 종료버튼, 매칭 타이머 초과 시 받는 정보
     gamestart(id);
@@ -221,29 +260,13 @@ io.on('connection', function(socket) {
   })
 
   socket.on('createroom', function (data) { // data {id, roomid, nick, score}
-    const {id, roomid, nick, score} = data;
-    CreateRoom(false); // false > 방 생성
-    room[room.length - 1].check = 'p';
-    room[room.length - 1].roomCode = roomid;
-    socket.join(room[room.length - 1].roomCode);
-    room[room.length - 1].insertuserid(data);
-    console.log('방 생성 완료' + id + ' / ' + roomid);
-    console.log(socket.rooms);
-    console.log('[createroom] 들어간 유저 정보 : ' + room[room.length - 1].userid);
+    insert('p', data);
+    socket.emit('createsuccess', room[room.length - 1].userinfo);    // 방만들기 창 업데이트
   })
   
   socket.on('joinroom', function (data) {    // data {id, roomid, nick, score}
-    for(let i = 0; i < room.length ; i++) {
-      console.log('들어갈려는 방 코드 : ' + room[i].roomCode + ' / ' + '입력받은 방 코드 : ' + data.roomid);
-        if(room[i].roomCode == data.roomid) {
-          socket.join(data.roomid);
-          room[i].insertuserid(data);
-          console.log(socket.rooms);
-          console.log('[joinroom] 들어간 유저 정보 : ' + room[i].userid);
-          break;
-        }
-        else socket.emit('joinfail');
-      }
+    insert('j', data);  
+    io.to(room[i].roomCode).emit('joinsuccess', room[i].userinfo);
   })
 
   socket.on('startgame', function(id) { // 방안에서 게임 시작 버튼
@@ -259,7 +282,6 @@ io.on('connection', function(socket) {
               y: data.y,
           })
   })
-
 //-----------------------------------------------index-------------------------------------------------------------
 });
 

@@ -36,6 +36,7 @@ Jroombtn.addEventListener('click', function () {
 console.log('join room 눌림');
   if(rmcodetxt.value == null || rmcodetxt.value == '')
     alert('방 코드를 입력해주세요\n' + '입력받은 방코드 : ' + rmcodetxt.value)
+  if(nickname.value == null || nickname.value == undefined || nickname.value == '') nickname = "Player" + Math.floor(Math.Random()*100+1)
 socket.emit('joinroom', {
   id : myId, 
   roomid : rmcodetxt.value,
@@ -63,45 +64,10 @@ socket.on('user_id', function(data){
   myId = data;
 })
 
-// socket.on('matchsuccess', function() {
-// var ajaxOption = {
-//       url : "/gamebase",
-//       async : true,
-//       type : "GET",
-//       dataType : "html",
-//       cache : false
-// };
-
-// $.ajax(ajaxOption).success(function(url){
-//   // Contents 영역 삭제
-//   $('#main').children().remove();
-//   // Contents 영역 교체
-//   $('#main').html(url);
-// });
-// })
-
 socket.on('gamestart', function() {
   console.log('게임 스타트');
   //$('#main').load('/gamebase.html');
-  $('#main').load('/game/space_race/space_race.html');
-// var ajaxOption = {
-//       url : "./game/space_race/index.html",
-//       async : true,
-//       type : "GET", 
-//       dataType : "html",
-//       cache : false
-// };
-
-// $.ajax(ajaxOption).success(function(url){
-//   // Contents 영역 삭제
-//   $('#main').children().remove();
-//   // Contents 영역 교체
-//   try {
-//     $('#main').html(url);
-//   }catch {
-//     console.log('안됨');
-//   }
-// });
+  $('#main').load('/views/space_race/space_race.html');
 })
 
 function match(e) {
@@ -118,8 +84,6 @@ socket.emit("matchStart", {
 });
 console.log("매치 시작 보냈다?");
 setTimeout(()=>{
-  // gif 없앤다
-  socket.emit('matchtimeover', myId);    
-  // 15초후 서버에 타임오버 메시지
+  socket.emit('matchtimeover', myId);
   }, 15000)
 }

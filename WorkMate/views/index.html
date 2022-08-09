@@ -9,25 +9,8 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-3.5.0.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.4.2/lib/p5.js"></script>
-		<script type="text/javascript" language = "javascript">
-      function hideAddressBar()
-      {
-        if(!window.location.hash)
-        {
-            if(document.height < window.outerHeight)
-            {
-                document.body.style.height = (window.outerHeight + 50) + 'px';
-            }
-      
-            setTimeout( function(){ window.scrollTo(0, 1); }, 50 );
-        }
-      }
-
-      window.addEventListener("load", function(){ if(!window.pageYOffset){ hideAddressBar(); } } );
-      window.addEventListener("orientationchange", hideAddressBar );
-    </script>
 </head>
-<body onload = "setTimeout(function() {window.scrollTo(0, 1)}, 100)">
+<body>
 
 <div id="main">
 
