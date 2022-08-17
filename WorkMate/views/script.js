@@ -59,8 +59,8 @@ Jroombtn.addEventListener('click', function () {
   toggleRoom2();
 })
 
-socket.on('joinsuccess', ()=>{
-  readercode.innerText = rmcodetxt.value;
+socket.on('joinsuccess', (data)=>{
+  readercode.innerText = data.roomCode;
 })
 socket.on('joinfail', ()=>{
   alert('올바른 코드를 입력해주세요!');

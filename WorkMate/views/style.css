@@ -121,17 +121,17 @@ body
 
 .in_slot_name
 {
-  position: absolute;
+  display: inline-block;
   margin : 15, auto;
 }
 
 .in_slot_img
 {
-  position: absolute;
+  display: inline-block;
   margin : 10, auto;
   background-image: url("https://cdn.discordapp.com/attachments/896478465237348402/1006409267257024614/1.png");
   background-size: cover;
   background-repeat: no-repeat ;
-  width: 70%;
-  height: 60%;
+  width: 50px;
+  height: 100px;
 }

@@ -77,7 +77,11 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   }
 
   game(){
-    return this.gameName
+    if(gameName.length > 0) {
+      const select = this.gameName[Math.floor(Math.random() * gameName.length)];
+      console.log(select);
+      return select;      
+    } else console.log(`모든 라운드 종료`);
   }
   
   // 플레이어 정보 입력
@@ -203,7 +207,7 @@ io.on('connection', function(socket) {
         room[userroomcnt].pushplayers();
         let userinfo
         // json 객체 변수
-        io.sockets.to(room[userroomcnt].roomCode).emit('gamestart', room[userroomcnt].game);//객체 변수
+        io.sockets.to(room[userroomcnt].roomCode).emit('gamestart', room[userroomcnt].game());//객체 변수
         
         room[userroomcnt].check = 's';
         CreateRoom(false);
@@ -282,7 +286,10 @@ io.on('connection', function(socket) {
   socket.on('joinroom', function (data) {    // data {id, roomid, nick, score}
     insert('j', data);  
     let index = getRoomIndex(data.id);
-    io.to(room[index].roomCode).emit('joinsuccess', room[index].userinfo);
+    io.to(room[index].roomCode).emit('joinsuccess', {
+      userinfo : room[index].userinfo,
+      roomcode : room[index].roomCode
+    });
   })
 
   socket.on('startgame', function(id) { // 방안에서 게임 시작 버튼
