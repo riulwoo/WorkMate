@@ -160,10 +160,14 @@ io.on('connection', function(socket) {
   socket.emit('user_id', socket.id);
 
   function CreateRoom(key) { //방의 조건을 확인해서 방을 만들어주는 함수
-    const check = room[room.length - 1].check;
-    const data = room[room.length - 1].userid.filter((_null) => {
-      if(_null != null) return _null;
-    }) 
+    try {
+      const check = room[room.length - 1].check;
+      const data = room[room.length - 1].userid.filter((_null) => {
+        if(_null != null) return _null;
+      }) 
+    } catch {
+      room[0] = new userroom();
+    }
     return check == '' || (data.length != 6 && check == 'm' && key)  ?  true : room[room.length] = new userroom();
   }
 
