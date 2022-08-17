@@ -189,7 +189,6 @@ io.on('connection', function(socket) {
             if(index !== uIndex) return room;
           })
           room = temproom;
-          break;
         }
     }
   }//function

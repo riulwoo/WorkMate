@@ -38,6 +38,7 @@ Croombtn.addEventListener("click", function () {
 socket.on('createsuccess',()=>{
   toggleRoom();
   let slot = document.querySelectorAll(".slot")
+  
 })
 
 Jroombtn.addEventListener('click', function () {
