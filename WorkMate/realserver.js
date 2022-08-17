@@ -68,7 +68,6 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   constructor(){
     this.check = '';              // 생성된 방이 matching 인지 private인지 체크
     this.roomCode = null;         // 방 코드
-    this.roundCheck = -1;         // 라운드 구별 변수
     this.gameName = ['ox', 'space', 'flipOver'];   // 게임배열 랜덤으로 게임을 시작하기위한 변수
     this.users = [];          // 플레이어 1~6명의 정보
     for (let i = 0; i < 6; i++) {
@@ -77,7 +76,9 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
     this.players = [];        // 실제 게임을 할 플레이어 정보
   }
 
-  game
+  game(){
+    return this.gameName
+  }
   
   // 플레이어 정보 입력
   pushplayers(){
@@ -202,8 +203,8 @@ io.on('connection', function(socket) {
         room[userroomcnt].pushplayers();
         let userinfo
         // json 객체 변수
-        io.sockets.to(room[userroomcnt].roomCode).emit('gamestart');//객체 변수
-      
+        io.sockets.to(room[userroomcnt].roomCode).emit('gamestart', room[userroomcnt].game);//객체 변수
+        
         room[userroomcnt].check = 's';
         CreateRoom(false);
       }
@@ -276,7 +277,6 @@ io.on('connection', function(socket) {
 
   socket.on('createroom', function (data) { // data {id, roomid, nick, score}
     insert('p', data);
-    socket.emit('createsuccess');
   })
   
   socket.on('joinroom', function (data) {    // data {id, roomid, nick, score}

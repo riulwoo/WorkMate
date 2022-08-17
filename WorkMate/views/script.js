@@ -34,9 +34,6 @@ Croombtn.addEventListener("click", function () {
     nick : nickname.value,
     score : 0
   }); 
-})
-
-socket.on('createsuccess',()=>{
   toggleRoom();
   let slot = document.querySelectorAll(".slot")
   let name = document.createElement('div')
@@ -58,11 +55,11 @@ Jroombtn.addEventListener('click', function () {
     nick : nickname.value,
     score : 0
   }); 
+  toggleRoom();
+  toggleRoom2();
 })
 
 socket.on('joinsuccess', ()=>{
-  toggleRoom();
-  toggleRoom2();
   readercode.innerText = rmcodetxt.value;
 })
 socket.on('joinfail', ()=>{
