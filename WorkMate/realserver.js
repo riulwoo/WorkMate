@@ -168,6 +168,10 @@ io.on('connection', function(socket) {
       }) 
     } catch {
       room[0] = new userroom();
+      check = room[room.length - 1].check;
+      data = room[room.length - 1].userid.filter((_null) => {
+        if(_null != null) return _null;
+      })
     }
     return check == '' || (data.length != 6 && check == 'm' && key)  ?  true : room[room.length] = new userroom();
   }
