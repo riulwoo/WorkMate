@@ -179,7 +179,7 @@ io.on('connection', function(socket) {
       socket.leave(room[index].roomCode);
       for(let i = 0; i < 6; i++) {
         if(room[index].deleteUser(id, i)) {
-          const temproom = room.filter((room, index) => {
+          const temproom = room.filter((room, index) => { // 게임종료 중간에 다나갔을때 매칭실패
             if(index !== i) return room;
           })
           room = temproom;
@@ -187,7 +187,7 @@ io.on('connection', function(socket) {
         }
       } //for
     }// if
-  }//fun
+  }//function
 
   function gamestart(id) {
     let userroomcnt = getRoomIndex(id);
