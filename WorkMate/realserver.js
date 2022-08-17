@@ -173,6 +173,7 @@ io.on('connection', function(socket) {
       data = room[room.length - 1].userid.filter((_null) => {
         if(_null != null) return _null;
       })
+      if(room[0].check == '')
       console.log(`방생성 완료!! ${room[0].check}`);
     }
     return check == '' || (data.length != 6 && check == 'm' && key)  ?  true : room[room.length] = new userroom();
@@ -283,12 +284,12 @@ io.on('connection', function(socket) {
 
   socket.on('createroom', function (data) { // data {id, roomid, nick, score}
     insert('p', data);
-    socket.emit('createsuccess', room[room.length - 1].userinfo);    // 방만들기 창 업데이트
+    //socket.emit('createsuccess', room[room.length - 1].userinfo);    // 방만들기 창 업데이트
   })
   
   socket.on('joinroom', function (data) {    // data {id, roomid, nick, score}
     insert('j', data);  
-    io.to(room[i].roomCode).emit('joinsuccess', room[i].userinfo);
+    //io.to(room[i].roomCode).emit('joinsuccess', room[i].userinfo);
   })
 
   socket.on('startgame', function(id) { // 방안에서 게임 시작 버튼
