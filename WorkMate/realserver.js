@@ -69,15 +69,15 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
     this.check = '';              // 생성된 방이 matching 인지 private인지 체크
     this.roomCode = null;         // 방 코드
     this.roundCheck = -1;         // 라운드 구별 변수
-    this.gameName = ['null', 'null', 'null'];                // 게임배열 랜덤으로 게임을 시작하기위한 변수
+    this.gameName = ['ox', 'space', 'flipOver'];   // 게임배열 랜덤으로 게임을 시작하기위한 변수
     this.users = [];          // 플레이어 1~6명의 정보
     for (let i = 0; i < 6; i++) {
       this.users.push({ id: null, nick: null, score: null });
     }
     this.players = [];        // 실제 게임을 할 플레이어 정보
   }
-  // room[roomcnt].players.push(room[roomcnt].PlayerBall(id,nick))
-  // 변수.players[]
+
+  game
   
   // 플레이어 정보 입력
   pushplayers(){
@@ -141,7 +141,7 @@ io.on('connection', function(socket) {
   socket.on('disconnect', function(reason){
     console.log(`${socket.id}님이 %{reason}의 이유로 퇴장하셨습니다.`)
     roomout(socket.id);
-    for( let i = 0; i < room.length; i++) {
+    for(let i = 0; i < room.length; i++) {
       console.log('[matchcancel] leave 후 조인 방 정보 : ' + i + ' [ ' + room[i].roomCode + ' ] ');
       console.log('[matchcancel] 유저 정보삭제 후 정보 : '+ i + ' [ ' + room[i].userid + ' ] ');
       console.log('[matchcancel]  : '+ i + ' [ ' + room[i].check + ' ] ');
@@ -200,6 +200,7 @@ io.on('connection', function(socket) {
       if(array.length >= 2 && room[userroomcnt].check != 's') {//방안에 유저가 있는 게 확인 되었을 때 그 방안의 인원을 체크하는 코드
         console.log('유저 인원체크 완료');
         room[userroomcnt].pushplayers();
+        let userinfo
         // json 객체 변수
         io.sockets.to(room[userroomcnt].roomCode).emit('gamestart');//객체 변수
       

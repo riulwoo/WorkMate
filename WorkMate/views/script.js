@@ -5,6 +5,7 @@ var Jroombtn = document.getElementById("joinroom"); //방 입장 버튼
 var start = document.getElementById("start"); //게임 시작 버튼
 var nickname = document.getElementById("nick"); // 닉네임
 var rmcodetxt = document.getElementById("roomcode"); // 입력받은 룸 코드
+let readercode = document.getElementById("readerCode");
 var roomid = '';
 var a = 1;
   
@@ -24,7 +25,7 @@ var socket = io();
 Matchbtn.addEventListener("click", match);
 Croombtn.addEventListener("click", function () {
   roomid = (new Date().getTime() + Math.random()).toString(36).substring(2,7);
-  let readercode = document.getElementById("readerCode");
+  
   readercode.innerText = roomid;
   console.log("create room 눌림 " + myId + roomid + ' ' + nickname.value);
   socket.emit('createroom', {
@@ -47,21 +48,22 @@ socket.on('createsuccess',()=>{
 })
 
 Jroombtn.addEventListener('click', function () {
-console.log('join room 눌림');
+  console.log('join room 눌림');
   if(rmcodetxt.value == null || rmcodetxt.value == '')
     alert('방 코드를 입력해주세요\n' + '입력받은 방코드 : ' + rmcodetxt.value)
   if(nickname.value == null || nickname.value == undefined || nickname.value == '') nickname = "Player" + Math.floor(Math.random()*100+1)
-socket.emit('joinroom', {
-  id : myId, 
-  roomid : rmcodetxt.value,
-  nick : nickname.value,
-  score : 0
-}); 
+  socket.emit('joinroom', {
+    id : myId, 
+    roomid : rmcodetxt.value,
+    nick : nickname.value,
+    score : 0
+  }); 
 })
 
 socket.on('joinsuccess', ()=>{
   toggleRoom();
   toggleRoom2();
+  readercode.innerText = rmcodetxt.value;
 })
 socket.on('joinfail', ()=>{
   alert('올바른 코드를 입력해주세요!');
