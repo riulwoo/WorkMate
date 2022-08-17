@@ -171,7 +171,7 @@ io.on('connection', function(socket) {
     const index = room.findIndex(e => e.userid.includes(Id));
     console.log(index);
     return index;
-  }  
+  }
   
   function roomout(id) { // 데이터 삭제 함수
     const index = getRoomIndex(id);
