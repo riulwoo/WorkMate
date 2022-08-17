@@ -236,6 +236,7 @@ io.on('connection', function(socket) {
         CreateRoom(true);
         Index = roomcnt;
         ck = 'm';
+        console.log(`방만들기 인덱스 코드 : ${Index}`);
         if(room[Index].roomCode !== null) roomid = room[Index].roomCode;
         console.log(`[matchstart] 삽입될 데이터 정보 : ${Index} , ${roomid}`);
         break;
