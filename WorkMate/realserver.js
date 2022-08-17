@@ -203,21 +203,22 @@ io.on('connection', function(socket) {
   function gamestart(id) {
     let userroomcnt = getRoomIndex(id);
     console.log(userroomcnt);
-    let array = room[userroomcnt].userid.filter((id) => id != null);
-    if(array.length >= 2 && room[userroomcnt].check != 's') //방안에 유저가 있는 게 확인 되었을 때 그 방안의 인원을 체크하는 코드
-    {
-      console.log('유저 인원체크 완료');
-      room[userroomcnt].pushplayers();
-      // json 객체 변수
-      io.sockets.to(room[userroomcnt].roomCode).emit('gamestart');//객체 변수
+    if(userroomcnt !== -1) {
+      let array = room[userroomcnt].userid.filter((id) => id != null);
+      if(array.length >= 2 && room[userroomcnt].check != 's') {//방안에 유저가 있는 게 확인 되었을 때 그 방안의 인원을 체크하는 코드
+        console.log('유저 인원체크 완료');
+        room[userroomcnt].pushplayers();
+        // json 객체 변수
+        io.sockets.to(room[userroomcnt].roomCode).emit('gamestart');//객체 변수
       
-      room[userroomcnt].check = 's';
-      CreateRoom(false);
-    }
-    else if(array.length < 2){
-      socket.emit('matchfail', roomout(id));
-    }
-  }
+        room[userroomcnt].check = 's';
+        CreateRoom(false);
+      }
+      else if(array.length < 2){
+        socket.emit('matchfail', roomout(id));
+      }//else if
+    }//if
+  }//function
 
   function insert(key, data) { //매칭, 방만들기, joinroom 
     let {id, roomid, nick, score} = data; //유저 데이터
@@ -230,7 +231,7 @@ io.on('connection', function(socket) {
         CreateRoom(false);
         Index = room.length - 1;
         ck = 'p';
-        console.log(`[createroom] 만들어진 방 check 변수 : ${room.check}`);
+        console.log(`[createroom] 만들어진 방 check 변수 : ${room[Index].check}`);
         break;
       case 'm': //처음들어온 사람은 무조건 index -1
         CreateRoom(true);
