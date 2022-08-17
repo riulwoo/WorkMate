@@ -214,10 +214,12 @@ io.on('connection', function(socket) {
         room[userroomcnt].check = 's';
         CreateRoom(false);
       }
-      else if(array.length < 2){
+      else if(array.length < 2) {
         socket.emit('matchfail', roomout(id));
       }//else if
-    }//if
+    }else {
+      socket.emit('matchfail', roomout(id));
+    }
   }//function
 
   function insert(key, data) { //매칭, 방만들기, joinroom 
