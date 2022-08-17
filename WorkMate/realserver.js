@@ -178,7 +178,8 @@ io.on('connection', function(socket) {
         const temproom = room.filter((room, index) => {
           if(index !== i) return room;
         })
-      room = temproom;
+        room = temproom;
+        break;
       }
     }
   }
