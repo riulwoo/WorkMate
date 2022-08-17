@@ -17,8 +17,16 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-app.get('/gamebase', (req, res) =>{
-  res.sendFile(__dirname + '/views/game/' + game)  // game : 랜덤한 게임의 경로를 문자열로 변수화
+app.get('/ox', (req, res) =>{
+  res.sendFile(__dirname + '/views/game/ox_game/index.html');  
+})
+
+app.get('/space', (req, res) =>{
+  res.sendFile(__dirname + '/views/game/space_race/index.html');  
+})
+
+app.get('/filpOver', (req, res) =>{
+  res.sendFile(__dirname + '/views/game/filpOver/index.html');  
 })
 
 function getPlayerColor() {
@@ -210,7 +218,7 @@ io.on('connection', function(socket) {
       if(array.length >= 2 && room[userroomcnt].check != 's') {//방안에 유저가 있는 게 확인 되었을 때 그 방안의 인원을 체크하는 코드
         console.log('유저 인원체크 완료');
         room[userroomcnt].pushplayers();
-        let userinfo
+        
         // json 객체 변수
         io.sockets.to(room[userroomcnt].roomCode).emit('gamestart', room[userroomcnt].game());//객체 변수
         

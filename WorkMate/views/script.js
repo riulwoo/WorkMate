@@ -81,10 +81,10 @@ socket.on('user_id', function(data){
   myId = data;
 })
 
-socket.on('gamestart', function() {
+socket.on('gamestart', function(data) {
   console.log('게임 스타트');
   //$('#main').load('/gamebase.html');
-  $('#main').load('/views/space_race/space_race.html');
+  $('#main').load(`/views/${data}/index.html`);
 })
 
 function match(e) {
