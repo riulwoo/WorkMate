@@ -203,7 +203,7 @@ io.on('connection', function(socket) {
 
   function insert(key, data) { //매칭, 방만들기, joinroom 
     let {id, roomid, nick, score} = data; //유저 데이터
-    const roomcnt = room.findIndex((e) => e.check === 'm'); //매칭중인 방의 인덱스
+    let roomcnt = room.findIndex((e) => e.check === 'm'); //매칭중인 방의 인덱스
     roomcnt = roomcnt == -1 ? room.findIndex((e) => e.check === '') : roomcnt;
     let ck, Index, roomcode; //삽입될 데이터들
     console.log(`[matchstart] 매칭 , 처음 입장 체크 코드 : ${roomcnt}`);
