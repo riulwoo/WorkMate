@@ -42,6 +42,26 @@ class Player {
   }
 }
 
+function PlayerBall(id, nick){
+    this.id = id;
+    this.color = "#FF00FF";
+    this.x = 1024/2;
+    this.y = 768/2;
+    if(nick == null)
+        this.nick = "player " + Math.floor(Math.random()*100);
+    else
+        this.nick = nick;
+    // 플레이어의 앞, 뒤, 왼, 오 이미지 => 현재 앞모습 이미지 밖에 없음
+    this.asset = ['https://cdn.discordapp.com/attachments/980090904394219562/1004271208226881606/1.png',
+                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271284735193139/4.png',
+                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271240271376385/4.png',
+                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271430722146345/3.png'];
+
+    // 키 입력 받을 시 이미지
+    this.currentImage = new Image();
+    this.currentImage.src = this.asset[0];
+}
+
 function joinGame(socket){    // id
     let player = new Player(socket);  // x,y, nickname
 
@@ -65,30 +85,12 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   }
   // room[roomcnt].players.push(room[roomcnt].PlayerBall(id,nick))
   // 변수.players[]
-  PlayerBall(id, nick){
-    this.id = id;
-    this.color = "#FF00FF";
-    this.x = 1024/2;
-    this.y = 768/2;
-    if(nick == null)
-        this.nick = "player " + Math.floor(Math.random()*100);
-    else
-        this.nick = nick;
-    // 플레이어의 앞, 뒤, 왼, 오 이미지 => 현재 앞모습 이미지 밖에 없음
-    this.asset = ['https://cdn.discordapp.com/attachments/980090904394219562/1004271208226881606/1.png',
-                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271284735193139/4.png',
-                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271240271376385/4.png',
-                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271430722146345/3.png'];
-
-    // 키 입력 받을 시 이미지
-    this.currentImage = new Image();
-    this.currentImage.src = this.asset[0];
-}
+  
 
   pushplayers(){
     this.users.forEach((e, i) => {
       if(e.id !==null) {
-        let player = PlayerBall(e.id, e.nick);
+        let player = new PlayerBall(e.id, e.nick);
         players[e.id].push(player);
       }
     });
