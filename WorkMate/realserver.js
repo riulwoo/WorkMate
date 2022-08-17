@@ -77,7 +77,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   }
 
   game(){
-    if(gameName.length > 0) {
+    if(this.gameName.length > 0) {
       const select = this.gameName[Math.floor(Math.random() * gameName.length)];
       console.log(select);
       return select;      
