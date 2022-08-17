@@ -88,7 +88,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   pushplayers(){
     this.users.forEach((e, i) => {
       if(e.id !==null) {
-        let player = new PlayerBall(e.id, e.nick);
+        let player = PlayerBall(e.id, e.nick);
         players[e.id].push(player);
       }
     });
@@ -167,6 +167,7 @@ io.on('connection', function(socket) {
 
   function getRoomIndex(Id) { //현재 내가 어떤 방에 들어가있는지 체크하는 함수
     const index = room.findIndex(e => e.userid.includes(Id));
+    console.log(index);
     return index;
   }  
   
