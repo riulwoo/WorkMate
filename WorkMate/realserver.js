@@ -227,7 +227,6 @@ io.on('connection', function(socket) {
     let {id, roomid, nick, score} = data; //유저 데이터
     let roomcnt = room.findIndex((e) => e.check === 'm'); //매칭중인 방의 인덱스
     console.log(`[matchstart] 매칭 , 처음 입장 체크 코드 : ${roomcnt}`);
-    roomcnt = roomcnt == -1 ? 100 : roomcnt;
     let ck, Index, roomcode; //삽입될 데이터들
     switch(key) { //함수 실행시 매칭, 방만들기, 방입장 3개중 어떤 것인지 체크
       case 'p':
@@ -238,6 +237,7 @@ io.on('connection', function(socket) {
         break;
       case 'm': //처음들어온 사람은 무조건 index -1
         CreateRoom(true);
+        roomcnt = roomcnt == -1 ? room.findIndex((e) => e.check == '') : roomcnt;
         Index = roomcnt;
         ck = 'm';
         console.log(`방만들기 인덱스 코드 : ${Index}`);
