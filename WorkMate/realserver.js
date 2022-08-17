@@ -191,7 +191,7 @@ io.on('connection', function(socket) {
       console.log('유저 인원체크 완료');
       room[userroomcnt].pushplayers();
       // json 객체 변수
-      io.sockets.to(room[userroomcnt].roomCode).emit('gamestart', //객체 변수);
+      io.sockets.to(room[userroomcnt].roomCode).emit('gamestart');//객체 변수
       
       room[userroomcnt].check = 's';
       CreateRoom(false);
