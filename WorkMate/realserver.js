@@ -173,7 +173,7 @@ io.on('connection', function(socket) {
       data = room[room.length - 1].userid.filter((_null) => {
         if(_null != null) return _null;
       })
-      console.log(`방생성 완료!! ${room[0]}`);
+      console.log(`방생성 완료!! ${room[0].check}`);
     }
     return check == '' || (data.length != 6 && check == 'm' && key)  ?  true : room[room.length] = new userroom();
   }
