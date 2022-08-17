@@ -166,16 +166,6 @@ io.on('connection', function(socket) {
   }
 
   function getRoomIndex(Id) { //현재 내가 어떤 방에 들어가있는지 체크하는 함수
-    // const index = room.filter((ele_room, _index) => {
-    //   let 
-      
-    //   return _index;
-    // });
-    // console.log(index);
-    // return index;
-
-
-    // 근우
     const index = room.findIndex(e => e.userid.includes(Id));
     return index;
   }  
@@ -183,11 +173,13 @@ io.on('connection', function(socket) {
   function roomout(id) { // 데이터 삭제 함수
     const index = getRoomIndex(id);
     socket.leave(room[index].roomCode);
-    if(room[index].deleteUser(id, j)) {
-      const temproom = room.filter((room, index) => {
-        if(index !== i) return room;
-      })
-    room = temproom;
+    for(let i = 0; i < 6; i++) {
+      if(room[index].deleteUser(id, i)) {
+        const temproom = room.filter((room, index) => {
+          if(index !== i) return room;
+        })
+      room = temproom;
+      }
     }
   }
 
