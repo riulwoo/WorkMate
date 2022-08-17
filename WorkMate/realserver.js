@@ -184,6 +184,9 @@ io.on('connection', function(socket) {
         if(id === e) return i;
       })
       socket.leave(room[index].roomCode);
+      console.log(`룸인덱스 : ${index}`);
+      console.log(`유저인덱스 : ${uIndex}`);
+      console.log(`아이디 : ${id}`);
         if(room[index].deleteUser(id, uIndex)) {
           const temproom = room.filter((room, index) => {
             if(index !== uIndex) return room;

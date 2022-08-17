@@ -38,7 +38,10 @@ Croombtn.addEventListener("click", function () {
 socket.on('createsuccess',()=>{
   toggleRoom();
   let slot = document.querySelectorAll(".slot")
-  
+  let name = document.createElement('div')
+  let img = document.createElement('img')
+  name.classList.add('in_slot');
+  img.src = 
 })
 
 Jroombtn.addEventListener('click', function () {
