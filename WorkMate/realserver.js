@@ -177,6 +177,7 @@ io.on('connection', function(socket) {
 
     // 근우
     const index = room.findIndex(e => e.userid.includes(Id));
+    return index;
   }  
   
   function roomout(id) { // 데이터 삭제 함수
