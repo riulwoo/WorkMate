@@ -79,9 +79,10 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   game(){
     if(this.gameName.length > 0) {
       const select = this.gameName[Math.floor(Math.random() * this.gameName.length)];
-      this.gameName.filter((e, i) => {
+      const result = this.gameName.filter((e, i) => {
        if(this.gameName !== select) return e; 
-      })
+      });
+      this.gameName = result;
       console.log(`방에 저장된 게임 목록 : ${this.gameName}`);
       console.log(`선택된 게임 : ${select}`);
       return select;
