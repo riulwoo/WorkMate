@@ -86,3 +86,21 @@ setTimeout(()=>{
   socket.emit('matchtimeover', myId);
   }, 15000)
 }
+
+function toggleRoom() {
+  var x = document.getElementById("room");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+	
+function toggleRoom2() {
+  var x = document.getElementById("room2");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}

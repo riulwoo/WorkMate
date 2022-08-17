@@ -81,7 +81,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
     for (let i = 0; i < 6; i++) {
       this.users.push({ id: null, nick: null, score: null });
     }
-    this.players = [];
+    this.players = [];        // 실제 게임을 할 플레이어 정보
   }
   // room[roomcnt].players.push(room[roomcnt].PlayerBall(id,nick))
   // 변수.players[]
@@ -91,7 +91,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
     this.users.forEach((e, i) => {
       if(e.id !==null) {
         let player = new PlayerBall(e.id, e.nick);
-        this.players[e.id].push(player);
+        this.players[e.id] = player;
       }
     });
   }

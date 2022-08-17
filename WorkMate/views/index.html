@@ -13,19 +13,67 @@
 <body>
 
 <div id="main">
+  <input type="text" id="nick" placeholder = "닉네임을 입력해주세요"/>
+		<div class="half" id="upper-half">
+			<div class="inner" id="logo">
+			</div>
+		</div>
+		<div class="half" id="lower-half">
+			<div class="inner" id="menu">
+				<button id="matchStart" value="매칭하기"></button>
+				<button id="createroom" value="방만들기" onclick="toggleRoom()"></button>
+				<button onclick="toggleRoom2()">
+					입장하기
+				</button>
+			</div>
+		</div>
+			
+			
+			<input type="button" id="joinroom" value="입장하기">
+			
+      <div class="room" id="room">
+			<div class="roomTop">
+				입장 코드<br>
+				<b><span id="roomCode"></span></b>
+			</div>
+			<div class="players">
+				<div class="slot">
+				</div>
+				
+				<div class="slot">
+				</div>
+				
+				<div class="slot">
+				</div>
+				
+				<div class="slot">
+				</div>
+				
+				<div class="slot">
+				</div>
+				
+				<div class="slot">
+				</div>
+			</div>
+			<div class="roomBottom">
+			  <button id="start" value="게임시작"></button>
+        <button id="matchcancel" value="나가기" onclick="toggleRoom()"></button>
+			</div>
+		</div>
 
-	<input type="text" id="nick" placeholder = "닉네임을 입력해주세요"/>
-	<input type="text" id="roomcode"/>
-	<div id="center">
-		<div id="inner">
-			<div id="logo">
+		<div class="room" id="room2">
+			<div class="roomTop">
+				입장 코드<br>
+				
 				
 			</div>
-			<input type="button" id="matchStart" value="매칭하기">
-			<input type="button" id="createroom" value="방만들기">
-			<input type="button" id="joinroom" value="입장하기">
-			<input type="button" id="start" value="게임시작">
-			<input type="button" id="matchcancel" value="나가기">
+			<input type="text" id="roomcode"/></br>
+			<div class="roomBottom">
+        <input type="button" id="joinroom" value="입장하기">
+			<button onclick="toggleRoom();toggleRoom2();">입장하기</button>
+			<button onclick="toggleRoom2()">취소</button>
+			</div>
+		</div>
 		</div>
 	</div>
 	
