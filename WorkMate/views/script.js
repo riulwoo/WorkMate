@@ -60,7 +60,7 @@ Jroombtn.addEventListener('click', function () {
 })
 
 socket.on('joinsuccess', (data)=>{
-  readercode.innerText = data.roomCode;
+  readercode.innerText = data.roomcode;
 })
 socket.on('joinfail', ()=>{
   alert('올바른 코드를 입력해주세요!');

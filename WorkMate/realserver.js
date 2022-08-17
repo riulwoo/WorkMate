@@ -78,7 +78,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
 
   game(){
     if(this.gameName.length > 0) {
-      const select = this.gameName[Math.floor(Math.random() * gameName.length)];
+      const select = this.gameName[Math.floor(Math.random() * this.gameName.length)];
       console.log(select);
       return select;      
     } else console.log(`모든 라운드 종료`);
