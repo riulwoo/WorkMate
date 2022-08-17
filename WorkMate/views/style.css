@@ -1,120 +1,133 @@
 html
-		{
-			height: 100vh;
-			width: 100%;
-		}
-		body
-		{
-			margin: 0px;
-			height: 100%;
-			width: 100%;
-			background-image: url("https://cdn.discordapp.com/attachments/980090904394219562/980091276286365706/office.png");
-			background-size: cover;
-			background-position: center;
-		}
-		#main
-		{
-			width: 100%;
-			height: 100%;
-		}
-		.half
-		{
-			height: 50%;
-			width: 100%;
-		}
-		.inner
-		{
-			position: absolute;
-			width: 50%;
-			max-width: 50%;
-			height: 25%;
-			max-height: 25%;
-			left: 50%;
-			top: 25%;
-			transform: translate(-50%, -50%);
-		}
-		#logo
-		{
-			background-image: url("https://cdn.discordapp.com/attachments/980090904394219562/980091289414557736/logo.png");
-			background-size: contain;
-			background-repeat: no-repeat;
-			background-position: center;
-		}
-		#menu
-		{
-			top: 62.5%;
-		}
-		.inner > button
-		{
-			width: 100px;
-			height: 60px;
-			border-radius: 10px;
-			display: block;
-			margin-top: 10px;
-			margin-left: 50%;
-			transform: translate(-50%, 0%);
-		}
-		.room
-		{
-			position: absolute;
-			width: 75%;
-			height: 75%;
-			left:50%;top:50%;
-			transform: translate(-50%, -50%);
-			display: none;
-			background-color: white;
-			border: 3px solid black;
-			border-radius: 10px;
-			text-align: center;
-		}
-		.room input
-		{
-			border: 1px solid black;
-			border-radius: 3px;
-			text-align: center;
-		}
-		
-		#room2 {
-			width: 25%;
-			height: 25%;
-		}
-		#room2 input
-		{
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			width: 50%;
-			height: 25%;
-			transform: translate(-50%, -50%);
-			font-size: 20px;
-		}
-		.roomTop
-		{
-			position: absolute;
-			top: 12.5%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-		}
-		.roomBottom
-		{
-			position: absolute;
-			top: 87.5%;
-			left: 50%;
-			width: 100%;
-			transform: translate(-50%, -50%);
-		}
-		.players
-		{
-			height: 50%;
-			width: 100%;
-			position: absolute;
-			top: 25%;
-		}
-		.slot
-		{
-			border: 1px solid black;
-			border-radius: 3px;
-			height: 100%;
-			width: 15%;
-			display: inline-block;
-		}
+{
+  height: 100vh;
+  width: 100%;
+}
+body
+{
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+  background-image: url("https://cdn.discordapp.com/attachments/980090904394219562/980091276286365706/office.png");
+  background-size: cover;
+  background-position: center;
+}
+#main
+{
+  width: 100%;
+  height: 100%;
+}
+.half
+{
+  height: 50%;
+  width: 100%;
+}
+.inner
+{
+  position: absolute;
+  width: 50%;
+  max-width: 50%;
+  height: 25%;
+  max-height: 25%;
+  left: 50%;
+  top: 25%;
+  transform: translate(-50%, -50%);
+}
+#logo
+{
+  background-image: url("https://cdn.discordapp.com/attachments/980090904394219562/980091289414557736/logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#menu
+{
+  top: 62.5%;
+}
+.inner > button
+{
+  width: 100px;
+  height: 60px;
+  border-radius: 10px;
+  display: block;
+  margin-top: 10px;
+  margin-left: 50%;
+  transform: translate(-50%, 0%);
+}
+.room
+{
+  position: absolute;
+  width: 75%;
+  height: 75%;
+  left:50%;top:50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  background-color: white;
+  border: 3px solid black;
+  border-radius: 10px;
+  text-align: center;
+}
+.room input
+{
+  border: 1px solid black;
+  border-radius: 3px;
+  text-align: center;
+}
+
+#room2 {
+  width: 25%;
+  height: 25%;
+}
+#room2 input
+{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  height: 25%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+}
+.roomTop
+{
+  position: absolute;
+  top: 12.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.roomBottom
+{
+  position: absolute;
+  top: 87.5%;
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, -50%);
+}
+.players
+{
+  height: 50%;
+  width: 100%;
+  position: absolute;
+  top: 25%;
+}
+.slot
+{
+  border: 1px solid black;
+  border-radius: 3px;
+  height: 100%;
+  width: 15%;
+  display: inline-block;
+}
+
+.in_slot_name{
+  margin : 15, auto;
+}
+
+.in_slot_img{
+  margin : 10, auto;
+  background-image: url("https://cdn.discordapp.com/attachments/896478465237348402/1006409267257024614/1.png");
+  background-size: cover;
+  background-repeat: no-repeat ;
+  width: 70%;
+  height: 60%;
+}

@@ -40,8 +40,10 @@ socket.on('createsuccess',()=>{
   let slot = document.querySelectorAll(".slot")
   let name = document.createElement('div')
   let img = document.createElement('img')
-  name.classList.add('in_slot');
-  img.src = 
+  name.classList.add('in_slot_name');
+  img.classList.add('in_slot_img');
+  slot[0].appendChild(name);
+  slot[0].appendChild(img);
 })
 
 Jroombtn.addEventListener('click', function () {
