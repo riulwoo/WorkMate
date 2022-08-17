@@ -91,7 +91,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
     this.users.forEach((e, i) => {
       if(e.id !==null) {
         let player = new PlayerBall(e.id, e.nick);
-        players[e.id].push(player);
+        this.players[e.id].push(player);
       }
     });
   }
