@@ -175,17 +175,19 @@ io.on('connection', function(socket) {
   
   function roomout(id) { // 데이터 삭제 함수
     const index = getRoomIndex(id);
-    socket.leave(room[index].roomCode);
-    for(let i = 0; i < 6; i++) {
-      if(room[index].deleteUser(id, i)) {
-        const temproom = room.filter((room, index) => {
-          if(index !== i) return room;
-        })
-        room = temproom;
-        break;
-      }
-    }
-  }
+    if(index !== -1) {
+      socket.leave(room[index].roomCode);
+      for(let i = 0; i < 6; i++) {
+        if(room[index].deleteUser(id, i)) {
+          const temproom = room.filter((room, index) => {
+            if(index !== i) return room;
+          })
+          room = temproom;
+          break;
+        }
+      } //for
+    }// if
+  }//fun
 
   function gamestart(id) {
     let userroomcnt = getRoomIndex(id);
