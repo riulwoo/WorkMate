@@ -218,10 +218,8 @@ io.on('connection', function(socket) {
       if(array.length >= 2 && room[userroomcnt].check != 's') {//방안에 유저가 있는 게 확인 되었을 때 그 방안의 인원을 체크하는 코드
         console.log('유저 인원체크 완료');
         room[userroomcnt].pushplayers();
-        
         // json 객체 변수
-        io.sockets.to(room[userroomcnt].roomCode).emit('gamestart', room[userroomcnt].game());//객체 변수
-        
+        io.to(room[userroomcnt].roomCode).emit('gamestart', room[userroomcnt].game());//객체 변수
         room[userroomcnt].check = 's';
         CreateRoom(false);
       }

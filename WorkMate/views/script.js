@@ -84,14 +84,15 @@ socket.on('user_id', function(data){
 socket.on('gamestart', function(data) {
   console.log('게임 스타트');
   //$('#main').load('/gamebase.html');
+  toggleRoom();
   $('#main').load(`/views/${data}/index.html`);
+  
 })
 
 function match(e) {
   let player = userinfo[myId];        // 자신의 정보불러옴
   let nickname = "nickname " + a;
-  roomid  =
-  (new Date().getTime() + Math.random()).toString(36).substring(2,7);
+  roomid  =  (new Date().getTime() + Math.random()).toString(36).substring(2,7);
   
   socket.emit("matchStart", {
     id : myId,
