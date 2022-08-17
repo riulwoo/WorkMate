@@ -183,9 +183,6 @@ io.on('connection', function(socket) {
     if(index !== -1) {
       const uIndex = room[index].userid.findIndex(e => e == id);      
       socket.leave(room[index].roomCode);
-      console.log(`룸인덱스 : ${index}`);
-      console.log(`유저인덱스 : ${uIndex}`);
-      console.log(`아이디 : ${id}`);
         if(room[index].deleteUser(id, uIndex)) {
           const temproom = room.filter((room, i) => {
             if(i !== index) return room;
@@ -283,7 +280,7 @@ io.on('connection', function(socket) {
   
   socket.on('joinroom', function (data) {    // data {id, roomid, nick, score}
     insert('j', data);  
-    let index = getRoomIndex();
+    let index = getRoomIndex(data.id);
     io.to(room[index].roomCode).emit('joinsuccess', room[index].userinfo);
   })
 
