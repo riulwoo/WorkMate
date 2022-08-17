@@ -36,7 +36,7 @@ Jroombtn.addEventListener('click', function () {
 console.log('join room 눌림');
   if(rmcodetxt.value == null || rmcodetxt.value == '')
     alert('방 코드를 입력해주세요\n' + '입력받은 방코드 : ' + rmcodetxt.value)
-  if(nickname.value == null || nickname.value == undefined || nickname.value == '') nickname = "Player" + Math.floor(Math.Random()*100+1)
+  if(nickname.value == null || nickname.value == undefined || nickname.value == '') nickname = "Player" + Math.floor(Math.random()*100+1)
 socket.emit('joinroom', {
   id : myId, 
   roomid : rmcodetxt.value,
