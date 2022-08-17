@@ -167,7 +167,8 @@ io.on('connection', function(socket) {
 
   function getRoomIndex(Id) { //현재 내가 어떤 방에 들어가있는지 체크하는 함수
     const index = room.filter((ele_room, _index) => {
-      ele_room.userid.filter((ele_userid)=> {if(ele_userid == Id)return _index;});
+      if(ele_room.userid.includes(Id))
+      return _index;
     });
     return index;
   }  
@@ -186,7 +187,7 @@ io.on('connection', function(socket) {
   function gamestart(id) {
     let userroomcnt = getRoomIndex(id);
     console.log(userroomcnt);
-    const array = room[userroomcnt].userid.filter((id) => id != null);
+    let array = room[userroomcnt].userid.filter((id) => id != null);
     if(array.length >= 2 && room[userroomcnt].check != 's') //방안에 유저가 있는 게 확인 되었을 때 그 방안의 인원을 체크하는 코드
     {
       console.log('유저 인원체크 완료');
