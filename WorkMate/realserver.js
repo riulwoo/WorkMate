@@ -180,16 +180,17 @@ io.on('connection', function(socket) {
   function roomout(id) { // 데이터 삭제 함수
     const index = getRoomIndex(id); 
     if(index !== -1) {
+      const uIndex = room[index].userid.filter((e, i) => {
+        if(id === e) return i;
+      })
       socket.leave(room[index].roomCode);
-      for(let i = 0; i < 6; i++) {
-        if(room[index].deleteUser(id, i)) {
-          const temproom = room.filter((room, index) => { // 게임종료 중간에 다나갔을때 매칭실패
-            if(index !== i) return room;
+        if(room[index].deleteUser(id, uIndex)) {
+          const temproom = room.filter((room, index) => {
+            if(index !== uIndex) return room;
           })
           room = temproom;
           break;
         }
-      } //for
     }
   }//function
 

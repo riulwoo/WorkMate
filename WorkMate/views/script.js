@@ -24,6 +24,8 @@ var socket = io();
 Matchbtn.addEventListener("click", match);
 Croombtn.addEventListener("click", function () {
   roomid = (new Date().getTime() + Math.random()).toString(36).substring(2,7);
+  let readercode = document.getElementById("readerCode");
+  readercode.innerText = roomid;
   console.log("create room 눌림 " + myId + roomid + ' ' + nickname.value);
   socket.emit('createroom', {
     id : myId, 
@@ -35,6 +37,7 @@ Croombtn.addEventListener("click", function () {
 
 socket.on('createsuccess',()=>{
   toggleRoom();
+  let slot = document.querySelectorAll(".slot")
 })
 
 Jroombtn.addEventListener('click', function () {
