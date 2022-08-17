@@ -237,7 +237,7 @@ io.on('connection', function(socket) {
           room[Index].roomCode = roomid;
           console.log(`[roomCode 데이터] : ${room[Index].roomCode}`);
           socket.join(room[Index].roomCode);
-          console.log(`[join 데이터] : ${socket.rooms}`);
+          console.log(`[join 데이터] : ${sockets.rooms}`);
           room[Index].insertuserid(data);
           console.log(`[insertuserid 데이터] : ${room[Index].userid}`);
         }
