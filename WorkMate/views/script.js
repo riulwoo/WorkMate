@@ -23,15 +23,20 @@ var myId;
 var socket = io();
 Matchbtn.addEventListener("click", match);
 Croombtn.addEventListener("click", function () {
-roomid = (new Date().getTime() + Math.random()).toString(36).substring(2,7);
-console.log("create room 눌림 " + myId + roomid + ' ' + nickname.value);
-socket.emit('createroom', {
-  id : myId, 
-  roomid : roomid, 
-  nick : nickname.value,
-  score : 0
-}); 
+  roomid = (new Date().getTime() + Math.random()).toString(36).substring(2,7);
+  console.log("create room 눌림 " + myId + roomid + ' ' + nickname.value);
+  socket.emit('createroom', {
+    id : myId, 
+    roomid : roomid, 
+    nick : nickname.value,
+    score : 0
+  }); 
 })
+
+socket.on('createsuccess',()=>{
+  toggleRoom();
+})
+
 Jroombtn.addEventListener('click', function () {
 console.log('join room 눌림');
   if(rmcodetxt.value == null || rmcodetxt.value == '')
@@ -44,8 +49,13 @@ socket.emit('joinroom', {
   score : 0
 }); 
 })
+
+socket.on('joinsuccess', ()=>{
+  toggleRoom();
+  toggleRoom2();
+})
 socket.on('joinfail', ()=>{
-  console.log('조인 실패용');
+  alert('올바른 코드를 입력해주세요!');
 })
 start.addEventListener("click", function () {
 socket.emit('startgame', myId);
@@ -70,21 +80,21 @@ socket.on('gamestart', function() {
 })
 
 function match(e) {
-let player = userinfo[myId];        // 자신의 정보불러옴
-let nickname = "nickname " + a;
-roomid  =
-(new Date().getTime() + Math.random()).toString(36).substring(2,7);
-
-socket.emit("matchStart", {
-  id : myId,
-  roomid : roomid,
-  nick : nickname.value, 
-  score : 0
-});
-console.log("매치 시작 보냈다?");
-setTimeout(()=>{
-  socket.emit('matchtimeover', myId);
-  }, 15000)
+  let player = userinfo[myId];        // 자신의 정보불러옴
+  let nickname = "nickname " + a;
+  roomid  =
+  (new Date().getTime() + Math.random()).toString(36).substring(2,7);
+  
+  socket.emit("matchStart", {
+    id : myId,
+    roomid : roomid,
+    nick : nickname.value, 
+    score : 0
+  });
+  console.log("매치 시작 보냈다?");
+  setTimeout(()=>{
+    socket.emit('matchtimeover', myId);
+    }, 15000)
 }
 
 function toggleRoom() {

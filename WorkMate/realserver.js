@@ -62,14 +62,7 @@ function PlayerBall(id, nick){
     // this.currentImage.src = this.asset[0];
 }
 
-function joinGame(socket){    // id
-    let player = new Player(socket);  // x,y, nickname
 
-    userpool.push(player);
-    userinfo[socket.id] = player;
-
-    return player;
-}
 
 class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플레이하는 유저의 정보도 알아야 게임이 됨
   constructor(){
@@ -131,8 +124,6 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
 }
 
 //-------------------------- 지역 변수 --------------------------------
-var userpool = []; //페이지 접속한 총인원
-var userinfo = {}; //유저들의 정보모음집
 
 // 목적이나 용도 따로 작성 필요
 let roomcnt = 0;  // 매칭 전용 카운트
@@ -155,8 +146,7 @@ io.on('connection', function(socket) {
 
     socket.broadcast.emit('leave_user',socket.id);
   });
-  
-  let newplayer = joinGame(socket);
+ 
   socket.emit('user_id', socket.id);
 
   function CreateRoom(key) { //방의 조건을 확인해서 방을 만들어주는 함수
@@ -181,12 +171,12 @@ io.on('connection', function(socket) {
 
   function getRoomIndex(Id) { //현재 내가 어떤 방에 들어가있는지 체크하는 함수
     const index = room.findIndex(e => e.userid.includes(Id));
-    console.log(index);
+    console.log(`getRoomIndex : ${index}`);
     return index;
   }
   
   function roomout(id) { // 데이터 삭제 함수
-    const index = getRoomIndex(id);
+    const index = getRoomIndex(id); 
     if(index !== -1) {
       socket.leave(room[index].roomCode);
       for(let i = 0; i < 6; i++) {
@@ -198,7 +188,7 @@ io.on('connection', function(socket) {
           break;
         }
       } //for
-    }// if
+    }
   }//function
 
   function gamestart(id) {
@@ -284,12 +274,12 @@ io.on('connection', function(socket) {
 
   socket.on('createroom', function (data) { // data {id, roomid, nick, score}
     insert('p', data);
-    //socket.emit('createsuccess', room[room.length - 1].userinfo);    // 방만들기 창 업데이트
   })
   
   socket.on('joinroom', function (data) {    // data {id, roomid, nick, score}
     insert('j', data);  
-    //io.to(room[i].roomCode).emit('joinsuccess', room[i].userinfo);
+    let index = getRoomIndex();
+    io.to(room[index].roomCode).emit('joinsuccess', room[index].userinfo);
   })
 
   socket.on('startgame', function(id) { // 방안에서 게임 시작 버튼
