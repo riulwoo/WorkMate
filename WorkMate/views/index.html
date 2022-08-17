@@ -25,39 +25,38 @@
 				<button onclick="toggleRoom2()">입장하기</button>
 			</div>
 		</div>
-			
-			
-			<input type="button" id="joinroom" value="입장하기">
-			
-      <div class="room" id="room">
-			<div class="roomTop">
-				입장 코드<br>
-				<b><span id="roomCode"></span></b>
-			</div>
-			<div class="players">
-				<div class="slot">
-				</div>
-				
-				<div class="slot">
-				</div>
-				
-				<div class="slot">
-				</div>
-				
-				<div class="slot">
-				</div>
-				
-				<div class="slot">
-				</div>
-				
-				<div class="slot">
-				</div>
-			</div>
-			<div class="roomBottom">
-			  <button id="start">게임시작</button>
+  
+    <div class="room" id="room">
+      <div class="roomTop">
+        입장 코드<br>
+        <b><span id="roomCode"></span></b>
+      </div>
+      
+      <div class="players">
+        <div class="slot">
+        </div>
+        
+        <div class="slot">
+        </div>
+        
+        <div class="slot">
+        </div>
+        
+        <div class="slot">
+        </div>
+        
+        <div class="slot">
+        </div>
+        
+        <div class="slot">
+        </div>
+      </div> <!--players-->
+      
+      <div class="roomBottom">
+        <button id="start">게임시작</button>
         <button id="matchcancel" onclick="toggleRoom()">나가기</button>
-			</div>
-		</div>
+      </div>
+  </div> <!--room-->
 
 		<div class="room" id="room2">
 			<div class="roomTop">
@@ -68,11 +67,8 @@
 			<button id="joinroom">입장하기</button>
 			<button onclick="toggleRoom2()">취소</button>
 			</div>
-		</div>
-		</div>
-	</div>
-	
-</div>
+		</div><!--room2-->
+</div><!--main-->
 	
 </body>
 	<script src="script.js"></script>

@@ -79,7 +79,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   // room[roomcnt].players.push(room[roomcnt].PlayerBall(id,nick))
   // 변수.players[]
   
-
+  // 플레이어 정보 입력
   pushplayers(){
     this.users.forEach((e, i) => {
       if(e.id !==null) {
@@ -88,20 +88,22 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
       }
     });
   }
-  
-  deleteUser(id, j) {
+
+  // 유저 삭제
+  deleteUser(id, i) {
     let a = 0;
-      if(this.users[j].id === id)
-        this.users.splice(j, 1, { id: null, nick: null, score: null });
+      if(this.users[i].id === id)
+        this.users.splice(i, 1, { id: null, nick: null, score: null });
     this.users.forEach((player, index) => { if(player.id == null) a++;  });
         if(a == 6) return true;
   }
-  // 라운드별로 userroom 객체내의 탈락한 player들을 null 입력
+  // id값 출력
   get userid() {
     const usersId = this.users.map((user) => user.id);
     return usersId;
   }
 
+  // 모든 정보 출력
   get userinfo(){
     return this.users;
   }
