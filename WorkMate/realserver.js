@@ -27,6 +27,7 @@ function getPlayerColor() {
 
 const startX = 1024/2;
 const startY = 768/2;
+const image = new Image();
 
 class Player {
   constructor(socket){
@@ -58,7 +59,7 @@ function PlayerBall(id, nick){
                   'https://cdn.discordapp.com/attachments/980090904394219562/1004271430722146345/3.png'];
 
     // 키 입력 받을 시 이미지
-    this.currentImage = new Image();
+    this.currentImage = image;
     this.currentImage.src = this.asset[0];
 }
 
