@@ -119,11 +119,15 @@ body
   display: inline-block;
 }
 
-.in_slot_name{
+.in_slot_name
+{
+  position: absolute;
   margin : 15, auto;
 }
 
-.in_slot_img{
+.in_slot_img
+{
+  position: absolute;
   margin : 10, auto;
   background-image: url("https://cdn.discordapp.com/attachments/896478465237348402/1006409267257024614/1.png");
   background-size: cover;

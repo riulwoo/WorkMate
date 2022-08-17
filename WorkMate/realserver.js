@@ -92,6 +92,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   // 유저 삭제
   deleteUser(id, i) {
     let a = 0;
+    console.log(`함수의 매개변수 id : ${id}`);
       if(this.users[i].id === id)
         this.users.splice(i, 1, { id: null, nick: null, score: null });
     this.users.forEach((player, index) => { if(player.id == null) a++;  });
@@ -279,6 +280,7 @@ io.on('connection', function(socket) {
 
   socket.on('createroom', function (data) { // data {id, roomid, nick, score}
     insert('p', data);
+    socket.emit('createsuccess');
   })
   
   socket.on('joinroom', function (data) {    // data {id, roomid, nick, score}
@@ -289,7 +291,7 @@ io.on('connection', function(socket) {
 
   socket.on('startgame', function(id) { // 방안에서 게임 시작 버튼
     gamestart(id);
-          console.log('게임시작 버튼 실행');
+    console.log('게임시작 버튼 실행');
   })
 
   // 나중에 게임 연결 성공하면 to(room)에게 보내주는 형태로 수정
