@@ -187,8 +187,8 @@ io.on('connection', function(socket) {
       console.log(`유저인덱스 : ${uIndex}`);
       console.log(`아이디 : ${id}`);
         if(room[index].deleteUser(id, uIndex)) {
-          const temproom = room.filter((room, index) => {
-            if(index !== uIndex) return room;
+          const temproom = room.filter((room, i) => {
+            if(i !== index) return room;
           })
           room = temproom;
         }
