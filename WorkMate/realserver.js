@@ -185,6 +185,7 @@ io.on('connection', function(socket) {
 
   function gamestart(id) {
     let userroomcnt = getRoomIndex(id);
+    console.log(userroomcnt);
     const array = room[userroomcnt].userid.filter((id) => id != null);
     if(array.length >= 2 && room[userroomcnt].check != 's') //방안에 유저가 있는 게 확인 되었을 때 그 방안의 인원을 체크하는 코드
     {
