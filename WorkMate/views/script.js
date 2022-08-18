@@ -85,7 +85,7 @@ socket.on('gamestart', function(data) {
   console.log('게임 스타트');
   //$('#main').load('/gamebase.html');
   toggleRoom();
-  $('#main').load(`/views/${data}/index.html`);
+  $('#main').load(`/${data}`);
   
 })
 
