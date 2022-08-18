@@ -20,15 +20,15 @@ app.get('/', (req, res) => {
 });
 
 app.get('/ox', (req, res) =>{
-  res.sendFile(__dirname + '/views/game/ox_game/index.html');  
+  res.sendFile(__dirname + '/views/game/ox/index.html');  
 })
 
 app.get('/space', (req, res) =>{
-  res.sendFile(__dirname + '/views/game/space_race/index.html');  
+  res.sendFile(__dirname + '/views/game/space/index.html');  
 })
 
 app.get('/filpOver', (req, res) =>{
-  res.sendFile(__dirname + '/views/game/filpOver/index.html');  
+  res.sendFile(__dirname + '/gamebase.html');
 })
 
 function getPlayerColor() {
