@@ -8,18 +8,7 @@ var rmcodetxt = document.getElementById("roomcode"); // 입력받은 룸 코드
 let readercode = document.getElementById("readerCode");
 var roomid = '';
 var a = 1;
-  
-function PlayerBall(id){ //자신이 서버랑 주고받을 정보들
-  this.id = id;
-  this.color = "#FF00FF";
-  this.x = 1024/2;
-  this.y = 768/2;
-  this.nick = "player";
-  this.score = 0;
-}
 
-var userpool  = [];
-var userinfo = {};
 var myId;
 var socket = io();
 Matchbtn.addEventListener("click", match);
