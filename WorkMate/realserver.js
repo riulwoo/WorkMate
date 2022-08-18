@@ -12,9 +12,6 @@ server.listen(process.env.PORT || 3000, ()=> {
 
 app.use(express.static('views'));
 app.use(express.static('game'));
-app.use(express.static('game/ox'));
-app.use(express.static('game/space'));
-app.use(express.static('game/space/sounds'));
 
 app.use(express.static(__dirname+ '/game/ox/style.css'));
 app.use(express.static(__dirname+ '/game/space/Ship.js'))
@@ -29,11 +26,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/ox', (req, res) =>{
-  res.sendFile(__dirname + '/views/game/ox/index.html');  
+  res.sendFile(__dirname + '/game/ox/index.html');  
 })
 
 app.get('/space', (req, res) =>{
-  res.sendFile(__dirname + '/views/game/space/index.html');  
+  res.sendFile(__dirname + '/game/space/index.html');  
 })
 
 app.get('/filpOver', (req, res) =>{
