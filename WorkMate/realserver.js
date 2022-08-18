@@ -10,8 +10,8 @@ server.listen(process.env.PORT || 3000, ()=> {
   console.log("서버가 대기중입니다.");
 });
 
-app.use(express.static('/views'));
-app.use(express.static('/game'));
+app.use(express.static('views'));
+app.use(express.static('game'));
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
