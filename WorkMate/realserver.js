@@ -14,6 +14,15 @@ app.use(express.static('views'));
 app.use(express.static('game'));
 app.use(express.static('game/ox'));
 app.use(express.static('game/space'));
+app.use(express.static('game/space'));
+
+app.use(express.static(__dirname+ '/game/ox/style.css'));
+app.use(express.static(__dirname+ '/game/space/Ship.js'))
+app.use(express.static(__dirname+ '/game/space/sketch.js'))
+app.use(express.static(__dirname+ '/game/space/Gate.js'))
+app.use(express.static(__dirname+ '/game/space/Asteroid.js'))
+app.use(express.static(__dirname+ '/game/space/sounds/break.mp3'))
+app.use(express.static(__dirname+ '/game/space.js'))
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
