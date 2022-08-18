@@ -84,9 +84,7 @@ socket.on('user_id', function(data){
 socket.on('gamestart', function(data) {
   console.log('게임 스타트');
   //$('#main').load('/gamebase.html');
-  toggleRoom();
   $('#main').load(`/${data}`);
-  
 })
 
 function match(e) {
