@@ -77,7 +77,6 @@ socket.on('gamestart', function(data) {
 })
 
 function match(e) {
-  let player = userinfo[myId];        // 자신의 정보불러옴
   let nickname = "nickname " + a;
   roomid  =  (new Date().getTime() + Math.random()).toString(36).substring(2,7);
   
