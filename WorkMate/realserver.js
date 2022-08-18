@@ -26,7 +26,7 @@ app.get('/space', (req, res) =>{
 })
 
 app.get('/filpOver', (req, res) =>{
-  res.sendFile(__dirname + '/views/gamebase.html');
+  res.sendFile(__dirname + 'gamebase.html');
 })
 
 function getPlayerColor() {
