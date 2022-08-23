@@ -118,8 +118,6 @@ body
   border-radius: 3px;
   height: 100%;
   width: 15%;
-  display: inline-block;
-  flex-direction : column;
 }
 
 .in_slot_name
@@ -131,14 +129,9 @@ body
 .in_slot_img
 {
   display: block;
-  position: absolute;
-  left: 50%
-  top: 50%
-  transform: translate(-50%, -50%);
   background-image: url("https://cdn.discordapp.com/attachments/896478465237348402/1006409267257024614/1.png");
   background-size: contain;
   background-repeat: no-repeat ;
-  background-position : center;
-  width: 100%;
+  width: 90%;
   height: 100%;
 }
