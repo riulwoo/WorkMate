@@ -61,8 +61,8 @@ Jroombtn.addEventListener('click', function () {
 socket.on('joinsuccess', (data)=>{
   const {usernick, roomcode} = data;
   admincode.innerText = roomcode;
-  let nicklength = usernick.filter(e => e != null);
-  for (let i = 0; i < nicklength; i++) {
+  let arr = usernick.filter(e => e != null);
+  for (let i = 0; i < arr.length; i++) {
     while (slot[i].hasChildNodes()) {
         slot[i].firstChild.remove();
       }
