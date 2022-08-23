@@ -8,7 +8,8 @@ nickname = nickname.value == null || nickname.value == undefined || nickname.val
   "Player " + Math.floor(Math.random()*100+1) : nickname.value 
 console.log(nickname)
 var rmcodetxt = document.getElementById("roomcode"); // 입력받은 룸 코드
-let leadercode = document.getElementById("readerCode");
+let leadercode = document.getElementById("readerCode");.
+let slot = document.querySelectorAll(".slot")
 var roomid = '';
 var a = 1;
 
@@ -27,7 +28,6 @@ Croombtn.addEventListener("click", function () {
     score : 0
   }); 
   toggleRoom();
-  let slot = document.querySelectorAll(".slot")
   let name = document.createElement('div')
   let Node = document.createTextNode(nickname)
   let img = document.createElement('img')
@@ -53,8 +53,20 @@ Jroombtn.addEventListener('click', function () {
 })
 
 socket.on('joinsuccess', (data)=>{
-  leadercode.innerText = data.roomcode;
+  leadercode.innerText = rmcodetxt.value;
+  for (let index = 0; index < data.length; index++) {
+    slot[i].remove();
+    let name = document.createElement('div')
+    let Node = document.createTextNode(`${data[i]}`)
+    let img = document.createElement('img')
+    img.classList.add('in_slot_img');
+    name.classList.add('in_slot_name');
+    name.appendChild(Node);
+    slot[i].appendChild(img);
+    slot[i].appendChild(name);
+  }
 })
+
 socket.on('joinfail', ()=>{
   alert('올바른 코드를 입력해주세요!');
 })

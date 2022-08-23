@@ -123,8 +123,9 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   }
 
   // 모든 정보 출력
-  get userinfo(){
-    return this.users;
+  get usernick(){
+    const usersNick = this.users.map((user) => user.nick);
+    return usersNick;
   }
   // 매칭시 player1~6까지 null이 있는지 체크, null이 없다면 false반환
   insertuserid(data) {
@@ -269,6 +270,9 @@ io.on('connection', function(socket) {
           console.log(`[join 데이터] : ${socket.rooms}`);
           room[Index].insertuserid(data);
           console.log(`[insertuserid 데이터] : ${room[Index].userid}`);
+          if(key == 'j') {
+            io.to(room[Index].roomCode).emit('joinsuccess', room[Index].usernick);
+          }
         }
       } catch {
         socket.emit('joinfail');
@@ -296,16 +300,10 @@ io.on('connection', function(socket) {
   
   socket.on('joinroom', function (data) {    // data {id, roomid, nick, score}
     insert('j', data);  
-    let index = getRoomIndex(data.id);
-    io.to(room[index].roomCode).emit('joinsuccess', {
-      userinfo : room[index].userinfo,
-      roomcode : room[index].roomCode
-    });
   })
 
   socket.on('startgame', function(id) { // 방안에서 게임 시작 버튼
     gamestart(id);
-    console.log('게임시작 버튼 실행');
   })
 
   // 나중에 게임 연결 성공하면 to(room)에게 보내주는 형태로 수정
