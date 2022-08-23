@@ -111,6 +111,7 @@ body
   top: 25%;
   display : flex;
   justify-content : space-around;
+  padding : 0, 20;
 }
 .slot
 {
@@ -123,7 +124,7 @@ body
 
 .in_slot_name
 {
-  margin : 20px, auto;
+  text-size : 15px;
 }
 
 .in_slot_img
