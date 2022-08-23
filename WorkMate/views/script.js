@@ -32,7 +32,7 @@ Croombtn.addEventListener("click", function () {
   let Node = document.createTextNode(nickname)
   let img = document.createElement('img')
   name.classList.add('in_slot_name');
-  name.appendChild(nickNode);
+  name.appendChild(Node);
   img.classList.add('in_slot_img');
   slot[0].appendChild(name);
   slot[0].appendChild(img);
