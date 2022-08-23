@@ -28,18 +28,18 @@ Croombtn.addEventListener("click", function () {
     score : 0
   }); 
   toggleRoom();
-  if(slot[0].length != 0)
+  if(slot[0].length == 0)
   {
     console.log(slot[0]);
+    let name = document.createElement('div')
+    let Node = document.createTextNode(nickname)
+    let img = document.createElement('img')
+    img.classList.add('in_slot_img');
+    name.classList.add('in_slot_name');
+    name.appendChild(Node);
+    slot[0].appendChild(img);
+    slot[0].appendChild(name);
   }
-  let name = document.createElement('div')
-  let Node = document.createTextNode(nickname)
-  let img = document.createElement('img')
-  img.classList.add('in_slot_img');
-  name.classList.add('in_slot_name');
-  name.appendChild(Node);
-  slot[0].appendChild(img);
-  slot[0].appendChild(name);
 })
 
 Jroombtn.addEventListener('click', function () {
