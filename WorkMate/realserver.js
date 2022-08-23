@@ -271,7 +271,10 @@ io.on('connection', function(socket) {
           room[Index].insertuserid(data);
           console.log(`[insertuserid 데이터] : ${room[Index].userid}`);
           if(key == 'j') {
-            io.to(room[Index].roomCode).emit('joinsuccess', room[Index].usernick);
+            io.to(room[Index].roomCode).emit('joinsuccess', {
+              usernick : room[Index].usernick,
+              roomcode : room[Index].roomCode
+            });
           }
         }
       } catch {

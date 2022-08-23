@@ -60,14 +60,14 @@ Jroombtn.addEventListener('click', function () {
 
 socket.on('joinsuccess', (data)=>{
   admincode.innerText = rmcodetxt.value;
-  if(admin.hasChildNodes())
-  {
-    while (admin.hasChildNodes()) {
-      admin.firstChild.remove();
-    }
-  }
+  
   for (let i = 0; i < data.length; i++) {
-    //slot[i].empty();
+    if(slot[i].hasChildNodes())
+    {
+      while (slot[i].hasChildNodes()) {
+        slot[i].firstChild.remove();
+      }
+    }
     let name = document.createElement('div')
     let Node = document.createTextNode(`${data[i]}`)
     let img = document.createElement('img')
