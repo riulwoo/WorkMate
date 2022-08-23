@@ -46,8 +46,8 @@ body
 }
 .inner > button
 {
-  width: 100px;
-  height: 60px;
+  width: 20%;
+  height: 30%;
   border-radius: 10px;
   display: block;
   margin-top: 10px;
