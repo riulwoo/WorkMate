@@ -132,10 +132,13 @@ body
 .in_slot_img
 {
   display: block;
-  justify-content : center;
+  position: absolute;
+  left: 50%
+  top: 50%
+  transform: translate(-50%, -50%);
   background-image: url("https://cdn.discordapp.com/attachments/896478465237348402/1006409267257024614/1.png");
   background-size: cover;
   background-repeat: no-repeat ;
-  width: 100px;
+  width: 90px;
   height: 100px;
 }
