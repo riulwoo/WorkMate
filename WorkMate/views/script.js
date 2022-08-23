@@ -9,7 +9,7 @@ nickname = nickname.value == null || nickname.value == undefined || nickname.val
 console.log(nickname)
 var rmcodetxt = document.getElementById("roomcode"); // 입력받은 룸 코드
 let leadercode = document.getElementById("readerCode");
-let slot = document.querySelectorAll(".slot")
+let slot = document.querySelectorAll(".slot");
 var roomid = '';
 var a = 1;
 
@@ -28,6 +28,7 @@ Croombtn.addEventListener("click", function () {
     score : 0
   }); 
   toggleRoom();
+  slot[0].remove();
   let name = document.createElement('div')
   let Node = document.createTextNode(nickname)
   let img = document.createElement('img')
