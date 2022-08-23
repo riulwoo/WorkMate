@@ -198,7 +198,7 @@ io.on('connection', function(socket) {
   }
   
   function roomout(id) { // 데이터 삭제 함수
-    const index = getRoomIndex(id); 
+    const index = getRoomIndex(id);
     if(index !== -1) {
       const uIndex = room[index].userid.findIndex(e => e == id);      
       socket.leave(room[index].roomCode);

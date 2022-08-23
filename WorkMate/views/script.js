@@ -30,8 +30,9 @@ Croombtn.addEventListener("click", function () {
   toggleRoom();
   if(slot[0].length != 0)
   {
-    slot[0].removeChild('div');
-    slot[0].removeChild('img');
+    while (slot[0].hasChildNodes) {
+      slot[0].removeChild(slot.firstChild);  
+    }
   }
   let name = document.createElement('div')
   let Node = document.createTextNode(nickname)
