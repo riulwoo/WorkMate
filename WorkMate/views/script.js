@@ -31,11 +31,11 @@ Croombtn.addEventListener("click", function () {
   let name = document.createElement('div')
   let Node = document.createTextNode(nickname)
   let img = document.createElement('img')
+  img.classList.add('in_slot_img');
   name.classList.add('in_slot_name');
   name.appendChild(Node);
-  img.classList.add('in_slot_img');
-  slot[0].appendChild(name);
   slot[0].appendChild(img);
+  slot[0].appendChild(name);
 })
 
 Jroombtn.addEventListener('click', function () {
