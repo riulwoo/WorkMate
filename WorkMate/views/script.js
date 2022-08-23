@@ -60,7 +60,7 @@ Jroombtn.addEventListener('click', function () {
 
 socket.on('joinsuccess', (data)=>{
   admincode.innerText = rmcodetxt.value;
-  for (let index = 0; index < data.length; index++) {
+  for (let i = 0; i < data.length; i++) {
     slot[i].empty();
     let name = document.createElement('div')
     let Node = document.createTextNode(`${data[i]}`)
