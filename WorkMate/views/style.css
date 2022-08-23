@@ -110,6 +110,7 @@ body
   position: absolute;
   top: 25%;
   display : flex;
+  justify-content : space-around;
 }
 .slot
 {
@@ -119,8 +120,6 @@ body
   width: 15%;
   display: inline-block;
   flex-direction : column;
-  align-items: center;
-  justify-content : center;
 }
 
 .in_slot_name
