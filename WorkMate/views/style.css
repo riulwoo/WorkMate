@@ -125,16 +125,16 @@ body
 .in_slot_name
 {
   display: block;
-  margin : 15, auto;
+  margin : 15px, auto;
 }
 
 .in_slot_img
 {
   display: block;
-  margin : 10, auto;
+  margin : 10px, auto;
   background-image: url("https://cdn.discordapp.com/attachments/896478465237348402/1006409267257024614/1.png");
   background-size: cover;
   background-repeat: no-repeat ;
-  width: 50px;
+  width: 100px;
   height: 100px;
 }
