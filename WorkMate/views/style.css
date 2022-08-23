@@ -123,6 +123,7 @@ body
 .in_slot_name
 {
   display: block;
+  margin : 20px, auto;
   justify-content : center;
 }
 
@@ -132,6 +133,7 @@ body
   background-image: url("https://cdn.discordapp.com/attachments/896478465237348402/1006409267257024614/1.png");
   background-size: contain;
   background-repeat: no-repeat ;
-  width: 90%;
-  height: 100%;
+  margin : 20px, auto;
+  width: 30%;
+  height: 50%;
 }
