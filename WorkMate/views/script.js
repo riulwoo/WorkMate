@@ -8,8 +8,9 @@ nickname = nickname.value == null || nickname.value == undefined || nickname.val
   "Player " + Math.floor(Math.random()*100+1) : nickname.value 
 console.log(nickname)
 var rmcodetxt = document.getElementById("roomcode"); // 입력받은 룸 코드
-let leadercode = document.getElementById("readerCode");
+let admincode = document.getElementById("adminCode");
 let slot = document.querySelectorAll(".slot");
+let admin = document.getElementById("admin");
 var roomid = '';
 var a = 1;
 
@@ -18,7 +19,7 @@ var socket = io();
 Matchbtn.addEventListener("click", match);
 Croombtn.addEventListener("click", function () {
   roomid = (new Date().getTime() + Math.random()).toString(36).substring(2,7);
-  leadercode.innerText = roomid;
+  admincode.innerText = roomid;
   console.log("create room 눌림 " + myId + roomid + ' ' + nickname);
   socket.emit('createroom', {
     id : myId, 
@@ -27,12 +28,13 @@ Croombtn.addEventListener("click", function () {
     score : 0
   }); 
   toggleRoom();
-  if(slot[0].hasChildNodes())
+  if(admin.hasChildNodes())
   {
     let d_name = document.getElementById('.in_slot_name');
     let d_img = document.getElementById('.in_slot_img');
-    slot[0].removeChild(d_name);
-    slot[0].removeChild(d_img);
+    admin.removeChild(d_name);
+    admin.removeChild(d_img);
+    //admin.empty();
   }
   let name = document.createElement('div')
   let Node = document.createTextNode(nickname)
@@ -40,8 +42,8 @@ Croombtn.addEventListener("click", function () {
   img.classList.add('in_slot_img');
   name.classList.add('in_slot_name');
   name.appendChild(Node);
-  slot[0].appendChild(img);
-  slot[0].appendChild(name);
+  admin.appendChild(img);
+  admin.appendChild(name);
 })
 
 Jroombtn.addEventListener('click', function () {
@@ -59,7 +61,7 @@ Jroombtn.addEventListener('click', function () {
 })
 
 socket.on('joinsuccess', (data)=>{
-  leadercode.innerText = rmcodetxt.value;
+  admincode.innerText = rmcodetxt.value;
   for (let index = 0; index < data.length; index++) {
     slot[i].empty();
     let name = document.createElement('div')
