@@ -28,7 +28,7 @@ Croombtn.addEventListener("click", function () {
     score : 0
   }); 
   toggleRoom();
-  slot[0].remove();
+  slot[0].empty();
   let name = document.createElement('div')
   let Node = document.createTextNode(nickname)
   let img = document.createElement('img')
@@ -56,7 +56,7 @@ Jroombtn.addEventListener('click', function () {
 socket.on('joinsuccess', (data)=>{
   leadercode.innerText = rmcodetxt.value;
   for (let index = 0; index < data.length; index++) {
-    slot[i].remove();
+    slot[i].empty();
     let name = document.createElement('div')
     let Node = document.createTextNode(`${data[i]}`)
     let img = document.createElement('img')
