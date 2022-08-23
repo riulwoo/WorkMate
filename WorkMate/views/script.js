@@ -59,13 +59,14 @@ Jroombtn.addEventListener('click', function () {
 })
 
 socket.on('joinsuccess', (data)=>{
-  admincode.innerText = rmcodetxt.value;
-  for (let i = 0; i < data.length; i++) {
+  const {usernick, roomcode} = data;
+  admincode.innerText = roomcode;
+  for (let i = 0; i < usernick.length; i++) {
     while (slot[i].hasChildNodes()) {
         slot[i].firstChild.remove();
       }
     let name = document.createElement('div')
-    let Node = document.createTextNode(`${data[i]}`)
+    let Node = document.createTextNode(`${usernick[i]}`)
     let img = document.createElement('img')
     img.classList.add('in_slot_img');
     name.classList.add('in_slot_name');
