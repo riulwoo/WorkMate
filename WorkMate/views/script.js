@@ -102,6 +102,10 @@ socket.on('gamestart', function(data) {
   $('#main').load(`/${data}`);
 })
 
+function name(params) {
+  
+}
+
 function match(e) {
   roomid  =  (new Date().getTime() + Math.random()).toString(36).substring(2,7);
   
