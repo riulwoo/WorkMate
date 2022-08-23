@@ -118,22 +118,20 @@ body
   border-radius: 3px;
   height: 100%;
   width: 15%;
+  
 }
 
 .in_slot_name
 {
-  display: block;
   margin : 20px, auto;
-  justify-content : center;
 }
 
 .in_slot_img
 {
-  display: block;
   background-image: url("https://cdn.discordapp.com/attachments/896478465237348402/1006409267257024614/1.png");
   background-size: contain;
   background-repeat: no-repeat ;
   margin : 20px, auto;
-  width: 30%;
+  width: 50%;
   height: 50%;
 }
