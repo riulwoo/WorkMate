@@ -124,8 +124,6 @@ body
 
 .in_slot_name
 {
-  text-size : 15px;
-  margin-top : 20px;
 }
 
 .in_slot_img
@@ -133,7 +131,8 @@ body
   background-image: url("https://cdn.discordapp.com/attachments/896478465237348402/1006409267257024614/1.png");
   background-size: contain;
   background-repeat: no-repeat ;
-  margin : 20px;
+  margin-top : 20%;
+  margin-bottom : 10%;
   width: 50%;
   height: 50%;
 }
