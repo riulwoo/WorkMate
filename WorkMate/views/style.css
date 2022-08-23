@@ -98,7 +98,7 @@ body
 .roomBottom
 {
   position: absolute;
-  top: 87.5%;
+  top: 92.5%;
   left: 50%;
   width: 100%;
   transform: translate(-50%, -50%);
