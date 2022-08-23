@@ -120,7 +120,6 @@ body
   width: 15%;
   display: inline-block;
   flex-direction : column;
-  padding : 20px, auto;
 }
 
 .in_slot_name
