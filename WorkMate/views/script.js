@@ -31,7 +31,7 @@ Croombtn.addEventListener("click", function () {
   if(slot[0].length != 0)
   {
     while (slot[0].hasChildNodes) {
-      slot[0].removeChild(slot.firstChild);  
+      slot[0].removeChild(slot[0].firstChild);  
     }
   }
   let name = document.createElement('div')
