@@ -26,8 +26,11 @@ Croombtn.addEventListener("click", function () {
   toggleRoom();
   let slot = document.querySelectorAll(".slot")
   let name = document.createElement('div')
+  let nick = nickname.value != undefinded ? nickname.value : `player 0`; 
+  let nickNode = document.createTextNode(nick)
   let img = document.createElement('img')
   name.classList.add('in_slot_name');
+  name.appendChild(nickNode);
   img.classList.add('in_slot_img');
   slot[0].appendChild(name);
   slot[0].appendChild(img);
