@@ -286,9 +286,7 @@ io.on('connection', function(socket) {
 
   socket.on('matchtimeover', function(id) { //매칭 종료버튼, 매칭 타이머 초과 시 받는 정보
     gamestart(id);
-    console.log('타이머 종료 완료');
   })
-
 
   socket.on('matchcancel', function (id) { //매칭 중일 때 나가기 버튼
     roomout(id);

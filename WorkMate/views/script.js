@@ -29,7 +29,10 @@ Croombtn.addEventListener("click", function () {
   }); 
   toggleRoom();
   if(slot[0].length != 0)
-  slot[0].empty();
+  {
+    slot[0].removeChild('div');
+    slot[0].removeChild('img');
+  }
   let name = document.createElement('div')
   let Node = document.createTextNode(nickname)
   let img = document.createElement('img')
