@@ -18,7 +18,6 @@ var socket = io();
 Matchbtn.addEventListener("click", match);
 Croombtn.addEventListener("click", function () {
   roomid = (new Date().getTime() + Math.random()).toString(36).substring(2,7);
-  
   leadercode.innerText = roomid;
   console.log("create room 눌림 " + myId + roomid + ' ' + nickname);
   socket.emit('createroom', {
@@ -28,12 +27,7 @@ Croombtn.addEventListener("click", function () {
     score : 0
   }); 
   toggleRoom();
-  if(slot[0].length != 0)
-  {
-    while (slot[0].hasChildNodes()) {
-      slot[0].removeChild(slot[0].childNode[0]);
-    }
-  }
+  
   let name = document.createElement('div')
   let Node = document.createTextNode(nickname)
   let img = document.createElement('img')
@@ -42,6 +36,12 @@ Croombtn.addEventListener("click", function () {
   name.appendChild(Node);
   slot[0].appendChild(img);
   slot[0].appendChild(name);
+  if(slot[0].length != 0)
+  {
+    console.log(slot[0].hasChildNodes())
+    //   slot[0].removeChild(slot[0].childNode[0]);
+    // }
+  }
 })
 
 Jroombtn.addEventListener('click', function () {
