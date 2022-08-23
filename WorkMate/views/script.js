@@ -27,7 +27,10 @@ Croombtn.addEventListener("click", function () {
     score : 0
   }); 
   toggleRoom();
-  
+  if(slot[0].hasChildNodes())
+  {
+    slot[0].empty();
+  }
   let name = document.createElement('div')
   let Node = document.createTextNode(nickname)
   let img = document.createElement('img')
@@ -36,12 +39,6 @@ Croombtn.addEventListener("click", function () {
   name.appendChild(Node);
   slot[0].appendChild(img);
   slot[0].appendChild(name);
-  if(slot[0].length != 0)
-  {
-    console.log(slot[0].hasChildNodes())
-    //   slot[0].removeChild(slot[0].childNode[0]);
-    // }
-  }
 })
 
 Jroombtn.addEventListener('click', function () {
