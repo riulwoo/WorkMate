@@ -8,7 +8,7 @@ nickname = nickname.value == null || nickname.value == undefined || nickname.val
   "Player " + Math.floor(Math.random()*100+1) : nickname.value 
 console.log(nickname)
 var rmcodetxt = document.getElementById("roomcode"); // 입력받은 룸 코드
-let leadercode = document.getElementById("readerCode");.
+let leadercode = document.getElementById("readerCode");
 let slot = document.querySelectorAll(".slot")
 var roomid = '';
 var a = 1;
