@@ -120,18 +120,19 @@ body
   width: 15%;
   display: inline-block;
   flex-direction : column;
+  padding : 20px, auto;
 }
 
 .in_slot_name
 {
   display: block;
-  margin : 15px, auto;
+  justify-content : center;
 }
 
 .in_slot_img
 {
   display: block;
-  margin : 10px, auto;
+  justify-content : center;
   background-image: url("https://cdn.discordapp.com/attachments/896478465237348402/1006409267257024614/1.png");
   background-size: cover;
   background-repeat: no-repeat ;
