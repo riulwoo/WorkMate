@@ -28,6 +28,7 @@ Croombtn.addEventListener("click", function () {
     score : 0
   }); 
   toggleRoom();
+  if(slot[0].length != 0)
   slot[0].empty();
   let name = document.createElement('div')
   let Node = document.createTextNode(nickname)
