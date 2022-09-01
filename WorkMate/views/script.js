@@ -90,7 +90,8 @@ function addPlayer(nickName, userid) {
   let arr = nickName.length > 2 ? nickName.filter(e => e != null) : nickName;
   let id = userid.length > 2 ? userid.filter(e => e != null) : userid;
   console.log(userid, id);
-  arr.forEach((e,i) => {
+  for(let i = 0 ; i < arr.length ; i++)
+  {
     while (slot[i].hasChildNodes()) {
         slot[i].firstChild.remove();
       }
@@ -98,7 +99,7 @@ function addPlayer(nickName, userid) {
     let img = document.createElement('img')
     let hide = document.createElement('div');
     let hidedId = document.createTextNode(`${id[i]}`)
-    let Node = document.createTextNode(`${e}`)
+    let Node = document.createTextNode(`${nickName[i]}`)
     
     hide.classList.add('in_slot_hide');
     img.classList.add('in_slot_img');
