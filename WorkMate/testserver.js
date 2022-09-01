@@ -19,7 +19,7 @@ const onConnection = (socket) => {
   console.log(`${socket.id}님이 입장하셨습니다.`);
   mainHandlers(io, socket);
   oxHandlers(io, socket);
-  flipmainHandlers(io, socket);
+  flipHandlers(io, socket);
   raceHandlers(io, socket);
   //   // 나중에 게임 연결 성공하면 to(room)에게 보내주는 형태로 수정
   // socket.on('send_location', function(data) {
