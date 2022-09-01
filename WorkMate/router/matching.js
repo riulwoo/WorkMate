@@ -224,5 +224,12 @@ room[0] = new userroom();
     socket.broadcast.emit('leave_user',socket.id);
   }
 
-
+  return {
+    CreateRoom,
+    getRoomIndex,
+    roomout,
+    gamestart,
+    insert,
+    disconnect
+  }
 }
