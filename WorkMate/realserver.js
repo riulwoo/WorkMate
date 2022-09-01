@@ -222,7 +222,7 @@ io.on('connection', function(socket) {
         let player = room[userroomcnt].pushplayers();
         io.to(room[userroomcnt].roomCode).emit('gamestart', {
           game : room[userroomcnt].game(),
-          player : player;
+          player : player
         });//객체 변수
         room[userroomcnt].check = 's';
         CreateRoom(false);
