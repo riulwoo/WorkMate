@@ -94,9 +94,11 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   }
 }
 
-let roomcnt = 0;  // 매칭 전용 카운트
-let room = new Array();
-room[0] = new userroom();
+function init(params) {
+  let room = new Array();
+  room[0] = new userroom();
+}
+
 
   function CreateRoom(key) { //방의 조건을 확인해서 방을 만들어주는 함수
     let check, data;

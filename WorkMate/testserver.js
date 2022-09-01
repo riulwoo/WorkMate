@@ -30,13 +30,13 @@ const onConnection = (socket) => {
   //         })
   // })
 }
-
 server.listen(5000, ()=> {
   console.log("서버가 대기중입니다.");
 });
-
 //app.set('io', io);
 app.use(express.static('views'));
 app.use(express.static('game'));
 app.use('*', testRouter);
+
+mainHandlers.init();
 io.on('connection', onConnection);
