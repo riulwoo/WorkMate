@@ -74,7 +74,7 @@ socket.on('user_id', function(data){
 socket.on('gamestart', function(data) {
   console.log('게임 스타트');
   //$('#main').load('/gamebase.html');
-  $('#main').load(`/${data}`);
+  $('#main').load(`/${data.game}`);
 })
 
 socket.on('leave_user', (data)=>{
