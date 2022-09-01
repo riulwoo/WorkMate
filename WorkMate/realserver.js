@@ -59,11 +59,11 @@ function PlayerBall(id, nick){
         this.nick = "player " + Math.floor(Math.random()*100);
     else
         this.nick = nick;
-    // // 플레이어의 앞, 뒤, 왼, 오 이미지 => 현재 앞모습 이미지 밖에 없음
-    // this.asset = ['https://cdn.discordapp.com/attachments/980090904394219562/1004271208226881606/1.png',
-    //               'https://cdn.discordapp.com/attachments/980090904394219562/1004271284735193139/4.png',
-    //               'https://cdn.discordapp.com/attachments/980090904394219562/1004271240271376385/4.png',
-    //               'https://cdn.discordapp.com/attachments/980090904394219562/1004271430722146345/3.png'];
+    // 플레이어의 앞, 뒤, 왼, 오 이미지 => 현재 앞모습 이미지 밖에 없음
+    this.asset = ['https://cdn.discordapp.com/attachments/980090904394219562/1004271208226881606/1.png',
+                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271284735193139/4.png',
+                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271240271376385/4.png',
+                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271430722146345/3.png'];
 
     // // 키 입력 받을 시 이미지
     // this.currentImage = new Image();
@@ -105,6 +105,7 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
         this.players[e.id] = player;
       }
     });
+    return this.users;
   }
 
   // 유저 삭제
@@ -218,9 +219,11 @@ io.on('connection', function(socket) {
       let array = room[userroomcnt].userid.filter((id) => id != null);
       if(array.length >= 2 && room[userroomcnt].check != 's') {//방안에 유저가 있는 게 확인 되었을 때 그 방안의 인원을 체크하는 코드
         console.log('유저 인원체크 완료');
-        room[userroomcnt].pushplayers();
-        // json 객체 변수
-        io.to(room[userroomcnt].roomCode).emit('gamestart', room[userroomcnt].game());//객체 변수
+        let player = room[userroomcnt].pushplayers();
+        io.to(room[userroomcnt].roomCode).emit('gamestart', {
+          game : room[userroomcnt].game(),
+          player : player;
+        });//객체 변수
         room[userroomcnt].check = 's';
         CreateRoom(false);
       }

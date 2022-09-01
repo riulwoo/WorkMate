@@ -1,80 +1,53 @@
-var Matchbtn = document.getElementById("matchStart"); //매칭하기 버튼
-var cancelbtn = document.getElementById("matchcancel"); //방나가기 / 매치 나가기 버튼
-var Croombtn = document.getElementById("createroom"); //방만들기 버튼 
-var Jroombtn = document.getElementById("joinroom"); //방 입장 버튼
+var matchBtn = document.getElementById("matchStart"); //매칭하기 버튼
+var cancelBtn = document.getElementById("matchcancel"); //방나가기 / 매치 나가기 버튼
+var croomBtn = document.getElementById("createroom"); //방만들기 버튼 
+var jroomBtn = document.getElementById("joinroom"); //방 입장 버튼
 var start = document.getElementById("start"); //게임 시작 버튼
-var nickname = document.getElementById("nick"); // 닉네임
-nickname = nickname.value == null || nickname.value == undefined || nickname.value == '' ?
-  "Player " + Math.floor(Math.random()*100+1) : nickname.value 
-console.log(nickname)
-var rmcodetxt = document.getElementById("roomcode"); // 입력받은 룸 코드
-let admincode = document.getElementById("adminCode");
+var nickName = document.getElementById("nick"); // 닉네임
+var rmCodeTxt = document.getElementById("roomcode"); // 입력받은 룸 코드
+let adminCode = document.getElementById("adminCode");
 let slot = document.querySelectorAll(".slot");
 let admin = document.getElementById("admin");
-var roomid = '';
+var roomId = '';
 var a = 1;
-
 var myId;
 var socket = io();
-Matchbtn.addEventListener("click", match);
-Croombtn.addEventListener("click", function () {
-  roomid = (new Date().getTime() + Math.random()).toString(36).substring(2,7);
-  admincode.innerText = roomid;
-  console.log("create room 눌림 " + myId + roomid + ' ' + nickname);
+
+matchBtn.addEventListener("click", match);
+
+croomBtn.addEventListener("click", function () {
+  roomId = randomCode();
+  randomnick();
+  adminCode.innerText = roomId;
+  console.log("create room 눌림 " + myId + roomId + ' ' + nickName);
+  toggleRoom();
+  addPlayer([nickName]);
   socket.emit('createroom', {
     id : myId, 
-    roomid : roomid, 
-    nick : nickname,
+    roomid : roomId, 
+    nick : nickName,
     score : 0
-  }); 
-  toggleRoom();
-  if(admin.hasChildNodes())
-  {
-    while (admin.hasChildNodes()) {
-      admin.firstChild.remove();
-    }
-  }
-  let name = document.createElement('div')
-  let Node = document.createTextNode(nickname)
-  let img = document.createElement('img')
-  img.classList.add('in_slot_img');
-  name.classList.add('in_slot_name');
-  name.appendChild(Node);
-  admin.appendChild(img);
-  admin.appendChild(name);
+  });
 })
 
-Jroombtn.addEventListener('click', function () {
+jroomBtn.addEventListener('click', function () {
   console.log('join room 눌림');
-  if(rmcodetxt.value == null || rmcodetxt.value == '')
-    alert('방 코드를 입력해주세요\n' + '입력받은 방코드 : ' + rmcodetxt.value)
-  socket.emit('joinroom', {
-    id : myId, 
-    roomid : rmcodetxt.value,
-    nick : nickname,
-    score : 0
-  }); 
+  randomnick();
+  if(rmCodeTxt.value == null || rmCodeTxt.value == '')
+    alert('방 코드를 입력해주세요\n' + '입력받은 방코드 : ' + rmCodeTxt.value)
   toggleRoom();
   toggleRoom2();
+  socket.emit('joinroom', {
+    id : myId, 
+    roomid : rmCodeTxt.value,
+    nick : nickName,
+    score : 0
+  }); 
 })
 
 socket.on('joinsuccess', (data)=>{
-  const {usernick, roomcode} = data;
-  admincode.innerText = roomcode;
-  let arr = usernick.filter(e => e != null);
-  for (let i = 0; i < arr.length; i++) {
-    while (slot[i].hasChildNodes()) {
-        slot[i].firstChild.remove();
-      }
-    let name = document.createElement('div')
-    let Node = document.createTextNode(`${usernick[i]}`)
-    let img = document.createElement('img')
-    img.classList.add('in_slot_img');
-    name.classList.add('in_slot_name');
-    name.appendChild(Node);
-    slot[i].appendChild(img);
-    slot[i].appendChild(name);
-  }
+  adminCode.innerText = data.roomcode;
+  addPlayer(data.usernick);
 })
 
 socket.on('joinfail', ()=>{
@@ -84,7 +57,7 @@ start.addEventListener("click", function () {
 socket.emit('startgame', myId);
 })
 
-cancelbtn.addEventListener("click",function () {
+cancelBtn.addEventListener("click",function () {
 socket.emit("matchcancel", myId);
 console.log('나가기 눌림');
 })
@@ -102,17 +75,37 @@ socket.on('gamestart', function(data) {
   $('#main').load(`/${data}`);
 })
 
-function name(params) {
-  
+function randomNick() {
+  nickName = nickName.value == null || nickName.value == undefined || nickName.value == '' || nickName.value.replace(' ','') == ''?
+  "Player " + Math.floor(Math.random()*100+1) : nickName.value 
 }
 
-function match(e) {
-  roomid  =  (new Date().getTime() + Math.random()).toString(36).substring(2,7);
+function addPlayer(nickName) {
+  let arr = nickName.length > 2 ? nickName.filter(e => e != null) : nickName;
+  arr.forEach(e => {
+    while (slot[i].hasChildNodes()) {
+        slot[i].firstChild.remove();
+      }
+    let name = document.createElement('div')
+    let Node = document.createTextNode(`${e}`)
+    let img = document.createElement('img')
+    img.classList.add('in_slot_img');
+    name.classList.add('in_slot_name');
+    name.appendChild(Node);
+    slot[i].appendChild(img);
+    slot[i].appendChild(name);
+  });
+}
+function randomCode() {
+  return (new Date().getTime() + Math.random()).toString(36).substring(2,7);
+}
+function match() {
+  roomId  =  randomCode();
   
   socket.emit("matchStart", {
     id : myId,
-    roomid : roomid,
-    nick : nickname, 
+    roomid : roomId,
+    nick : nickName, 
     score : 0
   });
   console.log("매치 시작 보냈다?");

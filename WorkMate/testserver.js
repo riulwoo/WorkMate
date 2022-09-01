@@ -161,7 +161,7 @@ io.on('connection', function(socket) {
   socket.emit('user_id', socket.id);
   
   // 클라이언트에서 매칭을 할 시 첫번째로 넘어오는 유저 정보 정보는 방 객체에 저장  
-  socket.on('matchStart', function(data) {  // data = 클라이언트에서 넘어오는 유저정보
+  /*socket.on('matchStart', function(data) {  // data = 클라이언트에서 넘어오는 유저정보
     // 받아온 data 값을 userroom.userid 안에서 null값을 체크해 값을 넣는다 
     // data = {id : id, nick : nickname, score : 0}
     // 방은 있으되 방에 사람이 아무도 없는 경우
@@ -197,7 +197,7 @@ io.on('connection', function(socket) {
   // 각 클라이언트마다 mto메시지를 보낸다 이걸 어떻게 처리해야하나
   // 1번째 사람의 mto메시지만 받고 나머지는 무시한다.
   
-  socket.on('matchtimeover', function(userId) { //매칭 종료버튼, 매칭 타이머 초과 시 받는 정보
+  /*socket.on('matchtimeover', function(userId) { //매칭 종료버튼, 매칭 타이머 초과 시 받는 정보
     // 클라이언트에서 emit data {socket.id}
     // 받는 정보는 타이머 종료 신호, 해당 유저 정보
     // 1. 유저의 id가 유저룸에 들어가 있는가
@@ -252,9 +252,9 @@ io.on('connection', function(socket) {
         room[roomcnt] = new userroom();
         });
     }
-  }) // end of mto
+  })*/ // end of mto
 
-  socket.on('matchcancel', function (id) { // 매칭 종료 버튼을 눌렀을 때 받는 정보 data = myId
+  /*socket.on('matchcancel', function (id) { // 매칭 종료 버튼을 눌렀을 때 받는 정보 data = myId
     // id값에 해당하는 join했던 room과 room객체를 찾아 disconnect와 
     
     let checkdata = [];
@@ -279,9 +279,9 @@ io.on('connection', function(socket) {
           }
         
       }
-  })
+  })*/
 
-  socket.on('startgame', function(id) {
+  /*socket.on('startgame', function(id) {
     let checkid = [];
     room.forEach((temp, index) => 
       {
@@ -295,7 +295,7 @@ io.on('connection', function(socket) {
           }
         }
       });
-  })
+  })*/
 
   // 
   socket.on('send_location', function(data) {
