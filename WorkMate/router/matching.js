@@ -214,4 +214,8 @@ room[0] = new userroom();
         console.log(`[조인실패]`)
       } 
   }  
+
+  function disconnect()
+
+  
 }

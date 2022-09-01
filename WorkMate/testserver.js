@@ -32,17 +32,7 @@ io.on('connection', function(socket) {
   
   socket.emit('user_id', socket.id);
 
-  socket.on('disconnect', function(reason){
-    console.log(`${socket.id}님이 %{reason}의 이유로 퇴장하셨습니다.`)
-    roomout(socket.id);
-    for(let i = 0; i < room.length; i++) {
-      console.log('[matchcancel] leave 후 조인 방 정보 : ' + i + ' [ ' + room[i].roomCode + ' ] ');
-      console.log('[matchcancel] 유저 정보삭제 후 정보 : '+ i + ' [ ' + room[i].userid + ' ] ');
-      console.log('[matchcancel]  : '+ i + ' [ ' + room[i].check + ' ] ');
-    }
-
-    socket.broadcast.emit('leave_user',socket.id);
-  });
+  socket.on('disconnect', (reason) => disconnect(reason));
  
   socket.emit('user_id', socket.id);
 
