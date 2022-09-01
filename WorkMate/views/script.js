@@ -98,8 +98,8 @@ function addPlayer(nickName, userid) {
     let name = document.createElement('div');
     let img = document.createElement('img')
     let hide = document.createElement('div');
-    let hidedId = document.createTextNode(`${id[i]}`)
-    let Node = document.createTextNode(`${nickName[i]}`)
+    let hidedId = document.createTextNode(id[i])
+    let Node = document.createTextNode(nickName[i])
     
     hide.classList.add('in_slot_hide');
     img.classList.add('in_slot_img');
