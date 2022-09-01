@@ -3,31 +3,34 @@ const express = require('express');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
+const fs = require('fs');
+const path = require('path');
+const testRouter = require('./router/test');
+const Testing = (socket) => {
+  testRouter(io, socket);
+}
 
-const mysql = require('mysql')
-var connection =mysql.createConnection({
-  host : 'localhost',    // 호스트 주소
-  user : 'workmate',
-  password : 'workmate123',
-  database : 'workmate'
-})
-
-// connection.connect();
-
-server.listen(process.env.PORT || 3000, ()=> {
+server.listen(3000, ()=> {
   console.log("서버가 대기중입니다.");
-})
+});
 
-app.use(express.static('views'))
-
-app.use('/gamebase.html', express.static(__dirname + '/test/server.js'))
+app.use(express.static('views'));
+app.use(express.static('game'));
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/views/index.html')
+  res.sendFile(__dirname + '/views/index.html');
+});
+
+app.get('/ox', (req, res) =>{
+  
 })
 
-app.get('/gamebase.html', (req, res) => {
-  res.sendFile(__dirname + '/views/gamebase.html')
+app.get('/space', (req, res) =>{ 
+  
+})
+
+app.get('/filpOver', (req, res) =>{
+  
 })
 
 function getPlayerColor() {
@@ -46,267 +49,279 @@ class Player {
     this.nick = "player";
     this.color = getPlayerColor();
   }
-
   get id() {
     return this.socket.id;
   }
 }
 
+function PlayerBall(id, nick){
+    this.id = id;
+    this.color = "#FF00FF";
+    this.x = 1024/2;
+    this.y = 768/2;
+    if(nick == null)
+        this.nick = "player " + Math.floor(Math.random()*100);
+    else
+        this.nick = nick;
+    // 플레이어의 앞, 뒤, 왼, 오 이미지 => 현재 앞모습 이미지 밖에 없음
+    this.asset = ['https://cdn.discordapp.com/attachments/980090904394219562/1004271208226881606/1.png',
+                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271284735193139/4.png',
+                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271240271376385/4.png',
+                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271430722146345/3.png'];
+
+    // // 키 입력 받을 시 이미지
+    // this.currentImage = new Image();
+    // this.currentImage.src = this.asset[0];
+}
+
+
 
 class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플레이하는 유저의 정보도 알아야 게임이 됨
   constructor(){
-  // 방안에 유저가 들어가 있는지 체크
-  this.alreadyUser = false;
-
-  // 방 코드
-  this.roomCode = null;
-
-  // 라운드 구별 변수
-  this.roundCheck = -1;
-
-  // 게임배열 
-  this.gameName;
-
-  // 플레이어 1~6명의 정보
-    this.players = [];
+    this.check = '';              // 생성된 방이 matching 인지 private인지 체크
+    this.roomCode = null;         // 방 코드
+    this.gameName = ['ox', 'space', 'flipOver'];   // 게임배열 랜덤으로 게임을 시작하기위한 변수
+    this.users = [];          // 플레이어 1~6명의 정보
     for (let i = 0; i < 6; i++) {
-      this.players.push({ id: null, nick: null, score: null });
+      this.users.push({ id: null, nick: null, score: null });
     }
+    this.players = [];        // 실제 게임을 할 플레이어 정보
   }
 
-  deleteUser(id, j) {
-    //this.players.forEach((players, index) => {
-      if(this.players[j].id === id)
-        this.players.splice(j, 1, { id: null, nick: null, score: null });
-    //});
+  game(){
+    if(this.gameName.length > 0) {
+      const select = this.gameName[Math.floor(Math.random() * this.gameName.length)];
+      const result = this.gameName.filter((e, i) => {
+       if(e !== select) return e; 
+      });
+      this.gameName = result;
+      console.log(`방에 저장된 게임 목록 : ${this.gameName}`);
+      console.log(`선택된 게임 : ${select}`);
+      return select;
+    } else console.log(`모든 라운드 종료`);
   }
   
-  // 라운드별로 userroom 객체내의 탈락한 player들을 null 입력
+  // 플레이어 정보 입력
+  pushplayers(){
+    this.users.forEach((e, i) => {
+      if(e.id !==null) {
+        let player = new PlayerBall(e.id, e.nick);
+        this.players[e.id] = player;
+      }
+    });
+    return this.users;
+  }
+
+  // 유저 삭제
+  deleteUser(id, i) {
+    let a = 0;
+    console.log(`함수의 매개변수 id : ${id}`);
+      if(this.users[i].id === id)
+        this.users.splice(i, 1, { id: null, nick: null, score: null });
+    this.users.forEach((player, index) => { if(player.id == null) a++;  });
+        if(a == 6) return true;
+  }
+  // id값 출력
   get userid() {
-    const playersId = this.players.map((players) => players.id);    
-    return playersId;
+    const usersId = this.users.map((user) => user.id);
+    return usersId;
   }
 
-  
+  // 모든 정보 출력
+  get usernick(){
+    const usersNick = this.users.map((user) => user.nick);
+    return usersNick;
+  }
   // 매칭시 player1~6까지 null이 있는지 체크, null이 없다면 false반환
-  set userid(data) {
+  insertuserid(data) {
     const { id, roomid, nick, score } = data;
     for(let i = 0 ; i < 6 ; i++) {
-      if(this.roomCode != null && this.players[5].id != null) {
+      if(this.roomCode != null && this.users[5].id != null) {
+        console.log('여기 들어왔다구');
         return false;
-      }else if (this.roomCode != null && this.players[i].id == null) {
-        this.players.splice(i, 1, { id: id, nick: nick, score: score });
+      }else if (this.roomCode != null && this.users[i].id == null) {
+        this.users.splice(i, 1, { id: id, nick: nick, score: score });
         return true;
       }else if (this.roomCode == null) {
-        this.players.splice(i, 1, { id: id, nick: nick, score: score });
+        this.users.splice(i, 1, { id: id, nick: nick, score: score });
         return true;
       }
     }
   }
 }
 
-
 //-------------------------- 지역 변수 --------------------------------
 
-var userpool = []; //페이지 접속한 총인원
-var matchinguser = []; // 게임 참여인원은 빠진 페이지접속 인원
-var userinfo = {}; //유저들의 정보모음집
-
-
 // 목적이나 용도 따로 작성 필요
-let roomcnt = 0;
+let roomcnt = 0;  // 매칭 전용 카운트
 let room = new Array();
-let cnt = true;
 room[0] = new userroom();
-
-
-
-// id 값 받아서 비교해서 userinfo의 값을 userroom에 넣자
-
-function joinGame(socket){    // id
-    let player = new Player(socket);  // x,y, nickname
-
-    userpool.push(player);
-    matchinguser.push(player);
-    userinfo[socket.id] = player;
-
-    return player;
-}
-
-function exitGame(socket) {
-      for( var i = 0 ; i < userpool.length; i++){
-        if(userpool[i].id == socket.id){
-            userpool.splice(i,1);
-            break
-        }
-    }
-    delete userinfo[socket.id];
-}
-
-function endGame(socket) {  
-  winner = userroom.userid();
-  return winner  // 정보
-}
 
 io.on('connection', function(socket) {
   console.log(`${socket.id}님이 입장하셨습니다.`);
 
+  
+  socket.emit('user_id', socket.id);
+
   socket.on('disconnect', function(reason){
     console.log(`${socket.id}님이 %{reason}의 이유로 퇴장하셨습니다.`)
-    exitGame(socket);
-    socket.broadcast.emit('leave_user',socket.id);    
+    roomout(socket.id);
+    for(let i = 0; i < room.length; i++) {
+      console.log('[matchcancel] leave 후 조인 방 정보 : ' + i + ' [ ' + room[i].roomCode + ' ] ');
+      console.log('[matchcancel] 유저 정보삭제 후 정보 : '+ i + ' [ ' + room[i].userid + ' ] ');
+      console.log('[matchcancel]  : '+ i + ' [ ' + room[i].check + ' ] ');
+    }
+
+    socket.broadcast.emit('leave_user',socket.id);
   });
-  
-  let newplayer = joinGame(socket);
+ 
   socket.emit('user_id', socket.id);
+
+  function CreateRoom(key) { //방의 조건을 확인해서 방을 만들어주는 함수
+    let check, data;
+    try {
+      check = room[room.length - 1].check;
+      data = room[room.length - 1].userid.filter((_null) => {
+        if(_null != null) return _null;
+      })
+      console.log(`방체크 완료!! ${room}`);
+    } catch {
+      room[0] = new userroom();
+      check = room[room.length - 1].check;
+      data = room[room.length - 1].userid.filter((_null) => {
+        if(_null != null) return _null;
+      })
+      if(room[0].check == '')
+      console.log(`방생성 완료!! ${room[0].check}`);
+    }
+    return check == '' || (data.length != 6 && check == 'm' && key)  ?  true : room[room.length] = new userroom();
+  }
+
+  function getRoomIndex(Id) { //현재 내가 어떤 방에 들어가있는지 체크하는 함수
+    const index = room.findIndex(e => e.userid.includes(Id));
+    console.log(`getRoomIndex : ${index}`);
+    return index;
+  }
   
-  // 클라이언트에서 매칭을 할 시 첫번째로 넘어오는 유저 정보 정보는 방 객체에 저장  
-  /*socket.on('matchStart', function(data) {  // data = 클라이언트에서 넘어오는 유저정보
-    // 받아온 data 값을 userroom.userid 안에서 null값을 체크해 값을 넣는다 
-    // data = {id : id, nick : nickname, score : 0}
-    // 방은 있으되 방에 사람이 아무도 없는 경우
-    if(room[roomcnt].roomCode == null)
-      {
-        room[roomcnt].userid = data;
-        room[roomcnt].roomCode = data.roomid;
-        socket.join(room[roomcnt].roomCode);
-        console.log('처음 방이 만들어졌습니다.  //' + '  방코드 : ' + room[roomcnt].roomCode);
-        console.log('[matchStart] 들어간 유저 정보 : ' + room[roomcnt].userid);
-              console.log('');
-      }
-    // 방에 6명이 있고 방이 없을 경우 방을 생성하는 if문
-    else if(!(room[roomcnt].userid = data))
-      { 
-        roomcnt++;
-        room[roomcnt].roomCode = data.roomid;
-        socket.join(room[roomcnt].roomCode);
-        room[roomcnt] = new userroom();
-        room[roomcnt].userid = data;
-        // 처음 matchtimeover 메세지를 보낸 유저기준으로 방의 인원을 체크하여
-        // matchsuccess를 중복하여 보내지 않기 위한 변수 
-        cnt = true;
-      }
-    else
-      {
-        socket.join(room[roomcnt].roomCode);
-        console.log('매칭 유저가 추가되었습니다.  //' + '  방코드 : ' + room[roomcnt].roomCode);
-        console.log('[matchStart] 들어간 유저 정보 : ' + room[roomcnt].userid);
-              console.log('');
-      }    
-  });
-  // 각 클라이언트마다 mto메시지를 보낸다 이걸 어떻게 처리해야하나
-  // 1번째 사람의 mto메시지만 받고 나머지는 무시한다.
-  
-  /*socket.on('matchtimeover', function(userId) { //매칭 종료버튼, 매칭 타이머 초과 시 받는 정보
-    // 클라이언트에서 emit data {socket.id}
-    // 받는 정보는 타이머 종료 신호, 해당 유저 정보
-    // 1. 유저의 id가 유저룸에 들어가 있는가
-    // 2. 
-
-    // 받아온 id값을 어느방에 있는지 체크하고 > 이미 있음
-    // 그 방의 유저수를 체크하는 userid를 실행 > 배열.length가 1 이면 userroom.asd = true;
-    // 2번째 사람이 왔음 > 근데 해당하는 userroom.asd가 true이면 그냥 넘어감
-    let clientSocket = userId;
-    let checkdata = [];
-    let userroomcnt = 0;
-    
-    for (let i = 0 ; i < room.length ; i++)  //유저의 id를 몇번 방에 있는 지 확인 하는 for문
-      {
-        // room안에 있는 socket.id를 하나하나 확인하기 위한 변수
-        checkdata = room[i].userid;
-        for(let j = 0 ; j < 6 ; j++) 
-          {
-            // 방안에 유저의 정보를 체크하여 방의 위치 확인 
-            if(clientSocket == checkdata[j]) 
-            {
-              // mto를 보낸 유저의 방 번호를 알 수 있다.
-              userroomcnt = i;
-              break;
-             }
-          }
-      }
-    //방안에 유저가 있는 게 확인 되었을 때 그 방안의 인원을 체크하는 코드
-    let array = room[userroomcnt].userid;
-    if(array>2 && cnt == true)
-    {
-      room[userroomcnt].alreadyUser = true;
+  function roomout(id) { // 데이터 삭제 함수
+    const index = getRoomIndex(id);
+    if(index !== -1) {
+      const uIndex = room[index].userid.findIndex(e => e == id);      
+      socket.leave(room[index].roomCode);
+        if(room[index].deleteUser(id, uIndex)) {
+          const temproom = room.filter((room, i) => {
+            if(i !== index) return room;
+          })
+          room = temproom;
+        }
     }
-    else
-    {
-      // 클라이언트에서 다시 매칭하라고 해야함
-      socket.emit('matchfail');
-    }
-    
-    if(room[userroomcnt].alreadyUser) 
-    {
-      // roomusers에게만 보내도록 추후 
-      // 랜덤 방 코드 생성
-      // DB에 userid, roomid, score, nick 삽입
-      io.to(room[userroomcnt].roomCode).emit('matchsuccess', function () {
-        // app.get('/', (req, res) => {
-        //   res.sendFile(__dirname + '/views/index.html')
-        // })
-        room[userroomcnt].alreadyUser = false;
-        cnt = false;
-        roomcnt++;
-        room[roomcnt] = new userroom();
-        });
-    }
-  })*/ // end of mto
+  }//function
 
-  /*socket.on('matchcancel', function (id) { // 매칭 종료 버튼을 눌렀을 때 받는 정보 data = myId
-    // id값에 해당하는 join했던 room과 room객체를 찾아 disconnect와 
-    
-    let checkdata = [];
-    for(let i = 0; i < room.length ; i++)
-      {
-        checkdata = room[i].userid;
-        console.log('[matchcancel] 들어간 정보 : ' + room[i].userid);
-
-        for(let j = 0 ; j < checkdata.length ; j++)
-          {
-            if(id == checkdata[j])
-            {
-              socket.leave(room[i].roomCode);
-              room[i].deleteUser(id, j);
-              // 방에 사람이 아무도 없을경우 roomCode를 초기화
-              if()
-                room[i].roomCode = null;
-              console.log('[matchingover] leave 후 조인 방 정보 : ' + room[i].roomid);
-              console.log('[matchingover] 유저 정보삭제 후 정보 : ' + room[i].userid);
-              console.log('');
-            }
-          }
-        
+  function gamestart(id) {
+    let userroomcnt = getRoomIndex(id);
+    console.log(userroomcnt);
+    if(userroomcnt !== -1) {
+      let array = room[userroomcnt].userid.filter((id) => id != null);
+      if(array.length >= 2 && room[userroomcnt].check != 's') {//방안에 유저가 있는 게 확인 되었을 때 그 방안의 인원을 체크하는 코드
+        console.log('유저 인원체크 완료');
+        let player = room[userroomcnt].pushplayers();
+        io.to(room[userroomcnt].roomCode).emit('gamestart', {
+          game : room[userroomcnt].game(),
+          player : player
+        });//객체 변수
+        room[userroomcnt].check = 's';
+        CreateRoom(false);
       }
-  })*/
+      else if(array.length < 2) {
+        socket.emit('matchfail', roomout(id));
+      }//else if
+    }else {
+      socket.emit('matchfail', roomout(id));
+    }
+  }//function
 
-  /*socket.on('startgame', function(id) {
-    let checkid = [];
-    room.forEach((temp, index) => 
-      {
-        checkid = temp.userid;
-      
-        for(let i = 0; i< 6; i++) 
-        {
-          if(checkid[i] === id) 
-          {
-            io.to(temp.roomCode).emit('gamestart', "/views/gamebase.html");
+  function insert(key, data) { //매칭, 방만들기, joinroom 
+    let {id, roomid, nick, score} = data; //유저 데이터
+    let roomcnt = room.findIndex((e) => e.check === 'm'); //매칭중인 방의 인덱스
+    console.log(`[matchstart] 매칭 , 처음 입장 체크 코드 : ${roomcnt}`);
+    let ck, Index, roomcode; //삽입될 데이터들
+    switch(key) { //함수 실행시 매칭, 방만들기, 방입장 3개중 어떤 것인지 체크
+      case 'p':
+        CreateRoom(false);
+        Index = room.length - 1;
+        ck = 'p';
+        console.log(`[createroom] 만들어진 방 check 변수 : ${room[Index].check}`);
+        break;
+      case 'm': //처음들어온 사람은 무조건 index -1
+        CreateRoom(true);
+        roomcnt = roomcnt == -1 ? room.findIndex((e) => e.check == '') : roomcnt;
+        Index = roomcnt;
+        ck = 'm';
+        console.log(`방만들기 인덱스 코드 : ${Index}`);
+        if(room[Index].roomCode !== null) roomid = room[Index].roomCode;
+        console.log(`[matchstart] 삽입될 데이터 정보 : ${Index} , ${roomid}`);
+        break;
+      case 'j':
+        Index = room.findIndex((e) => e.roomCode == roomid);
+        ck = 'p';
+        console.log(`[joinroom] 들어갈 방 코드 확인 여부 : ${Index}`);
+        break;
+    }
+      try {
+        if(room[Index].check !== 's') {
+          console.log(`[Index 확인 완료]`);
+          room[Index].check = ck;
+          console.log(`[Check 데이터] : ${room[Index].check}`);
+          room[Index].roomCode = roomid;
+          console.log(`[roomCode 데이터] : ${room[Index].roomCode}`);
+          socket.join(room[Index].roomCode);
+          console.log(`[join 데이터] : ${socket.rooms}`);
+          room[Index].insertuserid(data);
+          console.log(`[insertuserid 데이터] : ${room[Index].userid}`);
+          if(key == 'j') {
+            io.to(room[Index].roomCode).emit('joinsuccess', {
+              usernick : room[Index].usernick,
+              roomcode : room[Index].roomCode,
+              userid : room[Index].userid
+            });
           }
         }
-      });
-  })*/
+      } catch {
+        socket.emit('joinfail');
+        console.log(`[조인실패]`)
+      } 
+  }  
+  
+  socket.on('matchStart', insert('m', data));
 
-  // 
-  socket.on('send_location', function(data) {
-    socket.emit('update_state', {
-      id: data.id,
-      x: data.x,
-      y: data.y
-    })
+  socket.on('matchtimeover', gamestart(id));  //매칭 종료버튼, 매칭 타이머 초과 시 받는 정보
+
+  socket.on('matchcancel', function (id) { //매칭 중일 때 나가기 버튼
+    roomout(id);
   })
+
+  socket.on('createroom', function (data) { // data {id, roomid, nick, score}
+    insert('p', data);
+  })
+  
+  socket.on('joinroom', function (data) {    // data {id, roomid, nick, score}
+    insert('j', data);  
+  })
+
+  socket.on('startgame', function(id) { // 방안에서 게임 시작 버튼
+    gamestart(id);
+  })
+
+  // 나중에 게임 연결 성공하면 to(room)에게 보내주는 형태로 수정
+  socket.on('send_location', function(data) {
+          socket.broadcast.emit('update_state', {
+              id: data.id,
+              x: data.x,
+              y: data.y,
+          })
+  })
+//-----------------------------------------------index-------------------------------------------------------------
 });
 
 
-
-
+      

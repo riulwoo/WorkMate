@@ -6,7 +6,7 @@ const io = require('socket.io')(server);
 const fs = require('fs');
 const path = require('path');
 
-server.listen(process.env.PORT || 3000, ()=> {
+server.listen(3000, ()=> {
   console.log("서버가 대기중입니다.");
 });
 
@@ -276,7 +276,8 @@ io.on('connection', function(socket) {
           if(key == 'j') {
             io.to(room[Index].roomCode).emit('joinsuccess', {
               usernick : room[Index].usernick,
-              roomcode : room[Index].roomCode
+              roomcode : room[Index].roomCode,
+              userid : room[Index].userid
             });
           }
         }
@@ -286,13 +287,9 @@ io.on('connection', function(socket) {
       } 
   }  
   
-  socket.on('matchStart', function(data) { 
-    insert('m', data);
-  });
+  socket.on('matchStart', insert('m', data));
 
-  socket.on('matchtimeover', function(id) { //매칭 종료버튼, 매칭 타이머 초과 시 받는 정보
-    gamestart(id);
-  })
+  socket.on('matchtimeover', gamestart(id));  //매칭 종료버튼, 매칭 타이머 초과 시 받는 정보
 
   socket.on('matchcancel', function (id) { //매칭 중일 때 나가기 버튼
     roomout(id);

@@ -54,6 +54,17 @@ body
   margin-left: 50%;
   transform: translate(-50%, 0%);
 }
+
+.inner > input
+{
+  width: 20%;
+  height: 30%;
+  border-radius: 10px;
+  display: block;
+  margin-top: 10px;
+  margin-left: 50%;
+  transform: translate(-50%, 0%);
+}
 .room
 {
   position: absolute;
@@ -103,6 +114,7 @@ body
   width: 100%;
   transform: translate(-50%, -50%);
 }
+
 .players
 {
   height: 50%;
@@ -112,27 +124,32 @@ body
   display : flex;
   justify-content : space-around;
 }
+
 .slot
 {
   border: 1px solid black;
   border-radius: 3px;
   height: 100%;
   width: 15%;
-  
-  
 }
 
 .in_slot_name
-{
+{  
 }
 
 .in_slot_img
 {
   background-image: url("https://cdn.discordapp.com/attachments/896478465237348402/1006409267257024614/1.png");
   background-size: contain;
-  background-repeat: no-repeat ;
+  background-repeat: no-repeat;
   margin-top : 20%;
   margin-bottom : 10%;
   width: 50%;
   height: 50%;
+}
+
+.in_slot_hide
+{
+  visibility : hidden;
+  fontSize : 1px;
 }

@@ -21,7 +21,7 @@ croomBtn.addEventListener("click", function () {
   adminCode.innerText = roomId;
   console.log("create room 눌림 " + myId + roomId + ' ' + nickName);
   toggleRoom();
-  addPlayer([nickName]);
+  addPlayer([nickName], [myId]);
   socket.emit('createroom', {
     id : myId, 
     roomid : roomId, 
@@ -47,19 +47,21 @@ jroomBtn.addEventListener('click', function () {
 
 socket.on('joinsuccess', (data)=>{
   adminCode.innerText = data.roomcode;
-  addPlayer(data.usernick);
+  addPlayer(data.usernick, data.userid);
 })
 
 socket.on('joinfail', ()=>{
   alert('올바른 코드를 입력해주세요!');
 })
+
 start.addEventListener("click", function () {
-socket.emit('startgame', myId);
+  socket.emit('startgame', myId);
 })
 
 cancelBtn.addEventListener("click",function () {
-socket.emit("matchcancel", myId);
-console.log('나가기 눌림');
+  socket.emit("matchcancel", myId);
+  removePlayer(myId);
+  console.log('나가기 눌림');
 })
 
 socket.on('matchfail', function(data) {
@@ -75,27 +77,52 @@ socket.on('gamestart', function(data) {
   $('#main').load(`/${data}`);
 })
 
+socket.on('leave_user', (data)=>{
+  removePlayer(data);
+})
+
 function randomNick() {
   nickName = nickName.value == null || nickName.value == undefined || nickName.value == '' || nickName.value.replace(' ','') == ''?
   "Player " + Math.floor(Math.random()*100+1) : nickName.value 
 }
 
-function addPlayer(nickName) {
+function addPlayer(nickName, userid) {
   let arr = nickName.length > 2 ? nickName.filter(e => e != null) : nickName;
+  let id = userid.length > 2 ? userid.filter(e => e != null) : userid;
   arr.forEach((e,i) => {
     while (slot[i].hasChildNodes()) {
         slot[i].firstChild.remove();
       }
-    let name = document.createElement('div')
-    let Node = document.createTextNode(`${e}`)
+    let name = document.createElement('div');
     let img = document.createElement('img')
+    let hide = document.createElement('div');
+    let hidedId = document.createTextNode(`${id[i]}`)
+    let Node = document.createTextNode(`${e}`)
+    
+    hide.classList.add('in_slot_hide');
     img.classList.add('in_slot_img');
     name.classList.add('in_slot_name');
+    
     name.appendChild(Node);
     slot[i].appendChild(img);
     slot[i].appendChild(name);
+    slot[i].appendChild(hide);
   });
 }
+
+function removePlayer(id){
+  try{
+    let i = slot.filter((e,i) => {
+      let x = e.document.getElementById('in_slot_hide');
+      if (x.value == id)  return i;
+    });
+    while (slot[i].hasChildNodes()) {
+      slot[i].firstChild.remove();
+    }
+  }
+  catch{};
+}
+
 function randomCode() {
   return (new Date().getTime() + Math.random()).toString(36).substring(2,7);
 }
