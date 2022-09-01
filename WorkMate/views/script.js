@@ -120,7 +120,7 @@ function removePlayer(id){
       slot[i].firstChild.remove();
     }
   }
-  catch{console.log('실패!')};
+  catch(e){console.log(e)};
   
 }
 
