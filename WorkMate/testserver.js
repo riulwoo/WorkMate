@@ -11,10 +11,6 @@ const oxHandlers = require('./router/oxHandler');
 const flipHandlers = require('./router/flipHandler');
 const raceHandlers = require('./router/raceHandler');
 
-const Testing = (socket) => {
-  testRouter(io, socket);
-}
-
 const onConnection = (socket) => {
   console.log(`${socket.id}님이 입장하셨습니다.`);
   mainHandlers(io, socket);

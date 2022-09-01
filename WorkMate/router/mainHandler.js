@@ -94,11 +94,6 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   }
 }
 
-function init(params) {
-  let room = new Array();
-  room[0] = new userroom();
-}
-
 
   function CreateRoom(key) { //방의 조건을 확인해서 방을 만들어주는 함수
     let check, data;
@@ -226,7 +221,6 @@ function init(params) {
     socket.broadcast.emit('leave_user',socket.id);
   }
 
-  if(socket)
   socket.emit('user_id', socket.id);
 
   socket.on('disconnect', (reason) => disconnect(reason));
