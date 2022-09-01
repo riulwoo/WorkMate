@@ -89,6 +89,7 @@ function randomNick() {
 function addPlayer(nickName, userid) {
   let arr = nickName.length > 2 ? nickName.filter(e => e != null) : nickName;
   let id = userid.length > 2 ? userid.filter(e => e != null) : userid;
+  console.log(userid, id);
   arr.forEach((e,i) => {
     while (slot[i].hasChildNodes()) {
         slot[i].firstChild.remove();
@@ -120,7 +121,7 @@ function removePlayer(id){
       slot[i].firstChild.remove();
     }
   }
-  catch{};
+  catch{console.log('실패!')};
 }
 
 function randomCode() {
