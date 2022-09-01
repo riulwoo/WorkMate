@@ -17,7 +17,7 @@ matchBtn.addEventListener("click", match);
 
 croomBtn.addEventListener("click", function () {
   roomId = randomCode();
-  randomnick();
+  randomNick();
   adminCode.innerText = roomId;
   console.log("create room 눌림 " + myId + roomId + ' ' + nickName);
   toggleRoom();
@@ -32,7 +32,7 @@ croomBtn.addEventListener("click", function () {
 
 jroomBtn.addEventListener('click', function () {
   console.log('join room 눌림');
-  randomnick();
+  randomNick();
   if(rmCodeTxt.value == null || rmCodeTxt.value == '')
     alert('방 코드를 입력해주세요\n' + '입력받은 방코드 : ' + rmCodeTxt.value)
   toggleRoom();
