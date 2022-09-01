@@ -114,16 +114,14 @@ function addPlayer(nickName, userid) {
 function removePlayer(id){
   console.log(slot);  
   try{
-    let i = slot.filter((e,i) => {
-      let x = e.document.getElementById('in_slot_hide');
-      if (x.value == id)  return i;
-    });
-    console.log(i);  
+    let slotId = document.querySelectorAll('.in_slot_hide')
+    let i = slotId.findIndex( element => element.innerText == id)
     while (slot[i].hasChildNodes()) {
       slot[i].firstChild.remove();
     }
   }
   catch{console.log('실패!')};
+  
 }
 
 function randomCode() {

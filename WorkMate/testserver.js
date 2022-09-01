@@ -14,9 +14,10 @@ server.listen(3000, ()=> {
   console.log("서버가 대기중입니다.");
 });
 
-app.set()
+app.set('io', io);
 app.use(express.static('views'));
 app.use(express.static('game'));
+app.use('/test', testRouter);
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
@@ -227,7 +228,7 @@ io.on('connection', function(socket) {
         console.log('유저 인원체크 완료');
         let player = room[userroomcnt].pushplayers();
         io.to(room[userroomcnt].roomCode).emit('gamestart', {
-          game : room[userroomcnt].game(),
+          game : 'test',
           player : player
         });//객체 변수
         room[userroomcnt].check = 's';
