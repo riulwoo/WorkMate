@@ -10,14 +10,16 @@ const Testing = (socket) => {
   testRouter(io, socket);
 }
 
-server.listen(3000, ()=> {
+server.listen(5000, ()=> {
   console.log("서버가 대기중입니다.");
 });
 
 //app.set('io', io);
 app.use(express.static('views'));
 app.use(express.static('game'));
-app.use('/test', testRouter);
+app.use('/ox', testRouter);
+app.use('/space', testRouter);
+app.use('/filpOver', testRouter);
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
 });
@@ -217,7 +219,7 @@ io.on('connection', function(socket) {
         console.log('유저 인원체크 완료');
         let player = room[userroomcnt].pushplayers();
         io.to(room[userroomcnt].roomCode).emit('gamestart', {
-          game : 'test',
+          game : room[userroomcnt].gamename,
           player : player
         });//객체 변수
         room[userroomcnt].check = 's';
