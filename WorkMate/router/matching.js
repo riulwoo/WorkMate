@@ -20,7 +20,6 @@ function PlayerBall(id, nick){
     // this.currentImage.src = this.asset[0];
 }
 
-
 class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플레이하는 유저의 정보도 알아야 게임이 됨
   constructor(){
     this.check = '';              // 생성된 방이 matching 인지 private인지 체크
@@ -95,7 +94,6 @@ class userroom {  // 클라이언트 코드에도 작성해야함 : 같이 플�
   }
 }
 
-// 목적이나 용도 따로 작성 필요
 let roomcnt = 0;  // 매칭 전용 카운트
 let room = new Array();
 room[0] = new userroom();
@@ -215,7 +213,16 @@ room[0] = new userroom();
       } 
   }  
 
-  function disconnect()
+  function disconnect(reason) {
+    console.log(`${socket.id}님이 %{reason}의 이유로 퇴장하셨습니다.`)
+    roomout(socket.id);
+    for(let i = 0; i < room.length; i++) {
+      console.log('[matchcancel] leave 후 조인 방 정보 : ' + i + ' [ ' + room[i].roomCode + ' ] ');
+      console.log('[matchcancel] 유저 정보삭제 후 정보 : '+ i + ' [ ' + room[i].userid + ' ] ');
+      console.log('[matchcancel]  : '+ i + ' [ ' + room[i].check + ' ] ');
+    }
+    socket.broadcast.emit('leave_user',socket.id);
+  }
 
-  
+
 }

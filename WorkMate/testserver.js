@@ -29,14 +29,12 @@ app.get('/', (req, res) => {
 io.on('connection', function(socket) {
   console.log(`${socket.id}님이 입장하셨습니다.`);
 
-  
   socket.emit('user_id', socket.id);
 
   socket.on('disconnect', (reason) => disconnect(reason));
  
   socket.emit('user_id', socket.id);
 
-  
   socket.on('matchStart', (data)=>insert('m', data));
   
     //매칭 종료버튼, 매칭 타이머 초과 시 받는 정보
