@@ -82,7 +82,7 @@ function randomNick() {
 
 function addPlayer(nickName) {
   let arr = nickName.length > 2 ? nickName.filter(e => e != null) : nickName;
-  arr.forEach(e => {
+  arr.forEach((e,i) => {
     while (slot[i].hasChildNodes()) {
         slot[i].firstChild.remove();
       }
