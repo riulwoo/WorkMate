@@ -115,8 +115,9 @@ function removePlayer(id){
   try{
     let slotId = document.querySelectorAll('.in_slot_hide');
     let arrId = Array.prototype.slice.call(slotId);
+    console.log(arrId); 
     let i = arrId.findIndex( element => element.innerText == id)
-    console.log(i); 
+    
     while (slot[i].hasChildNodes()) {
       slot[i].firstChild.remove();
     }

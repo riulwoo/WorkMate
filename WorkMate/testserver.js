@@ -18,10 +18,10 @@ server.listen(3000, ()=> {
 app.use(express.static('views'));
 app.use(express.static('game'));
 app.use('/test', testRouter);
-
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
 });
+
 
 
 function getPlayerColor() {
