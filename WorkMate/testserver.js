@@ -219,7 +219,7 @@ io.on('connection', function(socket) {
         console.log('유저 인원체크 완료');
         let player = room[userroomcnt].pushplayers();
         io.to(room[userroomcnt].roomCode).emit('gamestart', {
-          game : room[userroomcnt].gameName,
+          game : room[userroomcnt].game(),
           player : player
         });//객체 변수
         room[userroomcnt].check = 's';
