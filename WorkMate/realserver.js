@@ -287,25 +287,20 @@ io.on('connection', function(socket) {
       } 
   }  
   
-  socket.on('matchStart', insert('m', data));
+  socket.on('matchStart', (data)=>insert('m', data));
 
-  socket.on('matchtimeover', gamestart(id));  //매칭 종료버튼, 매칭 타이머 초과 시 받는 정보
+  //매칭 종료버튼, 매칭 타이머 초과 시 받는 정보
+  socket.on('matchtimeover', (id)=> gamestart(id));  
 
-  socket.on('matchcancel', function (id) { //매칭 중일 때 나가기 버튼
-    roomout(id);
-  })
+  //매칭 중일 때 나가기 버튼
+  socket.on('matchcancel', (id)=>roomout(id));  
 
-  socket.on('createroom', function (data) { // data {id, roomid, nick, score}
-    insert('p', data);
-  })
-  
-  socket.on('joinroom', function (data) {    // data {id, roomid, nick, score}
-    insert('j', data);  
-  })
+  // data {id, roomid, nick, score}
+  socket.on('createroom',(data)=> insert('p', data));  
+  socket.on('joinroom', (data)=>insert('j', data))   
 
-  socket.on('startgame', function(id) { // 방안에서 게임 시작 버튼
-    gamestart(id);
-  })
+  // 방안에서 게임 시작 버튼
+  socket.on('startgame', (id)=> gamestart(id))     
 
   // 나중에 게임 연결 성공하면 to(room)에게 보내주는 형태로 수정
   socket.on('send_location', function(data) {
