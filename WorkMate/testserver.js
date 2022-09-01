@@ -9,7 +9,7 @@ const testRouter = require('./router/test');
 const Testing = (socket) => {
   testRouter(io, socket);
 }
-const { CreateRoom, getRoomIndex, roomout, gamestart, insert, disconnect } = require('./router/matching')(io);
+const { CreateRoom, getRoomIndex, roomout, gamestart, insert, disconnect } = require('./router/matching')(io, socket);
 server.listen(5000, ()=> {
   console.log("서버가 대기중입니다.");
 });
@@ -32,8 +32,6 @@ io.on('connection', function(socket) {
   socket.emit('user_id', socket.id);
 
   socket.on('disconnect', (reason) => disconnect(reason));
- 
-  socket.emit('user_id', socket.id);
 
   socket.on('matchStart', (data)=>insert('m', data));
   

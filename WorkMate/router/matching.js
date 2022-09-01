@@ -1,4 +1,4 @@
-module.exports = (io) => {
+module.exports = (io, socket) => {
 
 function PlayerBall(id, nick){
     this.id = id;
