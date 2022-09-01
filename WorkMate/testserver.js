@@ -14,6 +14,7 @@ server.listen(3000, ()=> {
   console.log("서버가 대기중입니다.");
 });
 
+app.set()
 app.use(express.static('views'));
 app.use(express.static('game'));
 
