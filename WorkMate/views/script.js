@@ -109,7 +109,7 @@ function addPlayer(nickName, userid) {
     slot[i].appendChild(img);
     slot[i].appendChild(name);
     slot[i].appendChild(hide);
-  });
+  };
 }
 
 function removePlayer(id){
