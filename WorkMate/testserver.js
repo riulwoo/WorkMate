@@ -17,7 +17,7 @@ server.listen(3000, ()=> {
 //app.set('io', io);
 app.use(express.static('views'));
 app.use(express.static('game'));
-//app.use('/test', testRouter);
+app.use('/test', testRouter);
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
@@ -222,7 +222,6 @@ io.on('connection', function(socket) {
         });//객체 변수
         room[userroomcnt].check = 's';
         CreateRoom(false);
-        Testing;
       }
       else if(array.length < 2) {
         socket.emit('matchfail', roomout(id));

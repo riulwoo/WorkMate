@@ -112,11 +112,11 @@ function addPlayer(nickName, userid) {
 }
 
 function removePlayer(id){
-  console.log(slot);  
   try{
     let slotId = document.querySelectorAll('.in_slot_hide');
     let arrId = Array.prototype.slice.call(slotId);
     let i = arrId.findIndex( element => element.innerText == id)
+    console.log(i); 
     while (slot[i].hasChildNodes()) {
       slot[i].firstChild.remove();
     }
