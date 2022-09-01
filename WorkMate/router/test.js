@@ -13,4 +13,8 @@ router.get('/filpOver', (req, res) => {
   res.sendFile(__dirname + '/gamebase.html');
 });
 
+router.get('/', (req, res) => {
+  res.sendFile(__dirname + '/views/index.html');
+});
+
 module.exports = router;

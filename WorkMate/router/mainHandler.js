@@ -1,4 +1,4 @@
-module.exports = (io, socket) => {
+module.exports = (io,socket) => {
 
 function PlayerBall(id, nick){
     this.id = id;
@@ -136,7 +136,7 @@ room[0] = new userroom();
           room = temproom;
         }
     }
-  }//function
+  }
 
   function gamestart(id) {
     let userroomcnt = getRoomIndex(id);
@@ -159,7 +159,7 @@ room[0] = new userroom();
     }else {
       socket.emit('matchfail', roomout(id));
     }
-  }//function
+  }
 
   function insert(key, data) { //매칭, 방만들기, joinroom 
     let {id, roomid, nick, score} = data; //유저 데이터
@@ -224,12 +224,23 @@ room[0] = new userroom();
     socket.broadcast.emit('leave_user',socket.id);
   }
 
-  return {
-    CreateRoom,
-    getRoomIndex,
-    roomout,
-    gamestart,
-    insert,
-    disconnect
-  }
+  socket.emit('user_id', socket.id);
+
+  socket.on('disconnect', (reason) => disconnect(reason));
+
+  socket.on('matchStart', (data)=>insert('m', data));
+  
+    //매칭 종료버튼, 매칭 타이머 초과 시 받는 정보
+  socket.on('matchtimeover', (id)=> gamestart(id));  
+
+  //매칭 중일 때 나가기 버튼
+  socket.on('matchcancel', (id)=>roomout(id));  
+
+  // data {id, roomid, nick, score}
+  socket.on('createroom',(data)=> insert('p', data)); 
+  
+  socket.on('joinroom', (data)=>insert('j', data))   
+
+  // 방안에서 게임 시작 버튼
+  socket.on('startgame', (id)=> gamestart(id))  
 }
