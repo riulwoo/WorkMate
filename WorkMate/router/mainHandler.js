@@ -226,6 +226,7 @@ function init(params) {
     socket.broadcast.emit('leave_user',socket.id);
   }
 
+  if(socket)
   socket.emit('user_id', socket.id);
 
   socket.on('disconnect', (reason) => disconnect(reason));

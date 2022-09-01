@@ -38,5 +38,5 @@ app.use(express.static('views'));
 app.use(express.static('game'));
 app.use('*', testRouter);
 
-mainHandlers().init();
+mainHandlers(io).init();
 io.on('connection', onConnection);
