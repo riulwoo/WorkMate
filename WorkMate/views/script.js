@@ -52,6 +52,8 @@ socket.on('joinsuccess', (data)=>{
 
 socket.on('joinfail', ()=>{
   alert('올바른 코드를 입력해주세요!');
+  toggleRoom();
+  toggleRoom2();
 })
 
 start.addEventListener("click", function () {
