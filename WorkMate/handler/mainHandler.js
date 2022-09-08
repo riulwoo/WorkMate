@@ -35,11 +35,11 @@ module.exports = (io, socket, room) => {
       const uIndex = room[index].userid.findIndex(e => e == id);      
       socket.leave(room[index].roomCode);
       if(room[index].deleteUser(id, uIndex)) {
-        room = room.filter((e, i) => {
-          if(i !== index) return e; else return [];
-        })
-        //room.splice(index, 1);
+        room.splice(index, 1);
       }
+      // room = room.filter((e, i) => {
+      //     if(i !== index) return e; else return [];
+      //   })
     }
   }
 
