@@ -8,10 +8,10 @@ const io = require('socket.io')(server);
 const testRouter = require('./router/pageRouter');
 
 /** Import SocketHandler */
-const mainHandlers = require('./router/mainHandler');
-const oxHandlers = require('./router/oxHandler');
-const flipHandlers = require('./router/flipHandler');
-const raceHandlers = require('./router/raceHandler');
+const mainHandlers = require('./socketHandler/mainHandler');
+const oxHandlers = require('./socketHandler/oxHandler');
+const flipHandlers = require('./socketHandler/flipHandler');
+const raceHandlers = require('./socketHandler/raceHandler');
 const userroom = require("./model/userroom");
 
 
