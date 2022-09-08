@@ -1,4 +1,4 @@
-import userroom from "./class_room.js";
+import userroom from "class_room.js";
 
 function init() {
   let room = new Array();
