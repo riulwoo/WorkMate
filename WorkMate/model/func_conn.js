@@ -1,8 +1,8 @@
 const userroom = require('./class_room');
-const mainHandlers = require('./socketHandler/mainHandler');
-const oxHandlers = require('./socketHandler/oxHandler');
-const flipHandlers = require('./socketHandler/flipHandler');
-const raceHandlers = require('./socketHandler/raceHandler');
+const mainHandlers = require('../socketHandler/mainHandler');
+const oxHandlers = require('../socketHandler/oxHandler');
+const flipHandlers = require('../socketHandler/flipHandler');
+const raceHandlers = require('../socketHandler/raceHandler');
 
 function init() {
   let room = new Array();
