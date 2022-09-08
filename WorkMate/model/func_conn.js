@@ -1,13 +1,12 @@
 const userroom = require("../model/class_room");
 
-function init = () => {
+function init() {
   let room = new Array();
   room[0] = new userroom();
   return room;
 }
 
-function onConnection = (socket, room) => {
-  
+function onConnection(socket, room) {
   console.log(`${socket.id}님이 입장하셨습니다.`);
   mainHandlers(io, socket, room);
   oxHandlers(io, socket, room);
