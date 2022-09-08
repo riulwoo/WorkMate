@@ -10,15 +10,15 @@ myfont.load().then(function(font){
 // 게임의 프레임은 60fps.
 const FPS = 60;
 // 문제 및 답 배열
-let question = ['제작자 핫팽송은 천재이다?', // Q1 false
+let question = ['제작자 핫팽송은 천재이다? <= 핫팽송이 누군데 ?', // Q1 false
                 'WorkMate는 Unity Engine로 만들어졌다?', // Q2 false
                 '달팽이도 이빨이 있다?', // Q3 true
-                '물고기도 기침을 하는가?', // Q4 true
+                '물고기도 기침을 한다?', // Q4 true
                 '감자는 뿌리가 아니고 줄기다?', // Q5 true
                 '환갑은 61세를 부르는 말이다?', // Q6 true
                 '대한민국에서 두 번째로 큰 섬은 거제도이다?', // Q7 true
                 '홍길동은 실존 인물이 아니다?', // Q8 false
-                '수은의 원소기호는 H9이다.', // Q9 false
+                '수은의 원소기호는 H9이다?', // Q9 false
                 '1 + 2 + 998 + 3 = 1005 이다?', // Q10 false
                 '노르웨이의 수도는 오슬로이다?', // Q11 true
                 '칠레의 수도는 푸에르토몬트이다?', // Q12 false
@@ -109,8 +109,8 @@ var is_during; // 문제가 진행중일 때 true.
 var is_breaking; // 정답을 확인하고 다음 문제가 나오기 전까지 true.
 var is_checking; // 
 var finished_game = false; // 게임이 완전히 끝났을 때 true.
-const QUIZ_DUR_TIME = 6; // 문제 출력 후 퀴즈 진행 시간
-const BREAK_DUR_TIME = 3; // 퀴즈와 퀴즈 사이의 대기 시간
+const QUIZ_DUR_TIME = 5; // 문제 출력 후 퀴즈 진행 시간
+const BREAK_DUR_TIME = 1; // 퀴즈와 퀴즈 사이의 대기 시간
 const CHECK_DUR_TIME = 1.5; // 퀴즈를 풀고 난 뒤 정답 체크 시간
 const PER_SEC = 0.1;
 var during_time = 0; // 0이 되면 during_num이 감소됨.
