@@ -21,7 +21,7 @@ app.use(express.static('game'));
 /** Set Routers */
 app.use('*', Router);
 
-function onConnection(socket, room) {
+const onConnection = (socket) => {
   console.log(`${socket.id}님이 입장하셨습니다.`);
   mainHandlers(io, socket, room);
   oxHandlers(io, socket, room);
@@ -38,7 +38,7 @@ function onConnection(socket, room) {
 }
 
 let room = init();
-io.on('connection', onConnection(socket, room));
+io.on('connection', onConnection);
 
 server.listen(5000, ()=> {
   console.log("서버가 대기중입니다.");
