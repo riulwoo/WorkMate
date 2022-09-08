@@ -1,8 +1,6 @@
 let canvas = document.getElementById("ox_canvas");
 let ctx = canvas.getContext('2d');
 let myfont = new FontFace('DungGeunMo', 'url(ox/assets/fonts/DungGeunMo.otf)');
-//const player = require("./player.js");
-
 
 myfont.load().then(function(font){
     document.fonts.add(font);
@@ -43,7 +41,7 @@ function player(nick)
 // 게임의 프레임은 60fps.
 const FPS = 60;
 // 문제 및 답 배열
-let question = ['제작자 핫팽송은 천재이다? <= 핫팽송이 누군데 ?', // Q1 false
+let question = ['하루는 25시간이다?', // Q1 false
                 'WorkMate는 Unity Engine로 만들어졌다?', // Q2 false
                 '달팽이도 이빨이 있다?', // Q3 true
                 '물고기도 기침을 한다?', // Q4 true
@@ -85,46 +83,10 @@ let question = ['제작자 핫팽송은 천재이다? <= 핫팽송이 누군데 
                 '1부터 100까지 더한 숫자는 5050이다?', // Q40 true
             ];
 let question_answer = [
-                    false, // A1
-                    false, // A2
-                    true, // A3
-                    true, // A4
-                    true, // A5
-                    true, // A6
-                    true, // A7
-                    false, // A8
-                    false, // A9
-                    false, // A10
-                    true, // A11
-                    false, // A12
-                    false, // A13
-                    true, // A14
-                    true, // A15
-                    true, // A16
-                    false, // A17
-                    true, // A18
-                    false, // A19
-                    false, // A20
-                    false, // A21
-                    true, // A22
-                    true, // A23
-                    false, // A24
-                    false, // A25
-                    false, // A26
-                    true, // A27
-                    true, // A28
-                    false, // A29
-                    true, // A30
-                    true, // A31
-                    true, // A32
-                    false, // A33
-                    false, // A34
-                    false, // A35
-                    false, // A36
-                    true, // A37
-                    true, // A38
-                    false, // A39
-                    true, // A40
+                    false, false, true, true, true, true, true, false, false, false, // 1~10
+                    true, false, false, true, true, true, false, true, false, false, // 11~20
+                    false,true, true, false, false, false, true, true, false, true, // 21~30
+                    true, true, false, false, false, false, true, true, false, true // 31~40
                 ];
 // 크기 변수
 let X = canvas.width;

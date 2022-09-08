@@ -38,6 +38,7 @@ const onConnection = (socket) => {
 }
 
 let room = init();
+
 io.on('connection', onConnection);
 
 server.listen(5000, ()=> {
