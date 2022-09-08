@@ -1,4 +1,4 @@
-module.exports = {player};
+export {player};
 
 function player(nick, num)
 {

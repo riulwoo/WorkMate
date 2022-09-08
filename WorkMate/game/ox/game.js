@@ -1,7 +1,7 @@
 let canvas = document.getElementById("ox_canvas");
 let ctx = canvas.getContext('2d');
 let myfont = new FontFace('DungGeunMo', 'url(ox/assets/fonts/DungGeunMo.otf)');
-let player = require('./player');
+import player from "./player.js";
 
 
 myfont.load().then(function(font){
