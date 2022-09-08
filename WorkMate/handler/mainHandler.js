@@ -38,6 +38,7 @@ module.exports = (io, socket, room) => {
         const temproom = room.map((e, i) => {
           if(i !== index) return e;
         })
+        console.log(temproom);
         room = temproom;
       }
     }
