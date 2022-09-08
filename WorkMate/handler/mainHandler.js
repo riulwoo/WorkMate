@@ -1,4 +1,4 @@
-const userroom = require("../model/class_room");
+const userroom = require("./class_room");
 
 module.exports = (io, socket, room) => {
 
@@ -35,11 +35,9 @@ module.exports = (io, socket, room) => {
       const uIndex = room[index].userid.findIndex(e => e == id);      
       socket.leave(room[index].roomCode);
       if(room[index].deleteUser(id, uIndex)) {
-        console.log('if문 안으로 들어왔으');
-        const temproom = room.filter((e, i) => {
+        const temproom = room.map((e, i) => {
           if(i !== index) return e;
         })
-        console.log(`업뎃될 룸 정보 : ${temproom}`);
         room = temproom;
       }
     }
@@ -147,7 +145,7 @@ module.exports = (io, socket, room) => {
   // data {id, roomid, nick, score}
   socket.on('createroom',(data)=> insert('p', data)); 
   
-  socket.on('joinroom', (data)=> insert('j', data))   
+  socket.on('joinroom', (data)=> insert('j', data));   
 
   // 방안에서 게임 시작 버튼
   socket.on('startgame', (id)=> gamestart(id))  

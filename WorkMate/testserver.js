@@ -8,11 +8,11 @@ const io = require('socket.io')(server);
 const Router = require('./router/pageRouter');
 
 /** Import SocketHandler */
-const init = require('./model/func_conn');
-const mainHandlers = require('./socketHandler/mainHandler');
-const oxHandlers = require('./socketHandler/oxHandler');
-const flipHandlers = require('./socketHandler/flipHandler');
-const raceHandlers = require('./socketHandler/raceHandler');
+const init = require('./handler/func_conn');
+const mainHandlers = require('./handler/mainHandler');
+const oxHandlers = require('./handler/oxHandler');
+const flipHandlers = require('./handler/flipHandler');
+const raceHandlers = require('./handler/raceHandler');
 
 /** Set Middleware */
 app.use(express.static('views'));
