@@ -1,4 +1,4 @@
-const userroom = require("../model/class_room");
+import userroom from "./class_room.js";
 
 function init() {
   let room = new Array();

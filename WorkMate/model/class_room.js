@@ -1,4 +1,4 @@
-module.exports = class userroom { 
+export class userroom { 
   // 클라이언트 코드에도 작성해야함 : 같이 플레이하는 유저의 정보도 알아야 게임이 됨
   constructor(){
     this.check = '';              // 생성된 방이 matching 인지 private인지 체크

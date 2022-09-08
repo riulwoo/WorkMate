@@ -5,7 +5,7 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
 /** Import Router */
-const testRouter = require('./router/pageRouter');
+const Router = require('./router/pageRouter');
 
 /** Import SocketHandler */
 // const mainHandlers = require('./socketHandler/mainHandler');
@@ -19,7 +19,7 @@ app.use(express.static('views'));
 app.use(express.static('game'));
 
 /** Set Routers */
-app.use('*', testRouter);
+app.use('*', Router);
 
 let room = init();
 io.on('connection', onConnection(room));
