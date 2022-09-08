@@ -14,7 +14,7 @@ router.get('/filpOver', (req, res) => {
 });
 
 router.get('/', (req, res) => {
-  res.sendFile('views/index.html');
+  res.sendFile('index.html', {root : '/views'});
 });
 
 module.exports = router;
