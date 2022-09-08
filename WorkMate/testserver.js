@@ -1,4 +1,4 @@
-// server.js
+/** server.js */
 const express = require('express');
 const app = express();
 const server = require('http').Server(app);
@@ -12,7 +12,7 @@ const Router = require('./router/pageRouter');
 // const oxHandlers = require('./socketHandler/oxHandler');
 // const flipHandlers = require('./socketHandler/flipHandler');
 // const raceHandlers = require('./socketHandler/raceHandler');
-import { init, onConnection } from "./model/func_conn.js";
+const { init, onConnection } = require('./model/func_conn');
 
 /** Set Middleware */
 app.use(express.static('views'));

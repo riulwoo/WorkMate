@@ -1,4 +1,4 @@
-import userroom from "./class_room.js";
+const userroom = require('./class_room');
 
 function init() {
   let room = new Array();
@@ -23,4 +23,7 @@ function onConnection(socket, room) {
   // })
 }
 
-export { init, onConnection };
+module.exports = {
+  init,
+  onConnection
+}
