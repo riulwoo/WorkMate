@@ -38,7 +38,7 @@ function onConnection(socket, room) {
 }
 
 let room = init();
-io.on('connection', onConnection(room));
+io.on('connection', onConnection(socket, room));
 
 server.listen(5000, ()=> {
   console.log("서버가 대기중입니다.");

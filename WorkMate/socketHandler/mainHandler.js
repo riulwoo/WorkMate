@@ -1,6 +1,6 @@
 const userroom = require("../model/class_room");
 
-module.exports = (io,socket, room) => {
+module.exports = (io, socket, room) => {
 
   function PlayerBall(id, nick){
     this.id = id;
