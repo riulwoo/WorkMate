@@ -37,9 +37,6 @@ module.exports = (io, socket, room) => {
       if(room[index].deleteUser(id, uIndex)) {
         room.splice(index, 1);
       }
-      // room = room.filter((e, i) => {
-      //     if(i !== index) return e; else return [];
-      //   })
     }
   }
 
