@@ -121,7 +121,7 @@ module.exports = (io, socket, room) => {
 
   function disconnect(reason) {
     console.log(`${socket.id}님이 %{reason}의 이유로 퇴장하셨습니다.`)
-    roomout(socket.id);
+    room = roomout(socket.id);
     for(let i = 0; i < room.length; i++) {
       console.log('[matchcancel] leave 후 조인 방 정보 : ' + i + ' [ ' + room[i].roomCode + ' ] ');
       console.log('[matchcancel] 유저 정보삭제 후 정보 : '+ i + ' [ ' + room[i].userid + ' ] ');
@@ -140,12 +140,12 @@ module.exports = (io, socket, room) => {
   socket.on('matchtimeover', (id)=> gamestart(id));  
 
   //매칭 중일 때 나가기 버튼
-  socket.on('matchcancel', (id)=>roomout(id));  
+  socket.on('matchcancel', (id)=> room = roomout(id));  
 
   // data {id, roomid, nick, score}
   socket.on('createroom',(data)=> insert('p', data)); 
   
-  socket.on('joinroom', (data)=>insert('j', data))   
+  socket.on('joinroom', (data)=> insert('j', data))   
 
   // 방안에서 게임 시작 버튼
   socket.on('startgame', (id)=> gamestart(id))  
