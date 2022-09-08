@@ -122,11 +122,13 @@ module.exports = (io, socket, room) => {
   function disconnect(reason) {
     console.log(`${socket.id}님이 %{reason}의 이유로 퇴장하셨습니다.`)
     room = roomout(socket.id);
+    try{
     for(let i = 0; i < room.length; i++) {
       console.log('[matchcancel] leave 후 조인 방 정보 : ' + i + ' [ ' + room[i].roomCode + ' ] ');
       console.log('[matchcancel] 유저 정보삭제 후 정보 : '+ i + ' [ ' + room[i].userid + ' ] ');
       console.log('[matchcancel]  : '+ i + ' [ ' + room[i].check + ' ] ');
     }
+    }catch { console.log('방이 없음');}
     socket.broadcast.emit('leave_user',socket.id);
   }
 
