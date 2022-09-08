@@ -39,7 +39,7 @@ module.exports = (io, socket, room) => {
           const temproom = room.filter((e, i) => {
             if(i !== index) return e;
           })
-          console.log(temproom);
+          console.log(`업뎃될 룸 정보 : ${temproom}`);
           room = temproom;
         }
     }
