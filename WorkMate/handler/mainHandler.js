@@ -35,7 +35,7 @@ module.exports = (io, socket, room) => {
       const uIndex = room[index].userid.findIndex(e => e == id);      
       socket.leave(room[index].roomCode);
       if(room[index].deleteUser(id, uIndex)) {
-        const temproom = room.map((e, i) => {
+        const temproom = room.filter((e, i) => {
           if(i !== index) return e;
         })
         console.log(temproom);
