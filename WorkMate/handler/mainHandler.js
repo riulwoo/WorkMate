@@ -36,9 +36,9 @@ module.exports = (io, socket, room) => {
       socket.leave(room[index].roomCode);
       if(room[index].deleteUser(id, uIndex)) {
         const temproom = room.filter((e, i) => {
+          console.log(e);
           if(i !== index) return e;
         })
-        console.log(temproom);
         room = temproom;
       }
     }
