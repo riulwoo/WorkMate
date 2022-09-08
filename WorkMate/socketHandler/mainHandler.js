@@ -20,9 +20,8 @@ module.exports = (io, socket, room) => {
       if(room[0].check == '')
       console.log(`방생성 완료!! ${room[0].check}`);
     }
-    return check == '' || (data.length != 6 && check == 'm' && key)  ?  true : true;
-  } 
-  //room[room.length] = new userroom()
+    return check == '' || (data.length != 6 && check == 'm' && key)  ?  true : room[room.length] = new userroom();
+  }
 
   function getRoomIndex(Id) { //현재 내가 어떤 방에 들어가있는지 체크하는 함수
     const index = room.findIndex(e => e.userid.includes(Id));
@@ -40,6 +39,7 @@ module.exports = (io, socket, room) => {
             if(i !== index) return e;
           })
           room = temproom;
+          return room;
         }
     }
   }
