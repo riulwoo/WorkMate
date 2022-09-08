@@ -8,10 +8,7 @@ const io = require('socket.io')(server);
 const Router = require('./router/pageRouter');
 
 /** Import SocketHandler */
-const mainHandlers = require('./socketHandler/mainHandler');
-const oxHandlers = require('./socketHandler/oxHandler');
-const flipHandlers = require('./socketHandler/flipHandler');
-const raceHandlers = require('./socketHandler/raceHandler');
+
 const { init, onConnection } = require('./model/func_conn');
 
 /** Set Middleware */
