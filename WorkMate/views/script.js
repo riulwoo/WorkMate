@@ -69,6 +69,7 @@ cancelBtn.addEventListener("click",function () {
 socket.on('matchfail', function(data) {
  alert('다시 시도해주세요');
 })
+
 socket.on('user_id', function(data){
   myId = data;
 })
@@ -127,7 +128,6 @@ function removePlayer(id){
     }
   }
   catch(e){console.log(e)};
-  
 }
 
 function randomCode() {

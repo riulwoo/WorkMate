@@ -12,8 +12,7 @@ const testRouter = require('./router/pageRouter');
 // const oxHandlers = require('./socketHandler/oxHandler');
 // const flipHandlers = require('./socketHandler/flipHandler');
 // const raceHandlers = require('./socketHandler/raceHandler');
-const [init, onConnection] = require("./model/func_conn");
-
+import { init, onConnection } from "./model/func_conn.js";
 
 /** Set Middleware */
 app.use(express.static('views'));
