@@ -1,4 +1,4 @@
-const userroom = require("../model/userroom");
+const userroom = require("../model/class_room");
 
 module.exports = (io,socket, room) => {
 
