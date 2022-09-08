@@ -13,8 +13,4 @@ router.get('/filpOver', (req, res) => {
   res.sendFile('views/gamebase.html');
 });
 
-router.get('/', (req, res) => {
-  res.sendFile('index.html', {root : '/views'});
-});
-
 module.exports = router;
