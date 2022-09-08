@@ -1,3 +1,5 @@
+module.exports = {player};
+  
 function player(nick)
 {
     // 플레이어 닉네임 설정
