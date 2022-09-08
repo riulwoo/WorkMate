@@ -3,7 +3,7 @@ canvas.width = document.body.clientWidth;
 canvas.height = document.body.clientHeight;
 
 let ctx = canvas.getContext('2d');
-let myFont = new FontFace('DungGeunMo', 'url(assets/fonts/DungGeunMo.otf)');
+let myFont = new FontFace('DungGeunMo', 'url(ox/assets/fonts/DungGeunMo.otf)');
 
 myFont.load().then(function(font){
     document.fonts.add(font);
