@@ -35,11 +35,12 @@ module.exports = (io, socket, room) => {
       const uIndex = room[index].userid.findIndex(e => e == id);      
       socket.leave(room[index].roomCode);
         if(room[index].deleteUser(id, uIndex)) {
+          console.log('if문 안으로 들어왔으');
           const temproom = room.filter((e, i) => {
             if(i !== index) return e;
           })
+          console.log(temproom);
           room = temproom;
-          return room;
         }
     }
   }
@@ -121,14 +122,12 @@ module.exports = (io, socket, room) => {
 
   function disconnect(reason) {
     console.log(`${socket.id}님이 %{reason}의 이유로 퇴장하셨습니다.`)
-    room = roomout(socket.id);
-    try{
+    roomout(socket.id);
     for(let i = 0; i < room.length; i++) {
       console.log('[matchcancel] leave 후 조인 방 정보 : ' + i + ' [ ' + room[i].roomCode + ' ] ');
       console.log('[matchcancel] 유저 정보삭제 후 정보 : '+ i + ' [ ' + room[i].userid + ' ] ');
       console.log('[matchcancel]  : '+ i + ' [ ' + room[i].check + ' ] ');
     }
-    }catch { console.log('방이 없음');}
     socket.broadcast.emit('leave_user',socket.id);
   }
 
@@ -142,7 +141,7 @@ module.exports = (io, socket, room) => {
   socket.on('matchtimeover', (id)=> gamestart(id));  
 
   //매칭 중일 때 나가기 버튼
-  socket.on('matchcancel', (id)=> room = roomout(id));  
+  socket.on('matchcancel', (id)=> roomout(id));  
 
   // data {id, roomid, nick, score}
   socket.on('createroom',(data)=> insert('p', data)); 

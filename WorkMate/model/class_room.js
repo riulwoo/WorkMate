@@ -64,6 +64,7 @@ module.exports = class userroom {
     this.users.forEach((player, index) => { if(player.id == null) a++;  });
         if(a == 6) return true;
   }
+  
   // id값 출력
   get userid() {
     const usersId = this.users.map((user) => user.id);
