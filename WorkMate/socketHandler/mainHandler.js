@@ -123,7 +123,7 @@ module.exports = (io, socket, room) => {
   function disconnect(reason) {
     console.log(`${socket.id}님이 %{reason}의 이유로 퇴장하셨습니다.`)
     roomout(socket.id);
-    console.log(`업뎃 후의 룸 정보 : ${temproom}`);
+    console.log(`업뎃 후의 룸 정보 : ${room}`);
     for(let i = 0; i < room.length; i++) {
       console.log('[matchcancel] leave 후 조인 방 정보 : ' + i + ' [ ' + room[i].roomCode + ' ] ');
       console.log('[matchcancel] 유저 정보삭제 후 정보 : '+ i + ' [ ' + room[i].userid + ' ] ');
