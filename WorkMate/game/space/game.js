@@ -1,7 +1,7 @@
 let canvas = document.getElementById("space_canvas");
 canvas.width = document.body.clientWidth;
 canvas.height = document.body.clientHeight;
-import { player } from "./player.js";
+//import { player } from "./player.js";
 let ctx = canvas.getContext('2d');
 let myFont = new FontFace('DungGeunMo', 'url(ox/assets/fonts/DungGeunMo.otf)');
 
