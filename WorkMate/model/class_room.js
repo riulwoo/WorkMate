@@ -1,3 +1,23 @@
+function PlayerBall(id, nick){
+    this.id = id;
+    this.color = "#FF00FF";
+    this.x = 1024/2;
+    this.y = 768/2;
+    if(nick == null)
+        this.nick = "player " + Math.floor(Math.random()*100);
+    else
+        this.nick = nick;
+    // 플레이어의 앞, 뒤, 왼, 오 이미지 => 현재 앞모습 이미지 밖에 없음
+    this.asset = ['https://cdn.discordapp.com/attachments/980090904394219562/1004271208226881606/1.png',
+                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271284735193139/4.png',
+                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271240271376385/4.png',
+                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271430722146345/3.png'];
+
+    // // 키 입력 받을 시 이미지
+    // this.currentImage = new Image();
+    // this.currentImage.src = this.asset[0];
+}
+
 module.exports = class userroom { 
   // 클라이언트 코드에도 작성해야함 : 같이 플레이하는 유저의 정보도 알아야 게임이 됨
   constructor(){
@@ -10,7 +30,7 @@ module.exports = class userroom {
     }
     this.players = [];        // 실제 게임을 할 플레이어 정보
   }
-
+  
   game(){
     if(this.gameName.length > 0) {
       const select = this.gameName[Math.floor(Math.random() * this.gameName.length)];
