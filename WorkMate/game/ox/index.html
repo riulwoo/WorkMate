@@ -1,48 +1,16 @@
-<!doctype html>
 <html>
-	<head>
-		<link rel="stylesheet" href="/ox/style.css">
-	</head>
-  <style>
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-</style>
-	<body>
-		<div id="score">
-			
-		</div>
-		
-		<div id="quiz">
-			
-		<!--<button id="btn1">
-				result
-			</button> -->
-		</div>
-		<div id="selection">
-			현재 선택: O
-		</div>
-
-		<div id="count">
-			5
-		</div>
-		
-		<div id="ox">
-			<div id="o">
-				<div class="mark">
-					O
-				</div>
-			</div>
-			<div id="x">
-				<div class="mark">
-					X
-				</div>
-			</div>
-		</div>
-
-		<div class="move">
-			★
-		</div>
-
-		<script src="/ox/script.js">
-		</script>
-	</body>
+    <head>
+        <script src = "game.js" defer></script>
+        <script src = "player.js"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <canvas id="ox_canvas" width="1200" height="800"></canvas>
+    </body>
+    <script>
+        // 영역
+        // 문제 출제 영역       X : 0 ~ 1200   Y : 0 ~ 200 Text X : 800 Y : 100
+        // 문제 풀이 영역 (O)   X : 0 ~ 600    Y : 200 ~ 800
+        // 문제 풀이 영역 (X)   X : 600 ~ 1200 Y : 200 ~ 800
+    </script>
 </html>
