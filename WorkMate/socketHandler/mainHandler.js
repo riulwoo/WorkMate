@@ -34,14 +34,14 @@ module.exports = (io, socket, room) => {
     if(index !== -1) {
       const uIndex = room[index].userid.findIndex(e => e == id);      
       socket.leave(room[index].roomCode);
-        if(room[index].deleteUser(id, uIndex)) {
-          console.log('if문 안으로 들어왔으');
-          const temproom = room.filter((e, i) => {
-            if(i !== index) return e;
-          })
-          console.log(`업뎃될 룸 정보 : ${temproom}`);
-          room = temproom;
-        }
+      if(room[index].deleteUser(id, uIndex)) {
+        console.log('if문 안으로 들어왔으');
+        const temproom = room.filter((e, i) => {
+          if(i !== index) return e;
+        })
+        console.log(`업뎃될 룸 정보 : ${temproom}`);
+        room = temproom;
+      }
     }
   }
 
@@ -123,6 +123,7 @@ module.exports = (io, socket, room) => {
   function disconnect(reason) {
     console.log(`${socket.id}님이 %{reason}의 이유로 퇴장하셨습니다.`)
     roomout(socket.id);
+    console.log(`업뎃 후의 룸 정보 : ${temproom}`);
     for(let i = 0; i < room.length; i++) {
       console.log('[matchcancel] leave 후 조인 방 정보 : ' + i + ' [ ' + room[i].roomCode + ' ] ');
       console.log('[matchcancel] 유저 정보삭제 후 정보 : '+ i + ' [ ' + room[i].userid + ' ] ');
