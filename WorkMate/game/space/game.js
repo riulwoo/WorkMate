@@ -129,26 +129,26 @@ function keyUpHandler(e){
     }
 }
 
-// function newAsteroid(x, y)
-// {
-//     var roid = {
-//         x: x,
-//         y: y,
-//         xv: Math.random() * ROIDS_SPD / FPS * (Math.random() < 0.5 ? 1 : -1),
-//         yv: Math.random() * ROIDS_SPD / FPS * (Math.random() < 0.5 ? 1 : -1),
-//         r: ROIDS_SIZE / 2,
-//         a: Math.random() * Math.PI * 2, // in radians
-//         vert: Math.floor(Math.random() * (ROIDS_VERT + 1) + ROIDS_VERT / 2),
-//         offs: []
-//     };
+function newAsteroid(x, y)
+{
+    var roid = {
+        x: x,
+        y: y,
+        xv: Math.random() * ROIDS_SPD / FPS * (Math.random() < 0.5 ? 1 : -1),
+        yv: Math.random() * ROIDS_SPD / FPS * (Math.random() < 0.5 ? 1 : -1),
+        r: ROIDS_SIZE / 2,
+        a: Math.random() * Math.PI * 2, // in radians
+        vert: Math.floor(Math.random() * (ROIDS_VERT + 1) + ROIDS_VERT / 2),
+        offs: []
+    };
 
-//     // create the vertex offsets array
-//     for (var i = 0; i < roid.vert; i++) {
-//         roid.offs.push(Math.random() * ROIDS_JAG * 2 + 1 - ROIDS_JAG);
-//     }
+    // create the vertex offsets array
+    for (var i = 0; i < roid.vert; i++) {
+        roid.offs.push(Math.random() * ROIDS_JAG * 2 + 1 - ROIDS_JAG);
+    }
 
-//     return roid;
-// }
+    return roid;
+}
 
 // calculate length in pixel between player and other objects.
 // 플레이어와 다른 오브젝트(장애물, 아이템상자, 골인지점)간의 거리를 계산하는 메서드
