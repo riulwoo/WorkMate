@@ -31,9 +31,9 @@ var explode_4 = 3;
 // 장애물 관련
 const ROIDS_NUM = 7; // starting number of Asteroids
 const ROIDS_SIZE = 90; // starting size of Asteroids in pixels
-// const ROIDS_JAG = 0.3; // jaggedness of the asteroids (0 = none, 1 = lots)
-// const ROIDS_SPD = 50; // max starting speed of Asteroids in pixels per second.
-// const ROIDS_VERT = 10; // average number of vertices on each Asteroid
+const ROIDS_JAG = 0.3; // jaggedness of the asteroids (0 = none, 1 = lots)
+const ROIDS_SPD = 50; // max starting speed of Asteroids in pixels per second.
+const ROIDS_VERT = 10; // average number of vertices on each Asteroid
 const ROIDS_OF_ITEM_NUM = 5;
 // 골인지점 관련
 const GOAL_TURN_SPEED = 360; // 골인지점 스프라이트를 초당 360도씩 회전시킴.
