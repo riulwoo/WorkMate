@@ -47,12 +47,12 @@ module.exports = class userroom {
   // 플레이어 정보 입력
   pushplayers(){
     this.users.forEach((e, i) => {
-      if(e.id !==null) {
+      if(e.id !== null) {
         let player = new PlayerBall(e.id, e.nick);
         this.players[e.id] = player;
       }
     });
-    return this.users;
+    return this.players;
   }
 
   // 유저 삭제

@@ -12,6 +12,7 @@ var roomId = '';
 var a = 1;
 var myId;
 var socket = io();
+let players = [];
 
 matchBtn.addEventListener("click", match);
 
@@ -78,6 +79,9 @@ socket.on('gamestart', function(data) {
   console.log('게임 스타트');
   //$('#main').load('/gamebase.html');
   $('#main').load(`/${data.game}`);
+  players = data.player;
+  console.log(data.player);
+  console.log(players);
 })
 
 socket.on('leave_user', (data)=>{

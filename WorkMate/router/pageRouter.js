@@ -9,7 +9,7 @@ router.get('/space', (req, res) => {
   res.sendFile('game/space/index.html');
 });
 
-router.get('/filpOver', (req, res) => {
+router.get('/flipOver', (req, res) => {
   res.sendFile('views/gamebase.html');
 });
 
