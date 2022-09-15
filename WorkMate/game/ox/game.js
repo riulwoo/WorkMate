@@ -204,8 +204,8 @@ function update()
     {
         // 문제 출력 전에 영역을 초기화 시켜줌
         ctx.clearRect(0, 0, 1200, 200);
-        // ctx.fillStyle = "bisque";
-        // ctx.fillRect(0, 0, X, Y / 4);
+        ctx.fillStyle = "bisque";
+        ctx.fillRect(0, 0, X, Y / 4);
 
         // 문제 출력
         ctx.fillStyle = "black"
