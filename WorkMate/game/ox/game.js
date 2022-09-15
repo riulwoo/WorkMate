@@ -182,9 +182,8 @@ function update()
 {
     // draw playground. 플레이어가 이동할 필드를 그립니다.
     field_draw();
-    renderPlayer();
     ctx.clearRect(0, 0, X, Y / 4);
-
+    
     is_during = during_num > 0;
     is_breaking = break_num > 0;
     is_checking = check_num > 0;
@@ -350,8 +349,7 @@ function update()
     ctx.font = '24px DungGeunMo';
     ctx.textAlign = "center";
     ctx.fillText('Score : ' + players[myId].score, 55, 40);
-
-    
+    renderPlayer();
 }
-setInterval(update, 10);
+setInterval(update, 1000 / FPS);
 
