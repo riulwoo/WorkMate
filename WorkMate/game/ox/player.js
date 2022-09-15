@@ -1,5 +1,7 @@
-function player(nick)
+function player(id, nick)
 {
+    this.id;
+  
     // 플레이어 닉네임 설정
     if (nick == null)
     {

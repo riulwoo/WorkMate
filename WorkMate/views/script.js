@@ -80,9 +80,11 @@ socket.on('gamestart', function(data) {
   console.log('게임 스타트');
   //$('#main').load('/gamebase.html');
   $('#main').load(`/${data.game}`);
+  
   for (let i = 0; i < data.player.length; i++) {
     let player = new PlayerBall(data.player.id, data.player.nick);
-    players[id] = player;
+    players[data.player.id] = player;
+    console.log('데이터 전달 받음');
   }  
 })
 
