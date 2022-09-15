@@ -77,14 +77,14 @@ socket.on('user_id', function(data){
 })
 
 socket.on('gamestart', function(data) {
-  const { game, player } = data;
+  const { game, player : playboy } = data;
   console.log('게임 스타트');
   //$('#main').load('/gamebase.html');
   $('#main').load(`/${game}`);
   
-  for (let i = 0; i < player.length; i++) {
-    let player = new PlayerBall(player.id, player.nick);
-    players[player.id] = player;
+  for (let i = 0; i < playboy.length; i++) {
+    let player = new PlayerBall(playboy[i].id, playboy[i].nick);
+    players[playboy[i].id] = player;
     console.log(players);
   }  
 })
