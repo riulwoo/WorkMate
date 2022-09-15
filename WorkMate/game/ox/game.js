@@ -288,12 +288,12 @@ function update()
         // measureText() = 문자열의 넓이 반환
         ctx.textAlign = "center";
 
-        if (question_answer[quiz_index] && player_1.is_O)
+        if (question_answer[quiz_index] && players[myId].is_O)
         {
             // 정답이 O. and 플레이어가 O.
             ctx.fillText('정답입니다!!', X / 2, 120);
         }
-        else if (!question_answer[quiz_index] && !player_1.is_O)
+        else if (!question_answer[quiz_index] && !players[myId].is_O)
         {
             // 정답이 X. and 플레이어가 X.
             ctx.fillText('정답입니다!!', X / 2, 120);
@@ -319,13 +319,13 @@ function update()
 
         if (check_num <= 0)
         {
-            if (question_answer[quiz_index] && player_1.is_O)
+            if (question_answer[quiz_index] && players[myId].is_O)
             {
-                player_1.score++;
+                players[myId].score++;
             }
-            else if (!question_answer[quiz_index] && !player_1.is_O)
+            else if (!question_answer[quiz_index] && !players[myId].is_O)
             {
-                player_1.score++;
+                players[myId].score++;
             }
 
             question.splice(quiz_index, 1);
@@ -395,20 +395,20 @@ function update()
             sendData(curPlayer, direction);
         }
       }
-    // // collision detection of player. 플레이어가 문제 출력 영역으로 이동하지 못하도록 충돌을 감지합니다.
-    // if (player_1.y <= 200)
-    // {
-    //     player_1.y = 200;
-    // }
+    // collision detection of player. 플레이어가 문제 출력 영역으로 이동하지 못하도록 충돌을 감지합니다.
+    if (players[myId].y <= 200)
+    {
+        players[myId].y = 200;
+    }
 
-    // if (player_1.x < 585)
-    // {
-    //     player_1.is_O = true;
-    // }
-    // else if (player_1.x >= 585)
-    // {
-    //     player_1.is_O = false;
-    // }
+    if (players[myId].x < 585)
+    {
+        players[myId].is_O = true;
+    }
+    else if (players[myId].x >= 585)
+    {
+        players[myId].is_O = false;
+    }
 }
 setInterval(update, 1000 / FPS);
 

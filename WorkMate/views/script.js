@@ -109,6 +109,8 @@ function PlayerBall(id, nick){
     // 키 입력 받을 시 이미지
     this.currentImage = new Image();
     this.currentImage.src = this.asset[0];
+
+  this.is_O;
 }
 
 function randomNick() {
