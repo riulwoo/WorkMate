@@ -44,10 +44,20 @@ function renderPlayer() {
             sendData(curPlayer, direction);
         }
       }
+  
     // collision detection of player. 플레이어가 문제 출력 영역으로 이동하지 못하도록 충돌을 감지합니다.
     if (players[myId].y <= 200)
     {
         players[myId].y = 200;
+    }
+
+    if (players[myId].x < 0)
+    {
+        players[myId].x = 0;
+    }
+    else if (players[myId].x > X - (radius * 2))
+    {
+        players[myId].x = X - (radius * 2);
     }
 
     if (players[myId].x < 585)

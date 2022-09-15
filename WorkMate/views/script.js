@@ -14,7 +14,7 @@ var myId;
 var socket = io();
 let players = [];
 let playermap = [];
-
+const QIndex = [];
 matchBtn.addEventListener("click", match);
 
 croomBtn.addEventListener("click", function () {
@@ -77,17 +77,17 @@ socket.on('user_id', function(data){
 })
 
 socket.on('gamestart', function(data) {
-  const { game, player : playboy } = data;
+  const { game, player : playboy, oxQIndex } = data;
+  QIndex = onQIndex;
   console.log('게임 스타트');
   //$('#main').load('/gamebase.html');
   $('#main').load(`/${game}`);
-  
   for (let i = 0; i < playboy.length; i++) {
     let player = new PlayerBall(playboy[i].id, playboy[i].nick);
     playermap[i] = player;
     players[playboy[i].id] = player;
     console.log(players);
-  }  
+  }
 })
 
 socket.on('leave_user', (data)=>{

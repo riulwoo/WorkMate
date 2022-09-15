@@ -1,4 +1,5 @@
 const userroom = require("./class_room");
+const oxHandler = require("./oxHandler");
 
 module.exports = (io, socket, room) => {
 
@@ -49,7 +50,8 @@ module.exports = (io, socket, room) => {
         console.log('유저 인원체크 완료');
         io.to(room[userroomcnt].roomCode).emit('gamestart', {
           game : room[userroomcnt].game(),
-          player : room[userroomcnt].pushplayers()
+          player : room[userroomcnt].pushplayers(),
+          oxQIndex : oxHandler.quizIndex()
         }); //객체 변수
         room[userroomcnt].check = 's';
         CreateRoom(false);

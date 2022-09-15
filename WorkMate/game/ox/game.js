@@ -1,4 +1,8 @@
 let canvas = document.getElementById("ox_canvas");
+
+canvas.width = 1300;
+canvas.height = document.body.clientHeight;
+
 let ctx = canvas.getContext('2d');
 let myfont = new FontFace('DungGeunMo', 'url(ox/assets/fonts/DungGeunMo.otf)');
 
@@ -88,8 +92,7 @@ var check_num = 0;
 // 문제 진행 횟수 등
 const TOTAL_QUIZ_COUNT = 5;
 var cur_quiz_count = 0;
-var quiz_index;
-
+let cnt = 0; // quiz_index의 인덱스 변수
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
@@ -223,7 +226,7 @@ function update()
 
         if (break_num <= 0)
         {
-            quiz_index = Math.floor(Math.random() * question.length);
+            quiz_index = ;받아온 값
             during_time = Math.ceil(PER_SEC * FPS);
             during_num = Math.ceil(QUIZ_DUR_TIME / PER_SEC);
         }
@@ -238,7 +241,7 @@ function update()
 
         // 문제 출력
         ctx.fillStyle = "black"
-        if (question[quiz_index].length < 20)
+        if (question[QIndex[cnt]].length < 20)
         {
             ctx.font = '48px DungGeunMo';
         }
@@ -248,7 +251,7 @@ function update()
         }
         // measureText() = 문자열의 넓이 반환
         ctx.textAlign = "center";
-        ctx.fillText("Q" + (cur_quiz_count + 1) + ". " +question[quiz_index], X / 2, 120);
+        ctx.fillText("Q" + (cur_quiz_count + 1) + ". " +question[QIndex[cnt]], X / 2, 120);
 
         // 카운트다운 출력
         ctx.fillStyle = "#90DBA2"
@@ -279,7 +282,6 @@ function update()
             check_num = Math.ceil(CHECK_DUR_TIME / PER_SEC);
         }
     }
-
     if (is_checking)
     {
         ctx.clearRect(0, 0, 1200, 200);
@@ -291,12 +293,12 @@ function update()
         // measureText() = 문자열의 넓이 반환
         ctx.textAlign = "center";
 
-        if (question_answer[quiz_index] && players[myId].is_O)
+        if (question_answer[QIndex[cnt]] && players[myId].is_O)
         {
             // 정답이 O. and 플레이어가 O.
             ctx.fillText('정답입니다!!', X / 2, 120);
         }
-        else if (!question_answer[quiz_index] && !players[myId].is_O)
+        else if (!question_answer[QIndex[cnt]] && !players[myId].is_O)
         {
             // 정답이 X. and 플레이어가 X.
             ctx.fillText('정답입니다!!', X / 2, 120);
@@ -322,17 +324,19 @@ function update()
 
         if (check_num <= 0)
         {
-            if (question_answer[quiz_index] && players[myId].is_O)
+            if (question_answer[QIndex[cnt]] && players[myId].is_O)
             {
                 players[myId].score++;
             }
-            else if (!question_answer[quiz_index] && !players[myId].is_O)
+            else if (!question_answer[QIndex[cnt]] && !players[myId].is_O)
             {
                 players[myId].score++;
             }
 
-            question.splice(quiz_index, 1);
-            question_answer.splice(quiz_index, 1);
+            question.splice(QIndex[cnt], 1);
+            question_answer.splice(QIndex[cnt], 1);
+
+            cnt++;
 
             break_time = Math.ceil(PER_SEC * FPS);
             break_num = Math.ceil(BREAK_DUR_TIME / PER_SEC);
