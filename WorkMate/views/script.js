@@ -14,7 +14,7 @@ var myId;
 var socket = io();
 let players = [];
 let playermap = [];
-const QIndex = [];
+let QIndex = [];
 matchBtn.addEventListener("click", match);
 
 croomBtn.addEventListener("click", function () {
