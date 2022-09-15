@@ -84,6 +84,7 @@ socket.on('gamestart', function(data) {
   
   for (let i = 0; i < playboy.length; i++) {
     let player = new PlayerBall(playboy[i].id, playboy[i].nick);
+    playermap[i] = player;
     players[playboy[i].id] = player;
     console.log(players);
   }  
