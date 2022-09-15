@@ -348,7 +348,7 @@ function update()
     ctx.fillStyle = "black"
     ctx.font = '24px DungGeunMo';
     ctx.textAlign = "center";
-    ctx.fillText('Score : ' + player[myId].score, 55, 40);
+    ctx.fillText('Score : ' + players[myId].score, 55, 40);
 
     // rendering a player. 플레이어를 렌더링합니다.
     let direction;
