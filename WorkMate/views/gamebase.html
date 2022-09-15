@@ -111,15 +111,16 @@
       ball.y = y;
       ball.player.src = ball.asset[direction];
   }
+  socket.on('update_state', function(data){
+      updateState(data.id, data.x, data.y, data.direction);
+  })
   socket.on('gamestart', function(data){
       joinUser(data.id, data.color, data.x, data.y, data.nick);
   })
   socket.on('leave_user', function(data){
       leaveUser(data);
   })
-  socket.on('update_state', function(data){
-      updateState(data.id, data.x, data.y, data.direction);
-  })
+  
   
   function sendData(curPlayer, direction) {
       let data = {};

@@ -2,6 +2,8 @@ let canvas = document.getElementById("ox_canvas");
 let ctx = canvas.getContext('2d');
 let myfont = new FontFace('DungGeunMo', 'url(ox/assets/fonts/DungGeunMo.otf)');
 
+// players > id, nick, score, x, y, asset, currentImage, color
+
 myfont.load().then(function(font){
     document.fonts.add(font);
     console.log('font loaded.');
@@ -88,8 +90,6 @@ const TOTAL_QUIZ_COUNT = 5;
 var cur_quiz_count = 0;
 var quiz_index;
 
-var player_1 = new player("penson");
-
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
@@ -151,6 +151,32 @@ function field_draw(){
     ctx.fillText("X", X - 300, Y/1.4);
     ctx.closePath();
 }
+
+  function updateState(id,x,y,direction){
+      let ball = players[id];
+      if(!ball){
+          return;
+      }
+      ball.x = x;
+      ball.y = y;
+      ball.currentImage.src = ball.asset[direction];
+  }
+  socket.on('update_state', function(data){
+      updateState(data.id, data.x, data.y, data.direction);
+  })
+
+function sendData(curPlayer, direction) {
+      let data = {};
+      data = {
+          id : curPlayer.id,
+          x: curPlayer.x,
+          y: curPlayer.y,
+          direction : direction
+      };
+      if(data){
+          socket.emit("send_location", data);
+      }
+  }
 
 function update()
 {
@@ -262,34 +288,6 @@ function update()
         // measureText() = 문자열의 넓이 반환
         ctx.textAlign = "center";
 
-        // 퀴즈 정답이 O이고
-        // if (question_answer[quiz_index])
-        // {
-        //     // 플레이어가 O 위치에 서 있을 때.
-        //     if (player_1.is_O)
-        //     {
-        //         ctx.fillText('정답입니다!!', X / 2, 120);
-        //         player_1.score++;
-        //     }
-        //     else
-        //     {
-        //         ctx.fillText('틀렸습니다!!', X / 2, 120);
-        //     }
-        // }
-        // else if (!question_answer[quiz_index])
-        // {
-        //     // 플레이어가 O 위치에 서 있을 때.
-        //     if (player_1.is_O)
-        //     {
-        //         ctx.fillText('틀렸습니다!!', X / 2, 120);
-        //     }
-        //     else
-        //     {
-        //         ctx.fillText('정답입니다!!', X / 2, 120);
-        //         player_1.score++;
-        //     }
-        // }
-
         if (question_answer[quiz_index] && player_1.is_O)
         {
             // 정답이 O. and 플레이어가 O.
@@ -350,72 +348,67 @@ function update()
     ctx.fillStyle = "black"
     ctx.font = '24px DungGeunMo';
     ctx.textAlign = "center";
-    ctx.fillText('Score : ' + player_1.score, 55, 40);
+    ctx.fillText('Score : ' + player[myId].score, 55, 40);
 
     // rendering a player. 플레이어를 렌더링합니다.
     let direction;
 
-    ctx.drawImage(player_1.player, player_1.x, player_1.y);
-
-    ctx.beginPath();
-    ctx.fillStyle = player_1.color;
-    ctx.font = '18px DungGeunMo';
-    ctx.textAlign = "center";
-    // if (player_1.is_O)
-    // {
-    //     // ctx.fillText(player_1.x + ", " + player_1.y + ", O", player_1.x, player_1.y - radius + 10);
-    // }
-    // else
-    // {
-    //     // ctx.fillText(player_1.x + ", " + player_1.y + ", X", player_1.x, player_1.y - radius + 10);
-    // }
-    ctx.fillText(player_1.nick, player_1.x + 15, player_1.y - radius + 10);
-    ctx.closePath();
-
-    // 플레이어 이동 
+  // 모든 플레이어를 그리는 코드
+    for (let i = 0; i < players.length; i++) {
+          let ball = players[i];
+          
+          ctx.drawImage(ball.currentImage, ball.x, ball.y);
+    
+          ctx.beginPath();
+          ctx.fillStyle = ball.color;
+          ctx.font = '15px Arial';
+          ctx.fillText(ball.nick ,ball.x+15, ball.y-radius+10);
+          ctx.closePath();
+    }
+    let curPlayer = players[myId];
+      // 플레이어 이동 
     if (!is_checking)
     {
         if (rightPressed) {
             direction = 3;
-            player_1.player.src = player_1.asset[direction];
-            player_1.x += playerSpeed;
-            // sendData(player_1, direction);
+            curPlayer.player.src = curPlayer.asset[direction];
+            curPlayer.x += playerSpeed;
+            sendData(curPlayer, direction);
         }
         else if (leftPressed) {
             direction = 1;
-            player_1.player.src = player_1.asset[direction];
-            player_1.x -= playerSpeed;
-            // sendData(player_1, direction);
+            curPlayer.player.src = curPlayer.asset[direction];
+            curPlayer.x -= playerSpeed;
+            sendData(curPlayer, direction);
         }
 
         if (upPressed) {
             direction = 2;
-            player_1.player.src = player_1.asset[direction];
-            player_1.y -= playerSpeed;
-            // sendData(player_1, direction);
+            curPlayer.player.src = curPlayer.asset[direction];
+            curPlayer.y -= playerSpeed;
+            sendData(curPlayer, direction);
         }
         else if (downPressed) {
             direction = 0;
-            player_1.player.src = player_1.asset[direction];
-            player_1.y += playerSpeed;
-            // sendData(player_1, direction);
+            curPlayer.player.src = curPlayer.asset[direction];
+            curPlayer.y += playerSpeed;
+            sendData(curPlayer, direction);
         }
-    }
+      }
+    // // collision detection of player. 플레이어가 문제 출력 영역으로 이동하지 못하도록 충돌을 감지합니다.
+    // if (player_1.y <= 200)
+    // {
+    //     player_1.y = 200;
+    // }
 
-    // collision detection of player. 플레이어가 문제 출력 영역으로 이동하지 못하도록 충돌을 감지합니다.
-    if (player_1.y <= 200)
-    {
-        player_1.y = 200;
-    }
-
-    if (player_1.x < 585)
-    {
-        player_1.is_O = true;
-    }
-    else if (player_1.x >= 585)
-    {
-        player_1.is_O = false;
-    }
+    // if (player_1.x < 585)
+    // {
+    //     player_1.is_O = true;
+    // }
+    // else if (player_1.x >= 585)
+    // {
+    //     player_1.is_O = false;
+    // }
 }
 setInterval(update, 1000 / FPS);
 
