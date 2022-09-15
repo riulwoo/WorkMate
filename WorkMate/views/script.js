@@ -84,7 +84,7 @@ socket.on('gamestart', function(data) {
   for (let i = 0; i < data.player.length; i++) {
     let player = new PlayerBall(data.player.id, data.player.nick);
     players[data.player.id] = player;
-    console.log('데이터 전달 받음');
+    console.log(players);
   }  
 })
 
