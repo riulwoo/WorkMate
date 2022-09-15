@@ -17,6 +17,8 @@ const raceHandlers = require('./handler/raceHandler');
 /** Set Middleware */
 app.use(express.static('views'));
 app.use(express.static('game'));
+app.use(express.json());
+app.use(express.urlencoded( {extended : false } ));
 
 /** Set Routers */
 app.use('*', Router);

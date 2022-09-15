@@ -1,23 +1,3 @@
-function PlayerBall(id, nick){
-    this.id = id;
-    this.color = "#FF00FF";
-    this.x = 1024/2;
-    this.y = 768/2;
-    if(nick == null)
-        this.nick = "player " + Math.floor(Math.random()*100);
-    else
-        this.nick = nick;
-    // 플레이어의 앞, 뒤, 왼, 오 이미지 => 현재 앞모습 이미지 밖에 없음
-    this.asset = ['https://cdn.discordapp.com/attachments/980090904394219562/1004271208226881606/1.png',
-                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271284735193139/4.png',
-                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271240271376385/4.png',
-                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271430722146345/3.png'];
-
-    // // 키 입력 받을 시 이미지
-    // this.currentImage = new Image();
-    // this.currentImage.src = this.asset[0];
-}
-
 module.exports = class userroom { 
   // 클라이언트 코드에도 작성해야함 : 같이 플레이하는 유저의 정보도 알아야 게임이 됨
   constructor(){
@@ -44,15 +24,13 @@ module.exports = class userroom {
     } else console.log(`모든 라운드 종료`);
   }
   
-  // 플레이어 정보 입력
+  // 최종 플레이어 id값, 닉네임 null없는 배열 반환
   pushplayers(){
-    this.users.forEach((e, i) => {
-      if(e.id !== null) {
-        let player = new PlayerBall(e.id, e.nick);
-        this.players[e.id] = player;
-      }
-    });
-    return this.players;
+    const players = this.user.filter((e, i) => {
+      if(e.id != null) return {e.id, e.nick}
+    })
+    console.log('클래스안에서의 객체 : ' + players);
+    return players;
   }
 
   // 유저 삭제
@@ -71,7 +49,7 @@ module.exports = class userroom {
     return usersId;
   }
 
-  // 모든 정보 출력
+  // nick 출력
   get usernick(){
     const usersNick = this.users.map((user) => user.nick);
     return usersNick;
