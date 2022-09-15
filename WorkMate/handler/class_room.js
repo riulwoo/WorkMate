@@ -25,13 +25,13 @@ module.exports = class userroom {
   }
   
   // 최종 플레이어 id값, 닉네임 null없는 배열 반환
-  pushplayers(){
-    const players = this.user.filter((e, i) => {
-      const { id, nick } = user;
+  pushplayers() {
+    const player = this.users.filter((e, i) => {
+      const { id, nick } = users;
       if(e.id != null) return {id, nick}
     })
-    console.log('클래스안에서의 객체 : ' + players);
-    return players;
+    console.log('클래스안에서의 객체 : ' + player);
+    return player;
   }
 
   // 유저 삭제
