@@ -161,7 +161,7 @@ function randomCode() {
 }
 function match() {
   roomId  =  randomCode();
-  
+  randomNick();
   socket.emit("matchStart", {
     id : myId,
     roomid : roomId,

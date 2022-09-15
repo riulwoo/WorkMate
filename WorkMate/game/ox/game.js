@@ -125,8 +125,8 @@ function keyUpHandler(e){
 
 function field_draw(){
     ctx.beginPath();
-    // ctx.fillStyle = "bisque";
-    // ctx.fillRect(0, 0, X, Y / 4);
+    ctx.fillStyle = "bisque";
+    ctx.fillRect(0, 0, X, Y / 4);
     ctx.fillStyle = "#87AFFD";
     ctx.fillRect(0, Y/4, X/2, Y);
     ctx.fillStyle = "#FE8787";
