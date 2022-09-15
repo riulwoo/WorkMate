@@ -27,7 +27,8 @@ module.exports = class userroom {
   // 최종 플레이어 id값, 닉네임 null없는 배열 반환
   pushplayers(){
     const players = this.user.filter((e, i) => {
-      if(e.id != null) return {e.id, e.nick}
+      const { id, nick } = user;
+      if(e.id != null) return {id, nick}
     })
     console.log('클래스안에서의 객체 : ' + players);
     return players;
