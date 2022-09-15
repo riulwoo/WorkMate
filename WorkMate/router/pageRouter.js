@@ -6,11 +6,11 @@ router.get('/ox', (req, res) => {
 });
 
 router.get('/space', (req, res) => {
-  res.sendFile('game/space/index.html');
+  res.sendFile('game/ox/index.html');
 });
 
 router.get('/flipOver', (req, res) => {
-  res.sendFile('views/gamebase.html');
+  res.sendFile('game/ox/index.html');
 });
 
 module.exports = router;
