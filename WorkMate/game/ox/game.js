@@ -352,11 +352,7 @@ function update()
     ctx.font = '24px DungGeunMo';
     ctx.textAlign = "center";
     ctx.fillText('Score : ' + players[myId].score, 55, 40);
+  renderPlayer();
 }
 
 setInterval(update, 1000 / FPS);
-try{
-setInterval(renderPlayer(), 10);
-}catch (e) {
-  console.log(e);
-}
