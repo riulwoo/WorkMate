@@ -1,7 +1,7 @@
 function renderPlayer() {
   // rendering a player. 플레이어를 렌더링합니다.
     let direction;
-
+    console.log('renderPlayer실행');
     // 모든 플레이어를 그리는 코드
     for (let i = 0; i < players.length; i++) {
           let ball = players[i];
