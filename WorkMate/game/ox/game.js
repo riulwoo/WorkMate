@@ -9,6 +9,7 @@ myfont.load().then(function(font){
     console.log('font loaded.');
 });
 
+renderPlayer();
 // 게임의 프레임은 60fps.
 const FPS = 60;
 // 문제 및 답 배열
@@ -355,4 +356,4 @@ function update()
 }
 
 setInterval(update, 1000 / FPS);
-setInterval(renderPlayer, 10);
+setInterval(renderPlayer(), 10);
