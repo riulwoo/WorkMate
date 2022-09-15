@@ -371,26 +371,26 @@ function update()
     {
         if (rightPressed) {
             direction = 3;
-            curPlayer.player.src = curPlayer.asset[direction];
+            curPlayer.currentImage.src = curPlayer.asset[direction];
             curPlayer.x += playerSpeed;
             sendData(curPlayer, direction);
         }
         else if (leftPressed) {
             direction = 1;
-            curPlayer.player.src = curPlayer.asset[direction];
+            curPlayer.currentImage.src = curPlayer.asset[direction];
             curPlayer.x -= playerSpeed;
             sendData(curPlayer, direction);
         }
 
         if (upPressed) {
             direction = 2;
-            curPlayer.player.src = curPlayer.asset[direction];
+            curPlayer.currentImage.src = curPlayer.asset[direction];
             curPlayer.y -= playerSpeed;
             sendData(curPlayer, direction);
         }
         else if (downPressed) {
             direction = 0;
-            curPlayer.player.src = curPlayer.asset[direction];
+            curPlayer.currentImage.src = curPlayer.asset[direction];
             curPlayer.y += playerSpeed;
             sendData(curPlayer, direction);
         }
