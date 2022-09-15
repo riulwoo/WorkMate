@@ -50,7 +50,8 @@ module.exports = (io, socket, room) => {
         let player = room[userroomcnt].pushplayers();
         console.log(player);
         io.to(room[userroomcnt].roomCode).emit('gamestart', {
-          game : room[userroomcnt].game()
+          game : room[userroomcnt].game(),
+          player
         }); //객체 변수
         room[userroomcnt].check = 's';
         CreateRoom(false);
