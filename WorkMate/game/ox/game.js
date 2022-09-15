@@ -226,7 +226,6 @@ function update()
 
         if (break_num <= 0)
         {
-            quiz_index = ;받아온 값
             during_time = Math.ceil(PER_SEC * FPS);
             during_num = Math.ceil(QUIZ_DUR_TIME / PER_SEC);
         }
