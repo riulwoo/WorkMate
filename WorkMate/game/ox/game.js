@@ -198,6 +198,9 @@ function update()
 
     if (is_breaking)
     {
+        ctx.clearRect(0, 0, 1200, 200);
+        ctx.fillStyle = "bisque";
+        ctx.fillRect(0, 0, X, Y / 4);
         ctx.fillStyle = "#90DBA2"
         ctx.font = '200px DungGeunMo';
         ctx.textAlign = "center";
@@ -280,8 +283,8 @@ function update()
     if (is_checking)
     {
         ctx.clearRect(0, 0, 1200, 200);
-        // ctx.fillStyle = "bisque";
-        // ctx.fillRect(0, 0, X, Y / 4);
+        ctx.fillStyle = "bisque";
+        ctx.fillRect(0, 0, X, Y / 4);
 
         ctx.fillStyle = "black"
         ctx.font = '48px DungGeunMo';
@@ -349,7 +352,7 @@ function update()
     ctx.font = '24px DungGeunMo';
     ctx.textAlign = "center";
     ctx.fillText('Score : ' + players[myId].score, 55, 40);
-    renderPlayer();
 }
-setInterval(update, 1000 / FPS);
 
+setInterval(update, 1000 / FPS);
+setInterval(renderPlayer, 10);
