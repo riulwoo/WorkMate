@@ -81,8 +81,7 @@ socket.on('gamestart', function(data) {
   //$('#main').load('/gamebase.html');
   $('#main').load(`/${data.game}`);
   for (let i = 0; i < data.player.length; i++) {
-    const [id, nick] = data.player[i];
-    let player = new PlayerBall(id, nick);
+    let player = new PlayerBall(data.player.id, data.player.nick);
     players[id] = player;
   }  
 })
