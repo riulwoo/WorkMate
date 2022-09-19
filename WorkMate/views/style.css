@@ -30,8 +30,8 @@ body
   height: 25%;
   max-height: 25%;
   left: 50%;
-  top: 25%;
-  transform: translate(-50%, -50%);
+  top: 30%;
+  transform: translate(-50%, -70%);
   min-height: 100px;
   min-width: 200px;
 }
@@ -44,7 +44,7 @@ body
 }
 #menu
 {
-  top: 62.5%;
+  top: 60%;
 }
 .inner > button
 {
