@@ -1,0 +1,125 @@
+html { height: 100%; }
+
+body{
+    width: 100%;
+    height: 100%;
+    margin : 0px;
+    border: 0;
+    display: block;
+    z-index: 1;
+    top: 0px;
+    background-size: cover;
+    background-repeat: no-repeat ;
+    background-image: url("https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png");
+}
+
+.main_box{
+    background-color: white;
+    width: 65%;
+    height: 70%;  
+    margin : 0px;
+    top: 100px;
+    left: 20%;
+    display: block;
+    position: absolute;
+    border: 1px solid black; 
+    border-radius: 7em;
+    text-align : center;
+}
+
+.winner_box1{
+    background-color: #D4F4FA;
+    width: 30%;
+    height: 60%;  
+    left: 35%;
+    position: absolute;
+    z-index: 3;
+    border: 1px solid black; 
+    border-radius: 4em;
+}
+
+.winner_box2{
+    background-color: #FAF4C0;
+    width: 30%;
+    height: 60%;  
+    left: 10%;
+    bottom: 20%;
+    position: absolute;
+    z-index: 2;
+    border: 1px solid black; 
+    border-radius: 4em;
+}
+.winner_box3{
+    background-color: #FAE0D4;
+    width: 30%;
+    height: 60%;   
+    left: 60%;
+    bottom: 20%;
+    position: absolute;
+    z-index: 2;
+    border: 1px solid black; 
+    border-radius: 4em;
+}
+
+.img{
+    /*캐릭터 이미지*/
+    width: 80%;
+    height: 80%;
+    background-image: url("https://cdn.discordapp.com/attachments/896478465237348402/1006409267257024614/1.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin : 0px;
+    border: 0;
+    display: block;
+    left: 7%;
+    bottom: 18%;
+    position: absolute;
+    
+}
+
+
+.rank{
+    /*4등 이후의 등수*/
+    left: 10%;
+    top: 80%;
+    position: absolute;
+    text-align : left;
+    
+}
+
+.player_1{
+    position: absolute;
+    left: 68%;
+    top: 60%;
+    z-index: 4;
+}
+.player_2{
+    position: absolute;
+    left: 43%;
+    top: 55%;
+    z-index: 4;
+}
+.player_3{
+    position: absolute;
+    left: 18%;
+    top: 60%;
+    z-index: 4;
+}
+
+.btn_box{
+    /*버튼*/
+    position: absolute;
+    background-color: #D5D5D5;
+    width: 15%;
+    height: 10%;  
+    top: 85%;
+    left: 80%;
+    border: 1px solid black; 
+    border-radius: 1em;
+    
+}
+
+.btn_box:active{
+    text-align : center;
+    background-color: #9F9F9F; 
+}
