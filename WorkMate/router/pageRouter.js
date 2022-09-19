@@ -13,4 +13,8 @@ router.get('/ox', (req, res) => {
 //   res.sendFile('game/ox/index.html');
 // }); 
 
+router.get('/result', (req, res) => {
+  res.sendFile('views/resultpage/index.html');
+});
+
 module.exports = router;

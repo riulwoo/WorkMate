@@ -195,3 +195,5 @@ function toggleRoom2() {
     x.style.display = "block";
   }
 }
+
+$('result').addEventListener('click', ()=>{$('main').load(`/result`)});
