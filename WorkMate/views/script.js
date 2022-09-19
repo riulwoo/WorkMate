@@ -196,4 +196,4 @@ function toggleRoom2() {
   }
 }
 
-$('result').addEventListener('click', ()=>{$('main').load(`/result`)});
+document.getElementById('result').addEventListener('click', ()=>{$('main').load(`/result`)});
