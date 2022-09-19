@@ -196,4 +196,7 @@ function toggleRoom2() {
   }
 }
 
-document.getElementById('result').addEventListener('click', ()=>{$('main').load(`/result`)});
+document.getElementById('result').addEventListener('click', ()=>{
+  $('main').load(`/result`);
+  console.log("결과 창 로드 완료");
+});

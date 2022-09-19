@@ -15,6 +15,7 @@ router.get('/ox', (req, res) => {
 
 router.get('/result', (req, res) => {
   res.sendFile('views/resultpage/index.html');
+  console.log('result 전송완료')
 });
 
 module.exports = router;
