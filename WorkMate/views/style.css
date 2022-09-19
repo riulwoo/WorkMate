@@ -32,6 +32,8 @@ body
   left: 50%;
   top: 25%;
   transform: translate(-50%, -50%);
+  min-height: 100px;
+  min-width: 200px;
 }
 #logo
 {
@@ -53,6 +55,8 @@ body
   margin-top: 10px;
   margin-left: 50%;
   transform: translate(-50%, 0%);
+  min-width : 100px;
+  min-height : 30px;
 }
 
 .inner > input
@@ -64,12 +68,13 @@ body
   margin-top: 10px;
   margin-left: 50%;
   transform: translate(-50%, 0%);
+  min-width : 100px;
 }
 .room
 {
   position: absolute;
-  width: 75%;
-  height: 75%;
+  width: 85%;
+  height: 85%;
   left:50%;top:50%;
   transform: translate(-50%, -50%);
   display: none;
@@ -86,8 +91,10 @@ body
 }
 
 #room2 {
-  width: 25%;
-  height: 25%;
+  width: 30%;
+  height: 30%;
+  position: absolute;
+  top: 65%;
 }
 #room2 input
 {
@@ -109,7 +116,7 @@ body
 .roomBottom
 {
   position: absolute;
-  top: 92.5%;
+  top: 82.5%;
   left: 50%;
   width: 100%;
   transform: translate(-50%, -50%);
