@@ -1,6 +1,6 @@
 let canvas = document.getElementById("ox_canvas");
 
-canvas.width = 1300;
+canvas.width = document.body.clientWidth;
 canvas.height = document.body.clientHeight;
 
 let ctx = canvas.getContext('2d');
@@ -63,6 +63,7 @@ let question_answer = [
                     false,true, true, false, false, false, true, true, false, true, // 21~30
                     true, true, false, false, false, false, true, true, false, true // 31~40
                 ];
+
 // 크기 변수
 let X = canvas.width;
 let Y = canvas.height;
@@ -75,12 +76,15 @@ var leftPressed = false;
 var upPressed = false;
 var downPressed = false;
 // Game Flow 관련
+var is_loading; 
 var is_during; // 문제가 진행중일 때 true.
 var is_breaking; // 정답을 확인하고 다음 문제가 나오기 전까지 true.
-var is_checking; // 
+var is_checking; // 문제에 대한 정답을 확인할 때.
 var finished_game = false; // 게임이 완전히 끝났을 때 true.
-const QUIZ_DUR_TIME = 5; // 문제 출력 후 퀴즈 진행 시간
-const BREAK_DUR_TIME = 1; // 퀴즈와 퀴즈 사이의 대기 시간
+// const LOADING_DUR_TIME = 6; // 초기 로딩을 할 때만 사용한다.
+// 게임 시작 직후 3초간 로딩화면을 띄워주고, 나머지 3초동안 인게임 카운트다운.
+const QUIZ_DUR_TIME = 6; // 문제 출력 후 퀴즈 진행 시간
+const BREAK_DUR_TIME = 3; // 퀴즈와 퀴즈 사이의 대기 시간
 const CHECK_DUR_TIME = 1.5; // 퀴즈를 풀고 난 뒤 정답 체크 시간
 const PER_SEC = 0.1;
 var during_time = 0; // 0이 되면 during_num이 감소됨.
@@ -95,6 +99,13 @@ var cur_quiz_count = 0;
 let cnt = 0; // quiz_index의 인덱스 변수
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
+
+// 로딩 화면 관련
+var loading_src = 'https://cdn.discordapp.com/attachments/980090904394219562/1021780541692977152/GIF_2022-09-20_10-50-30.gif';
+// var loading_time = Math.ceil(PER_SEC * FPS);
+// var loading_num = Math.ceil(LOADING_DUR_TIME / PER_SEC);
+var loading_image = new Image();
+loading_image.src = loading_src;
 
 function keyDownHandler(e){
     if (e.code == 'ArrowRight'){
@@ -155,18 +166,29 @@ function field_draw(){
     ctx.closePath();
 }
 
-  function updateState(id,x,y,direction){
-      let ball = players[id];
-      if(!ball){
-          return;
-      }
-      ball.x = x;
-      ball.y = y;
-      ball.currentImage.src = ball.asset[direction];
-  }
-  socket.on('update_state', function(data){
-      updateState(data.id, data.x, data.y, data.direction);
-  })
+function func_lding()
+{
+    return new Promise((r1, r2) => {
+        ctx.beginPath();
+        ctx.drawImage(loading_image, 0, 0);
+        ctx.closePath();
+
+        setTimeout(r1, 3000);
+    })
+}
+
+function updateState(id, x, y, direction) {
+    let ball = players[id];
+    if (!ball) {
+        return;
+    }
+    ball.x = x;
+    ball.y = y;
+    ball.currentImage.src = ball.asset[direction];
+}
+socket.on('update_state', function (data) {
+    updateState(data.id, data.x, data.y, data.direction);
+})
 
 function sendData(curPlayer, direction) {
       let data = {};
@@ -186,7 +208,8 @@ function update()
     // draw playground. 플레이어가 이동할 필드를 그립니다.
     field_draw();
     ctx.clearRect(0, 0, X, Y / 4);
-    
+
+    // is_loading = break_num > 30;
     is_during = during_num > 0;
     is_breaking = break_num > 0;
     is_checking = check_num > 0;
@@ -355,7 +378,27 @@ function update()
     ctx.font = '24px DungGeunMo';
     ctx.textAlign = "center";
     ctx.fillText('Score : ' + players[myId].score, 55, 40);
-  renderPlayer();
+    renderPlayer();
+
+    // if (is_loading)
+    // {
+    //     ctx.beginPath();
+    //     ctx.drawImage(loading_image, 0, 0);
+    //     ctx.closePath();
+
+    //     if (break_num > 0)
+    //     {
+    //         break_time--;
+
+    //         if (break_time == 0)
+    //         {
+    //             break_time = Math.ceil(PER_SEC * FPS);
+
+    //             break_num--;
+    //         }
+    //     }
+    // }
 }
 
-setInterval(update, 1000 / FPS);
+func_lding().then
+( () => {setInterval(update, 1000 / FPS); } )
