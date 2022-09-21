@@ -159,6 +159,7 @@ body
   margin-bottom : 10%;
   width: 50%;
   height: 50%;
+  border: 0;
 }
 
 .in_slot_hide
