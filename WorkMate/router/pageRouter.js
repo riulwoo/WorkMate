@@ -5,13 +5,13 @@ router.get('/ox', (req, res) => {
   res.sendFile('game/ox/index.html');
 });
 
-// router.get('/space', (req, res) => {
-//   res.sendFile('game/ox/index.html');
-// });
+router.get('/space', (req, res) => {
+  res.sendFile('game/space/index.html');
+});
 
-// router.get('/flipover', (req, res) => {
-//   res.sendFile('game/ox/index.html');
-// }); 
+router.get('/flipover', (req, res) => {
+  res.sendFile('game/flipover/index.html');
+}); 
 
 router.get('/result', (req, res) => {
   res.sendFile('views/resultpage/index.html');
