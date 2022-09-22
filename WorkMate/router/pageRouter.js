@@ -1,5 +1,5 @@
-const express = require('express');
-const router = express.Router();
+// const express = require('express');
+// const router = express.Router();
 
 // router.get('/resulting', (req, res) => {
 //   res.sendFile('resultpage/index.html');
@@ -17,4 +17,22 @@ const router = express.Router();
 //   res.sendFile('game/space/index.html');
 // });
 
- module.exports = router;
+ // module.exports = router;
+module.exports = function(app)
+{
+app.get('/resulting', (req, res) => {
+  res.sendFile('resultpage/index.html');
+});
+
+app.get('/flipover', (req, res) => {
+  res.sendFile('game/flipover/index.html');
+}); 
+
+app.get('/ox', (req, res) => {
+  res.sendFile('game/ox/index.html');
+});
+
+app.get('/space', (req, res) => {
+  res.sendFile('game/space/index.html');
+});
+}
