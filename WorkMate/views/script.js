@@ -12,8 +12,8 @@ var roomId = '';
 var a = 1;
 var myId;
 var socket = io();
-let players = [];        id가 인덱스
-let playermap = [];      순차적인 인덱스 
+let players = [];        //id가 인덱스
+let playermap = [];      //순차적인 인덱스 
 
 let QIndex = [];
 matchBtn.addEventListener("click", match);
