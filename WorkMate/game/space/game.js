@@ -210,7 +210,7 @@ function field_draw()
 }
 
     function player(nick, num)
-{
+    {
     // 플레이어 닉네임 설정
     if (nick == null)
     {
