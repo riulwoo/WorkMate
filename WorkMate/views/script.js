@@ -14,8 +14,9 @@ var myId;
 var socket = io();
 let players = [];        //id가 인덱스
 let playermap = [];      //순차적인 인덱스 
-
 let QIndex = [];
+let sortedScore = [];
+
 matchBtn.addEventListener("click", match);
 
 croomBtn.addEventListener("click", function () {
@@ -91,8 +92,22 @@ socket.on('playerinit', function(data) {
 
 socket.on('gamestart', function(data) {
   const { game } = data;
-  console.log('게임 스타트');
-  $('#main').load(`/${game}`);
+  const arr = ['ox','space','flipover'];
+  if(arr.includes(game)) $('#main').load(`/${game}`);
+  else  // result인 경우
+  {
+    socket.emit('calc-score', {
+      id : myId,
+      score : players[myId].score
+    });
+  }
+})
+
+socket.on('go-result', (data) => {
+  sortedScore = data.sort((a,b) => {
+    return a.score - b.score;
+  });
+  $('#main').load('/result');
 })
 
 socket.on('leave_user', (data)=>{
