@@ -25,14 +25,14 @@ app.get('/result', (req, res) => {
 });
 
 app.get('/flipover', (req, res) => {
-  res.sendFile('game/flipover/index.html');
+  res.sendFile('game/flipover/index.html', {root : '..'});
 }); 
 
 app.get('/ox', (req, res) => {
-  res.sendFile('game/ox/index.html');
+  res.sendFile('game/ox/index.html', {root : '..'});
 });
 
 app.get('/space', (req, res) => {
-  res.sendFile('game/space/index.html');
+  res.sendFile('game/space/index.html', {root : '..'});
 });
 }
