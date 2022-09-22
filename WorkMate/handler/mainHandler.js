@@ -3,7 +3,6 @@ const quizIndex = require("./oxHandler");
 
 module.exports = (io, socket, room) => {
 
-
   function CreateRoom(key) { //방의 조건을 확인해서 방을 만들어주는 함수
     let check, data;
     try {
@@ -48,10 +47,12 @@ module.exports = (io, socket, room) => {
       let array = room[userroomcnt].userid.filter((id) => id != null);
       if(array.length >= 2 && room[userroomcnt].check != 's') {//방안에 유저가 있는 게 확인 되었을 때 그 방안의 인원을 체크하는 코드
         console.log('유저 인원체크 완료');
-        io.to(room[userroomcnt].roomCode).emit('gamestart', {
-          game : room[userroomcnt].game(),
+        io.to(room[userroomcnt].roomCode).emit('playerinit', {
           player : room[userroomcnt].pushplayers(),
           oxQIndex : quizIndex()
+        }); //객체 변수
+        io.to(room[userroomcnt].roomCode).emit('gamestart', {
+          game : room[userroomcnt].game()
         }); //객체 변수
         room[userroomcnt].check = 's';
         CreateRoom(false);
@@ -128,6 +129,15 @@ module.exports = (io, socket, room) => {
     socket.broadcast.emit('leave_user',socket.id);
   }
 
+  function gameover(id) {
+    let userroomcnt = getRoomIndex(id);
+    if(userroomcnt !== -1) {
+      io.to(room[userroomcnt].roomCode).emit('gamestart', {
+          game : room[userroomcnt].game()
+        }); //객체 변수
+    }
+  }
+  
   socket.emit('user_id', socket.id);
 
   socket.on('disconnect', (reason) => disconnect(reason));
@@ -146,5 +156,9 @@ module.exports = (io, socket, room) => {
   socket.on('joinroom', (data)=> insert('j', data));   
 
   // 방안에서 게임 시작 버튼
-  socket.on('startgame', (id)=> gamestart(id))  
+  socket.on('startgame', (id)=> gamestart(id));
+
+  // 게임 종료시 다음 라운드로 넘어갈 지 결과페이지로 넘길지
+  socket.on('gameover', (id)=> gameover(id));
+  
 };

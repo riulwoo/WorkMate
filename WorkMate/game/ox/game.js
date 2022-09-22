@@ -370,7 +370,7 @@ function update()
     // 모든 퀴즈를 다 끝냈을 시 게임을 종료
     if (cur_quiz_count == TOTAL_QUIZ_COUNT)
     {
-        
+        socket.emit('gameover_ox', myId);
     }
 
     // 점수 출력

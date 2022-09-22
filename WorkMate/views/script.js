@@ -12,8 +12,9 @@ var roomId = '';
 var a = 1;
 var myId;
 var socket = io();
-let players = [];
-let playermap = [];
+let players = [];        id가 인덱스
+let playermap = [];      순차적인 인덱스 
+
 let QIndex = [];
 matchBtn.addEventListener("click", match);
 
@@ -76,18 +77,22 @@ socket.on('user_id', function(data){
   myId = data;
 })
 
-socket.on('gamestart', function(data) {
-  const { game, player : playboy, oxQIndex } = data;
+socket.on('playerinit', function(data) {
+  const { player : playboy, oxQIndex } = data;
   QIndex = oxQIndex;
-  console.log('게임 스타트');
-  //$('#main').load('/gamebase.html');
-  $('#main').load(`/${game}`);
+  console.log('플레이어 정보 생성 완료');
   for (let i = 0; i < playboy.length; i++) {
     let player = new PlayerBall(playboy[i].id, playboy[i].nick);
     playermap[i] = player;
     players[playboy[i].id] = player;
     console.log(players);
   }
+})
+
+socket.on('gamestart', function(data) {
+  const { game } = data;
+  console.log('게임 스타트');
+  $('#main').load(`/${game}`);
 })
 
 socket.on('leave_user', (data)=>{

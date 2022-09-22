@@ -21,7 +21,7 @@ module.exports = class userroom {
       console.log(`방에 저장된 게임 목록 : ${this.gameName}`);
       console.log(`선택된 게임 : ${select}`);
       return select;
-    } else console.log(`모든 라운드 종료`);
+    } else 'result';
   }
   
   // 최종 플레이어 id값, 닉네임 null없는 배열 반환

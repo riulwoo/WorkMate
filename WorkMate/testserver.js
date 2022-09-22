@@ -5,7 +5,7 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
 /** Import Router */
-const Router = require('./router/pageRouter');
+const Router = require('./router/pageRouter')(app);
 
 /** Import SocketHandler */
 const init = require('./handler/func_conn');
@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded( {extended : false } ));
 
 /** Set Routers */
-app.use('*', Router);
+//app.use('*', Router);
 
 const onConnection = (socket) => {
   console.log(`${socket.id}님이 입장하셨습니다.`);
