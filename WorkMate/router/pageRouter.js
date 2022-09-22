@@ -21,7 +21,7 @@
 module.exports = function(app)
 {
 app.get('/result', (req, res) => {
-  res.sendFile('/resultpage/index.html');
+  res.sendFile('/views/resultpage/index.html');
 });
 
 app.get('/flipover', (req, res) => {
