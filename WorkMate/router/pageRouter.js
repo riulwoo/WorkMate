@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/resulting', (req, res) => {
-  res.sendFile('views/resultpage/index.html');
+  res.sendFile('resultpage/index.html');
 });
 
 router.get('/flipover', (req, res) => {
