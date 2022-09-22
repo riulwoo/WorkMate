@@ -199,6 +199,6 @@ function toggleRoom2() {
 let result = document.getElementById('result');
 
 result.addEventListener('click', ()=>{
-  $('main').load(`/result`);
+  $('#main').load(`/result`);
   console.log("결과 창 로드 완료");
 });
