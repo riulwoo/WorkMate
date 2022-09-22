@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/result', (req, res) => {
+router.get('/resulting', (req, res) => {
   res.sendFile('views/resultpage/index.html');
 });
 
