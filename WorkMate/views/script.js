@@ -124,8 +124,8 @@ function PlayerBall(id, nick){
     // 플레이어의 앞, 뒤, 왼, 오 이미지 => 현재 앞모습 이미지 밖에 없음
     this.asset = ['https://cdn.discordapp.com/attachments/980090904394219562/1004271208226881606/1.png',
                   'https://cdn.discordapp.com/attachments/980090904394219562/1004271284735193139/4.png',
-                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271240271376385/4.png',
-                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271430722146345/3.png'];
+                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271430722146345/3.png',
+                  'https://cdn.discordapp.com/attachments/980090904394219562/1004271240271376385/4.png'];
 
     // 키 입력 받을 시 이미지
     this.currentImage = new Image();

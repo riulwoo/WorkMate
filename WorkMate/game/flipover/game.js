@@ -245,7 +245,6 @@ function update()
 {
     field_draw();
     draw_Deck();
-
     renderPlayer();
 }
 

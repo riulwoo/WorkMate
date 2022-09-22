@@ -176,6 +176,18 @@ function func_lding()
     })
 }
 
+function leaveUser(id){
+  for(var i = 0 ; i < balls.length; i++){
+    if(players[i].id == id){
+      balls.splice(i,1);
+      break;
+    }
+  }
+  delete ballMap[id];
+}
+socket.on('leave_user', function(data){
+    leaveUser(data);
+})
 function updateState(id, x, y, direction) {
     let ball = players[id];
     if (!ball) {
@@ -262,7 +274,14 @@ function update()
 
         // 문제 출력
         ctx.fillStyle = "black"
-        ctx.font = '36px DungGeunMo';
+        if (question[QIndex[cnt]].length < 20)
+        {
+            ctx.font = '48px DungGeunMo';
+        }
+        else
+        {
+            ctx.font = '36px DungGeunMo';
+        }
         // measureText() = 문자열의 넓이 반환
         ctx.textAlign = "center";
         ctx.fillText("Q" + (cur_quiz_count + 1) + ". " +question[QIndex[cnt]], X / 2, 120);
