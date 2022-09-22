@@ -6,7 +6,6 @@ canvas.height = document.body.clientHeight;
 let ctx = canvas.getContext('2d');
 let myfont = new FontFace('DungGeunMo', 'url(ox/assets/fonts/DungGeunMo.otf)');
 
-// players > id, nick, score, x, y, asset, currentImage, color
 
 myfont.load().then(function(font){
     document.fonts.add(font);
@@ -263,14 +262,7 @@ function update()
 
         // 문제 출력
         ctx.fillStyle = "black"
-        if (question[QIndex[cnt]].length < 20)
-        {
-            ctx.font = '48px DungGeunMo';
-        }
-        else
-        {
-            ctx.font = '36px DungGeunMo';
-        }
+        ctx.font = '36px DungGeunMo';
         // measureText() = 문자열의 넓이 반환
         ctx.textAlign = "center";
         ctx.fillText("Q" + (cur_quiz_count + 1) + ". " +question[QIndex[cnt]], X / 2, 120);
@@ -367,11 +359,7 @@ function update()
         }
     }
 
-    // 모든 퀴즈를 다 끝냈을 시 게임을 종료
-    if (cur_quiz_count == TOTAL_QUIZ_COUNT)
-    {
-        socket.emit('gameover', myId);
-    }
+    
 
     // 점수 출력
     ctx.fillStyle = "black"
@@ -399,6 +387,10 @@ function update()
     //     }
     // }
 }
-
+// 모든 퀴즈를 다 끝냈을 시 게임을 종료
+    if (cur_quiz_count == TOTAL_QUIZ_COUNT)
+    {
+        socket.emit('gameover', myId);
+    }
 func_lding().then
 ( () => {setInterval(update, 1000 / FPS); } )
