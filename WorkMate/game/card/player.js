@@ -1,13 +1,10 @@
 function renderPlayer() {
     // rendering a player. 플레이어를 렌더링합니다.
       let direction;
-      console.log('renderPlayer실행');
       // 모든 플레이어를 그리는 코드
       for (let i = 0; i < playermap.length; i++) {
             let ball = playermap[i];
-            console.log(ball);
             ctx.drawImage(ball.currentImage, ball.x, ball.y);
-            console.log(ball.currentImage);
             ctx.beginPath();
             ctx.fillStyle = ball.color;
             ctx.font = '15px Arial';
