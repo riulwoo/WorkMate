@@ -19,7 +19,7 @@
 		<div class="half" id="lower-half">
 			<div class="inner" id="menu">
         <input type="text" id="nick" placeholder = "닉네임을 입력해주세요"/>
-				<button id="matchStart" >매칭하기</button>
+				<button id="matchStart" onclick="toggleMatch()">매칭하기</button>
 				<button id="createroom" >방만들기</button>
 				<button onclick="toggleRoom2()">입장하기</button>
         <button id="result">임시결과</button>
@@ -53,7 +53,7 @@
       </div> <!--players-->
       
       <div class="roomBottom">
-        <button id="start" onclick="toggleMatch()">게임시작</button>
+        <button id="start">게임시작</button>
         <button id="matchcancel" onclick="toggleRoom()">나가기</button>
       </div>
   </div> <!--room-->

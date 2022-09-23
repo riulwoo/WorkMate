@@ -226,7 +226,6 @@ result.addEventListener('click', ()=>{
 
 function toggleMatch()
 	{
-				
   var x = document.getElementById("match");
   if (x.style.display === "block") {
     x.style.display = "none";
