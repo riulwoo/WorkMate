@@ -205,10 +205,12 @@ body
 .lds-spinner {
   color: official;
   display: inline-block;
-  position: relative;
+  position: absolute;
   width: 80px;
   height: 80px;
-	margin-top: 10px;
+	left: 50%;
+	top: 20%;
+	transform: translate(-50%, -50%);
 }
 .lds-spinner div {
   transform-origin: 40px 40px;
