@@ -21,6 +21,7 @@ function renderPlayer() {
             curPlayer.x += playerSpeed;
             sendData(curPlayer, direction);
         }
+          
         else if (leftPressed) {
             direction = 1;
             curPlayer.currentImage.src = curPlayer.asset[direction];
