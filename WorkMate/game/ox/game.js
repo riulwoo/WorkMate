@@ -274,14 +274,14 @@ function update()
 
         // 문제 출력
         ctx.fillStyle = "black"
-        if (question[QIndex[cnt]].length < 20)
-        {
-            ctx.font = '48px DungGeunMo';
-        }
-        else
-        {
+        // if (question[QIndex[cnt]].length < 20)
+        // {
+        //     ctx.font = '48px DungGeunMo';
+        // }
+        //else
+        //{
             ctx.font = '36px DungGeunMo';
-        }
+        //}
         // measureText() = 문자열의 넓이 반환
         ctx.textAlign = "center";
         ctx.fillText("Q" + (cur_quiz_count + 1) + ". " +question[QIndex[cnt]], X / 2, 120);
