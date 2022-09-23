@@ -71,7 +71,7 @@ cancelBtn.addEventListener("click",function () {
 })
 
 socket.on('matchfail', function(data) {
- alert('다시 시도해주세요');
+ document.getElementById('match-text').innerText = "매칭 중인 인원이 없습니다.";
 })
 
 socket.on('user_id', function(data){

@@ -183,6 +183,7 @@ body
 		border-radius: 10px;
 		border: 1px solid;
 	  transform: translate(-50%, -50%);
+		background-color: #ddd;
 }
 
 	#match > p {
@@ -220,8 +221,8 @@ body
   -webkit-transform: translateZ(0);
   -ms-transform: translateZ(0);
   transform: translateZ(0);
-	left: 50%;
-	top: 20%;
+	left: 0%;
+	top: 4%;
 	transform: translate(-50%, -50%);
 }
 .loader:before {
@@ -235,7 +236,6 @@ body
   content: '';
 }
 .loader:after {
-  background: #0dc5c1;
   width: 75%;
   height: 75%;
   border-radius: 50%;
