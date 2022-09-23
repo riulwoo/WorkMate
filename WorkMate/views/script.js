@@ -229,7 +229,7 @@ function toggleMatch()
   var x = document.getElementById("match");
   if (x.style.display === "block") {
     x.style.display = "none";
- document.getElementById('match-text').innerText = "매치 메이킹 중... (1/6)";
+ document.getElementById('match-text').innerText = "매치메이킹 중... (1/6)";
   } else {
     x.style.display = "block";
   }
