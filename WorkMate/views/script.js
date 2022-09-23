@@ -229,6 +229,7 @@ function toggleMatch()
   var x = document.getElementById("match");
   if (x.style.display === "block") {
     x.style.display = "none";
+ document.getElementById('match-text').innerText = "매칭 중인 인원이 없습니다.";
   } else {
     x.style.display = "block";
   }
