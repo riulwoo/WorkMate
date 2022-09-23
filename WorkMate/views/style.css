@@ -270,8 +270,8 @@ body
 
 @media screen and (min-width: 1000px)
 {
-	#match > button,
-	.room > button
+	#match button,
+	.room button
 	{
 		font-size: 18px;
 	}
