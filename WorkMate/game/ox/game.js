@@ -94,7 +94,7 @@ var check_time = 0;
 var check_num = 0;
 // 문제 진행 횟수 등
 const TOTAL_QUIZ_COUNT = 5;
-var cur_quiz_count = 0;
+// var cur_quiz_count = 0;
 let cnt = 0; // quiz_index의 인덱스 변수
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -283,7 +283,7 @@ function update()
         //}
         // measureText() = 문자열의 넓이 반환
         ctx.textAlign = "center";
-        ctx.fillText("Q" + (cur_quiz_count + 1) + ". " +question[QIndex[cnt]], X / 2, 120);
+        ctx.fillText("Q" + (cnt + 1) + ". " + question[QIndex[cnt]], X / 2, 120);
 
         // 카운트다운 출력
         ctx.fillStyle = "#90DBA2"
@@ -370,10 +370,14 @@ function update()
 
             cnt++;
 
+            if (cnt == TOTAL_QUIZ_COUNT) {
+                socket.emit('gameover', myId);
+            }
+
             break_time = Math.ceil(PER_SEC * FPS);
             break_num = Math.ceil(BREAK_DUR_TIME / PER_SEC);
 
-            cur_quiz_count++;
+            // cur_quiz_count++;
         }
     }
 
@@ -406,9 +410,6 @@ function update()
     // }
 }
 // 모든 퀴즈를 다 끝냈을 시 게임을 종료
-    if (cur_quiz_count == TOTAL_QUIZ_COUNT)
-    {
-        socket.emit('gameover', myId);
-    }
+
 func_lding().then
 ( () => {setInterval(update, 1000 / FPS); } )
