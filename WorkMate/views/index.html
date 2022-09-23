@@ -53,7 +53,7 @@
       </div> <!--players-->
       
       <div class="roomBottom">
-        <button id="start">게임시작</button>
+        <button id="start" onclick="toggleMatch()">게임시작</button>
         <button id="matchcancel" onclick="toggleRoom()">나가기</button>
       </div>
   </div> <!--room-->
@@ -68,6 +68,12 @@
 			<button onclick="toggleRoom2()">취소</button>
 			</div>
 		</div><!--room2-->
+
+		<div id="match">
+			<p>매치메이킹 중... (1/6)</p>
+			<button>나가기</button>
+		</div><!--match-->
+	
 </div><!--main-->
 	
 

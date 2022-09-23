@@ -100,11 +100,8 @@ document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
 // 로딩 화면 관련
-var loading_src = 'https://cdn.discordapp.com/attachments/980090904394219562/1021780541692977152/GIF_2022-09-20_10-50-30.gif';
 // var loading_time = Math.ceil(PER_SEC * FPS);
 // var loading_num = Math.ceil(LOADING_DUR_TIME / PER_SEC);
-var loading_image = new Image();
-loading_image.src = loading_src;
 
 function keyDownHandler(e){
     if (e.code == 'ArrowRight'){
@@ -168,6 +165,8 @@ function field_draw(){
 function func_lding()
 {
     return new Promise((r1, r2) => {
+        var loading_image = new Image();
+        loading_image.src = 'https://cdn.discordapp.com/attachments/980090904394219562/1021780541692977152/GIF_2022-09-20_10-50-30.gif';
         ctx.beginPath();
         ctx.drawImage(loading_image, 0, 0);
         ctx.closePath();

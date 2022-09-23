@@ -183,6 +183,7 @@ function removePlayer(id){
 function randomCode() {
   return (new Date().getTime() + Math.random()).toString(36).substring(2,7);
 }
+
 function match() {
   roomId  =  randomCode();
   randomNick();
@@ -222,3 +223,14 @@ result.addEventListener('click', ()=>{
   $('#main').load(`/result`);
   console.log("결과 창 로드 완료");
 });
+
+function toggleMatch()
+	{
+				
+  var x = document.getElementById("match");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
