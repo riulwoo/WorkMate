@@ -63,11 +63,11 @@ function renderPlayer() {
         players[myId].x = X - (radius * 2);
     }
 
-    if (players[myId].x < 512)
+    if (players[myId].x < X / 2)
     {
         players[myId].is_O = true;
     }
-    else if (players[myId].x >= 512)
+    else if (players[myId].x >= X / 2)
     {
         players[myId].is_O = false;
     }

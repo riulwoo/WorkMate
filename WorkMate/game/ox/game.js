@@ -225,18 +225,28 @@ function update()
     is_checking = check_num > 0;
 
     // 문제 출력부
-    ctx.fillStyle = "black"
-    ctx.font = '48px DungGeunMo';
-    // measureText() = 문자열의 넓이 반환
-    ctx.textAlign = "center";
-    ctx.fillText('READY??', X / 2, 120);
+    // ctx.fillStyle = "black"
+    // ctx.font = '48px DungGeunMo';
+    // // measureText() = 문자열의 넓이 반환
+    // ctx.textAlign = "center";
+    // ctx.fillText('READY??', X / 2, 120);
     // ctx.fillText(question[0], X / 2 - (ctx.measureText(`${question[0]}`).width / 2), 120);
+
+    // 모든 퀴즈를 다 끝냈을 시 게임을 종료
+    if (cnt == TOTAL_QUIZ_COUNT) {
+        socket.emit('gameover', myId);
+    }
 
     if (is_breaking)
     {
         ctx.clearRect(0, 0, 1200, 200);
         ctx.fillStyle = "bisque";
         ctx.fillRect(0, 0, X, Y / 4);
+        ctx.fillStyle = "black"
+        ctx.font = '48px DungGeunMo';
+        // measureText() = 문자열의 넓이 반환
+        ctx.textAlign = "center";
+        ctx.fillText('READY??', X / 2, 120);
         ctx.fillStyle = "#90DBA2"
         ctx.font = '200px DungGeunMo';
         ctx.textAlign = "center";
@@ -259,6 +269,10 @@ function update()
 
         if (break_num <= 0)
         {
+            console.log('[' + QIndex[0] + ', ' + QIndex[1] + ', ' + QIndex[2] + ', ' + QIndex[3] + ', ' + QIndex[4] + ']');
+            console.log("[" + cnt + "] : " + question[QIndex[cnt]]);
+            console.log("[" + cnt + "] : " + question[QIndex[cnt]].length);
+
             during_time = Math.ceil(PER_SEC * FPS);
             during_num = Math.ceil(QUIZ_DUR_TIME / PER_SEC);
         }
@@ -273,14 +287,14 @@ function update()
 
         // 문제 출력
         ctx.fillStyle = "black"
-        // if (question[QIndex[cnt]].length < 20)
-        // {
-        //     ctx.font = '48px DungGeunMo';
-        // }
-        //else
-        //{
+        if (question[QIndex[cnt]].length < 20)
+        {
+            ctx.font = '48px DungGeunMo';
+        }
+        else
+        {
             ctx.font = '36px DungGeunMo';
-        //}
+        }
         // measureText() = 문자열의 넓이 반환
         ctx.textAlign = "center";
         ctx.fillText("Q" + (cnt + 1) + ". " + question[QIndex[cnt]], X / 2, 120);
@@ -370,18 +384,12 @@ function update()
 
             cnt++;
 
-            if (cnt == TOTAL_QUIZ_COUNT) {
-                socket.emit('gameover', myId);
-            }
-
             break_time = Math.ceil(PER_SEC * FPS);
             break_num = Math.ceil(BREAK_DUR_TIME / PER_SEC);
 
             // cur_quiz_count++;
         }
     }
-
-    
 
     // 점수 출력
     ctx.fillStyle = "black"
@@ -408,8 +416,12 @@ function update()
     //         }
     //     }
     // }
-}
-// 모든 퀴즈를 다 끝냈을 시 게임을 종료
+} // end of update
+
+
+
 
 func_lding().then
 ( () => {setInterval(update, 1000 / FPS); } )
+
+// console.log('[' + QIndex[0] + ', ' + QIndex[1] + ', ' + QIndex[2] + ', ' + QIndex[3] + ', ' + QIndex[4] + ']');
