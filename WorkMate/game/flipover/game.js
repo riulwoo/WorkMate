@@ -37,31 +37,31 @@ document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
 function keyDownHandler(e){
-    if (e.code == 'ArrowRight'){
+    if (e.keyCode == 68){ // 'ArrowRight'
         rightPressed = true;
     }
-    if (e.code == 'ArrowLeft'){
+    if (e.keyCode == 65){ // 'ArrowLeft'
         leftPressed = true;
     }
-    if(e.code == "ArrowDown"){
+    if (e.keyCode == 83){ // "ArrowDown"
         downPressed = true;
     }
-    if(e.code == "ArrowUp"){
+    if (e.keyCode == 87){ // "ArrowUp"
         upPressed = true;
     }
 }
 
 function keyUpHandler(e){
-    if (e.code == "ArrowRight"){
+    if (e.keyCode == 68){ // 'ArrowRight'
         rightPressed = false;
     }
-    if (e.code == "ArrowLeft"){
+    if (e.keyCode == 65){ // 'ArrowLeft'
         leftPressed = false;
     }
-    if(e.code == "ArrowDown"){
+    if (e.keyCode == 83){ // "ArrowDown"
         downPressed = false;
     }
-    if(e.code == "ArrowUp"){
+    if (e.keyCode == 87){ // "ArrowUp"
         upPressed = false;
     }
 }
@@ -144,6 +144,7 @@ function make_Deck()
     shuffle();
 }
 
+// 덱을 실제 화면에 렌더링. (뒷면)
 function draw_Deck()
 {
     for (var i = 0; i < deck.length; i++)
@@ -238,8 +239,6 @@ function field_draw()
         player_1.x = 1390;
     }
 }*/
-
-
 
 function update()
 {

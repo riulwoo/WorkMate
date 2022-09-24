@@ -104,31 +104,31 @@ document.addEventListener("keyup", keyUpHandler, false);
 // var loading_num = Math.ceil(LOADING_DUR_TIME / PER_SEC);
 
 function keyDownHandler(e){
-    if (e.code == 'ArrowRight'){
+    if (e.keyCode == 68){ // 'ArrowRight'
         rightPressed = true;
     }
-    if (e.code == 'ArrowLeft'){
+    if (e.keyCode == 65){ // 'ArrowLeft'
         leftPressed = true;
     }
-    if(e.code == "ArrowDown"){
+    if (e.keyCode == 83){ // "ArrowDown"
         downPressed = true;
     }
-    if(e.code == "ArrowUp"){
+    if (e.keyCode == 87){ // "ArrowUp"
         upPressed = true;
     }
 }
 
 function keyUpHandler(e){
-    if (e.code == "ArrowRight"){
+    if (e.keyCode == 68){ // 'ArrowRight'
         rightPressed = false;
     }
-    if (e.code == "ArrowLeft"){
+    if (e.keyCode == 65){ // 'ArrowLeft'
         leftPressed = false;
     }
-    if(e.code == "ArrowDown"){
+    if (e.keyCode == 83){ // "ArrowDown"
         downPressed = false;
     }
-    if(e.code == "ArrowUp"){
+    if (e.keyCode == 87){ // "ArrowUp"
         upPressed = false;
     }
 }
