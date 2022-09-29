@@ -171,14 +171,14 @@ function func_lding()
         ctx.drawImage(loading_image, 0, 0);
         ctx.closePath();
 
-        setTimeout(r1, 3000);
+        setTimeout(r1, 5000);
     })
 }
 
 function leaveUser(id){
-  for(var i = 0 ; i < balls.length; i++){
+  for(var i = 0 ; i < players.length; i++){
     if(players[i].id == id){
-      balls.splice(i,1);
+      players.splice(i,1);
       break;
     }
   }
