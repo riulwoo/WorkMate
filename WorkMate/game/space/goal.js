@@ -1,4 +1,4 @@
-function newGoal()
+function newGoal()// 서버랑 같이
 {
     this.radius = 13;
     this.x = WIDTH / 2;

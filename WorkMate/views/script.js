@@ -14,7 +14,6 @@ var myId;
 var socket = io();
 let players = [];        //id가 인덱스
 let playermap = [];      //순차적인 인덱스 
-let QIndex = [];
 let sortedScore = [];
 
 matchBtn.addEventListener("click", match);
@@ -79,8 +78,7 @@ socket.on('user_id', function(data){
 })
 
 socket.on('playerinit', function(data) {
-  const { player : playboy, oxQIndex } = data;
-  QIndex = oxQIndex;
+  const { player : playboy} = data;
   console.log('플레이어 정보 생성 완료');
   for (let i = 0; i < playboy.length; i++) {
     let player = new PlayerBall(playboy[i].id, playboy[i].nick);

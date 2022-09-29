@@ -1,4 +1,4 @@
-function newAsteroid_of_item(x, y, num)
+function newAsteroid_of_item(x, y, num) // 서버랑 같이
 {
     const ROIDS_JAG = Math.random(); // jaggedness of the asteroids (0 = none, 1 = lots)
     const ROIDS_SPD = 75; // Math.floor(Math.random() * (50 - 25) + 25); // max starting speed of Asteroids in pixels per second.
