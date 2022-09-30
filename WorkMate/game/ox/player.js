@@ -1,5 +1,6 @@
 function renderPlayer() {
   // rendering a player. 플레이어를 렌더링합니다.
+    ctx.clearRect(0, 0, X, Y / 4);
     let direction;
     // 모든 플레이어를 그리는 코드
     for (let i = 0; i < playermap.length; i++) {
