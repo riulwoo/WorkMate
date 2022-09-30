@@ -91,6 +91,7 @@ function func_lding()
     return new Promise((r1, r2) => {
         socket.emit('쥰비완료쓰', (myId));
         document.body.style.backgroundImage = "url('https://media.discordapp.net/attachments/980090904394219562/1021799584667803839/GIF_2022-09-21_12-06-13.gif?width=1266&height=636')";
+      r1();
     })
 }
 
