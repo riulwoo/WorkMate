@@ -3,7 +3,7 @@ const quizIndex = require("./oxHandler");
 
 module.exports = (io, socket, room) => {
 
-  CreateRoom : function(key) { //방의 조건을 확인해서 방을 만들어주는 함수
+  const CreateRoom = function(key) { //방의 조건을 확인해서 방을 만들어주는 함수
     let check, data;
     try {
       check = room[room.length - 1].check;
@@ -23,13 +23,13 @@ module.exports = (io, socket, room) => {
     return check == '' || (data.length != 6 && check == 'm' && key)  ?  true : room[room.length] = new userroom();
   }
 
-  getRoomIndex : function(Id) { //현재 내가 어떤 방에 들어가있는지 체크하는 함수
+  const getRoomIndex = function(Id) { //현재 내가 어떤 방에 들어가있는지 체크하는 함수
     const index = room.findIndex(e => e.userid.includes(Id));
     console.log(`getRoomIndex : ${index}`);
     return index;
   }
   
-  roomout : function(id) { // 데이터 삭제 함수
+  const roomout = function(id) { // 데이터 삭제 함수
     const index = getRoomIndex(id);
     if(index !== -1) {
       const uIndex = room[index].userid.findIndex(e => e == id);      
@@ -40,7 +40,7 @@ module.exports = (io, socket, room) => {
     }
   }
 
-  gamestart : function(id) {
+  const gamestart = function(id) {
     let userroomcnt = getRoomIndex(id);
     console.log(userroomcnt);
     if(userroomcnt !== -1) {
@@ -64,7 +64,7 @@ module.exports = (io, socket, room) => {
     }
   }
 
-  insert : function(key, data) { //매칭, 방만들기, joinroom 
+  const insert = function(key, data) { //매칭, 방만들기, joinroom 
     let {id, roomid, nick, score} = data; //유저 데이터
     let roomcnt = room.findIndex((e) => e.check === 'm'); //매칭중인 방의 인덱스
     console.log(`[matchstart] 매칭 , 처음 입장 체크 코드 : ${roomcnt}`);
@@ -116,7 +116,7 @@ module.exports = (io, socket, room) => {
       } 
   }  
 
-  disconnect : function(reason) {
+  const disconnect = function(reason) {
     console.log(`${socket.id}님이 %{reason}의 이유로 퇴장하셨습니다.`)
     roomout(socket.id);
     console.log(`업뎃 후의 룸 정보 : ${room}`);
@@ -128,7 +128,7 @@ module.exports = (io, socket, room) => {
     socket.broadcast.emit('leave_user',socket.id);
   }
 
-  gameover : function(id) {
+  const gameover = function(id) {
     let userroomcnt = getRoomIndex(id);
     if(userroomcnt !== -1) {
       io.to(room[userroomcnt].roomCode).emit('gamestart', {
