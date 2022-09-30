@@ -25,7 +25,7 @@ module.exports = (io, socket, room) => {
   };
 
   socket.on('쥰비완료쓰', (id)=>{
-    let userRoomIndex = getRoomIndex(id);
+    let userRoomIndex = mainHandlers.getRoomIndex(id);
     if (userRoomIndex !== -1) {
       room[userRoomIndex].cnt += 1;
       let player = room[userRoomIndex].players;
