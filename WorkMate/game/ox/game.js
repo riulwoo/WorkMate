@@ -141,6 +141,7 @@ function sendData(curPlayer, direction) {
   }
 
 socket.on('ox_breaking', (data)=>{
+  console.log(`break`);
   const { break_time, question } = data;
   is_breaking = true;
   is_during = false;
@@ -149,6 +150,7 @@ socket.on('ox_breaking', (data)=>{
   question = question;
 })
 socket.on('ox_during',(data)=>{
+  console.log(`during`);
   const { during_time, answer } = data;
   is_breaking = true;
   is_during = false;
@@ -157,6 +159,7 @@ socket.on('ox_during',(data)=>{
   answer = answer;
 })
 socket.on('ox_checking', (checking_time)=>{
+  console.log(`check`);
   is_breaking = true;
   is_during = false;
   is_checking = false;
@@ -220,7 +223,7 @@ function update()
         ctx.textAlign = "center";
         if (during_num-- <= 5)
         {
-            ctx.fillText(Math.ceil(during_num, X / 2, Y / 1.6);
+            ctx.fillText(Math.ceil(during_num, X / 2, Y / 1.6));
         }
     }
     if (is_checking)
