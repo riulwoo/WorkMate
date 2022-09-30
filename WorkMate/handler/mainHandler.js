@@ -1,7 +1,8 @@
 const userroom = require("./class_room");
 const quizIndex = require("./oxHandler");
-const func = {};
-module.exports = (io, socket, room) => {
+
+
+const func = (io, socket, room) => {
   
   func.CreateRoom = function(key) { //방의 조건을 확인해서 방을 만들어주는 함수
     let check, data;
