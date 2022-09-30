@@ -1,6 +1,6 @@
 const {question, answer} = require('./data_quiz');
 const userroom = require("./class_room");
-const mainHandlers = require('./handler/mainHandler');
+const mainHandlers = require('./mainHandler');
 
 const BREAK_DUR_TIME = 3999; // 퀴즈와 퀴즈 사이의 대기 시간    (ms)
 const QUIZ_DUR_TIME = 5999; // 문제 출력 후 퀴즈 진행 시간      (ms)
