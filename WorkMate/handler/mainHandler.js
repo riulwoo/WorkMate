@@ -1,7 +1,7 @@
 const userroom = require("./class_room");
 const quizIndex = require("./oxHandler");
 
-const func = (io, socket, room) => {
+module.exports = (io, socket, room) => {
   
   function CreateRoom(key) { //방의 조건을 확인해서 방을 만들어주는 함수
     let check, data;
@@ -161,4 +161,3 @@ const func = (io, socket, room) => {
   socket.on('gameover', (id)=> gameover(id));
   
 };
-module.exports = func;
