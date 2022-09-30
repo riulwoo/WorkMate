@@ -4,7 +4,7 @@ const quizIndex = require("./oxHandler");
 
 const func = (io, socket, room) => {
   
-  func.CreateRoom = function(key) { //방의 조건을 확인해서 방을 만들어주는 함수
+  function CreateRoom(key) { //방의 조건을 확인해서 방을 만들어주는 함수
     let check, data;
     try {
       check = room[room.length - 1].check;
@@ -24,13 +24,13 @@ const func = (io, socket, room) => {
     return check == '' || (data.length != 6 && check == 'm' && key)  ?  true : room[room.length] = new userroom();
   }
 
-  func.getRoomIndex = function(Id) { //현재 내가 어떤 방에 들어가있는지 체크하는 함수
+  function getRoomIndex(Id) { //현재 내가 어떤 방에 들어가있는지 체크하는 함수
     const index = room.findIndex(e => e.userid.includes(Id));
     console.log(`getRoomIndex : ${index}`);
     return index;
   }
   
-  func.roomout = function(id) { // 데이터 삭제 함수
+  function roomout(id) { // 데이터 삭제 함수
     const index = getRoomIndex(id);
     if(index !== -1) {
       const uIndex = room[index].userid.findIndex(e => e == id);      
@@ -41,7 +41,7 @@ const func = (io, socket, room) => {
     }
   }
 
-  func.gamestart = function(id) {
+  function gamestart(id) {
     let userroomcnt = getRoomIndex(id);
     console.log(userroomcnt);
     if(userroomcnt !== -1) {
@@ -65,7 +65,7 @@ const func = (io, socket, room) => {
     }
   }
 
-  func.insert = function(key, data) { //매칭, 방만들기, joinroom 
+  function insert(key, data) { //매칭, 방만들기, joinroom 
     let {id, roomid, nick, score} = data; //유저 데이터
     let roomcnt = room.findIndex((e) => e.check === 'm'); //매칭중인 방의 인덱스
     console.log(`[matchstart] 매칭 , 처음 입장 체크 코드 : ${roomcnt}`);
@@ -117,7 +117,7 @@ const func = (io, socket, room) => {
       } 
   }  
 
-  func.disconnect = function(reason) {
+  function disconnect(reason) {
     console.log(`${socket.id}님이 %{reason}의 이유로 퇴장하셨습니다.`)
     roomout(socket.id);
     console.log(`업뎃 후의 룸 정보 : ${room}`);
@@ -129,7 +129,7 @@ const func = (io, socket, room) => {
     socket.broadcast.emit('leave_user',socket.id);
   }
 
-  func.gameover = function(id) {
+  function gameover(id) {
     let userroomcnt = getRoomIndex(id);
     if(userroomcnt !== -1) {
       io.to(room[userroomcnt].roomCode).emit('gamestart', {
@@ -142,7 +142,7 @@ const func = (io, socket, room) => {
 
   socket.on('disconnect', (reason) => disconnect(reason));
 
-  socket.on('matchStart', (data)=>insert('m', data));
+  socket.on('matchStart', (data)=> insert('m', data));
   
     //매칭 종료버튼, 매칭 타이머 초과 시 받는 정보
   socket.on('matchtimeover', (id)=> gamestart(id));  
