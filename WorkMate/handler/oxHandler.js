@@ -1,12 +1,17 @@
 var {question, answer} = require('./data_quiz');
 const userroom = require("./class_room");
-const mainHandlers = require('./mainHandler');
 
 const BREAK_DUR_TIME = 3999; // 퀴즈와 퀴즈 사이의 대기 시간    (ms)
 const QUIZ_DUR_TIME = 5999; // 문제 출력 후 퀴즈 진행 시간      (ms)
 const CHECK_DUR_TIME = 999; // 퀴즈를 풀고 난 뒤 정답 체크 시간  (ms)
 
 module.exports = (io, socket, room) => {
+  function getRoomIndex(Id) { //현재 내가 어떤 방에 들어가있는지 체크하는 함수
+    const index = room.findIndex(e => e.userid.includes(Id));
+    console.log(`getRoomIndex : ${index}`);
+    return index;
+  }
+  
   const oxcycle1 = (ms, Index)=>{
     return new Promise((resolve)=>
       setTimeout(()=>{
@@ -25,7 +30,7 @@ module.exports = (io, socket, room) => {
   };
 
   socket.on('쥰비완료쓰', (id)=>{
-    let userRoomIndex = mainHandlers.getRoomIndex(id);
+    let userRoomIndex = getRoomIndex(id);
     if (userRoomIndex !== -1) {
       room[userRoomIndex].cnt += 1;
       let player = room[userRoomIndex].players;

@@ -1,7 +1,6 @@
 const userroom = require("./class_room");
 const quizIndex = require("./oxHandler");
 
-
 const func = (io, socket, room) => {
   
   function CreateRoom(key) { //방의 조건을 확인해서 방을 만들어주는 함수
@@ -115,7 +114,7 @@ const func = (io, socket, room) => {
         socket.emit('joinfail');
         console.log(`[조인실패]`)
       } 
-  }  
+  }
 
   function disconnect(reason) {
     console.log(`${socket.id}님이 %{reason}의 이유로 퇴장하셨습니다.`)
