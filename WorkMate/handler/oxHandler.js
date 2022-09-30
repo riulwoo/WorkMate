@@ -12,7 +12,7 @@ module.exports = (io, socket, room) => {
       setTimeout(()=>{
         if(ms == 5900)       io.to(room[Index].roomCode).emit('ox_checking', {check_time : 1});
         else if(ms == 3900) io.to(room[Index].roomCode).emit('ox_during', {during_time : 6, answer : true});
-        else if(ms == 900)  io.to(room[Index].roomCode).emit('ox_breaking', {break_time : 4, question : "이근우 바보"});
+        else if(ms == 900)  io.to(room[Index].roomCode).emit('ox_breaking', {break_time : 4, question : "test message"});
         resolve(ms);
       },ms)
     );

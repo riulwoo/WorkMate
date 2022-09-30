@@ -185,7 +185,7 @@ function update()
 
       if (break_num-- <= 3)
       {
-        ctx.fillText(Math.ceil(break_num, X / 2, Y / 1.6));
+        ctx.fillText(break_num, X / 2, Y / 1.6);
       }
     }
 
@@ -216,7 +216,7 @@ function update()
         ctx.textAlign = "center";
         if (during_num-- <= 5)
         {
-            ctx.fillText(Math.ceil(during_num, X / 2, Y / 1.6));
+            ctx.fillText(during_num, X / 2, Y / 1.6);
         }
     }
     if (is_checking)
