@@ -10,9 +10,9 @@ module.exports = (io, socket, room) => {
   const oxcycle1 = (ms, Index)=>{
     return new Promise((resolve)=>
       setTimeout(()=>{
-        if(ms == 5900)      io.to(room[Index].roomCode).emit('ox_breaking', {break_time : 4, question : "강민성 바보"});
+        if(ms == 5900)       io.to(room[Index].roomCode).emit('ox_checking', {check_time : 1});
         else if(ms == 3900) io.to(room[Index].roomCode).emit('ox_during', {during_time : 6, answer : true});
-        else if(ms == 900)  io.to(room[Index].roomCode).emit('ox_checking', {check_time : 1});
+        else if(ms == 900)  io.to(room[Index].roomCode).emit('ox_breaking', {break_time : 4, question : "이근우 바보"});
         resolve(ms);
       },ms)
     );
@@ -30,7 +30,7 @@ module.exports = (io, socket, room) => {
       room[userRoomIndex].cnt += 1;
       let player = room[userRoomIndex].players;
       if(room[userRoomIndex].cnt == player.length) {
-          io.to(room[userRoomIndex].roomCode).emit('ox_breaking');
+          io.to(room[userRoomIndex].roomCode).emit('ox_breaking', {break_time : 4, question : "강민성 바보"});
           cycle1(userRoomIndex);
       }
     }
