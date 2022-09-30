@@ -91,7 +91,7 @@ function func_lding()
     return new Promise((r1, r2) => {
         var loading_image = new Image();
         socket.emit('쥰비완료쓰', (myId));
-        loading_image.src = 'https://cdn.discordapp.com/attachments/980090904394219562/1021780541692977152/GIF_2022-09-20_10-50-30.gif';
+        loading_image.src = "https://media.discordapp.net/attachments/980090904394219562/1021799584667803839/GIF_2022-09-21_12-06-13.gif?width=1266&height=636";
         ctx.beginPath();
         ctx.drawImage(loading_image, 0, 0, X, Y);
         ctx.closePath();
