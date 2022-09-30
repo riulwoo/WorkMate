@@ -134,21 +134,21 @@ function sendData(curPlayer, direction) {
 
 socket.on('ox_breaking', (data)=>{
   console.log(`break ${data}`);
-  const { break_time, question } = data;
+  const { break_time, _question } = data;
   is_breaking = true;
   is_during = false;
   is_checking = false;
   break_num = break_time;
-  question = question;
+  question = _question;
 })
 socket.on('ox_during',(data)=>{
   console.log(`during`);
-  const { during_time, answer } = data;
+  const { during_time, _answer } = data;
   is_breaking = true;
   is_during = false;
   is_checking = false;
   during_num = during_time;
-  answer = answer;
+  answer = _answer;
 })
 socket.on('ox_checking', (checking_time)=>{
   console.log(`check`);
