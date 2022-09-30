@@ -98,10 +98,6 @@ function func_lding()
     })
 }
 
-socket.on('게임시작쓰', (data)=>{
-  is_breaking = true;
-})
-
 function leaveUser(id){
   for(var i = 0 ; i < players.length; i++){
     if(players[i].id == id){

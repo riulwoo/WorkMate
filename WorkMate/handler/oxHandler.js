@@ -1,4 +1,4 @@
-const {question, answer} = require('./data_quiz');
+var {question, answer} = require('./data_quiz');
 const userroom = require("./class_room");
 const mainHandlers = require('./mainHandler');
 
@@ -25,7 +25,7 @@ module.exports = (io, socket, room) => {
   };
 
   socket.on('쥰비완료쓰', (id)=>{
-    let userRoomIndex = getRoomIndex(id);
+    let userRoomIndex = mainHandlers.getRoomIndedx(id);
     if (userRoomIndex !== -1) {
       room[userRoomIndex].cnt += 1;
       let player = room[userRoomIndex].players;
