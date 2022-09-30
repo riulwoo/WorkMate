@@ -90,7 +90,7 @@ function func_lding()
 {
     return new Promise((r1, r2) => {
         socket.emit('쥰비완료쓰', (myId));
-        document.body.style.backgroundImage = url("https://media.discordapp.net/attachments/980090904394219562/1021799584667803839/GIF_2022-09-21_12-06-13.gif?width=1266&height=636");
+        document.body.style.backgroundImage = "url('https://media.discordapp.net/attachments/980090904394219562/1021799584667803839/GIF_2022-09-21_12-06-13.gif?width=1266&height=636')";
         ctx.beginPath();
         ctx.drawImage(loading_image, 0, 0, X, Y);
         ctx.closePath();
@@ -262,7 +262,7 @@ function update()
 
 func_lding().then
 ( () => {
-  document.body.style.backgroundImage = url("https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png");
+  document.body.style.backgroundImage = "url('https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png')";
   setInterval(renderPlayer, 50);
   setInterval(update, 1000);
 } )
