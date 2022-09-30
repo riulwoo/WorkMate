@@ -189,7 +189,7 @@ function update()
 
       if (break_num-- <= 3)
       {
-        ctx.fillText(Math.ceil(break_num, X / 2, Y / 1.6);
+        ctx.fillText(Math.ceil(break_num, X / 2, Y / 1.6));
       }
     }
 
