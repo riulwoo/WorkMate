@@ -1,4 +1,4 @@
-const [question, answer] = require('./data_quiz');
+const {question, answer} = require('./data_quiz');
 const userroom = require("./class_room");
 const mainHandlers = require('./handler/mainHandler');
 
