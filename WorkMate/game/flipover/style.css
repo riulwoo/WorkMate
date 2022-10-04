@@ -1,11 +1,10 @@
 /* * {padding : 0; margin: 50;} */
 
 canvas {
-  margin : 0 auto;
   width : 80%;
   height : 100%;
   display : absolute;
-  left : 16%;
+  left : 10%;
 }
 
 
