@@ -206,10 +206,8 @@ function choose(player)
 }
 
 function field_draw(){
-    canvas.width = document.body.clientWidth;
-    canvas.height = document.body.clientHeight;
-    X = canvas.width;
-    Y = canvas.height;
+    // canvas.width = document.body.clientWidth;
+    // canvas.height = document.body.clientHeight;
 
     ctx.beginPath();
     ctx.fillStyle = "#7092BE";
