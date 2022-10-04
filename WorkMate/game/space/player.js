@@ -1,5 +1,4 @@
 function renderPlayer() {
-    let direction;
     //console.log(playermap);
     for (let i = 0; i < playermap.length; i++) {
         let player = playermap[i];
@@ -59,106 +58,103 @@ function renderPlayer() {
             ctx.closePath();
         }
     }
+
+    // player thrusting. 플레이어의 가속력을 구현하는 파트라 생각하면 편합니다.
+    if (upPressed) { // 위쪽 방향키
+      myplayer.direction = 2;
+      myplayer.thrusting = true;
+      // 를 누른채로 좌 or 우를 입력시
+      if (rightPressed) {
+          myplayer.direction = 7;
+          //myplayer.x += playerSpeed;
+      }
+      else if (leftPressed) {
+          myplayer.direction = 5;
+          //myplayer.x -= playerSpeed;
+      }
+
+      // player_1.y -= PLAYERSPEED;
+      myplayer.thrust.y -= PLAYERSPEED * Math.sin(90 / 180 * Math.PI) / FPS;
+      myplayer.thrust.y *= 0.99;
+      sendData(myplayer, myplayer.direction);
+    }
+
+    if (downPressed) {
+      myplayer.direction = 0;
+      myplayer.thrusting = true;
+
+      if (rightPressed) {
+          myplayer.direction = 6;
+          // myplayer.x += playerSpeed;
+      }
+      else if (leftPressed) {
+          myplayer.direction = 4;
+          //myplayer.x -= playerSpeed;
+      }
+
+      // myplayer.y += PLAYERSPEED;
+      myplayer.thrust.y -= PLAYERSPEED * Math.sin(270 / 180 * Math.PI) / FPS;
+      myplayer.thrust.y *= 0.99;
+      sendData(myplayer, myplayer.direction);
+    }
+
+    if (leftPressed) {
+      myplayer.direction = 1;
+      myplayer.thrusting = true;
+
+      if (upPressed) {
+          myplayer.direction = 5;
+          //myplayer.y -= playerSpeed;
+      }
+      else if (downPressed) {
+          myplayer.direction = 4;
+          //myplayer.y += playerSpeed;
+      }
+
+      //myplayer.x -= PLAYERSPEED;
+      myplayer.thrust.x += PLAYERSPEED * Math.cos(180 / 180 * Math.PI) / FPS;
+      myplayer.thrust.x *= 0.99;
+      sendData(myplayer, myplayer.direction);
+    }
+
+    if (rightPressed) {
+      myplayer.direction = 3;
+      myplayer.thrusting = true;
+
+      if (upPressed) {
+          myplayer.direction = 7;
+          //myplayer.y -= playerSpeed;
+      }
+      else if (downPressed) {
+          myplayer.direction = 6;
+          //myplayer.y += playerSpeed;
+      }
+
+      // player_1.x += PLAYERSPEED;
+      myplayer.thrust.x += PLAYERSPEED * Math.cos(360 / 180 * Math.PI) / FPS;
+      myplayer.thrust.x *= 0.99;
+      sendData(myplayer, myplayer.direction);
+    }
+    console.log(`${myplayer.thrusting} : direction ${myplayer.direction}`);
+    // thrusting 할때랑 안할때랑 이미지를 구분해서 출력.
+    if (myplayer.thrusting) {
+      myplayer.player.src = myplayer.thrustAsset[myplayer.direction];
+    }
+    else if (direction >= 0 && !(myplayer.thrusting)) {
+      myplayer.player.src = myplayer.asset[myplayer.direction];
+      // 방향키 입력중이 아닐 때, 플레이어의 속도를 지속적으로 감소시킴.
+      myplayer.thrust.x -= FRICTION * myplayer.thrust.x / FPS;
+      myplayer.thrust.y -= FRICTION * myplayer.thrust.y / FPS;
+    }
     // 폭발중, 기절중이 아닐때에만 플레이어가 움직이도록 설정
     if (!myplayer.exploding && !myplayer.stunning)
     {
-        // move a player. 플레이어를 이동시킵니다.
-        // 피격 중이 아닌 상황에만 플레이어가 움직입니다.
-        // player thrusting. 플레이어의 가속력을 구현하는 파트라 생각하면 편합니다.
-        if (upPressed) { // 위쪽 방향키
-            direction = 2;
-            myplayer.thrusting = true;
-            // 를 누른채로 좌 or 우를 입력시
-            if (rightPressed) {
-                direction = 7;
-                //myplayer.x += playerSpeed;
-            }
-            else if (leftPressed) {
-                direction = 5;
-                //myplayer.x -= playerSpeed;
-            }
-
-            // player_1.y -= PLAYERSPEED;
-            myplayer.thrust.y -= PLAYERSPEED * Math.sin(90 / 180 * Math.PI) / FPS;
-            myplayer.thrust.y *= 0.99;
-            myplayer.y += myplayer.thrust.y;
-            sendData(myplayer, direction);
-        }
-
-        if (downPressed) {
-            direction = 0;
-            myplayer.thrusting = true;
-
-            if (rightPressed) {
-                direction = 6;
-                // myplayer.x += playerSpeed;
-            }
-            else if (leftPressed) {
-                direction = 4;
-                //myplayer.x -= playerSpeed;
-            }
-
-            // myplayer.y += PLAYERSPEED;
-            myplayer.thrust.y -= PLAYERSPEED * Math.sin(270 / 180 * Math.PI) / FPS;
-            myplayer.thrust.y *= 0.99;
-            myplayer.y += myplayer.thrust.y;
-            sendData(myplayer, direction);
-        }
-
-        if (leftPressed) {
-            direction = 1;
-            myplayer.thrusting = true;
-
-            if (upPressed) {
-                direction = 5;
-                //myplayer.y -= playerSpeed;
-            }
-            else if (downPressed) {
-                direction = 4;
-                //myplayer.y += playerSpeed;
-            }
-
-            //myplayer.x -= PLAYERSPEED;
-            myplayer.thrust.x += PLAYERSPEED * Math.cos(180 / 180 * Math.PI) / FPS;
-            myplayer.thrust.x *= 0.99;
-            myplayer.x += myplayer.thrust.x;
-            sendData(myplayer, direction);
-        }
-
-        if (rightPressed) {
-            direction = 3;
-            myplayer.thrusting = true;
-
-            if (upPressed) {
-                direction = 7;
-                //myplayer.y -= playerSpeed;
-            }
-            else if (downPressed) {
-                direction = 6;
-                //myplayer.y += playerSpeed;
-            }
-
-            // player_1.x += PLAYERSPEED;
-            myplayer.thrust.x += PLAYERSPEED * Math.cos(360 / 180 * Math.PI) / FPS;
-            myplayer.thrust.x *= 0.99;
-            myplayer.x += myplayer.thrust.x;
-            sendData(myplayer, direction);
-        }
+      // move a player. 플레이어를 이동시킵니다.
+      // 피격 중이 아닌 상황에만 플레이어가 움직입니다.
+      myplayer.x += myplayer.thrust.x;
+      myplayer.y += myplayer.thrust.y;
+      sendData(myplayer, myplayer.direction);
     }
-    console.log(`${myplayer.thrusting} : direction ${direction}`);
-    // thrusting 할때랑 안할때랑 이미지를 구분해서 출력.
-    if (myplayer.thrusting) {
-        myplayer.player.src = myplayer.thrustAsset[direction];
-    }
-    else if (direction != undefined && !(myplayer.thrusting)) {
-        myplayer.player.src = myplayer.asset[direction];
-    }
-    else {
-        // 방향키 입력중이 아닐 때, 플레이어의 속도를 지속적으로 감소시킴.
-        myplayer.thrust.x -= FRICTION * myplayer.thrust.x / FPS;
-        myplayer.thrust.y -= FRICTION * myplayer.thrust.y / FPS;
-    }
-
 
     // handle use item. 아이템 사용을 구현합니다.
     if (itemPressed)
@@ -213,7 +209,8 @@ function updateState(id, x, y, direction) {
     }
     player.x = x;
     player.y = y;
-    player.player.src = player.asset[direction];
+    player.direction = direction;
+    player.player.src = player.asset[player.direction];
 }
 
 socket.on('update_state', function (data) {
@@ -224,7 +221,7 @@ function race_player(id, nick)
 {
     this.id = id;
     this.nick = nick;
-
+    this.direction;
     this.asset = [ // 플레이어로써 출력 될 이미지.
         // 이미지는 총 8개 (우주선의 8방향)
         'https://cdn.discordapp.com/attachments/980090904394219562/1010125156905132062/nothrust_roc_down.png', // down
