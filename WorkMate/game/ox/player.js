@@ -1,14 +1,13 @@
 function renderPlayer() {
   // rendering a player. 플레이어를 렌더링합니다.
-    ctx.clearRect(0, 0, X, Y / 4);
     let direction;
     // 모든 플레이어를 그리는 코드
     for (let i = 0; i < playermap.length; i++) {
           let ball = playermap[i];
-          ctx.drawImage(ball.currentImage, ball.x, ball.y);
+          ctx.drawImage(ball.player, ball.x, ball.y);
           ctx.beginPath();
           ctx.fillStyle = ball.color;
-          ctx.font = '15px DungGeunMo';
+          ctx.font = '15px Arial';
           ctx.fillText(ball.nick ,ball.x+15, ball.y-radius+10);
           ctx.closePath();
     }
@@ -18,27 +17,27 @@ function renderPlayer() {
     {
         if (rightPressed) {
             direction = 3;
-            curPlayer.currentImage.src = curPlayer.asset[direction];
+            curPlayer.player.src = curPlayer.asset[direction];
             curPlayer.x += playerSpeed;
             sendData(curPlayer, direction);
         }
           
         else if (leftPressed) {
             direction = 1;
-            curPlayer.currentImage.src = curPlayer.asset[direction];
+            curPlayer.player.src = curPlayer.asset[direction];
             curPlayer.x -= playerSpeed;
             sendData(curPlayer, direction);
         }
 
         if (upPressed) {
             direction = 2;
-            curPlayer.currentImage.src = curPlayer.asset[direction];
+            curPlayer.player.src = curPlayer.asset[direction];
             curPlayer.y -= playerSpeed;
             sendData(curPlayer, direction);
         }
         else if (downPressed) {
             direction = 0;
-            curPlayer.currentImage.src = curPlayer.asset[direction];
+            curPlayer.player.src = curPlayer.asset[direction];
             curPlayer.y += playerSpeed;
             sendData(curPlayer, direction);
         }
@@ -72,19 +71,7 @@ function renderPlayer() {
     {
         players[myId].is_O = false;
     }
-}
-
-function sendData(curPlayer, direction) {
-    let data = {};
-    data = {
-        id : curPlayer.id,
-        x: curPlayer.x,
-        y: curPlayer.y,
-        direction : direction
-    };
-    if(data){
-        socket.emit("send_location", data);
-    }
+    
 }
 
 function ox_player(id, nick)
@@ -109,8 +96,8 @@ function ox_player(id, nick)
     ];
 
     this.color = "#FF00FF";
-    this.x = WIDTH / 2;
-    this.y = HEIGHT / 2;
+    this.x = X / 2;
+    this.y = Y / 2;
     this.player = new Image();
     this.player.src = this.asset[0];
     this.score = 0;
