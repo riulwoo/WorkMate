@@ -14,6 +14,8 @@ var myId;
 var socket = io();
 let players = [];        //id가 인덱스
 let playermap = [];      //순차적인 인덱스 
+let playerinfo;          // 게임에 쓸 플레이어 정보
+let finalscore;          // 마지막 라운드에 전송할 점수 변수(게임이 종료될 때마다 그 게임에서의 점수 누적)
 let sortedScore = [];
 
 matchBtn.addEventListener("click", match);
@@ -78,14 +80,14 @@ socket.on('user_id', function(data){
 })
 
 socket.on('playerinit', function(data) {
-  const { player : playboy} = data;
-  console.log('플레이어 정보 생성 완료');
-  for (let i = 0; i < playboy.length; i++) {
-    let player = new PlayerBall(playboy[i].id, playboy[i].nick);
-    playermap[i] = player;
-    players[playboy[i].id] = player;
-    console.log(players);
-  }
+  playerinfo = data;
+  console.log(playerinfo[0]);
+  // for (let i = 0; i < playboy.length; i++) {
+  //   let player = new PlayerBall(playboy[i].id, playboy[i].nick);
+  //   playermap[i] = player;
+  //   players[playboy[i].id] = player;
+  //   console.log(players);
+  // }
 })
 
 socket.on('gamestart', function(data) {
@@ -227,7 +229,7 @@ function toggleMatch()
   var x = document.getElementById("match");
   if (x.style.display === "block") {
     x.style.display = "none";
- document.getElementById('match-text').innerText = "매치메이킹 중... (1/6)";
+ document.getElementById('match-text').innerText = "상사의 대머리를 보고 참는 중...";
   } else {
     x.style.display = "block";
   }

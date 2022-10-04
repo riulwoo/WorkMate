@@ -99,13 +99,13 @@ function func_lding()
 }
 
 function leaveUser(id){
-  for(var i = 0 ; i < players.length; i++){
-    if(players[i].id == id){
-      players.splice(i,1);
+  for(var i = 0 ; i < playermap.length; i++){
+    if(playermap[i].id == id){
+      playermap.splice(i,1);
       break;
     }
   }
-  delete playermap[id];
+  delete players[id];
 }
 socket.on('leave_user', function(data){
     leaveUser(data);
@@ -122,19 +122,6 @@ function updateState(id, x, y, direction) {
 socket.on('update_state', function (data) {
     updateState(data.id, data.x, data.y, data.direction);
 })
-
-function sendData(curPlayer, direction) {
-      let data = {};
-      data = {
-          id : curPlayer.id,
-          x: curPlayer.x,
-          y: curPlayer.y,
-          direction : direction
-      };
-      if(data){
-          socket.emit("send_location", data);
-      }
-  }
 
 socket.on('ox_breaking', (data)=>{
   console.log(`break ${data}`);

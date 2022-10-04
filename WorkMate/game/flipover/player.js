@@ -62,8 +62,9 @@ function renderPlayer() {
     }
 }
 
-/*function player(nick)
+function flip_player(id, nick)
 {
+    this.id = id;
     // 플레이어 닉네임 설정
     if (nick == null)
     {
@@ -91,4 +92,4 @@ function renderPlayer() {
 
     // 판정 관련
     this.is_O;
-}*/
+}
