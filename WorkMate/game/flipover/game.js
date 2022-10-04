@@ -1,37 +1,49 @@
-let canvas = document.getElementById("card_canvas");
+let canvas = document.getElementById("flip_canvas");
+canvas.width = document.body.clientWidth;
+canvas.height = document.body.clientHeight;
 let ctx = canvas.getContext('2d');
-let myfont = new FontFace('DungGeunMo', 'url(assets/fonts/DungGeunMo.otf)');
+let myfont = new FontFace('DungGeunMo', 'url(ox/assets/fonts/DungGeunMo.otf)');
 
 myfont.load().then(function(font){
     document.fonts.add(font);
-    console.log('font loaded.');
 });
 
 // 게임의 프레임은 60fps.
 const FPS = 60;
-// 화면 크기
-// 캔버스의 크기 속성값을 클라이언트의 화면 크기와 같게 바꿔줌
-canvas.width = document.body.clientWidth;
-canvas.height = Math.ceil(document.body.clientHeight);
-const WIDTH = canvas.width;
-const HEIGHT = canvas.height;
+// 크기 변수
+let X = canvas.width;
+let Y = canvas.height;
 // 플레이어 관련
 var radius = 16;
-var playerSpeed = 5;
+var playerSpeed = 4;
 // 플레이어 이동 관련
 var rightPressed = false;
 var leftPressed = false;
 var upPressed = false;
 var downPressed = false;
 // 그려질 카드
-var card_asset = new Image();
-card_asset.src = 'https://cdn.discordapp.com/attachments/980090904394219562/1017440775522492477/card_back.png';
-var firstX = (WIDTH/2 - 450) + 10;
-var firstY = (HEIGHT/2 - 450) + 10;
+var card_asset_index =[
+    "https://cdn.discordapp.com/attachments/980090904394219562/1026178038003662969/card_back.png",
+    "https://cdn.discordapp.com/attachments/980090904394219562/1026201806897938573/card_coffee.png",
+    "https://cdn.discordapp.com/attachments/980090904394219562/1026201836232913006/card_laptop.png",
+    "https://cdn.discordapp.com/attachments/980090904394219562/1026745172316389446/card_files_2.png",
+    "https://cdn.discordapp.com/attachments/980090904394219562/1026745172001820722/card_print_2.png",
+    "https://cdn.discordapp.com/attachments/980090904394219562/1026203173796446339/card_money.png",
+    "https://cdn.discordapp.com/attachments/980090904394219562/1026201898967126097/card_boom.png",
+    "https://cdn.discordapp.com/attachments/980090904394219562/1026370795670347816/card_matched.png" ];
 var card_margin = 10;
-var card_width = 168;
-var card_height = 168;
+var card_width = (X * 7.5) / 100;
+var card_height = (Y * 13) / 100;
+var firstX = (X * 10) / 100;
+var firstY = (Y * 15) / 100;
 var deck = [];
+// 게임 흐름 관련
+const CHECK_DUR_TIME = 1.5;
+const PER_SEC = 0.1;
+var check_time = Math.ceil(PER_SEC * FPS);
+var check_num = Math.ceil(CHECK_DUR_TIME / PER_SEC);
+// Game Flow 관련
+var is_loading; 
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -65,32 +77,6 @@ function keyUpHandler(e){
         upPressed = false;
     }
 }
-
-function updateState(id,x,y,direction){
-    let ball = players[id];
-    if(!ball){
-        return;
-    }
-    ball.x = x;
-    ball.y = y;
-    ball.currentImage.src = ball.asset[direction];
-} socket.on('update_state', function(data){
-    updateState(data.id, data.x, data.y, data.direction);
-})
-
-function sendData(curPlayer, direction) {
-    let data = {};
-    data = {
-        id : curPlayer.id,
-        x: curPlayer.x,
-        y: curPlayer.y,
-        direction : direction
-    };
-    if(data){
-        socket.emit("send_location", data);
-    }
-}
-
 // 카드를 세차례 섞는 함수
 function shuffle()
 {
@@ -114,37 +100,35 @@ function shuffle()
 function make_Deck()
 {
     var i;
+    var j;
     var aCard;
-    var bCard;
     var cx = firstX;
     var cy = firstY;
 
-    for (var j = 1; j <= 2; j++)
+    for (i = 1; i <= 5; i++)
     {
-        for (i = 1; i <= 5; i++)
+        for (j = 1; j <= 10; j++)
         {
-            aCard = new Card(cx, cy, i + (j - 1) * 5);
-            deck.push(aCard);
-            bCard = new Card(cx, cy + card_height + card_margin, i + (j - 1) * 5);
-            deck.push(bCard);
+            if (j > 8)
+            {
+                aCard = new Card(cx, cy, 6);
+                deck.push(aCard);
+            }
+            else
+            {
+                aCard = new Card(cx, cy, i);
+                deck.push(aCard);
+            }
             cx = cx + card_width + card_margin;
         }
 
+        cy = cy + card_height + card_margin;
         cx = firstX;
-        cy = cy + card_height * 2 + card_margin * 2;
-    }
-
-    for (i = 1; i <= 5; i++)
-    {
-        aCard = new Card(cx, cy, 11);
-        deck.push(aCard);
-        cx = cx + card_width + card_margin;
     }
 
     shuffle();
 }
 
-// 덱을 실제 화면에 렌더링. (뒷면)
 function draw_Deck()
 {
     for (var i = 0; i < deck.length; i++)
@@ -153,100 +137,148 @@ function draw_Deck()
     }
 }
 
-function field_draw()
+function flip(player)
 {
+    if (!player.matched)
+    {
+        deck[player.firstcard].poly = 0;
+        deck[player.secondcard].poly = 0;
+    }
+    else
+    {
+        deck[player.firstcard].untouchable = 1;
+        deck[player.secondcard].untouchable = 1;
+        player.score += 1;
+    }
+}
+
+// 카드를 선택하는 메서드
+function choose(player)
+{
+    var px;
+    var py;
+
+    px = player.x;
+    py = player.y;
+
+    for (i = 0; i < deck.length; i++)
+    {
+        var card = deck[i];
+
+        if (card.x >= 0)
+        {
+            if ((px >= card.x) && (px <= card.x + card_width) && (py >= card.y) && (py <= card.y + card_height))
+            {
+                if ((player.firstpick) || (i != player.firstcard))
+                {
+                    break;
+                }
+            }
+        }
+    }
+
+    if (i < deck.length) // 사용자가 카드를 고름
+    {
+        if (player.firstpick) {
+            player.firstcard = i;
+            player.firstpick = false;
+
+            deck[i].poly = 1;
+            // deck[i].draw();
+        }
+        else {
+            player.secondcard = i;
+
+            deck[i].poly = 1;
+            // deck[i].draw();
+
+            if (deck[i].info == deck[player.firstcard].info) {
+                player.matched = true;
+            }
+            else {
+                player.matched = false;
+            } 
+
+            player.firstpick = true;
+            flip(player);
+        }
+    }
+}
+
+function field_draw(){
+    canvas.width = document.body.clientWidth;
+    canvas.height = document.body.clientHeight;
+    X = canvas.width;
+    Y = canvas.height;
+
     ctx.beginPath();
-    ctx.fillStyle = "orange";
-    ctx.fillRect(0, 0, WIDTH, HEIGHT);
-
-    ctx.lineJoin = "round";
-    ctx.lineWidth = 20;
-
-    ctx.strokeStyle = "#CFA31A";
-    ctx.fillStyle = "#CFA31A";
-
-    ctx.strokeRect((WIDTH/2 - 450), (HEIGHT/2 - 450), 900, 900);
-    ctx.fillRect((WIDTH/2 - 450), (HEIGHT/2 - 450), 900, 900);
+    ctx.fillStyle = "#7092BE";
+    ctx.fillRect(0, 0, X, Y);
     ctx.closePath();
 }
 
-/*function renderPlayer()
+function func_lding()
 {
-    let direction;
-    // ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    ctx.drawImage(player_1.player, player_1.x, player_1.y);
-    ctx.beginPath();
-    ctx.fillStyle = player_1.color;
-    ctx.font = '15px DungGeunMo';
-    ctx.textAlign = "center";
-    // ctx.fillText(player_1.nick, player_1.x - 10, player_1.y - radius + 10);
-    ctx.fillText("x : " + player_1.x + ", y : " + player_1.y, player_1.x, player_1.y - radius + 10);
-    ctx.closePath();
+  return new Promise((r1, r2) => {
+    document.body.style.backgroundImage =
+    "url('https://media.discordapp.net/attachments/980090904394219562/1021799584667803839/GIF_2022-09-21_12-06-13.gif?width=1266&height=636')"; // 나중에 카드 로딩창으로 수정하기.
+    for (let i = 0; i < playerinfo.length; i++) {
+        let player = new flip_player(playerinfo[i].id, playerinfo[i].nick);
+        playermap[i] = player;
+        players[playerinfo[i].id] = player;
+      }
+    setTimeout(()=>{
+      socket.emit('쥰비완료쓰', (myId));
+        r1();
+    }, 3000);
+  })
+}
 
-    // let curPlayer = ballMap[myId];
-      
-    if (rightPressed){
-      direction = 3;
-      player_1.player.src = player_1.asset[direction];
-      player_1.x += playerSpeed;
-    // curPlayer.player.src = curPlayer.asset[direction];
-    // curPlayer.x += playerSpeed;
-    // sendData(curPlayer, direction);
+function leaveUser(id){
+  for(var i = 0 ; i < playermap.length; i++){
+    if(playermap[i].id == id){
+      playermap.splice(i,1);
+      break;
     }
-    else if (leftPressed){
-      direction = 1;
-      player_1.player.src = player_1.asset[direction];
-      player_1.x -= playerSpeed;
-    // curPlayer.player.src = curPlayer.asset[direction];
-    // curPlayer.x -= playerSpeed;
-    // sendData(curPlayer, direction);
+  }
+  delete players[id];
+}
+socket.on('leave_user', function(data){
+    leaveUser(data);
+})
+function updateState(id, x, y, direction) {
+    let ball = players[id];
+    if (!ball) {
+        return;
     }
-
-    if(upPressed){
-      direction = 2;
-      player_1.player.src = player_1.asset[direction];
-      player_1.y -= playerSpeed;
-    // curPlayer.player.src = curPlayer.asset[direction];
-    // curPlayer.y -= playerSpeed;
-    // sendData(curPlayer, direction);
-    }
-    else if(downPressed){
-      direction = 0;
-      player_1.player.src = player_1.asset[direction];
-      player_1.y += playerSpeed;
-    // curPlayer.player.src = curPlayer.asset[direction];
-    // curPlayer.y += playerSpeed;
-    // sendData(curPlayer, direction);
-    }
-
-    // collision detection of player. 플레이어가 문제 출력 영역으로 이동하지 못하도록 충돌을 감지합니다.
-    if (player_1.y < 0)
-    {
-        player_1.y = 0;
-    }
-    else if (player_1.y > 900)
-    {
-        player_1.y = 900;
-    }
-    
-    if (player_1.x < 500)
-    {
-        player_1.x = 500;
-    }
-    else if (player_1.x > 1390)
-    {
-        player_1.x = 1390;
-    }
-}*/
+    ball.x = x;
+    ball.y = y;
+    ball.player.src = ball.asset[direction];
+}
+socket.on('update_state', function (data) {
+    updateState(data.id, data.x, data.y, data.direction);
+})
 
 function update()
 {
     field_draw();
     draw_Deck();
+
     renderPlayer();
-}
+
+    ctx.beginPath();
+    ctx.fillStyle = "black";
+    ctx.font = "55px DungGeunMo";
+    ctx.textAlign = "center";
+    ctx.fillText("score : " + players[myId].score, (X * 10) / 100, (Y * 7) / 100);
+    ctx.closePath();
+} // end of update
+
 
 make_Deck();
-console.log(deck.info);
-setInterval(update, 1000 / FPS);
+
+func_lding().then
+( () => {
+  document.body.style.backgroundImage = "url('https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png')";
+  setInterval(update, 1000 / FPS);
+} )
