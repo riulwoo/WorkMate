@@ -68,13 +68,14 @@ function keyUpHandler(e){
 function field_draw(){
   canvas.width = document.body.clientWidth;
   canvas.height = document.body.clientHeight;
+  console.log('정상적으로 실행중');
   ctx.beginPath();
   ctx.fillStyle = "bisque";
   ctx.fillRect(0, 0, X, Y / 4);
   ctx.fillStyle = "#87AFFD";
   ctx.fillRect(0, Y/4, X/2, Y);
   ctx.fillStyle = "#FE8787";
-  ctx.fillRect(X/2, 200, X, Y);
+  ctx.fillRect(X/2, Y/4, X, Y);
   ctx.fillStyle = "white"
   ctx.font = '348px DungGeunMo';
   ctx.textAlign = "center";
@@ -89,6 +90,11 @@ function field_draw(){
 function func_lding()
 {
   return new Promise((r1, r2) => {
+    for (let i = 0; i < playerinfo.length; i++) {
+      let player = new ox_player(playerinfo[i].id, playerinfo[i].nick);
+      playermap[i] = player;
+      players[playerinfo[i].id] = player;
+    }
     document.body.style.backgroundImage =
     "url('https://media.discordapp.net/attachments/980090904394219562/1021799584667803839/GIF_2022-09-21_12-06-13.gif?width=1266&height=636')";
     setTimeout(()=>{
@@ -99,13 +105,13 @@ function func_lding()
 }
 
 function leaveUser(id){
-  for(var i = 0 ; i < playermap.length; i++){
-    if(playermap[i].id == id){
-      playermap.splice(i,1);
+  for(var i = 0 ; i < players.length; i++){
+    if(players[i].id == id){
+      players.splice(i,1);
       break;
     }
   }
-  delete players[id];
+  delete playermap[id];
 }
 socket.on('leave_user', function(data){
     leaveUser(data);
@@ -117,35 +123,48 @@ function updateState(id, x, y, direction) {
     }
     ball.x = x;
     ball.y = y;
-    ball.currentImage.src = ball.asset[direction];
+    ball.player.src = ball.asset[direction];
 }
 socket.on('update_state', function (data) {
     updateState(data.id, data.x, data.y, data.direction);
 })
 
+function sendData(curPlayer, direction) {
+      let data = {};
+      data = {
+          id : curPlayer.id,
+          x: curPlayer.x,
+          y: curPlayer.y,
+          direction : direction
+      };
+      if(data){
+          socket.emit("send_location", data);
+      }
+  }
+
 socket.on('ox_breaking', (data)=>{
-  console.log(`break ${data}`);
   const { break_time, _question } = data;
   is_breaking = true;
   is_during = false;
   is_checking = false;
+  console.log(`문제 ${_question}`);
   break_num = break_time;
   question = _question;
 })
 socket.on('ox_during',(data)=>{
-  console.log(`during`);
   const { during_time, _answer } = data;
-  is_breaking = true;
-  is_during = false;
+  is_breaking = false;
+  is_during = true;
   is_checking = false;
+  console.log(`during ${during_time}`);
   during_num = during_time;
   answer = _answer;
 })
 socket.on('ox_checking', (checking_time)=>{
-  console.log(`check`);
-  is_breaking = true;
+  is_breaking = false;
   is_during = false;
-  is_checking = false;
+  is_checking = true;
+  console.log(`check`);
   checking_num = checking_time;
 })
 
@@ -156,9 +175,21 @@ socket.on('ox_end', ()=>{
 function update()
 {
     // draw playground. 플레이어가 이동할 필드를 그립니다.
-    field_draw();
     ctx.clearRect(0, 0, X, Y / 4);
   
+    ctx.fillStyle = "#87AFFD";
+    ctx.fillRect(0, Y/4, X/2, Y);
+    ctx.fillStyle = "#FE8787";
+    ctx.fillRect(X/2, Y/4, X, Y);
+    ctx.fillStyle = "white"
+    ctx.font = '348px DungGeunMo';
+    ctx.textAlign = "center";
+    ctx.fillText("O", X / 4, Y/1.4);
+    ctx.fillStyle = "white"
+    ctx.font = '348px DungGeunMo';
+    ctx.textAlign = "center";
+    ctx.fillText("X", X - 300, Y/1.4);
+
     if (is_breaking)
     {
       ctx.clearRect(0, 0, 1200, 200);
@@ -173,10 +204,8 @@ function update()
       ctx.font = '200px DungGeunMo';
       ctx.textAlign = "center";
 
-      if (break_num-- <= 3)
-      {
-        ctx.fillText(break_num, X / 2, Y / 1.6);
-      }
+      if (break_num == 0) ctx.fillText("START!!!", X / 2, Y / 1.6);
+      else if(break_num <= 3) ctx.fillText(break_num, X / 2, Y / 1.6);
     }
 
     if (is_during)
@@ -204,7 +233,7 @@ function update()
         ctx.fillStyle = "#90DBA2"
         ctx.font = '200px DungGeunMo';
         ctx.textAlign = "center";
-        if (during_num-- <= 5)
+        if (during_num <= 5)
         {
             ctx.fillText(during_num, X / 2, Y / 1.6);
         }
@@ -243,6 +272,8 @@ function update()
     ctx.font = '24px DungGeunMo';
     ctx.textAlign = "center";
     ctx.fillText('Score : ' + players[myId].score, 55, 40);
+    //field_draw();
+    renderPlayer();
 } // end of update
 
 
@@ -251,6 +282,10 @@ function update()
 func_lding().then
 ( () => {
   document.body.style.backgroundImage = "url('https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png')";
-  setInterval(renderPlayer, 50);
-  setInterval(update, 1000);
+  // setInterval(renderPlayer, 50);
+  setInterval(() => {
+    if(is_breaking) break_num--;
+    else if(is_during) during_num--;
+  }, 1000);
+  setInterval(update, 20);
 } )
