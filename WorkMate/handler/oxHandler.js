@@ -15,11 +15,11 @@ module.exports = (io, socket, room) => {
         quiz_index = Math.floor(Math.random() * question.length);
       }
       else if(!(room[Index].cur_quiz_index.includes(quiz_index))){
-        room[Index].cur_quiz_index.push(quiz_index);
         if(ms == 3999) {
           return answer[quiz_index];
         }
-        if(ms == 999) {
+        if (ms == 999) {
+          room[Index].cur_quiz_index.push(quiz_index);
           return question[quiz_index];
         }
       }
