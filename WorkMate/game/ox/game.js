@@ -32,7 +32,7 @@ var during_num = 0;
 var break_num = 0;
 var check_num = 0;
 
-let cnt = 1; // cur_quiz_count
+var answer_cnt = false; // 문제를 맞췄을 때 활성화 되어 점수를 올려주는 체크용 변수
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
@@ -145,9 +145,9 @@ function sendData(curPlayer, direction) {
 
 socket.on('ox_breaking', (data)=>{
   const { break_time, _question } = data;
+  is_checking = false;
   is_breaking = true;
   is_during = false;
-  is_checking = false;
   console.log(`문제 ${_question}`);
   break_num = break_time;
   question = _question;
@@ -163,8 +163,8 @@ socket.on('ox_during',(data)=>{
   answer = _answer;
 })
 socket.on('ox_checking', (checking_time)=>{
-  is_breaking = false;
   is_during = false;
+  is_breaking = false;
   is_checking = true;
   console.log(`check`);
   checking_num = checking_time;
@@ -177,6 +177,7 @@ socket.on('ox_end', ()=>{
   is_end = true;
   let index = getMyIndex(myId);
   playerinfo[index].score += players[myId].score;
+  console.log("점수 데이터 : "+ playerinfo[index].score);
   setTimeout(()=>{socket.emit('gameover', myId);}, 3000);
 })
 
@@ -196,7 +197,7 @@ function update()
     ctx.fillStyle = "white"
     ctx.font = '348px DungGeunMo';
     ctx.textAlign = "center";
-    ctx.fillText("X", X / 6, Y/1.4);
+    ctx.fillText("X", X - (X/4), Y/1.4);
 
     if (is_breaking)
     {
@@ -235,7 +236,7 @@ function update()
         }
         // measureText() = 문자열의 넓이 반환
         ctx.textAlign = "center";
-        ctx.fillText("Q" + cnt + ". " + question, X / 2, Y / 5);
+        ctx.fillText(question, X / 2, Y / 5);
 
         // 카운트다운 출력
         ctx.fillStyle = "#90DBA2"
@@ -260,19 +261,18 @@ function update()
         {
             // 정답이 O. and 플레이어가 O.
             ctx.fillText('정답입니다!!', X / 2, Y / 5);
-            players[myId].score++;
+            answer_cnt = true;
         }
         else if (!answer && !players[myId].is_O)
         {
             // 정답이 X. and 플레이어가 X.
             ctx.fillText('정답입니다!!', X / 2, Y / 5);
-            players[myId].score++;
+            answer_cnt = true;
         }
         else
         {
             ctx.fillText('틀렸습니다!!', X / 2, Y / 5);
         }
-        cnt++;
       }
     if(is_end)
     {
@@ -299,15 +299,17 @@ function update()
 } // end of update
 
 
-
-
 func_lding().then
 ( () => {
   document.body.style.backgroundImage = "url('https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png')";
   // setInterval(renderPlayer, 50); gwanggo is crazy..
   setInterval(() => {
     if(is_breaking) break_num--;
-    else if(is_during) during_num--;
+    else if (is_during) during_num--;
+    if (answer_cnt) {
+      players[myId].score += 50;
+      answer_cnt = false;
+    }
   }, 1000);
   setInterval(update, 20);
 } )

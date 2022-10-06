@@ -4,7 +4,7 @@ const userroom = require("./class_room");
 const BREAK_DUR_TIME = 3999; // 퀴즈와 퀴즈 사이의 대기 시간    (ms)
 const QUIZ_DUR_TIME = 5999; // 문제 출력 후 퀴즈 진행 시간      (ms)
 const CHECK_DUR_TIME = 999; // 퀴즈를 풀고 난 뒤 정답 체크 시간  (ms)
-const quiz_num = [1, 2, 3, 4, 5, 6, 7, 8];
+const quiz_num = [1, 2]; //문제 수
 module.exports = (io, socket, room) => {
 
   function random_quiz(ms, Index) {
@@ -47,22 +47,22 @@ module.exports = (io, socket, room) => {
 
   const cycle = async (Index) => {
     console.log(`퀴즈 체크 배열1 : ${room[Index].cur_quiz_index.length}`);
-    const isbreak = await oxcycle(BREAK_DUR_TIME, Index)
-    console.log(`퀴즈 체크 배열2 : ${room[Index].cur_quiz_index.length}`);
-    const isduring = await oxcycle(QUIZ_DUR_TIME, Index)
-    console.log(`퀴즈 체크 배열3 : ${room[Index].cur_quiz_index.length}`);
-    if(room[Index].cur_quiz_index.length <= 8) {
+    if(room[Index].cur_quiz_index.length <= quiz_num.length) {
+      const isbreak = await oxcycle(BREAK_DUR_TIME, Index)
+      console.log(`퀴즈 체크 배열2 : ${room[Index].cur_quiz_index.length}`);
+      const isduring = await oxcycle(QUIZ_DUR_TIME, Index)
+      console.log(`퀴즈 체크 배열3 : ${room[Index].cur_quiz_index.length}`);
       const ischeck = await oxcycle(CHECK_DUR_TIME, Index)
     }else io.to(room[Index].roomCode).emit('ox_end')
   };
 
   const quiz_cycle = async (Index) => {
     console.log('퀴즈 사이클 진입');
-    for await (var value of quiz_num) {
+    for await (var value of quiz_num) { // 2번돔
       console.log('for await of 진입');
       await cycle(Index);
       console.log(`퀴즈 사이클 실행 횟수 : ${ value }`);
-    }
+    } await cycle(Index); // 마지막 사이클
   }
 
   socket.on('쥰비완료쓰', (id)=>{

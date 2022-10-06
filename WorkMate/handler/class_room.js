@@ -76,7 +76,7 @@ module.exports = class userroom {
   }
 
   score(id, score) {
-    for(let player in players)
+    for(let player in this.players)
       {
         if(player.id == id) player.score = score;
       }

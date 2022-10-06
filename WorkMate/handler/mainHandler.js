@@ -162,9 +162,9 @@ module.exports = (io, socket, room) => {
     const index = getRoomIndex(id);
     room[index].score(id, score);
     if (index !== -1) {
-      room[Index].cnt += 1;
-      if(room[Index].cnt == room[Index].players.length) {
-          io.to(room[Index].roomCode).emit('go-result', room[index].players);
+      room[index].cnt += 1;
+      if(room[index].cnt == room[index].players.length) {
+          io.to(room[index].roomCode).emit('go-result', room[index].players);
       }
     }
   })
