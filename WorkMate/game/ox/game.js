@@ -26,6 +26,7 @@ var is_loading;
 var is_during = false; // 문제가 진행중일 때 true.
 var is_breaking = false; // 정답을 확인하고 다음 문제가 나오기 전까지 true.
 var is_checking = false; // 문제에 대한 정답을 확인할 때.
+var is_end = false;
 
 var during_num = 0;
 var break_num = 0;
@@ -151,6 +152,7 @@ socket.on('ox_breaking', (data)=>{
   break_num = break_time;
   question = _question;
 })
+
 socket.on('ox_during',(data)=>{
   const { during_time, _answer } = data;
   is_breaking = false;
@@ -169,7 +171,13 @@ socket.on('ox_checking', (checking_time)=>{
 })
 
 socket.on('ox_end', ()=>{
-  socket.emit('gameover', myId);
+  is_breaking = false;
+  is_during = false;
+  is_checking = false;
+  is_end = true;
+  let index = getMyIndex(myId);
+  playerinfo[index].score += players[myId].score;
+  setTimeout(()=>{socket.emit('gameover', myId);}, 3000);
 })
 
 function update()
@@ -188,18 +196,18 @@ function update()
     ctx.fillStyle = "white"
     ctx.font = '348px DungGeunMo';
     ctx.textAlign = "center";
-    ctx.fillText("X", X - 300, Y/1.4);
+    ctx.fillText("X", X / 6, Y/1.4);
 
     if (is_breaking)
     {
-      ctx.clearRect(0, 0, 1200, 200);
+      ctx.clearRect(0, 0, X, Y / 4);
       ctx.fillStyle = "bisque";
       ctx.fillRect(0, 0, X, Y / 4);
       ctx.fillStyle = "black"
       ctx.font = '48px DungGeunMo';
       // measureText() = 문자열의 넓이 반환
       ctx.textAlign = "center";
-      ctx.fillText('READY??', X / 2, 120);
+      ctx.fillText('READY??', X / 2, Y / 5);
       ctx.fillStyle = "#90DBA2"
       ctx.font = '200px DungGeunMo';
       ctx.textAlign = "center";
@@ -211,7 +219,7 @@ function update()
     if (is_during)
     {
         // 문제 출력 전에 영역을 초기화 시켜줌
-        ctx.clearRect(0, 0, 1200, 200);
+        ctx.clearRect(0, 0, X, Y / 4);
         ctx.fillStyle = "bisque";
         ctx.fillRect(0, 0, X, Y / 4);
 
@@ -227,7 +235,7 @@ function update()
         }
         // measureText() = 문자열의 넓이 반환
         ctx.textAlign = "center";
-        ctx.fillText("Q" + cnt + ". " + question, X / 2, 120);
+        ctx.fillText("Q" + cnt + ". " + question, X / 2, Y / 5);
 
         // 카운트다운 출력
         ctx.fillStyle = "#90DBA2"
@@ -240,7 +248,7 @@ function update()
     }
     if (is_checking)
     {
-        ctx.clearRect(0, 0, 1200, 200);
+        ctx.clearRect(0, 0, X, Y / 4);
         ctx.fillStyle = "bisque";
         ctx.fillRect(0, 0, X, Y / 4);
 
@@ -251,22 +259,36 @@ function update()
         if (answer && players[myId].is_O)
         {
             // 정답이 O. and 플레이어가 O.
-            ctx.fillText('정답입니다!!', X / 2, 120);
+            ctx.fillText('정답입니다!!', X / 2, Y / 5);
             players[myId].score++;
         }
         else if (!answer && !players[myId].is_O)
         {
             // 정답이 X. and 플레이어가 X.
-            ctx.fillText('정답입니다!!', X / 2, 120);
+            ctx.fillText('정답입니다!!', X / 2, Y / 5);
             players[myId].score++;
         }
         else
         {
-            ctx.fillText('틀렸습니다!!', X / 2, 120);
+            ctx.fillText('틀렸습니다!!', X / 2, Y / 5);
         }
         cnt++;
       }
-
+    if(is_end)
+    {
+      let overmsg = '당신의 점수를 이력서에 추가하는 중입니다..';
+      ctx.clearRect(0, 0, X, Y / 4);
+      ctx.fillStyle = "bisque";
+      ctx.fillRect(0, 0, X, Y / 4);
+      ctx.fillStyle = "black"
+      ctx.font = '48px DungGeunMo';
+      // measureText() = 문자열의 넓이 반환
+      ctx.textAlign = "center";
+      
+      ctx.fillText('게임 끝!!!!!', X / 2, Y / 5);
+      ctx.fillText(overmsg, X / 2 - (ctx.measureText(overmsg).width / 2), Y / 1.6);
+    }
+  
     // 점수 출력
     ctx.fillStyle = "black"
     ctx.font = '24px DungGeunMo';
@@ -282,10 +304,16 @@ function update()
 func_lding().then
 ( () => {
   document.body.style.backgroundImage = "url('https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png')";
-  // setInterval(renderPlayer, 50);
+  // setInterval(renderPlayer, 50); gwanggo is crazy..
   setInterval(() => {
     if(is_breaking) break_num--;
     else if(is_during) during_num--;
   }, 1000);
   setInterval(update, 20);
 } )
+
+
+/*
+  
+  
+*/

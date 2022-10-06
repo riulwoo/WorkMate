@@ -13,7 +13,7 @@ function renderPlayer() {
     }
     let curPlayer = players[myId];
       // 플레이어 이동 
-    if (!is_checking)
+    if (!is_end && !is_checking)
     {
         if (rightPressed) {
             direction = 3;

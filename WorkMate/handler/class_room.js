@@ -30,8 +30,8 @@ module.exports = class userroom {
   // 최종 플레이어 id값, 닉네임 null없는 배열 반환
   pushplayers() {
     const player = this.users.filter((e, i) => {
-      const { id, nick } = e;
-      if(e.id != null) return {id, nick}
+      const { id, nick, score } = e;
+      if(e.id != null) return {id, nick, score}
     })
     this.players = player;
     return player;
@@ -73,5 +73,12 @@ module.exports = class userroom {
         return true;
       }
     }
+  }
+
+  score(id, score) {
+    for(let player in players)
+      {
+        if(player.id == id) player.score = score;
+      }
   }
 };

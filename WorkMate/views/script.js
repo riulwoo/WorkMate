@@ -82,12 +82,6 @@ socket.on('user_id', function(data){
 socket.on('playerinit', function(data) {
   playerinfo = data;
   console.log(playerinfo[0]);
-  // for (let i = 0; i < playboy.length; i++) {
-  //   let player = new PlayerBall(playboy[i].id, playboy[i].nick);
-  //   playermap[i] = player;
-  //   players[playboy[i].id] = player;
-  //   console.log(players);
-  // }
 })
 
 socket.on('gamestart', function(data) {
@@ -96,12 +90,15 @@ socket.on('gamestart', function(data) {
   if(arr.includes(game)) $('#main').load(`/${game}`);
   else  // result인 경우
   {
+    let index = getMyIndex(myId);
     socket.emit('calc-score', {
       id : myId,
-      score : players[myId].score
+      score : playerinfo[index].score
     });
   }
 })
+// 클라이언트
+// 게임 내에서만 쓰는 score 변수를 사용 > 게임이 끝날 시 players[myId].score += score 변수
 
 socket.on('go-result', (data) => {
   sortedScore = data.sort((a,b) => {
@@ -229,8 +226,20 @@ function toggleMatch()
   var x = document.getElementById("match");
   if (x.style.display === "block") {
     x.style.display = "none";
- document.getElementById('match-text').innerText = "상사의 대머리를 보고 참는 중...";
+ document.getElementById('match-text').innerText = "상사 뒤통수에 사직서 때리는 상상 중....";
   } else {
     x.style.display = "block";
   }
+}
+
+function getMyIndex(id) {
+  let index;
+  for(let i = 0; i < playerinfo.length; i++) {
+      if(playerinfo[i].id == myId)
+      { 
+        index = i;
+        break;
+      }
+    }
+  return index;
 }

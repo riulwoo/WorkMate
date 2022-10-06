@@ -157,4 +157,15 @@ module.exports = (io, socket, room) => {
   // 게임 종료시 다음 라운드로 넘어갈 지 결과페이지로 넘길지
   socket.on('gameover', (id)=> gameover(id));
   
+  socket.on('calc-score', (data)=>{
+    const {id, score} = data;
+    const index = getRoomIndex(id);
+    room[index].score(id, score);
+    if (index !== -1) {
+      room[Index].cnt += 1;
+      if(room[Index].cnt == room[Index].players.length) {
+          io.to(room[Index].roomCode).emit('go-result', room[index].players);
+      }
+    }
+  })
 };

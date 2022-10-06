@@ -69,10 +69,10 @@ module.exports = (io, socket, room) => {
     let Index = room.findIndex(e => e.userid.includes(id));
     if (Index !== -1) {
       room[Index].cnt += 1;
-      let player = room[Index].players;
-      if(room[Index].cnt == player.length) {
+      if(room[Index].cnt == room[Index].players.length) {
           io.to(room[Index].roomCode).emit('ox_breaking', {break_time : 4, _question : random_quiz(999, Index)});
         quiz_cycle(Index);
+        room[Index].cnt = 0;
       }
     }
   })
