@@ -177,7 +177,6 @@ socket.on('ox_end', ()=>{
   is_end = true;
   let index = getMyIndex(myId);
   playerinfo[index].score += players[myId].score;
-  console.log("점수 데이터 : "+ playerinfo[index].score);
   setTimeout(()=>{socket.emit('gameover', myId);}, 3000);
 })
 
@@ -302,7 +301,7 @@ function update()
 func_lding().then
 ( () => {
   document.body.style.backgroundImage = "url('https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png')";
-  // setInterval(renderPlayer, 50); gwanggo is crazy..
+  // setInterval(renderPlayer, 50);
   setInterval(() => {
     if(is_breaking) break_num--;
     else if (is_during) during_num--;

@@ -76,9 +76,7 @@ module.exports = class userroom {
   }
 
   score(id, score) {
-    for(let player in this.players)
-      {
-        if(player.id == id) player.score = score;
-      }
+    const i = this.players.findIndex((e) => e.id == id);
+    this.players[i].score = score;
   }
 };

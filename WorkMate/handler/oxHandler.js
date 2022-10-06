@@ -1,9 +1,9 @@
 var {question, question_answer : answer} = require('./data_quiz');
 const userroom = require("./class_room");
 
-const BREAK_DUR_TIME = 3999; // 퀴즈와 퀴즈 사이의 대기 시간    (ms)
-const QUIZ_DUR_TIME = 5999; // 문제 출력 후 퀴즈 진행 시간      (ms)
-const CHECK_DUR_TIME = 999; // 퀴즈를 풀고 난 뒤 정답 체크 시간  (ms)
+const BREAK_DUR_TIME = 3900; // 퀴즈와 퀴즈 사이의 대기 시간    (ms)
+const QUIZ_DUR_TIME = 5900; // 문제 출력 후 퀴즈 진행 시간      (ms)
+const CHECK_DUR_TIME = 900; // 퀴즈를 풀고 난 뒤 정답 체크 시간  (ms)
 const quiz_num = [1, 2]; //문제 수
 module.exports = (io, socket, room) => {
 
@@ -15,10 +15,10 @@ module.exports = (io, socket, room) => {
         quiz_index = Math.floor(Math.random() * question.length);
       }
       else if(!(room[Index].cur_quiz_index.includes(quiz_index))){
-        if(ms == 3999) {
+        if(ms == 3900) {
           return answer[quiz_index];
         }
-        if (ms == 999) {
+        if (ms == 900) {
           room[Index].cur_quiz_index.push(quiz_index);
           return question[quiz_index];
         }
@@ -29,15 +29,15 @@ module.exports = (io, socket, room) => {
   const oxcycle = (ms, Index)=>{
     return new Promise((resolve, reject)=> {
       setTimeout(()=>{
-        if(ms == 5999)      {
+        if(ms == 5900)      {
           io.to(room[Index].roomCode).emit('ox_checking', { check_time: 1 });
           resolve(ms);
         }
-        else if(ms == 3999) {
+        else if(ms == 3900) {
           io.to(room[Index].roomCode).emit('ox_during', {during_time : 6, _answer : random_quiz(ms, Index)});
           resolve(ms);
         }
-        else if(ms == 999)  {
+        else if(ms == 900)  {
           io.to(room[Index].roomCode).emit('ox_breaking', {break_time : 4, _question : random_quiz(ms, Index)});
           resolve(ms);
         }
@@ -70,7 +70,7 @@ module.exports = (io, socket, room) => {
     if (Index !== -1) {
       room[Index].cnt += 1;
       if(room[Index].cnt == room[Index].players.length) {
-          io.to(room[Index].roomCode).emit('ox_breaking', {break_time : 4, _question : random_quiz(999, Index)});
+          io.to(room[Index].roomCode).emit('ox_breaking', {break_time : 4, _question : random_quiz(900, Index)});
         quiz_cycle(Index);
         room[Index].cnt = 0;
       }

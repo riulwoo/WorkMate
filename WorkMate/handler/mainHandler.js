@@ -24,7 +24,6 @@ module.exports = (io, socket, room) => {
 
   function getRoomIndex(Id) { //현재 내가 어떤 방에 들어가있는지 체크하는 함수
     const index = room.findIndex(e => e.userid.includes(Id));
-    console.log(`getRoomIndex : ${index}`);
     return index;
   }
   
@@ -126,11 +125,15 @@ module.exports = (io, socket, room) => {
   }
 
   function gameover(id) {
-    let userroomcnt = getRoomIndex(id);
-    if(userroomcnt !== -1) {
-      io.to(room[userroomcnt].roomCode).emit('gamestart', {
-          game : room[userroomcnt].game()
-        }); //객체 변수
+    let index = getRoomIndex(id);
+    if (index !== -1) {
+        room[index].cnt += 1;
+        if (room[index].cnt == room[index].players.length) {
+          io.to(room[index].roomCode).emit('gamestart', {
+              game : room[index].game()
+          }); //객체 변수
+          room[index].cnt = 0;
+        }
     }
   }
   
@@ -161,10 +164,13 @@ module.exports = (io, socket, room) => {
     const {id, score} = data;
     const index = getRoomIndex(id);
     room[index].score(id, score);
+    console.log("점수 데이터 : "+ score + " 내 아이디 : " + id);
     if (index !== -1) {
       room[index].cnt += 1;
-      if(room[index].cnt == room[index].players.length) {
-          io.to(room[index].roomCode).emit('go-result', room[index].players);
+      if (room[index].cnt == room[index].players.length) {
+        console.log(room[index].players);
+        io.to(room[index].roomCode).emit('go-result', room[index].players);
+        room[index].cnt = 0;
       }
     }
   })
