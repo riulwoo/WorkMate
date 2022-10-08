@@ -34,7 +34,7 @@ var card_asset_index =[
     "https://cdn.discordapp.com/attachments/980090904394219562/1026203173796446339/card_money.png",
     "https://cdn.discordapp.com/attachments/980090904394219562/1026201898967126097/card_boom.png",
     "https://cdn.discordapp.com/attachments/980090904394219562/1026370795670347816/card_matched.png" ];
-var card_margin = (X * 0.2) / 100; // 카드와 카드 사이의 간격
+var card_margin = (X * 0.25) / 100; // 카드와 카드 사이의 간격
 var card_width = (X * 7.5) / 100; // 카드의 가로 길이
 var card_height = (Y * 13) / 100; // 카드의 세로 길이
 var firstX = (X * 10) / 100; // 카드가 처음 그려질 x 좌표
