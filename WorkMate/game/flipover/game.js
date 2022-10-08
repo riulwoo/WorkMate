@@ -293,6 +293,16 @@ function choose(player)
             player.firstpick = true;
             flip(player);
         }
+
+        if (deck[i].info == 6)
+        {
+            deck[i].untouchable = true;
+            player.firstpick = true;
+            player.score -= 3;
+            // 플레이어를 기절 상태로 만듬.
+            player.stun_tick = Math.ceil(PER_SEC * FPS);
+            player.stun_sec = Math.ceil(PLAYER_STUN_TIME / PER_SEC);
+        }
     }
 }
 
