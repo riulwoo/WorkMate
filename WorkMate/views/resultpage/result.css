@@ -1,0 +1,103 @@
+@font-face {
+    font-family: 'DungGeunMo';
+    src: url("./fonts/DungGeunMo.woff") format('woff'),
+    url("./fonts/DungGeunMo.woff2") format('woff2');
+}
+
+* {
+font-family : '둥근모꼴', 'DungGeunMo';
+}
+
+html { width: 100%; height: 100%; background-image: url("https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png"); 
+    background-size: cover;
+    background-repeat: no-repeat ; }
+
+.rank_box{
+    display: block;
+    position: absolute;
+    width: 60vmin;
+    height: 75vmin;
+    bottom: 20px;
+    border-radius: 1em;
+    border: 3px solid rgb(0, 0, 0); 
+    top: 100px;
+    bottom: 100px;
+    left: 200px;
+    background-color:  	#ADD8E6; 
+    text-align : center;
+    font-size: 150%;
+}
+
+.winner_box1{
+    font-size: 80%;
+    background-color: #D4F4FA;
+    width: 50%;
+    height: 60%;  
+    left: 160%;
+    bottom: 35%;
+    position: absolute;
+    border: 3px solid rgb(0, 0, 0);  
+    border-radius: 2em;
+    z-index: 3;
+}
+
+.winner_box2{
+    font-size: 80%;
+    background-color: #FAF4C0;
+    width: 50%;
+    height: 60%;  
+    left: 125%;
+    bottom: 25%;
+    position: absolute;
+    border: 3px solid rgb(0, 0, 0); 
+    border-radius: 2em;
+    z-index: 2;
+}
+.winner_box3{
+    font-size: 80%;
+    background-color: #FAE0D4;
+    width: 50%;
+    height: 60%;   
+    left: 195%;
+    bottom: 20%;
+    position: absolute;
+    border: 3px solid rgb(0, 0, 0); 
+    border-radius: 2em;
+    z-index: 1;
+}
+
+.img{
+    /*캐릭터 이미지*/
+    width: 80%;
+    height: 80%;
+    background-image: url("https://cdn.discordapp.com/attachments/896478465237348402/1006409267257024614/1.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin : 0px;
+    border: 0;
+    display: block;
+    left: 7%;
+    bottom: 10%;
+    position: absolute;
+}
+
+.btn_box{
+    /*버튼*/
+    text-align: center;
+    position: absolute;
+	width: 50%;
+	height: 10%;
+    left: 230%;
+    top: 100%;
+    bottom: 30%;
+    background-color: white;
+    border-color: black;
+    border-radius: 1em;
+    border: 3px solid rgb(0, 0, 0); 
+}
+
+.btn_box:active{
+    position: absolute;
+    text-align: center;
+    background-color: #9F9F9F; 
+}
