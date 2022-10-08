@@ -166,8 +166,12 @@ socket.on('update_state', function (data) {
   updateState(data.id, data.x, data.y, data.direction);
 })
 
+socket.on('maked_deck', (data) =>{
+    
+})
+
 /** 카드를 세차례 섞는 함수 */
-function shuffle()
+/*function shuffle()
 {
     var i;
     var k;
@@ -183,10 +187,10 @@ function shuffle()
         deck[k].info = deck[i].info;
         deck[i].info = holder;
     }
-}
+}*/
 
 /** 카드덱을 만드는 함수. 끝에 shuffle 메서드를 실행시켜 덱을 섞어준다. */
-function make_Deck()
+/*function make_Deck()
 {
     var i;
     var j;
@@ -216,7 +220,7 @@ function make_Deck()
     }
 
     shuffle();
-}
+}*/
 
 /** 카드를 한장씩 화면에 그리는 메서드 */
 function draw_Deck()
