@@ -8,6 +8,12 @@ module.exports = class userroom {
     this.users = [];          // 플레이어 1~6명의 정보
     this.cnt = 0;             // 준비상태를 체크하기 위한 카운터 변수
     this.cur_quiz_index = [];
+    this.card_deck = [1,1,1,1,1,1,1,1,
+                      2,2,2,2,2,2,2,2,
+                      3,3,3,3,3,3,3,3,
+                      4,4,4,4,4,4,4,4,
+                      5,5,5,5,5,5,5,5,
+                      6,6,6,6,6,6,6,6,6,6];
     for (let i = 0; i < 6; i++) {
       this.users.push({ id: null, nick: null, score: null });
     }

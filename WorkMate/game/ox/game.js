@@ -1,6 +1,7 @@
 let canvas = document.getElementById("ox_canvas");
 canvas.width = document.body.clientWidth;
 canvas.height = document.body.clientHeight;
+
 let ctx = canvas.getContext('2d');
 let myfont = new FontFace('DungGeunMo', 'url(ox/assets/fonts/DungGeunMo.otf)');
 
@@ -33,9 +34,11 @@ var break_num = 0;
 var check_num = 0;
 
 var answer_cnt = false; // 문제를 맞췄을 때 활성화 되어 점수를 올려주는 체크용 변수
+
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
+/** 키를 눌렀을 때 실행되는 메서드 */
 function keyDownHandler(e){
     if (e.keyCode == 68){ // 'ArrowRight'
         rightPressed = true;
@@ -51,6 +54,7 @@ function keyDownHandler(e){
     }
 }
 
+/** 키를 뗐을 때 실행되는 메서드 */
 function keyUpHandler(e){
     if (e.keyCode == 68){ // 'ArrowRight'
         rightPressed = false;
@@ -66,6 +70,7 @@ function keyUpHandler(e){
     }
 }
 
+/** 게임 맵을 그리는 메서드 */
 function field_draw(){
   canvas.width = document.body.clientWidth;
   canvas.height = document.body.clientHeight;
@@ -88,6 +93,7 @@ function field_draw(){
   ctx.closePath();
 }
 
+/** 게임 시작 전 로딩창을 띄우는 메서드 */
 function func_lding()
 {
   return new Promise((r1, r2) => {
