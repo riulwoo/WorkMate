@@ -298,6 +298,10 @@ function update()
 } // end of update
 
 
+function answer_score() {
+  players[myId].score += 50;
+}
+
 func_lding().then
 ( () => {
   document.body.style.backgroundImage = "url('https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png')";
