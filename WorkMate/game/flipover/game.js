@@ -185,6 +185,14 @@ socket.on('뒤집기수타투', (data) =>{
   }
     
 })
+
+socket.on('ox_end', ()=>{
+    let index = getMyIndex(myId);
+    playerinfo[index].score += players[myId].score;
+    setTimeout(()=>{socket.emit('gameover', myId);}, 3000);
+})
+  
+
 /** 카드덱을 만드는 함수. 끝에 shuffle 메서드를 실행시켜 덱을 섞어준다. */
 function make_Deck(x, y, info)
 {
