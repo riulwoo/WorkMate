@@ -1,53 +1,38 @@
-var server_Deck = [];
-
 module.exports = (io, socket, room) => {
-
-    /** 카드를 세차례 섞는 함수 */
+    const cycle
+    /** 카드를 섞는 함수 */
     function shuffle() {
         var i;
         var k;
         var holder;
-        var dl = server_Deck.length;
+        var dl = room[index].card_deck.length;
 
         for (var j = 0; j < dl * 3; j++) {
             i = Math.floor(Math.random() * dl);
             k = Math.floor(Math.random() * dl);
 
-            holder = server_Deck[k].info;
-            server_Deck[k].info = server_Deck[i].info;
-            server_Deck[i].info = holder;
+            holder = room[index].card_deck[k];
+            room[index].card_deck[k] = room[index].card_deck[i];
+            room[index].card_deck[i] = holder;
         }
     }
 
-    /** 카드덱을 만드는 함수. 끝에 shuffle 메서드를 실행시켜 덱을 섞어준다. */
-    function make_Deck() {
-        var i;
-        var j;
-        var aCard;
-        var cx = firstX;
-        var cy = firstY;
-
-        for (i = 1; i <= 5; i++) {
-            for (j = 1; j <= 10; j++) {
-                if (j > 8) {
-                    aCard = new Card(cx, cy, 6);
-                    server_Deck.push(aCard);
-                }
-                else {
-                    aCard = new Card(cx, cy, i);
-                    server_Deck.push(aCard);
-                }
-                cx = cx + card_width + card_margin;
-            }
-
-            cy = cy + card_height + card_margin;
-            cx = firstX;
+    socket.on('뒤집기쥰비완료쓰', (id)=>{
+      let Index = room.findIndex(e => e.userid.includes(id));
+      if (Index !== -1) {
+      room[Index].cnt += 1;
+        if(room[Index].cnt == room[Index].players.length) {
+          shuffle();
+          io.to(room[Index].roomCode).emit('뒤집기수타투', room[index].card_deck);
+          room[Index].cnt = 0;
         }
-
-        shuffle();
-    }
-
-    socket.on('쥰비완료쓰', (id)=>{
-        server_Deck
+      }
     })
+
+  // 첫번째인지 두번째인지 이 메시지에서 공통으로 처리해서 체크
+  socket.on('이카드 뒤집혔대', (data)=>{
+    
+  })
+
+  
 }

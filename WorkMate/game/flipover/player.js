@@ -13,14 +13,16 @@ function renderPlayer() {
     }
     let curPlayer = players[myId];
     // 플레이어 이동 
-    if (rightPressed) {
+    if (players[myId].stun_sec  > 0)
+    {
+      if (rightPressed) {
         direction = 3;
         curPlayer.player.src = curPlayer.asset[direction];
         curPlayer.x += playerSpeed;
         sendData(curPlayer, direction);
-    }
+      }
 
-    else if (leftPressed) {
+    if (leftPressed) {
         direction = 1;
         curPlayer.player.src = curPlayer.asset[direction];
         curPlayer.x -= playerSpeed;
@@ -33,12 +35,17 @@ function renderPlayer() {
         curPlayer.y -= playerSpeed;
         sendData(curPlayer, direction);
     }
-    else if (downPressed) {
+    if (downPressed) {
         direction = 0;
         curPlayer.player.src = curPlayer.asset[direction];
         curPlayer.y += playerSpeed;
         sendData(curPlayer, direction);
     }
+    if (itempressed){
+      socket.emit()
+    }
+    }
+    
 
   
     // collision detection of player. 플레이어가 문제 출력 영역으로 이동하지 못하도록 충돌을 감지합니다.
@@ -95,26 +102,31 @@ function flip_player(id, nick)
     this.player = new Image();
     this.player.src = this.asset[0];
     this.score = 0;
+  
 
     /** 플레이어가 기절했을 때 이 변수의 값들이 초기화됨. */
-    this.stun_tick = 0;
     /*
+    this.stun_tick = 0;
         tick = Math.ceil(0.1 * FPS); // 0.1 * 60 = 6
 
         update는 setInterval()에 의해 1000 / 60. 즉 16.66666666666667ms에 한번씩 실행된다.
 
         그래서 tick은 16.666666.. ms 마다 한번씩 줄어든다.
         6번 줄어드는데 총 100ms가 걸리며 이건 0.1초를 의미
-    */
+    
     this.stun_sec = 0;
-    /*
-        sec = Math.ceil(설정한 시간 * 0.1); // ex) 15초 * 0.1 = 150
+        sec = Math.ceil(설정한 시간 / 0.1); // ex) 15초 / 0.1 = 150
         sec는 tick이 0이 되면 1씩 줄어든다.
 
         즉 0.1초 마다 1씩 줄어들고, sec가 10이 줄어들려면 1초가 걸린다.
 
         즉 sec이 10이면 1초를 뜻하는 것이고, 150이면 15초, 300이면 30초가 걸리게 된다.
     */
+
+  this.stun_sec = 0;
+  /*
+    sec = Math.ceil(설정한 시간 * FPS) // ex) 설정한 시간이 3초, FPS가 60이면, 3 * 60 = 180;
+  */
 
     this.firstpick = true; // true면 사용자가 현재 첫번째 선택을 하고 있다는 뜻.
     this.firstcard; // 사용자가 고른 첫 카드

@@ -19,6 +19,7 @@ let Y = canvas.height;
 const PLAYER_STUN_TIME = 1.5; // 플레이어가 폭탄을 맞으면 1.5초간 기절에 걸린다. 그 기절 시간을 상수에 저장해줌
 var radius = 16;
 var playerSpeed = (X * 0.3) / 100;
+
 // 플레이어 이동
 var rightPressed = false;
 var leftPressed = false;
@@ -40,6 +41,7 @@ var card_height = (Y * 13) / 100; // 카드의 세로 길이
 var firstX = (X * 10) / 100; // 카드가 처음 그려질 x 좌표
 var firstY = (Y * 15) / 100; // 카드가 처음 그려질 y 좌표
 var deck = []; // 카드가 들어갈 배열
+
 // 게임 흐름 관련
 const CHECK_DUR_TIME = 0.5;
 /*
@@ -132,7 +134,7 @@ function func_lding()
         players[playerinfo[i].id] = player;
       }
     setTimeout(()=>{
-      socket.emit('쥰비완료쓰', (myId));
+      socket.emit('뒤집기쥰비완료쓰', (myId));
         r1();
     }, 3000);
   })
@@ -166,61 +168,29 @@ socket.on('update_state', function (data) {
   updateState(data.id, data.x, data.y, data.direction);
 })
 
-socket.on('maked_deck', (data) =>{
+socket.on('뒤집기수타투', (data) =>{
+  for (let i = 0; i < data.length; i++) {
+    
+    if(i % 10 == 0)
+    {
+      make_Deck(firstX, firstY, data[i])
+      cy = cy + card_height + card_margin;
+      cx = firstX;
+    }
+    else
+    {
+      make_Deck(firstX, firstY, data[i])
+      cx = cx + card_width + card_margin;
+    }
+  }
     
 })
-
-/** 카드를 세차례 섞는 함수 */
-/*function shuffle()
-{
-    var i;
-    var k;
-    var holder;
-    var dl = deck.length;
-
-    for (var j = 0; j < dl * 3; j++)
-    {
-        i = Math.floor(Math.random() * dl);
-        k = Math.floor(Math.random() * dl);
-
-        holder = deck[k].info;
-        deck[k].info = deck[i].info;
-        deck[i].info = holder;
-    }
-}*/
-
 /** 카드덱을 만드는 함수. 끝에 shuffle 메서드를 실행시켜 덱을 섞어준다. */
-/*function make_Deck()
+function make_Deck(x, y, info)
 {
-    var i;
-    var j;
-    var aCard;
-    var cx = firstX;
-    var cy = firstY;
-
-    for (i = 1; i <= 5; i++)
-    {
-        for (j = 1; j <= 10; j++)
-        {
-            if (j > 8)
-            {
-                aCard = new Card(cx, cy, 6);
-                deck.push(aCard);
-            }
-            else
-            {
-                aCard = new Card(cx, cy, i);
-                deck.push(aCard);
-            }
-            cx = cx + card_width + card_margin;
-        }
-
-        cy = cy + card_height + card_margin;
-        cx = firstX;
-    }
-
-    shuffle();
-}*/
+    let card = new Card(x, y, info);
+    deck.push(card);
+}
 
 /** 카드를 한장씩 화면에 그리는 메서드 */
 function draw_Deck()
@@ -229,6 +199,15 @@ function draw_Deck()
     {
         deck[i].draw();
     }
+}
+
+/** 플레이어가 기절에 걸렸을 때, 지속시간이 감소되도록 하는 메서드. */
+function stun_flow()
+{
+	if (players[myId].stun_sec > 0)
+	{
+		players[myId].stun_sec--;
+	}
 }
 
 /** 플레이어가 두 장의 카드를 뒤집으면 맞는지 틀린지 최종 판별하는 메서드 */
@@ -256,6 +235,7 @@ function choose(player)
     px = player.x;
     py = player.y;
 
+  // 
     for (i = 0; i < deck.length; i++)
     {
         var card = deck[i]; // 반복문을 돌리면서 카드를 한 장씩 변수에 넣는다.
@@ -304,18 +284,17 @@ function choose(player)
             player.firstpick = true;
             player.score -= 3;
             // 플레이어를 기절 상태로 만듬.
-            player.stun_tick = Math.ceil(PER_SEC * FPS);
-            player.stun_sec = Math.ceil(PLAYER_STUN_TIME / PER_SEC);
+            player.stun_sec = Math.ceil(PLAYER_STUN_TIME * FPS);
         }
     }
 }
 
 function update()
-{
+{ 
     field_draw();
     draw_Deck();
-
     renderPlayer();
+    stun_flow();
 
     ctx.beginPath();
     ctx.fillStyle = "black";
