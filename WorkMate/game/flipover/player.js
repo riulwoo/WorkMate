@@ -13,7 +13,7 @@ function renderPlayer() {
     }
     let curPlayer = players[myId];
     // 플레이어 이동 
-    if (players[myId].stun_sec  > 0)
+    if (players[myId].stun_sec <= 0)
     {
       if (rightPressed) {
         direction = 3;
@@ -41,12 +41,11 @@ function renderPlayer() {
         curPlayer.y += playerSpeed;
         sendData(curPlayer, direction);
     }
-    if (keypressed){
-      choose()
+    if (keyPressed){
+      choose(curPlayer);
+      keyPressed = false;
     }
     }
-    
-
   
     // collision detection of player. 플레이어가 문제 출력 영역으로 이동하지 못하도록 충돌을 감지합니다.
     if (players[myId].y <= 0 + radius)
@@ -102,8 +101,6 @@ function flip_player(id, nick)
     this.player = new Image();
     this.player.src = this.asset[0];
     this.score = 0;
-  
-
     /** 플레이어가 기절했을 때 이 변수의 값들이 초기화됨. */
     /*
     this.stun_tick = 0;
@@ -127,7 +124,6 @@ function flip_player(id, nick)
   /*
     sec = Math.ceil(설정한 시간 * FPS) // ex) 설정한 시간이 3초, FPS가 60이면, 3 * 60 = 180;
   */
-
     this.firstpick = true; // true면 사용자가 현재 첫번째 선택을 하고 있다는 뜻.
     this.firstcard; // 사용자가 고른 첫 카드
     this.secondcard; // 사용자가 고른 두번째 카드

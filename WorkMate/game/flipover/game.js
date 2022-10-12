@@ -25,6 +25,12 @@ var rightPressed = false;
 var leftPressed = false;
 var upPressed = false;
 var downPressed = false;
+
+// 플레이어
+var player = players[myId];
+
+// 상호작용 키
+var keyPressed = false;
 // 그려질 카드
 var card_asset_index =[
     "https://cdn.discordapp.com/attachments/980090904394219562/1026178038003662969/card_back.png",
@@ -44,38 +50,13 @@ var deck = []; // 카드가 들어갈 배열
 
 // 게임 흐름 관련
 const CHECK_DUR_TIME = 0.5;
-/*
-    CHECK_DUR_TIME :
-    카드가 두장이 뒤집혔을 시 0.5초 동안 멈춘 채 맞는지 틀린지 확인할 때
-    0.5초를 세기 위해 선언한 상수이다.
-
-    근데 모르겠다 이걸 구현할 수 있을까
-*/
 const PER_SEC = 0.1;
 var check_tick = Math.ceil(PER_SEC * FPS);
-/*
-    tick = Math.ceil(0.1 * FPS); // 0.1 * 60 = 6
-
-    update는 setInterval()에 의해 1000 / 60. 즉 16.66666666666667ms에 한번씩 실행된다.
-
-    그래서 tick은 16.666666.. ms 마다 한번씩 줄어든다.
-    6번 줄어드는데 총 100ms가 걸리며 이건 0.1초를 의미
-*/
 var check_sec = Math.ceil(CHECK_DUR_TIME / PER_SEC);
-/*
-    sec = Math.ceil(설정한 시간 * 0.1);  ex) 15초 * 0.1 = 150
-    ex) check_sec = Math.ceil(CHECK_DUR_TIME / PER_SEC);
-
-    sec는 tick이 0이 되면 1씩 줄어든다.
-
-    즉 0.1초 마다 1씩 줄어들고, sec가 10이 줄어들려면 1초가 걸린다.
-
-    즉 sec이 10이면 1초를 뜻하는 것이고, 150이면 15초, 300이면 30초가 걸리게 된다.
-*/
 
 // Game Flow 관련
 var is_loading; 
-
+var is_ending = false;
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
@@ -93,6 +74,9 @@ function keyDownHandler(e){
     if (e.keyCode == 87){ // "ArrowUp"
         upPressed = true;
     }
+    if (e.keyCode == 74){
+        keyPressed = true;
+    }
 }
 
 /** 키를 뗐을 때 실행되는 메서드 */
@@ -109,6 +93,23 @@ function keyUpHandler(e){
     if (e.keyCode == 87){ // "ArrowUp"
         upPressed = false;
     }
+    if (e.keyCode == 74){
+        keyPressed = true;
+    }
+}
+
+/** 게임 스코어를 그리는 메서드 */
+function score_draw() {
+    ctx.beginPath();
+    ctx.fillStyle = "black";
+    ctx.font = "55px DungGeunMo";
+    ctx.textAlign = "center";
+    ctx.fillText(
+      "score : " + players[myId].score,
+      (X * 10) / 100,
+      (Y * 7) / 100
+    );
+    ctx.closePath();
 }
 
 /** 게임 맵을 그리는 메서드 */
@@ -169,29 +170,72 @@ socket.on('update_state', function (data) {
 })
 
 socket.on('뒤집기수타투', (data) =>{
+    let cx = firstX;
+    let cy = firstY;
   for (let i = 0; i < data.length; i++) {
     
-    if(i % 10 == 0)
+    if(i % 10 == 9)
     {
-      make_Deck(firstX, firstY, data[i])
+      make_Deck(cx, cy, data[i])
       cy = cy + card_height + card_margin;
       cx = firstX;
     }
     else
     {
-      make_Deck(firstX, firstY, data[i])
+      make_Deck(cx, cy, data[i])
       cx = cx + card_width + card_margin;
     }
   }
     
 })
+socket.on('카드뒤집음', (c_index)=>{
+    console.log(c_index);
+    flip_effect(c_index)
+});
 
-socket.on('ox_end', ()=>{
+socket.on('맞췄대', (c_index)=>{
+    console.log(c_index);
+    c_index.forEach(i => {
+        deck[i].poly = 1;
+        deck[i].untouchable = true;
+    });
+})
+socket.on('못맞췄대', (c_index)=>{
+    console.log(c_index);
+    c_index.forEach((i) => {
+      deck[i].poly = 0;
+      deck[i].untouchable = false;
+    });
+})
+socket.on('flip_end', ()=>{
+    is_ending = true;
     let index = getMyIndex(myId);
     playerinfo[index].score += players[myId].score;
     setTimeout(()=>{socket.emit('gameover', myId);}, 3000);
 })
   
+
+// 남의 카드기 때문에 choose 못하게 처리
+function flip_effect(index) {
+    if(deck[index].info == 6){
+        deck[index].poly = 1;
+        setTimeout(()=>{
+            deck[index].untouchable = true;
+            return;
+        },1500)
+    }
+    // 카드가 앞면일 경우
+    if(deck[index].poly){
+        deck[index].poly = 0;
+        deck[index].isMine = false;
+    }
+    // 카드가 뒷면일 경우
+    else{
+        deck[index].poly = 1;
+        deck[index].isMine = false;
+    } 
+
+}
 
 /** 카드덱을 만드는 함수. 끝에 shuffle 메서드를 실행시켜 덱을 섞어준다. */
 function make_Deck(x, y, info)
@@ -219,22 +263,25 @@ function stun_flow()
 }
 
 /** 플레이어가 두 장의 카드를 뒤집으면 맞는지 틀린지 최종 판별하는 메서드 */
-function flip(check)
+function match_flow(player, check)
 {
+    console.log(player.firstcard);
+    console.log(player.secondcard);
+    // 다름
     if (!check)
     {
         deck[player.firstcard].poly = 0;
         deck[player.secondcard].poly = 0;
+        deck[player.firstcard].untouchable = false;
+        deck[player.secondcard].untouchable = false;
     }
+    // 같음
     else
     {
-        deck[player.firstcard].info = 7;
-        deck[player.secondcard].info = 7;
-        deck[player.firstcard].untouchable = 1;
-        deck[player.secondcard].untouchable = 1;
-        player.score += 1;
+        deck[player.firstcard].untouchable = true;
+        deck[player.secondcard].untouchable = true;
+        player.score += 50;
     }
-    
     player.firstcard = -1;
     player.secondcard = -1;
 }
@@ -260,50 +307,67 @@ function choose(player)
             }
         }
     }
-
-    if (card_index < deck.length) // 사용자가 카드를 고름
+    
+    if (card_index < deck.length && !deck[card_index].untouchable && deck[card_index].isMine) // 사용자가 카드를 고름
     {
+        if (deck[card_index].info == 6) {
+          player.firstpick = true;
+          player.firstcard = -1;
+          player.secondcard = -1;
+          deck[card_index].poly = 1;
+          // 플레이어를 기절 상태로 만듬.
+          player.stun_sec = Math.ceil(PLAYER_STUN_TIME * FPS);
+          stun_flow();
+          setTimeout(() => {
+            deck[card_index].untouchable = true;
+            player.score -= 10;
+            socket.emit("이카드뒤집혔대", {
+              id: myId,
+              c_index: card_index,
+            });
+          }, 2000);
+        }
         // 고른 카드가 첫번째인지 판별
-        if (player.firstpick) {
+        else if (player.firstpick) {
             player.firstcard = card_index;
+            console.log(player.firstcard);
             player.firstpick = false;
-
             deck[card_index].poly = 1;
-            socket.emit('이카드 뒤집음', card_index);
+            socket.emit("이카드뒤집혔대", {
+                id : myId,
+                c_index : card_index
+            });
         }
         // 고른 카드가 두번째인지 판별
         else {
             player.secondcard = card_index;
-
+            console.log(player.secondcard);
             deck[card_index].poly = 1;
-            socket.emit("이카드 뒤집음", card_index);
-            
-            if (deck[card_index].info == deck[player.firstcard].info) {
-                socket.emit('카드체크한대', {
-                    type : true,
-                    index : [player.firstpick, card_index]
-                });
-                flip(true);
-            }
-            else {
-                socket.emit("카드체크한대", {
-                    type: false,
-                    index: [player.firstpick, card_index],
-                });
-                flip(false);
-            } 
-
-            player.firstpick = true;
+            socket.emit("이카드뒤집혔대", {
+              id: myId,
+              c_index: card_index,
+            });
+            setTimeout(()=>{
+                if (deck[card_index].info == deck[player.firstcard].info) {
+                    socket.emit("카드체크한대", {
+                        id: myId,
+                        check: true,
+                        c_index: [player.firstcard, player.secondcard],
+                    });
+                    match_flow(player, true);
+                } else {
+                    socket.emit("카드체크한대", {
+                        id: myId,
+                        check: false,
+                        index: [player.firstcard, player.secondcard],
+                    }, 1500);
+                    match_flow(player, false);
+                } 
+                player.firstpick = true;
+            }, 1500)
         }
 
-        if (deck[card_index].info == 6)
-        {
-            deck[card_index].untouchable = true;
-            player.firstpick = true;
-            player.score -= 3;
-            // 플레이어를 기절 상태로 만듬.
-            player.stun_sec = Math.ceil(PLAYER_STUN_TIME * FPS);
-        }
+        
     }
 }
 
@@ -311,15 +375,8 @@ function update()
 { 
     field_draw();
     draw_Deck();
+    score_draw();
     renderPlayer();
-    stun_flow();
-
-    ctx.beginPath();
-    ctx.fillStyle = "black";
-    ctx.font = "55px DungGeunMo";
-    ctx.textAlign = "center";
-    ctx.fillText("score : " + players[myId].score, (X * 10) / 100, (Y * 7) / 100);
-    ctx.closePath();
 } // end of update
 
 func_lding().then
