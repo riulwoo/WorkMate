@@ -41,8 +41,8 @@ function renderPlayer() {
         curPlayer.y += playerSpeed;
         sendData(curPlayer, direction);
     }
-    if (itempressed){
-      socket.emit()
+    if (keypressed){
+      choose()
     }
     }
     

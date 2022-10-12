@@ -219,76 +219,86 @@ function stun_flow()
 }
 
 /** 플레이어가 두 장의 카드를 뒤집으면 맞는지 틀린지 최종 판별하는 메서드 */
-function flip(player)
+function flip(check)
 {
-    if (!player.matched)
+    if (!check)
     {
         deck[player.firstcard].poly = 0;
         deck[player.secondcard].poly = 0;
     }
     else
     {
+        deck[player.firstcard].info = 7;
+        deck[player.secondcard].info = 7;
         deck[player.firstcard].untouchable = 1;
         deck[player.secondcard].untouchable = 1;
         player.score += 1;
     }
+    
+    player.firstcard = -1;
+    player.secondcard = -1;
 }
 
 /** 카드를 선택하는 메서드 */
 function choose(player)
 {
-    var px;
-    var py;
-
-    px = player.x;
-    py = player.y;
-
-  // 
+  // 어떤 카드를 뒤집었는지 체크하는 코드
+  let card_index;
     for (i = 0; i < deck.length; i++)
     {
         var card = deck[i]; // 반복문을 돌리면서 카드를 한 장씩 변수에 넣는다.
 
         if (card.x >= 0)
         {
-            if ((px >= card.x) && (px <= card.x + card_width) && (py >= card.y) && (py <= card.y + card_height))
+            if ((player.x >= card.x) && (player.x <= card.x + card_width) && (player.y >= card.y) && (player.y <= card.y + card_height))
             { // 플레이어의 좌표가 카드의 영역 안에 정상적으로 들어가 있고,
-                if ((player.firstpick) || (i != player.firstcard))
+                if ((player.firstpick) || (i != player.firstcard)) // 처음 카드를 다시 뒤집을수도 있기 때문에 수정요망
                 { // 플레이어가 첫번째 선택이라면 혹은, 플레이어기 처음에 고른 카드와 다른 카드라면
+                    card_index = i;
                     break; // 변수 card에 고른 카드를 저장한 채 반복문을 종료한다.
                 }
             }
         }
     }
 
-    if (i < deck.length) // 사용자가 카드를 고름
+    if (card_index < deck.length) // 사용자가 카드를 고름
     {
+        // 고른 카드가 첫번째인지 판별
         if (player.firstpick) {
-            player.firstcard = i;
+            player.firstcard = card_index;
             player.firstpick = false;
 
-            deck[i].poly = 1;
-            // deck[i].draw();
+            deck[card_index].poly = 1;
+            socket.emit('이카드 뒤집음', card_index);
         }
+        // 고른 카드가 두번째인지 판별
         else {
-            player.secondcard = i;
+            player.secondcard = card_index;
 
-            deck[i].poly = 1;
-            // deck[i].draw();
-
-            if (deck[i].info == deck[player.firstcard].info) {
-                player.matched = true;
+            deck[card_index].poly = 1;
+            socket.emit("이카드 뒤집음", card_index);
+            
+            if (deck[card_index].info == deck[player.firstcard].info) {
+                socket.emit('카드체크한대', {
+                    type : true,
+                    index : [player.firstpick, card_index]
+                });
+                flip(true);
             }
             else {
-                player.matched = false;
+                socket.emit("카드체크한대", {
+                    type: false,
+                    index: [player.firstpick, card_index],
+                });
+                flip(false);
             } 
 
             player.firstpick = true;
-            flip(player);
         }
 
-        if (deck[i].info == 6)
+        if (deck[card_index].info == 6)
         {
-            deck[i].untouchable = true;
+            deck[card_index].untouchable = true;
             player.firstpick = true;
             player.score -= 3;
             // 플레이어를 기절 상태로 만듬.
@@ -311,9 +321,6 @@ function update()
     ctx.fillText("score : " + players[myId].score, (X * 10) / 100, (Y * 7) / 100);
     ctx.closePath();
 } // end of update
-
-
-make_Deck();
 
 func_lding().then
 ( () => {

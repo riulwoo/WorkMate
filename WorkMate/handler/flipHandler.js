@@ -37,13 +37,13 @@ module.exports = (io, socket, room) => {
   socket.on('이카드뒤집혔대', (data) => {
     const { id, card_index } = data;
     let Index = room.findIndex(e => e.userid.includes(id));
-    io.to(room[Index].roomCode).emit('카드뒤집음', card_index);
+    socket.broadcast.to(room[Index].roomCode).emit('카드뒤집음', card_index);
   })
   
   socket.on('카드체크한대', (data) => {
     const { id, card_index, check } = data;
     let Index = room.findIndex(e => e.userid.includes(id));
-    if (check) io.to(room[Index].roomCode).emit('맞췄대', card_index);
-    else io.to(room[Index].roomCode).emit('못맞췄대', card_index);
+    if (check) socket.broadcast.to(room[Index].roomCode).emit("맞췄대", card_index);
+    else socket.broadcast.to(room[Index].roomCode).emit("못맞췄대", card_index);
   })
 }
