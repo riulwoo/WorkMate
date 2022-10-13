@@ -39,6 +39,7 @@ var card_asset_index =[
     "https://cdn.discordapp.com/attachments/980090904394219562/1026745172316389446/card_files_2.png",
     "https://cdn.discordapp.com/attachments/980090904394219562/1026745172001820722/card_print_2.png",
     "https://cdn.discordapp.com/attachments/980090904394219562/1026203173796446339/card_money.png",
+    "https://cdn.discordapp.com/attachments/980090904394219562/1030014941689810955/card_cal.png",
     "https://cdn.discordapp.com/attachments/980090904394219562/1026201898967126097/card_boom.png",
     "https://cdn.discordapp.com/attachments/980090904394219562/1026370795670347816/card_matched.png" ];
 var card_margin = (X * 0.35) / 100; // 카드와 카드 사이의 간격
@@ -216,7 +217,7 @@ socket.on('flip_end', ()=>{
 
 // 남의 카드기 때문에 choose 못하게 처리
 function flip_effect(index) {
-    if(deck[index].info == 6){
+    if(deck[index].info == 7){
         deck[index].poly = 1;
         setTimeout(()=>{
             deck[index].untouchable = true;
@@ -311,7 +312,7 @@ function choose(player)
     
     if (card_index < deck.length && !deck[card_index].untouchable && deck[card_index].isMine) // 사용자가 카드를 고름
     {
-        if (deck[card_index].info == 6) { // 폭탄을 뒤집었을 때의 처리
+        if (deck[card_index].info == 7) { // 폭탄을 뒤집었을 때의 처리
           if(!player.firstpick) deck[player.firstcard].poly = 0;
           player.firstpick = true;
           socket.emit("이카드뒤집혔대", {
