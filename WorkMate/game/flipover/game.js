@@ -256,11 +256,11 @@ function draw_Deck()
 /** 플레이어가 기절에 걸렸을 때, 지속시간이 감소되도록 하는 메서드. */
 function stun_flow()
 {
-  console.log('스턴 플로우 들어옴')
+  console.log('스턴 플로우 들어옴');
 	if (players[myId].stun_sec > 0)
 	{
 		players[myId].stun_sec--;
-    console.log('스턴 셋스 감소')
+    console.log('스턴 셋스 감소');
 	}
 }
 
