@@ -17,6 +17,7 @@ let X = canvas.width;
 let Y = canvas.height;
 // 플레이어 관련
 const PLAYER_STUN_TIME = 1.5; // 플레이어가 폭탄을 맞으면 1.5초간 기절에 걸린다. 그 기절 시간을 상수에 저장해줌
+const PLAYER_DELAY_TIME = 3;
 var radius = 16;
 var playerSpeed = (X * 0.3) / 100;
 
@@ -256,34 +257,48 @@ function draw_Deck()
 /** 플레이어가 기절에 걸렸을 때, 지속시간이 감소되도록 하는 메서드. */
 function stun_flow()
 {
-	if (players[myId].stun_sec > 0)
-	{
-		players[myId].stun_sec--;
-	}
+	if (players[myId].stun_sec > 0)	players[myId].stun_sec--;
 }
 
 /** 플레이어가 두 장의 카드를 뒤집으면 맞는지 틀린지 최종 판별하는 메서드 */
 function match_flow(player, check)
 {
-    console.log(player.firstcard);
-    console.log(player.secondcard);
-    // 다름
-    if (!check)
+  console.log(player.firstcard);
+  console.log(player.secondcard);
+  // 다름
+  if (!check)
+  {
+      deck[player.firstcard].poly = 0;
+      deck[player.secondcard].poly = 0;
+      deck[player.firstcard].untouchable = false;
+      deck[player.secondcard].untouchable = false;
+  }
+  // 같음
+  else
+  {
+      deck[player.firstcard].untouchable = true;
+      deck[player.secondcard].untouchable = true;
+      player.score += 50;
+  }
+  player.firstcard = -1;
+  player.secondcard = -1;
+  player.delay = false;
+}
+
+function delay_check() {
+  if (players[myId].first_delay_sec > 0)
+  {
+    players[myId].first_delay_sec--;
+
+    if (players[myId].first_delay_sec == 0)
     {
-        deck[player.firstcard].poly = 0;
-        deck[player.secondcard].poly = 0;
-        deck[player.firstcard].untouchable = false;
-        deck[player.secondcard].untouchable = false;
+      deck[players[myId].firstcard].poly = 0;
+      socket.emit("이카드뒤집혔대", {
+        id: myId,
+        c_index: players[myId].firstcard
+      });
     }
-    // 같음
-    else
-    {
-        deck[player.firstcard].untouchable = true;
-        deck[player.secondcard].untouchable = true;
-        player.score += 50;
-    }
-    player.firstcard = -1;
-    player.secondcard = -1;
+  }
 }
 
 /** 카드를 선택하는 메서드 */
@@ -299,13 +314,12 @@ function choose(player)
         {
             if ((player.x >= card.x) && (player.x <= card.x + card_width) && (player.y >= card.y) && (player.y <= card.y + card_height))
             { // 플레이어의 좌표가 카드의 영역 안에 정상적으로 들어가 있고,
-                //if (!is_delay) // if > 딜레이 체크 bool 변수가 만들어지면 넣는 걸로
-                if ((player.firstpick) || (i != player.firstcard)) // if > 딜레이 체크 bool 변수가 만들어지면 넣는 걸로
+                if (!player.delay) // if > 딜레이 체크 bool 변수가 만들어지면 넣는 걸로
                 { // 플레이어가 첫번째 선택이라면 혹은, 플레이어기 처음에 고른 카드와 다른 카드라면
                     card_index = i;
                     break; // 변수 card에 고른 카드를 저장한 채 반복문을 종료한다.
                 }
-                //else {return;}
+                else {return;}
             }
         }
     }
@@ -338,6 +352,7 @@ function choose(player)
             player.firstcard = card_index;
             console.log(player.firstcard);
             player.firstpick = false;
+            player.first_delay_sec = Math.ceil(PLAYER_DELAY_TIME * FPS);
             deck[card_index].poly = 1;
             socket.emit("이카드뒤집혔대", {
                 id : myId,
@@ -346,6 +361,7 @@ function choose(player)
         }
         // 고른 카드가 두번째인지 판별
         else {
+            player.delay = true;
             player.secondcard = card_index;
             console.log(player.secondcard);
             deck[card_index].poly = 1;

@@ -99,6 +99,8 @@ function flip_player(id, nick)
   this.player = new Image();
   this.player.src = this.asset[0];
   this.score = 0;
+  this.first_delay_sec = 0;  // 첫번째 카드가 choose되고 3초 뒤에 다시 원상태 복귀하게 하는 변수 firstpick = false; → first_delay_sec = 180; 
+  this.delay = false;        // 2번째카드가 맞춰질때 까지 다른 카드를 못 뒤집게 막는 변수        player.secondcard = card_index; → delay = match_flow 실행 후에 풀리는걸로
   this.stun_sec = 0;
   this.firstpick = true; // true면 사용자가 현재 첫번째 선택을 하고 있다는 뜻.
   this.firstcard; // 사용자가 고른 첫 카드
