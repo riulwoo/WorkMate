@@ -313,9 +313,9 @@ function choose(player)
         if (deck[card_index].info == 6) { // 폭탄을 뒤집었을 때의 처리
           player.firstpick = true;
           deck[player.firstcard].poly = 0;
-          deck[card_index].poly = 1;
           player.firstcard = -1;
           player.secondcard = -1;
+          deck[card_index].poly = 1;
           // 플레이어를 기절 상태로 만듬.
           player.stun_sec = Math.ceil(PLAYER_STUN_TIME * FPS);
           setTimeout(() => {
