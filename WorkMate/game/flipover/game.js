@@ -190,7 +190,7 @@ socket.on('뒤집기수타투', (data) =>{
 })
 socket.on('카드뒤집음', (c_index)=>{
     console.log(c_index);
-    flip_effect(c_index)
+    flip_effect(c_index);
 });
 
 socket.on('맞췄대', (c_index)=>{
@@ -204,6 +204,7 @@ socket.on('못맞췄대', (c_index)=>{
     console.log(c_index);
     c_index.forEach((i) => {
       deck[i].poly = 0;
+      deck[i].isMine = true;
       deck[i].untouchable = false;
     });
 })
