@@ -1,24 +1,14 @@
-function newAsteroid_of_item(x, y, num) // 서버랑 같이
-{
-    const ROIDS_JAG = Math.random(); // jaggedness of the asteroids (0 = none, 1 = lots)
-    const ROIDS_SPD = 75; // Math.floor(Math.random() * (50 - 25) + 25); // max starting speed of Asteroids in pixels per second.
-    const ROIDS_VERT = Math.floor(Math.random() * (16 - 8) + 8); // average number of vertices on each Asteroid
-
-    this.x = x;
-    this.y = y;
-    this.num = num;
-
-    this.xv = Math.random() * ROIDS_SPD / FPS * (Math.random() < 0.5 ? 1 : -1);
-    this.yv = Math.random() * ROIDS_SPD / FPS * (Math.random() < 0.5 ? 1 : -1);
-
-    this.radius = 25;
-    this.a = Math.random() * Math.PI * 2;
-    this.vert = Math.floor(Math.random() * (ROIDS_VERT + 1) + ROIDS_VERT / 2);
-
-    this.offs = [];
-
-    for (var i = 0; i < this.vert; i++)
-    {
-        this.offs.push(Math.random() * ROIDS_JAG * 2 + 1 - ROIDS_JAG);
-    }
+function ItemAsteroid(x, y, xv, yv, id) {
+  this.id = id;
+  this.x = x;
+  this.y = y;
+  this.xv = xv;
+  this.yv = yv;
+  this.radius = 25;
+  this.image = new Image();
+  // 계산기
+  this.image.src =
+    "https://cdn.discordapp.com/attachments/980090904394219562/1025853759902990366/3ebfc342f3bcb6ca.png";
 }
+
+// 아이템은 움직이기 때문에 화면 밖으로 나가면 반대편에서 다시 나오게 설정

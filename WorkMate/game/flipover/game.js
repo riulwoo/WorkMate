@@ -44,7 +44,7 @@ var card_asset_index =[
 var card_margin = (X * 0.35) / 100; // 카드와 카드 사이의 간격
 var card_width = (X * 7.5) / 100; // 카드의 가로 길이
 var card_height = (Y * 13) / 100; // 카드의 세로 길이
-var firstX = (X * 7) / 100; // 카드가 처음 그려질 x 좌표
+var firstX = (X * 3) / 100; // 카드가 처음 그려질 x 좌표
 var firstY = (Y * 12) / 100; // 카드가 처음 그려질 y 좌표
 var deck = []; // 카드가 들어갈 배열
 
@@ -170,11 +170,10 @@ socket.on('update_state', function (data) {
 })
 
 socket.on('뒤집기수타투', (data) =>{
-    let cx = firstX;
-    let cy = firstY;
+  let cx = firstX;
+  let cy = firstY;
   for (let i = 0; i < data.length; i++) {
-    
-    if(i % 10 == 9)
+    if(i % 12 == 11)
     {
       make_Deck(cx, cy, data[i])
       cy = cy + card_height + card_margin;
@@ -186,7 +185,6 @@ socket.on('뒤집기수타투', (data) =>{
       cx = cx + card_width + card_margin;
     }
   }
-    
 })
 socket.on('카드뒤집음', (c_index)=>{
     console.log(c_index);
@@ -300,11 +298,13 @@ function choose(player)
         {
             if ((player.x >= card.x) && (player.x <= card.x + card_width) && (player.y >= card.y) && (player.y <= card.y + card_height))
             { // 플레이어의 좌표가 카드의 영역 안에 정상적으로 들어가 있고,
-                if ((player.firstpick) || (i != player.firstcard)) // 처음 카드를 다시 뒤집을수도 있기 때문에 수정요망
+                //if (!is_delay) // if > 딜레이 체크 bool 변수가 만들어지면 넣는 걸로
+                if ((player.firstpick) || (i != player.firstcard)) // if > 딜레이 체크 bool 변수가 만들어지면 넣는 걸로
                 { // 플레이어가 첫번째 선택이라면 혹은, 플레이어기 처음에 고른 카드와 다른 카드라면
                     card_index = i;
                     break; // 변수 card에 고른 카드를 저장한 채 반복문을 종료한다.
                 }
+                //else {return;}
             }
         }
     }
