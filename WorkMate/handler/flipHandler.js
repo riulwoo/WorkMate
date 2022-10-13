@@ -27,7 +27,7 @@ module.exports = (io, socket, room) => {
           room[Index].cnt = 0;
           setTimeout(() => {
             io.to(room[Index].roomCode).emit('filp_end')
-          }, 180000)
+          }, 15000)
         }
       }
     })
