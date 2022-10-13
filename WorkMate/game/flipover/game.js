@@ -313,6 +313,10 @@ function choose(player)
         if (deck[card_index].info == 6) { // 폭탄을 뒤집었을 때의 처리
           if(!player.firstpick) deck[player.firstcard].poly = 0;
           player.firstpick = true;
+          socket.emit("이카드뒤집혔대", {
+              id: myId,
+              c_index: player.firstcard,
+            });
           player.firstcard = -1;
           player.secondcard = -1;
           deck[card_index].poly = 1;
