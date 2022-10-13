@@ -291,7 +291,9 @@ function delay_check() {
 
     if (players[myId].first_delay_sec == 0)
     {
-      deck[players[myId].firstcard].poly = 0;
+      deck[players[myId].firstcard].poly = 0
+      players[myId].firstpick = true;
+      // players[myId].firstcard = -1;
       socket.emit("이카드뒤집혔대", {
         id: myId,
         c_index: players[myId].firstcard
