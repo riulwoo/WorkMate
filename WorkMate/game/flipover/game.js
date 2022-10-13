@@ -51,13 +51,13 @@ var firstY = (Y * 12) / 100; // 카드가 처음 그려질 y 좌표
 var deck = []; // 카드가 들어갈 배열
 
 // 게임 흐름 관련
-const CHECK_DUR_TIME = 0.5;
-const PER_SEC = 0.1;
-var check_tick = Math.ceil(PER_SEC * FPS);
-var check_sec = Math.ceil(CHECK_DUR_TIME / PER_SEC);
+const COUNT_DUR_TIME = 3;
+var count_sec = Math.ceil(COUNT_DUR_TIME * FPS);
 
 // Game Flow 관련
-var is_loading; 
+var is_loading;
+var is_counting = false;
+var is_gaming = false;
 var is_ending = false;
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -123,6 +123,21 @@ function field_draw(){
     ctx.fillStyle = "#7092BE";
     ctx.fillRect(0, 0, X, Y);
     ctx.closePath();
+}
+
+function count_draw()
+{
+  ctx.fillStyle = "#90DBA2";
+  ctx.font = '200px DungGeunMo';
+  ctx.textAlign = "center";
+  ctx.fillText(Math.ceil(count_sec / 60), X / 2, Y / 2);
+}
+
+function ending_draw() {
+  ctx.fillStyle = "#90DBA2";
+  ctx.font = '200px DungGeunMo';
+  ctx.textAlign = "center";
+  ctx.fillText("GAME OVER", X / 2, Y / 2);
 }
 
 /** 게임 시작 전 로딩창을 띄우는 메서드 */
@@ -211,7 +226,9 @@ socket.on('못맞췄대', (c_index)=>{
 socket.on('flip_end', ()=>{
     let index = getMyIndex(myId);
     playerinfo[index].score += players[myId].score;
+    is_ending = true;
     setTimeout(()=>{socket.emit('gameover', myId);}, 3000);
+    
 })
   
 
@@ -405,12 +422,33 @@ function choose(player)
 
 function update()
 { 
+  is_counting = count_sec > 0;
+    
     field_draw();
     draw_Deck();
     score_draw();
+  if(is_counting)
+  {
+    count_sec--;
+    
+    count_draw();
+        
+    // handle countdown
+    if (count_num == 0)
+    {
+      is_gaming = true;
+    }
+  }
+  if(is_gaming)
+  {
     renderPlayer();
     stun_flow();
     delay_check();
+  }
+  if(is_ending)
+  {
+    ending_draw();
+  }
 } // end of update
 
 func_lding().then
