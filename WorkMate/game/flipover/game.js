@@ -434,7 +434,7 @@ function update()
     count_draw();
         
     // handle countdown
-    if (count_num == 0)
+    if (count_sec == 0)
     {
       is_gaming = true;
     }
