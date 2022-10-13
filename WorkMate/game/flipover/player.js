@@ -43,6 +43,7 @@ function renderPlayer() {
     }
     if (keyPressed && !players[myId].delay){
       choose(curPlayer);
+      keyPressed = false;
     }
   }
   
