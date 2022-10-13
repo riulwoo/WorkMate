@@ -227,12 +227,12 @@ function flip_effect(index) {
     // 카드가 앞면일 경우
     if(deck[index].poly){
         deck[index].poly = 0;
-        deck[index].isMine = false;
+        deck[index].isMine = true;
     }
     // 카드가 뒷면일 경우
     else{
         deck[index].poly = 1;
-        deck[index].isMine = true;
+        deck[index].isMine = false;
     } 
 
 }
