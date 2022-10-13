@@ -319,7 +319,6 @@ function choose(player)
           deck[card_index].poly = 1;
           // 플레이어를 기절 상태로 만듬.
           player.stun_sec = Math.ceil(PLAYER_STUN_TIME * FPS);
-          stun_flow();
           setTimeout(() => {
             deck[card_index].untouchable = true;
             player.score -= 10;
@@ -379,6 +378,7 @@ function update()
     draw_Deck();
     score_draw();
     renderPlayer();
+    stun_flow();
 } // end of update
 
 func_lding().then
