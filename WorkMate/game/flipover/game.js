@@ -322,12 +322,12 @@ function choose(player)
                 }
                 else {
                   deck[player.firstcard].poly = 0;
-                  player.firstcard = -1;
-                  player.firstpick = true;
                   socket.emit("이카드뒤집혔대", {
                     id: myId,
                     c_index: players[myId].firstcard
                   });
+                  player.firstcard = -1;
+                  player.firstpick = true;
                   return;
                 }
             }
