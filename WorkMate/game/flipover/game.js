@@ -225,7 +225,7 @@ function flip_effect(index) {
         },1500)
     }
     // 카드가 앞면일 경우
-    if(deck[index].poly){
+    else if(deck[index].poly){
         deck[index].poly = 0;
         deck[index].isMine = true;
     }
