@@ -209,7 +209,6 @@ socket.on('못맞췄대', (c_index)=>{
     });
 })
 socket.on('flip_end', ()=>{
-    is_ending = true;
     let index = getMyIndex(myId);
     playerinfo[index].score += players[myId].score;
     setTimeout(()=>{socket.emit('gameover', myId);}, 3000);
@@ -314,12 +313,12 @@ function choose(player)
         {
             if ((player.x >= card.x) && (player.x <= card.x + card_width) && (player.y >= card.y) && (player.y <= card.y + card_height))
             { // 플레이어의 좌표가 카드의 영역 안에 정상적으로 들어가 있고,
-                if (!player.delay) // if > 딜레이 체크 bool 변수가 만들어지면 넣는 걸로
-                { // 플레이어가 첫번째 선택이라면 혹은, 플레이어기 처음에 고른 카드와 다른 카드라면
+                //if (!player.delay) // if > 딜레이 체크 bool 변수가 만들어지면 넣는 걸로
+                //{ // 플레이어가 첫번째 선택이라면 혹은, 플레이어기 처음에 고른 카드와 다른 카드라면
                     card_index = i;
                     break; // 변수 card에 고른 카드를 저장한 채 반복문을 종료한다.
-                }
-                else {return;}
+                //}
+                //else {return;}
             }
         }
     }
@@ -400,6 +399,7 @@ function update()
     score_draw();
     renderPlayer();
     stun_flow();
+    delay_check();
 } // end of update
 
 func_lding().then
