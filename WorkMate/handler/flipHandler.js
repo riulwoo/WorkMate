@@ -26,7 +26,7 @@ module.exports = (io, socket, room) => {
           io.to(room[Index].roomCode).emit('뒤집기수타투', room[Index].card_deck);
           room[Index].cnt = 0;
           setTimeout(() => {
-            io.to(room[Index].roomCode).emit('filp_end')
+            io.to(room[Index].roomCode).emit('flip_end')
           }, 15000)
         }
       }
