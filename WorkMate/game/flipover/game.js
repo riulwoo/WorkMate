@@ -94,7 +94,7 @@ function keyUpHandler(e){
         upPressed = false;
     }
     if (e.keyCode == 74){
-        keyPressed = true;
+        keyPressed = false;
     }
 }
 
