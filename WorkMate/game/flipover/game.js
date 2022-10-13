@@ -328,6 +328,7 @@ function choose(player)
                     id: myId,
                     c_index: players[myId].firstcard
                   });
+                  return ;
                 }
             }
         }
