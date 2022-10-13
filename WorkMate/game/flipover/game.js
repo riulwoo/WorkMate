@@ -285,7 +285,7 @@ function match_flow(player, check)
 }
 
 function delay_check() {
-  if (players[myId].first_delay_sec > 0)
+  if (players[myId].first_delay_sec > 0 && !players[myId].firstpick)
   {
     players[myId].first_delay_sec--;
 
@@ -315,12 +315,20 @@ function choose(player)
         {
             if ((player.x >= card.x) && (player.x <= card.x + card_width) && (player.y >= card.y) && (player.y <= card.y + card_height))
             { // 플레이어의 좌표가 카드의 영역 안에 정상적으로 들어가 있고,
-                //if (!player.delay) // if > 딜레이 체크 bool 변수가 만들어지면 넣는 걸로
-                //{ // 플레이어가 첫번째 선택이라면 혹은, 플레이어기 처음에 고른 카드와 다른 카드라면
+                if (player.firstpick || player.firstcard != i) // if > 딜레이 체크 bool 변수가 만들어지면 넣는 걸로
+                { // 플레이어가 첫번째 선택이라면 혹은, 플레이어기 처음에 고른 카드와 다른 카드라면
                     card_index = i;
                     break; // 변수 card에 고른 카드를 저장한 채 반복문을 종료한다.
-                //}
-                //else {return;}
+                }
+                else {
+                  deck[player.firstcard].poly = 0;
+                  player.firstcard = -1;
+                  player.firstpick = true;
+                  socket.emit("이카드뒤집혔대", {
+                    id: myId,
+                    c_index: players[myId].firstcard
+                  });
+                }
             }
         }
     }
