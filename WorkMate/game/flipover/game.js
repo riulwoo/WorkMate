@@ -359,8 +359,8 @@ function choose(player)
                     socket.emit("카드체크한대", {
                         id: myId,
                         check: false,
-                        index: [player.firstcard, player.secondcard],
-                    }, 1500);
+                        c_index: [player.firstcard, player.secondcard],
+                    });
                     match_flow(player, false);
                 } 
                 player.firstpick = true;
