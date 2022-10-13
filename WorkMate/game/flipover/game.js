@@ -341,7 +341,7 @@ function choose(player)
           player.firstpick = true;
           socket.emit("이카드뒤집혔대", {
               id: myId,
-              c_index: player.firstcard,
+              c_index: card_index,
             });
           player.firstcard = -1;
           player.secondcard = -1;
