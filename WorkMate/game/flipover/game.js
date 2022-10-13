@@ -311,8 +311,8 @@ function choose(player)
     if (card_index < deck.length && !deck[card_index].untouchable && deck[card_index].isMine) // 사용자가 카드를 고름
     {
         if (deck[card_index].info == 6) { // 폭탄을 뒤집었을 때의 처리
+          if(!player.firstpick) deck[player.firstcard].poly = 0;
           player.firstpick = true;
-          deck[player.firstcard].poly = 0;
           player.firstcard = -1;
           player.secondcard = -1;
           deck[card_index].poly = 1;
