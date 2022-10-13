@@ -232,7 +232,7 @@ function flip_effect(index) {
     // 카드가 뒷면일 경우
     else{
         deck[index].poly = 1;
-        deck[index].isMine = false;
+        deck[index].isMine = true;
     } 
 
 }
@@ -256,11 +256,9 @@ function draw_Deck()
 /** 플레이어가 기절에 걸렸을 때, 지속시간이 감소되도록 하는 메서드. */
 function stun_flow()
 {
-  console.log('스턴 플로우 들어옴');
 	if (players[myId].stun_sec > 0)
 	{
 		players[myId].stun_sec--;
-    console.log('스턴 셋스 감소');
 	}
 }
 
@@ -312,11 +310,12 @@ function choose(player)
     
     if (card_index < deck.length && !deck[card_index].untouchable && deck[card_index].isMine) // 사용자가 카드를 고름
     {
-        if (deck[card_index].info == 6) {
+        if (deck[card_index].info == 6) { // 폭탄을 뒤집었을 때의 처리
           player.firstpick = true;
+          deck[player.firstcard].poly = 0;
+          deck[card_index].poly = 1;
           player.firstcard = -1;
           player.secondcard = -1;
-          deck[card_index].poly = 1;
           // 플레이어를 기절 상태로 만듬.
           player.stun_sec = Math.ceil(PLAYER_STUN_TIME * FPS);
           setTimeout(() => {
