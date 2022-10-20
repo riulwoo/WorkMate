@@ -26,8 +26,8 @@ module.exports = (io, socket, room) => {
     for(let i = 0; i < 10; i++) {
       XYV.push({x : Math.floor(Math.random() * (1500-400)) + 400,
                 y : Math.floor(Math.random() * (800-100)) + 100,
-                xv : Math.floor(Math.random() * (10-10)) - 10,
-                yv : Math.floor(Math.random() * (10-10)) - 10
+                xv : Math.floor(Math.random() * 10 * (Math.random() < 0.5 ? 1 : -1)),
+                yv : Math.floor(Math.random() * 10 * (Math.random() < 0.5 ? 1 : -1))
                })
     }
     return XYV;
@@ -36,8 +36,8 @@ module.exports = (io, socket, room) => {
   function itemXYV () {
     let item = {x : Math.floor(Math.random() * (1500-400)) + 400,
                 y :  Math.floor(Math.random() * (800-100)) + 100,
-                xv : Math.floor(Math.random() * (10-10)) - 10,
-                yv : Math.floor(Math.random() * (10-10)) - 10
+                xv : Math.floor(Math.random() * 10 * (Math.random() < 0.5 ? 1 : -1)),
+                yv : Math.floor(Math.random() * 10 * (Math.random() < 0.5 ? 1 : -1))
                }
     return item;
   }
