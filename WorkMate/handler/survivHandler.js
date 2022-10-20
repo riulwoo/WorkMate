@@ -24,11 +24,11 @@ module.exports = (io, socket, room) => {
   };
 
   function itemXYV () {
-    let item;
-    item.x = Math.floor(Math.random() * (1500-400));
-    item.y = Math.floor(Math.random() * (800-100));
-    item.xv = Math.floor(Math.random() * (1500-400));
-    item.yv = Math.floor(Math.random() * (800-100));
+    let item = {x : Math.floor(Math.random() * (1500-400)),
+                y :  Math.floor(Math.random() * (800-100)),
+                xv : Math.floor(Math.random() * (10-0)),
+                yv : Math.floor(Math.random() * (10-0))
+               }
     return item;
   }
 
