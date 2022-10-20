@@ -47,7 +47,7 @@ module.exports = (io, socket, room) => {
           goal : goalXY(),
           item : itemXYV()
         });
-        sendAsteroid(index);
+        sendAsteroid(userRoomIndex);
         room[userRoomIndex].cnt = 0;
       }
     }
