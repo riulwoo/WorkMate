@@ -86,7 +86,7 @@ socket.on('playerinit', function(data) {
 
 socket.on('gamestart', function(data) {
   const { game } = data;
-  const arr = ['ox','space','flipover'];
+  const arr = ['ox','surviv','flipover'];
   if(arr.includes(game)) $('#main').load(`/${game}`);
   else  // result인 경우
   {

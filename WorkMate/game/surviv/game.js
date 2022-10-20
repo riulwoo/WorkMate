@@ -1,4 +1,4 @@
-let canvas = document.getElementById("space_canvas");
+let canvas = document.getElementById("surviv_canvas");
 let ctx = canvas.getContext("2d");
 let myFont = new FontFace("DungGeunMo", "url(ox/assets/fonts/DungGeunMo.otf)");
 

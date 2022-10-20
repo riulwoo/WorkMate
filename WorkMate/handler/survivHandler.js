@@ -28,6 +28,7 @@ module.exports = (io, socket, room) => {
       xv : 0, 
       yv : 0
     }
+    
     return item;
   }
 

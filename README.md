@@ -1,3 +1,3 @@
 # WorkMate
 
-[html](workmate/client/index.html)
+[html](WorkMate/views/index.html)
