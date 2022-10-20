@@ -84,7 +84,7 @@ socket.on("돈을 생성하거라", (data) => {    // 생성은 되지만 그리
 });
 
 socket.on("장애물 생성하거라", (data) => {    // 생성은 되지만 그리기는 되지 않았음
-  console.log("장애물 좌표 : " + data);
+  console.log(`아이템 초기 좌표 : x: ${data.x} y : ${data.y} xv : ${data.xv} yv : ${data.yv}`);
   //roids.push(new Asteroid(data));
 });
 
