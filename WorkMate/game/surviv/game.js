@@ -45,7 +45,7 @@ var is_item_existing;
 function func_lding() {
   return new Promise((r1, r2) => {
     for (let i = 0; i < playerinfo.length; i++) {
-      let player = new race_player(playerinfo[i].id, playerinfo[i].nick);
+      let player = new surviv_player(playerinfo[i].id, playerinfo[i].nick);
       playermap[i] = player;
       players[playerinfo[i].id] = player;
     }
@@ -66,21 +66,25 @@ func_lding().then(() => {
 
 socket.on("게임수타투", (data) => {
   is_counting = true;
-  for (let i = 0; i < data.goal.length; i++) {
-    goal.push(new Goal(data.goal[i].x, data.goal[i].y));
-  }
-  itemBox = new Item(data.item.x, data.item.y, data.item.xv, data.item.yv);  // 화면 넘어가면 반대편에 등장
+  console.log("골과 아이템 초기 좌표 : " + data);
+  // for (let i = 0; i < data.goal.length; i++) {
+  //   goal.push(new Goal(data.goal[i].x, data.goal[i].y));
+  // }
+  // itemBox = new Item(data.item.x, data.item.y, data.item.xv, data.item.yv);  // 화면 넘어가면 반대편에 등장
 });
 
 socket.on("아이템생성하거라", (data) => {    // 생성은 되지만 그리기는 되지 않았음
-  itemBox = new Item(data);
+  console.log("아이템 좌표 : " + data);
+  //itemBox = new Item(data);
 });
 socket.on("돈을 생성하거라", (data) => {    // 생성은 되지만 그리기는 되지 않았음
-  goal.push(new Goal(data));
+  console.log(`돈 좌표 + ${data}`)
+  //goal.push(new Goal(data));
 });
 
 socket.on("장애물 생성하거라", (data) => {    // 생성은 되지만 그리기는 되지 않았음
-  roids.push(new Asteroid(data));
+  console.log("장애물 좌표 : " + data);
+  //roids.push(new Asteroid(data));
 });
 
 socket.on("특수 장애물 생성하거라", (data) => {
@@ -94,7 +98,7 @@ let myplayer = players[myId];
 // 장애물 생성 배열 : 서버에서 일정한 시간 간격으로 좌표 전달
 var roids = [];
 
-// 돈 생성 배열 : 돈은 2개씩 생성 2개 중 2개가 다 없어져야 다시 생성
+// 돈(골인지점) 생성 배열 : 돈은 2개씩 생성 2개 중 2개가 다 없어져야 다시 생성
 var goal = [];
 
 // 아이템 효과로 생성된 장애물 생성 배열 : 장애물 생성 종류는 2가지 (화면 양쪽, 중앙), 장애물 갯수는 큰사이즈 2개씩
@@ -106,46 +110,42 @@ var itemBox;
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
-function keyDownHandler(e) {
-  if (e.code == "ArrowRight") {
-    rightPressed = true;
-  }
-  if (e.code == "ArrowLeft") {
-    leftPressed = true;
-  }
-  if (e.code == "ArrowDown") {
-    downPressed = true;
-  }
-  if (e.code == "ArrowUp") {
-    upPressed = true;
-  }
-
-  if (e.code == "ControlLeft") {
-    itemPressed = true;
-  }
+/** 키를 눌렀을 때 실행되는 메서드 */
+function keyDownHandler(e){
+    if (e.keyCode == 68){ // 'ArrowRight'
+        rightPressed = true;
+    }
+    if (e.keyCode == 65){ // 'ArrowLeft'
+        leftPressed = true;
+    }
+    if (e.keyCode == 83){ // "ArrowDown"
+        downPressed = true;
+    }
+    if (e.keyCode == 87){ // "ArrowUp"
+        upPressed = true;
+    }
+    if (e.keyCode == 74){
+        itemPressed = true;
+    }
 }
 
-function keyUpHandler(e) {
-  if (e.code == "ArrowRight") {
-    rightPressed = false;
-    myplayer.thrusting = false;
-  }
-  if (e.code == "ArrowLeft") {
-    leftPressed = false;
-    myplayer.thrusting = false;
-  }
-  if (e.code == "ArrowDown") {
-    downPressed = false;
-    myplayer.thrusting = false;
-  }
-  if (e.code == "ArrowUp") {
-    upPressed = false;
-    myplayer.thrusting = false;
-  }
-
-  if (e.code == "ControlLeft") {
-    itemPressed = false;
-  }
+/** 키를 뗐을 때 실행되는 메서드 */
+function keyUpHandler(e){
+    if (e.keyCode == 68){ // 'ArrowRight'
+        rightPressed = false;
+    }
+    if (e.keyCode == 65){ // 'ArrowLeft'
+        leftPressed = false;
+    }
+    if (e.keyCode == 83){ // "ArrowDown"
+        downPressed = false;
+    }
+    if (e.keyCode == 87){ // "ArrowUp"
+        upPressed = false;
+    }
+    if (e.keyCode == 74){
+        itemPressed = false;
+    }
 }
 
 // 플레이어와 다른 오브젝트(장애물, 아이템상자, 골인지점)간의 거리를 계산하는 메서드

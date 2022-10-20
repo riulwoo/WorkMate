@@ -154,21 +154,21 @@ socket.on("update_state", function (data) {
   updateState(data.id, data.x, data.y, data.direction);
 });
 
-function race_player(id, nick) {
+function surviv_player(id, nick) {
   this.id = id;
   this.nick = nick;
   this.direction;
   this.asset = [
     // 플레이어로써 출력 될 이미지.
     // 이미지는 총 8개 (회사원 이미지로 대체 예정)
-    "https://cdn.discordapp.com/attachments/980090904394219562/1010125156905132062/nothrust_roc_down.png", // down
-    "https://cdn.discordapp.com/attachments/980090904394219562/1010125157253251122/nothrust_roc_left.png", // left
-    "https://cdn.discordapp.com/attachments/980090904394219562/1010125159811780698/nothrust_roc_up.png", // up
-    "https://cdn.discordapp.com/attachments/980090904394219562/1010125158326992936/nothrust_roc_right.png", // right
-    "https://cdn.discordapp.com/attachments/980090904394219562/1010125157597192302/nothrust_roc_leftdown.png", // leftdown
-    "https://cdn.discordapp.com/attachments/980090904394219562/1010125157957914634/nothrust_roc_leftup.png", // leftup
-    "https://cdn.discordapp.com/attachments/980090904394219562/1010125158779998239/nothrust_roc_rightdown.png", // rightdown
-    "https://cdn.discordapp.com/attachments/980090904394219562/1010125159203602492/nothrust_roc_rightup.png", // rightup
+    'https://cdn.discordapp.com/attachments/980090904394219562/1026451716855582750/dd_17.png', // 아래
+    'https://cdn.discordapp.com/attachments/980090904394219562/1026451526304137217/gg_12.png', // 왼쪽
+    'https://cdn.discordapp.com/attachments/980090904394219562/1026451443055607838/gg_05.png', // 위
+    'https://cdn.discordapp.com/attachments/980090904394219562/1026451573129367592/gg_13.png', // 오른
+    'https://cdn.discordapp.com/attachments/980090904394219562/1026451629450481664/gg_16.png', // 왼아래
+    'https://cdn.discordapp.com/attachments/980090904394219562/1026451379939717130/dd_03.png', // 왼위
+    'https://cdn.discordapp.com/attachments/980090904394219562/1026451865224884234/gg_18.png', // 오른아래
+    'https://cdn.discordapp.com/attachments/980090904394219562/1026451494075125800/gg_07.png'
   ];
 
   this.radius = 40; // 반지름

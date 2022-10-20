@@ -7,8 +7,10 @@ module.exports = (io, socket, room) => {
   const cycle = (index) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
+        let obstacle = itemXYV();
         io.to(room[index].roomCode).emit(
-          "장애물 생성하거라", {x : 1 , y : 1, xv :1 , yv : 1} /** 장애물 생성 좌표 */
+          "장애물 생성하거라", {x : obstacle.x , y : obstacle.y , xv : obstacle.xv , yv : obstacle.yv } 
+          /** 장애물 생성 좌표 */
         );
         resolve();
       }, 12000);
@@ -22,12 +24,7 @@ module.exports = (io, socket, room) => {
   };
 
   function itemXYV () {
-    let item = {
-      x : 0,  //임의의 최대값 1500
-      y : 0,  //임의의 최대값 800
-      xv : 0, // x가 이동할 방향속도
-      yv : 0  // y가 이동할 방향속도
-    }
+    let item;
     item.x = Math.floor(Math.random() * (1500-400));
     item.y = Math.floor(Math.random() * (800-100));
     item.xv = Math.floor(Math.random() * (1500-400));
@@ -37,7 +34,11 @@ module.exports = (io, socket, room) => {
 
   function goalXY (){
     let goal = [{x : 0, y : 0}, {x : 1, y: 1}];
-    
+    for (let i = 0; i < 2; i++) {
+      goal.push({ x: Math.floor(Math.random() * (1500-400)),
+                  y: Math.floor(Math.random() * (800-100))
+                });
+    }
     return goal;
   }
   socket.on("레이스쥰비완료쓰", (id) => {
