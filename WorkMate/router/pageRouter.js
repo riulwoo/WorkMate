@@ -13,6 +13,6 @@ module.exports = function(app)
   });
 
   app.get('/surviv', (req, res) => {
-    res.sendFile('game/space/index.html', {root : '.'});
+    res.sendFile('game/surviv/index.html', {root : '.'});
   });
 }
