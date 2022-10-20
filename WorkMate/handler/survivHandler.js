@@ -8,7 +8,7 @@ module.exports = (io, socket, room) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         io.to(room[index].roomCode).emit(
-          "장애물 생성하거라" /** 장애물 생성 좌표 */
+          "장애물 생성하거라", {x : 1 , y : 1, xv :1 , yv : 1} /** 장애물 생성 좌표 */
         );
         resolve();
       }, 12000);
@@ -23,10 +23,10 @@ module.exports = (io, socket, room) => {
 
   function itemXYV () {
     let item = {
-      x : 0, 
-      y : 0, 
-      xv : 0, 
-      yv : 0
+      x : 0,  //임의의 최대값 1500
+      y : 0,  //임의의 최대값 800
+      xv : 0, // x가 이동할 방향속도
+      yv : 0  // y가 이동할 방향속도
     }
     
     return item;
@@ -44,7 +44,7 @@ module.exports = (io, socket, room) => {
       if (room[userRoomIndex].cnt == player.length) {
         io.to(room[userRoomIndex].roomCode).emit("게임수타투", {
           /** 초반 돈, 아이템 좌표 전달*/
-          goal : goalXY(),
+          goal : goalXYV(),
           item : itemXY()
         });
         sendAsteroid(index);
