@@ -49,7 +49,7 @@ function renderPlayer() {
       sendData(myplayer, myplayer.direction);
     }
 
-    if (downPressed) {
+    else if (downPressed) {
       myplayer.direction = 0;
 
       if (rightPressed) {
@@ -65,7 +65,7 @@ function renderPlayer() {
       sendData(myplayer, myplayer.direction);
     }
 
-    if (leftPressed) {
+    else if (leftPressed) {
       myplayer.direction = 1;
 
       if (upPressed) {
@@ -81,7 +81,7 @@ function renderPlayer() {
       sendData(myplayer, myplayer.direction);
     }
 
-    if (rightPressed) {
+    else if (rightPressed) {
       myplayer.direction = 3;
 
       if (upPressed) {
