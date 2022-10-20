@@ -14,12 +14,27 @@ module.exports = (io, socket, room) => {
       }, 12000);
     });
   };
+  
   const sendAsteroid = async (index) => {
     for await (var i of howmany) {
       await cycle(index);
     }
   };
 
+  function itemXYV () {
+    let item = {
+      x : 0, 
+      y : 0, 
+      xv : 0, 
+      yv : 0
+    }
+    return item;
+  }
+
+  function goalXY (){
+    let goal = [{x : 0, y : 0}, {x : 1, y: 1}];
+    return goal;
+  }
   socket.on("레이스쥰비완료쓰", (id) => {
     let userRoomIndex = getIndex(id);
     if (userRoomIndex !== -1) {
@@ -28,10 +43,14 @@ module.exports = (io, socket, room) => {
       if (room[userRoomIndex].cnt == player.length) {
         io.to(room[userRoomIndex].roomCode).emit("게임수타투", {
           /** 초반 돈, 아이템 좌표 전달*/
+          goal : goalXY(),
+          item : itemXY();
         });
         sendAsteroid(index);
+        room[userRoomIndex].cnt = 0;
       }
     }
+    
   });
 
   // 아이템 먹으면 30초 뒤에 다시 생성

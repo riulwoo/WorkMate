@@ -66,20 +66,20 @@ func_lding().then(() => {
 
 socket.on("게임수타투", (data) => {
   is_counting = true;
-  for (let i = 0; i < goal.length; i++) {
+  for (let i = 0; i < data.goal.length; i++) {
     goal.push(new Goal(data.goal[i].x, data.goal[i].y));
   }
-  itemBox = new Item(data.item.x, data.item.y, data.item.xv, data.item.yv);
+  itemBox = new Item(data.item.x, data.item.y, data.item.xv, data.item.yv);  // 화면 넘어가면 반대편에 등장
 });
 
-socket.on("아이템생성하거라", (data) => {
+socket.on("아이템생성하거라", (data) => {    // 생성은 되지만 그리기는 되지 않았음
   itemBox = new Item(data);
 });
-socket.on("돈을 생성하거라", (data) => {
+socket.on("돈을 생성하거라", (data) => {    // 생성은 되지만 그리기는 되지 않았음
   goal.push(new Goal(data));
 });
 
-socket.on("장애물 생성하거라", (data) => {
+socket.on("장애물 생성하거라", (data) => {    // 생성은 되지만 그리기는 되지 않았음
   roids.push(new Asteroid(data));
 });
 

@@ -12,7 +12,7 @@ const init = require('./handler/func_conn');
 const mainHandlers = require('./handler/mainHandler');
 const oxHandlers = require('./handler/oxHandler');
 const flipHandlers = require('./handler/flipHandler');
-const raceHandlers = require('./handler/raceHandler');
+const survivHandlers = require('./handler/survivHandler');
 
 /** Set Middleware */
 app.use(express.static('views'));
@@ -28,7 +28,7 @@ const onConnection = (socket) => {
   mainHandlers(io, socket, room);
   oxHandlers(io, socket, room);
   flipHandlers(io, socket, room);
-  raceHandlers(io, socket, room);
+  survivHandlers(io, socket, room);
   
   socket.on('send_location', function(data) {
           socket.broadcast.emit('update_state', {
