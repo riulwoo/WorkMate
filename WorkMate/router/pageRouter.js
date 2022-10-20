@@ -12,7 +12,7 @@ module.exports = function(app)
     res.sendFile('game/ox/index.html', {root : '.'});
   });
 
-  app.get('/space', (req, res) => {
+  app.get('/surviv', (req, res) => {
     res.sendFile('game/space/index.html', {root : '.'});
   });
 }
