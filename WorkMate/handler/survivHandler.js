@@ -44,8 +44,8 @@ module.exports = (io, socket, room) => {
       if (room[userRoomIndex].cnt == player.length) {
         io.to(room[userRoomIndex].roomCode).emit("게임수타투", {
           /** 초반 돈, 아이템 좌표 전달*/
-          goal : goalXYV(),
-          item : itemXY()
+          goal : goalXY(),
+          item : itemXYV()
         });
         sendAsteroid(index);
         room[userRoomIndex].cnt = 0;
