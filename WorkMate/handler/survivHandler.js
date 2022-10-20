@@ -28,12 +28,16 @@ module.exports = (io, socket, room) => {
       xv : 0, // x가 이동할 방향속도
       yv : 0  // y가 이동할 방향속도
     }
-    
+    item.x = Math.floor(Math.random() * (1500-400));
+    item.y = Math.floor(Math.random() * (800-100));
+    item.xv = Math.floor(Math.random() * (1500-400));
+    item.yv = Math.floor(Math.random() * (800-100));
     return item;
   }
 
   function goalXY (){
     let goal = [{x : 0, y : 0}, {x : 1, y: 1}];
+    
     return goal;
   }
   socket.on("레이스쥰비완료쓰", (id) => {

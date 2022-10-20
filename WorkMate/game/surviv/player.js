@@ -183,7 +183,7 @@ function race_player(id, nick) {
 
   this.stunTime = 0;
   this.stunNum = 0;
-
+  this.stunning = false;
   this.itemImg = new Image();
   this.itemPocket = 0;
 }
