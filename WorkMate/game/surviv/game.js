@@ -66,7 +66,7 @@ func_lding().then(() => {
 
 socket.on("게임수타투", (data) => {
   is_counting = true;
-  console.log("골과 아이템 초기 좌표 : " + data);
+  console.log("골과 아이템 초기 좌표 : " + data.item + data.goal);
   // for (let i = 0; i < data.goal.length; i++) {
   //   goal.push(new Goal(data.goal[i].x, data.goal[i].y));
   // }
