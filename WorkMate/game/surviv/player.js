@@ -19,13 +19,13 @@ function renderPlayer() {
     ctx.closePath();
   }
 
-  if (player.blinkNum > 0) {
+  if (myplayer.blinkNum > 0) {
     // reduce the blink time
-    player.blinkTime--;
+    myplayer.blinkTime--;
 
-    if (player.blinkTime == 0) {
-      player.blinkTime = Math.ceil(PER_SEC * FPS);
-      player.blinkNum--;
+    if (myplayer.blinkTime == 0) {
+      myplayer.blinkTime = Math.ceil(PER_SEC * FPS);
+      myplayer.blinkNum--;
     }
   }
 
