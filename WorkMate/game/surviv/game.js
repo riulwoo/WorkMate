@@ -1,6 +1,8 @@
 let canvas = document.getElementById("surviv_canvas");
 let ctx = canvas.getContext("2d");
 let myFont = new FontFace("DungGeunMo", "url(ox/assets/fonts/DungGeunMo.otf)");
+canvas.width = document.body.clientWidth;
+canvas.height = document.body.clientHeight;
 
 myFont.load().then(function (font) {
   document.fonts.add(font);
@@ -84,7 +86,10 @@ socket.on("돈을 생성하거라", (data) => {    // 생성은 되지만 그리
 });
 
 socket.on("장애물 생성하거라", (data) => {    // 생성은 되지만 그리기는 되지 않았음
-  console.log(`아이템 초기 좌표 : x: ${data.x} y : ${data.y} xv : ${data.xv} yv : ${data.yv}`);
+  for (let i = 0; i < data.length; i++) {
+    console.log(`장애물 초기 좌표 : x: ${data[i].x} y : ${data[i].y} xv : ${data[i].xv} yv : ${data[i].yv}`);
+  }
+  
   //roids.push(new Asteroid(data));
 });
 
@@ -156,6 +161,8 @@ function distBetweenPoints(x1, y1, x2, y2) {
 
 // 맵 그리는 메서드
 function field_draw() {
+  canvas.width = document.body.clientWidth;
+  canvas.height = document.body.clientHeight;
   ctx.beginPath();
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, WIDTH, HEIGHT);
@@ -164,8 +171,12 @@ function field_draw() {
 }
 
 function update() {
-  field_draw();
-  renderPlayer();
+  field_draw();    // 바닥
+  renderPlayer();  // 플레이어
+  renderItem();    // 아이템
+  renderGoal();    // 돈
+  renderObs();     // 장애
+  edge_draw();     // 벽
 }
 
 function leaveUser(id) {

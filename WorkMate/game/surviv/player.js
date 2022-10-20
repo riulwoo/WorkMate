@@ -8,7 +8,9 @@ function renderPlayer() {
     ctx.drawImage(
       player.player,
       player.x - player.radius,
-      player.y - player.radius
+      player.y - player.radius,
+      70,
+      70
     );
 
     ctx.fillStyle = player.color;

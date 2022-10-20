@@ -7,11 +7,9 @@ module.exports = (io, socket, room) => {
   const cycle = (index) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        let obstacle = itemXYV();
+        let obstacle = obstacleXYV();
         io.to(room[index].roomCode).emit(
-          "장애물 생성하거라", {x : obstacle.x , y : obstacle.y , xv : obstacle.xv , yv : obstacle.yv } 
-          /** 장애물 생성 좌표 */
-        );
+          "장애물 생성하거라", obstacle);
         resolve();
       }, 12000);
     });
@@ -23,13 +21,23 @@ module.exports = (io, socket, room) => {
     }
   };
 
-
+  function obstacleXYV() {
+    let XYV = [];
+    for(let i = 0; i < 10; i++) {
+      XYV.push({x : Math.floor(Math.random() * (1500-400)) + 400,
+                y : Math.floor(Math.random() * (800-100)) + 100,
+                xv : Math.floor(Math.random() * (10-10)) - 10,
+                yv : Math.floor(Math.random() * (10-10)) - 10
+               })
+    }
+    return XYV;
+  }
   
   function itemXYV () {
     let item = {x : Math.floor(Math.random() * (1500-400)) + 400,
                 y :  Math.floor(Math.random() * (800-100)) + 100,
-                xv : Math.floor(Math.random() * (10-0)),
-                yv : Math.floor(Math.random() * (10-0))
+                xv : Math.floor(Math.random() * (10-10)) - 10,
+                yv : Math.floor(Math.random() * (10-10)) - 10
                }
     return item;
   }
