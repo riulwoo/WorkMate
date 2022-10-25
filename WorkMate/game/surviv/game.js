@@ -70,19 +70,21 @@ socket.on("게임수타투", (data) => {
   is_counting = true;
   console.log("골 초기 좌표 : " + data.goal[0].x + " "+ data.goal[1].y);
   console.log(`아이템 초기 좌표 : x: ${data.item.x} y : ${data.item.y} xv : ${data.item.xv} yv : ${data.item.yv}`);
-  // for (let i = 0; i < data.goal.length; i++) {
-  //   goal.push(new Goal(data.goal[i].x, data.goal[i].y));
-  // }
-  // itemBox = new Item(data.item.x, data.item.y, data.item.xv, data.item.yv);  // 화면 넘어가면 반대편에 등장
+  
+  for (let i = 0; i < data.goal.length; i++) {
+    goal.push(new Goal(data.goal[i].x, data.goal[i].y));
+  }
+  itemBox = new Item(data.item.x, data.item.y, data.item.xv, data.item.yv);  // 화면 넘어가면 반대편에 등장
 });
 
 socket.on("아이템생성하거라", (data) => {    // 생성은 되지만 그리기는 되지 않았음
   console.log("아이템 좌표 : " + data);
-  //itemBox = new Item(data);
+  
+  itemBox = new Item(data);
 });
 socket.on("돈을 생성하거라", (data) => {    // 생성은 되지만 그리기는 되지 않았음
   console.log(`돈 좌표 + ${data}`)
-  //goal.push(new Goal(data));
+  goal.push(new Goal(data));
 });
 
 socket.on("장애물 생성하거라", (data) => {    // 생성은 되지만 그리기는 되지 않았음
@@ -90,7 +92,7 @@ socket.on("장애물 생성하거라", (data) => {    // 생성은 되지만 그
     console.log(`장애물 초기 좌표 : x: ${data[i].x} y : ${data[i].y} xv : ${data[i].xv} yv : ${data[i].yv}`);
   }
   
-  //roids.push(new Asteroid(data));
+  roids.push(new Asteroid(data));
 });
 
 socket.on("특수 장애물 생성하거라", (data) => {
@@ -170,13 +172,15 @@ function field_draw() {
   ctx.closePath();
 }
 
+
+
 function update() {
   field_draw();    // 바닥
   renderPlayer();  // 플레이어
-  renderItem();    // 아이템
+  // renderItem();    // 아이템
   renderGoal();    // 돈
-  renderObs();     // 장애
-  edge_draw();     // 벽
+  // renderObs();     // 장애
+  // edge_draw();     // 벽
 }
 
 function leaveUser(id) {
