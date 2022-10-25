@@ -90,9 +90,11 @@ socket.on("돈을 생성하거라", (data) => {    // 생성은 되지만 그리
 socket.on("장애물 생성하거라", (data) => {    // 생성은 되지만 그리기는 되지 않았음
   for (let i = 0; i < data.length; i++) {
     console.log(`장애물 초기 좌표 : x: ${data[i].x} y : ${data[i].y} xv : ${data[i].xv} yv : ${data[i].yv}`);
+
+    roids.push(new Asteroid(data[i].x, data[i].y, data[i].xv, data[i].yv));
   }
   
-  roids.push(new Asteroid(data));
+  // roids.push(new Asteroid(data));
 });
 
 socket.on("특수 장애물 생성하거라", (data) => {
@@ -177,9 +179,11 @@ function field_draw() {
 function update() {
   field_draw();    // 바닥
   renderPlayer();  // 플레이어
-  // renderItem();    // 아이템
+  renderItem();    // 아이템
+  moveItem();      // 아이템이 지속적으로 이동
   renderGoal();    // 돈
-  // renderObs();     // 장애
+  renderObs();     // 장애
+  moveObs();       // 장애물이 지속적으로 이동
   // edge_draw();     // 벽
 }
 

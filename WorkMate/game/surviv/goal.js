@@ -23,9 +23,9 @@ function renderGoal()
       G.image,
       G.x - G.radius,
       G.y - G.radius,
-      40,
-      40
-    ); // 크기는 40, 40
+      65,
+      65
+    ); // 크기는 65, 65
 
     ctx.closePath();
   }

@@ -26,9 +26,9 @@ module.exports = (io, socket, room) => {
     for(let i = 0; i < 10; i++) {
       XYV.push({x : Math.floor(Math.random() * (1500-400)) + 400,
                 y : Math.floor(Math.random() * (800-100)) + 100,
-                xv : Math.floor(Math.random() * 10 * (Math.random() < 0.5 ? 1 : -1)),
-                yv : Math.floor(Math.random() * 10 * (Math.random() < 0.5 ? 1 : -1))
-               })
+                xv : Math.floor(Math.random() * (5 - 1) + 1) * (Math.random() < 0.5 ? 1 : -1),
+                yv : Math.floor(Math.random() * (5 - 1) + 1) * (Math.random() < 0.5 ? 1 : -1)
+               }) // 난수 설정하는 부분은 나중에 메서드 형식으로 따로 만들어서 관리하는게 좋을듯 하다.
     }
     return XYV;
   }
@@ -36,8 +36,8 @@ module.exports = (io, socket, room) => {
   function itemXYV () {
     let item = {x : Math.floor(Math.random() * (1500-400)) + 400,
                 y :  Math.floor(Math.random() * (800-100)) + 100,
-                xv : Math.floor(Math.random() * 10 * (Math.random() < 0.5 ? 1 : -1)),
-                yv : Math.floor(Math.random() * 10 * (Math.random() < 0.5 ? 1 : -1))
+                xv : Math.floor(Math.random() * (5 - 1) + 1) * (Math.random() < 0.5 ? 1 : -1),
+                yv : Math.floor(Math.random() * (5 - 1) + 1) * (Math.random() < 0.5 ? 1 : -1)
                }
     return item;
   }
