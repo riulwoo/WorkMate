@@ -1,7 +1,7 @@
-function Goal(id, x, y) {
+function Goal(x, y) { // id, x, y
   // 서버랑 같이
-  this.radius = 13;
-  this.id = id;
+  this.radius = 20;
+  // this.id = id; // id 값이 꼭 있어야해?????
   this.x = x;
   this.y = y;
   this.image = new Image();
