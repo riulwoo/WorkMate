@@ -102,7 +102,7 @@ socket.on('gamestart', function(data) {
 
 socket.on('go-result', (data) => {
   sortedScore = data.sort((a,b) => {
-    return a.score - b.score;
+    return b.score - a.score;
   });
   $('#main').load('/result');
 })
