@@ -140,18 +140,16 @@ body
   display : flex;
   justify-content : space-around;
 }
-
-
-  #ready{
-    display : none;
-  }
+#ready{
+  display : none;
+}
 .slot
 {
   border: 1px solid black;
   border-radius: 3px;
   height: 100%;
   width: 15%;
-  background : #FFFFFF;
+  background-Color : rgb(255, 255, 255);
 }
 
 .in_slot_name
