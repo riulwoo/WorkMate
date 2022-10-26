@@ -35,9 +35,6 @@ croomBtn.addEventListener("click", function () {
   });
 })
 
-function ready() {
-  
-}
 
 jroomBtn.addEventListener('click', function () {
   console.log('join room 눌림');
