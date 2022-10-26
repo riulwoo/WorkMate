@@ -99,17 +99,16 @@ socket.on('레디유저', function(Id) {
   for (let i = 0; i < ids.length; i++) {
     if(ids[i].textContent == Id)
     {
-      if(slot[i].style.backgroundColor == "#FFF"){
-        console.log("샊갈 : " + slot[i].style.backgroundColor);
-        slot[i].style.backgroundColor = "#FFF555";
+      if(slot[i].style.background == "#FFFFFF"){
+        console.log("샊갈 : " + slot[i].style.background);
+        slot[i].style.background = "#FFF555";
         readyCount++;
         console.log("이으잉"+readyCount);
       }
       else {
-        slot[i].style.backgroundColor = "#FFF";
+        slot[i].style.background = "#FFFFFF";
         readyCount--;
         console.log(readyCount);
-        console.log("이으잉"+readyCount);
       }
     }
   }
