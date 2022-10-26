@@ -1,48 +1,44 @@
-
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="result.css">
-    <script src="result.js"></script>
+    <link rel="stylesheet" type="text/css" href="resultpage/result.css">
     <title>게임 마지막 결과 페이지</title>
 </head>
 <body>
     <div class = "rank_box">
-    <h1>최종 결과</h1>
-    <p> 등수&nbsp;&nbsp;&nbsp;  
-    이름#코드&nbsp;&nbsp;&nbsp;
-    총점수</p>
+    <div class = "title">최종 결과</div>
+    <p> <span class="ranking">등수</span> <span class="names">이름</span> <span class="scores">총점수</span> </p>
 
-    <p> 1등&nbsp;&nbsp;&nbsp; 홍길동#132&nbsp;&nbsp;&nbsp; 320</p>
-    <p> 2등&nbsp;&nbsp;&nbsp; 홍길동#132&nbsp;&nbsp;&nbsp; 320</p>
-    <p> 3등&nbsp;&nbsp;&nbsp; 홍길동#132&nbsp;&nbsp;&nbsp; 320</p>
-    <p> 4등&nbsp;&nbsp;&nbsp; 홍길동#132&nbsp;&nbsp;&nbsp; 320</p>
-    <p> 5등&nbsp;&nbsp;&nbsp; 홍길동#132&nbsp;&nbsp;&nbsp; 320</p>
-    <p> 6등&nbsp;&nbsp;&nbsp; 홍길동#132&nbsp;&nbsp;&nbsp; 320</p>
+    <p> <span class="rank">1등</span> <span class="name"></span> <span class="score"></span></p>
+    <p> <span class="rank">2등</span> <span class="name"></span> <span class="score"></span></p>
+    <p> <span class="rank">3등</span> <span class="name"></span> <span class="score"></span></p>
+    <p> <span class="rank">4등</span> <span class="name"></span> <span class="score"></span></p>
+    <p> <span class="rank">5등</span> <span class="name"></span> <span class="score"></span></p>
+    <p> <span class="rank">6등</span> <span class="name"></span> <span class="score"></span></p>
 
 
         <div class="winner_box1">
-            <h2>최우수 사원</h2>
-            <div class="img">
-            </div>
+            <span class = "toprank">최우수 사원</span>
+            <div class="img"></div>
+            <div id="first"></div>
         </div>
     
         <div class="winner_box2">
-            <h2>우수사원</h2>
-            <div class="img">
-            </div>
-            
+            <span class="toprank">우수사원</span>
+            <div class="img"></div>
+            <div id="second"></div>
         </div>
     
         <div class="winner_box3">
-            <h2>장려 사원</h2>
-            <div class="img">
-            </div>
+            <span class = "toprank">장려 사원</span>
+            <div class="img"></div>
+          <div id="third"></div>
         </div>
-        <div class="btn_box" onclick="location.href='../box/box.html'">
+        <div class="btn_box" onclick="location.reload()">
             <span>메인으로</span>
         </div>
     </div>
 </body>
+   <script src="resultpage/result.js"></script>
 </html>
