@@ -100,12 +100,12 @@ socket.on('레디유저', function(Id) {
     if(ids[i].textContent == Id)
     {
       console.log(Id);
-      if(slot[i].style.background == "#FFF"){
-        slot[i].style.background = "#151515";
+      if(slot[i].style.backgroundColor == "#FFF"){
+        slot[i].style.backgroundColor = "#FFF555";
         readyCount++;
       }
       else {
-        slot[i].style.background = "#FFF";
+        slot[i].style.backgroundColor = "#FFF";
         readyCount--;
       }
     }
