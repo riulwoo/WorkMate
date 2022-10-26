@@ -3,6 +3,7 @@ var cancelBtn = document.getElementById("matchcancel"); //방나가기 / 매치 
 var croomBtn = document.getElementById("createroom"); //방만들기 버튼 
 var jroomBtn = document.getElementById("joinroom"); //방 입장 버튼
 var start = document.getElementById("start"); //게임 시작 버튼
+var ready = document.getElementById("ready"); //게임 준비완료 버튼
 var nickName = document.getElementById("nick"); // 닉네임
 var rmCodeTxt = document.getElementById("roomcode"); // 입력받은 룸 코드
 let adminCode = document.getElementById("adminCode");
@@ -59,6 +60,7 @@ socket.on('joinsuccess', (data)=>{
   document.getElementById('ready').display = none;
 })
 
+
 socket.on('joinfail', ()=>{
   alert('올바른 코드를 입력해주세요!');
   toggleRoom();
@@ -68,6 +70,8 @@ socket.on('joinfail', ()=>{
 start.addEventListener("click", function () {
   socket.emit('startgame', myId);
 })
+
+
 
 cancelBtn.addEventListener("click",function () {
   socket.emit("matchcancel", myId);
