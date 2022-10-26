@@ -95,9 +95,9 @@ socket.on('matchfail', function(data) {
 
 socket.on('레디유저', function(Id) {
   ids = document.querySelectorAll('.in_slot_hide');
-  console.log(ids);
+  console.log(ids[1].innerText);
   for (let i = 0; i < ids.length; i++) {
-    if(ids[i].innerText == Id)
+    if(ids[i].value == Id)
     {
       console.log(Id);
       if(slot[i].style.background == "#FFF"){
