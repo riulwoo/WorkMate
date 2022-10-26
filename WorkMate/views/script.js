@@ -100,7 +100,7 @@ socket.on('레디유저', function(Id) {
     if(ids[i].textContent == Id)
     {
       if(slot[i].style.backgroundColor == "#FFF"){
-        console.log("샊갈 "slot[i].style.backgroundColor);
+        console.log("샊갈 : " + slot[i].style.backgroundColor);
         slot[i].style.backgroundColor = "#FFF555";
         readyCount++;
         console.log("이으잉"+readyCount);
@@ -109,6 +109,7 @@ socket.on('레디유저', function(Id) {
         slot[i].style.backgroundColor = "#FFF";
         readyCount--;
         console.log(readyCount);
+        console.log("이으잉"+readyCount);
       }
     }
   }
