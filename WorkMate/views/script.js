@@ -9,6 +9,7 @@ var rmCodeTxt = document.getElementById("roomcode"); // 입력받은 룸 코드
 let adminCode = document.getElementById("adminCode");
 let slot = document.querySelectorAll(".slot");
 let admin = document.getElementById("admin");
+let ids;
 var roomId = '';
 var a = 1;
 var myId;
@@ -18,6 +19,7 @@ let playermap = [];      //순차적인 인덱스
 let playerinfo;          // 게임에 쓸 플레이어 정보
 let finalscore;          // 마지막 라운드에 전송할 점수 변수(게임이 종료될 때마다 그 게임에서의 점수 누적)
 let sortedScore = [];
+let readyCount = 0;
 
 matchBtn.addEventListener("click", match);
 
@@ -36,6 +38,9 @@ croomBtn.addEventListener("click", function () {
   });
 })
 
+ready.addEventListener('click', function () {
+  socket.emit('ready', myId)
+})
 
 jroomBtn.addEventListener('click', function () {
   console.log('join room 눌림');
@@ -68,10 +73,11 @@ socket.on('joinfail', ()=>{
 })
 
 start.addEventListener("click", function () {
-  socket.emit('startgame', myId);
+  if(readyCount == 0) return;
+  else if(readyCount == ids.Length - 1)
+    socket.emit('startgame', myId);
+  else return;
 })
-
-
 
 cancelBtn.addEventListener("click",function () {
   socket.emit("matchcancel", myId);
@@ -81,6 +87,23 @@ cancelBtn.addEventListener("click",function () {
 
 socket.on('matchfail', function(data) {
  document.getElementById('match-text').innerText = "매칭 중인 인원이 없습니다.";
+})
+
+socket.on('레디유저', function(Id) {
+  ids = document.querySelectorAll('.in_slot_hide');
+  for (let i = 0; i < ids.length; i++) {
+    if(ids[i].innerText == Id)
+    {
+      if(slot[i].style.background == "#FFF"){
+        slot[i].style.background == "#151515";
+        readyCount++;
+      }
+      else {
+        slot[i].style.background == "#FFF";
+        readyCount--;
+      }
+    }
+  }
 })
 
 socket.on('user_id', function(data){

@@ -173,5 +173,10 @@ module.exports = (io, socket, room) => {
         room[index].cnt = 0;
       }
     }
+  });
+
+  socket.on('ready', (id)=> {
+    const index = getRoomIndex(id);
+    io.to(room[index].roomCode).emit('레디유저', id);
   })
 };
