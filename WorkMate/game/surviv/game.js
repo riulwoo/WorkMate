@@ -88,13 +88,7 @@ socket.on("돈을 생성하거라", (data) => {    // 생성은 되지만 그리
 });
 
 socket.on("장애물 생성하거라", (data) => {    // 생성은 되지만 그리기는 되지 않았음
-  for (let i = 0; i < data.length; i++) {
-    console.log(`장애물 초기 좌표 : x: ${data[i].x} y : ${data[i].y} xv : ${data[i].xv} yv : ${data[i].yv}`);
-
-    roids.push(new Asteroid(data[i].x, data[i].y, data[i].xv, data[i].yv));
-  }
-  
-  // roids.push(new Asteroid(data));
+    roids.push(new Asteroid(data.x, data.y, data.xv, data.yv, data.type));
 });
 
 socket.on("특수 장애물 생성하거라", (data) => {

@@ -1,36 +1,70 @@
-const howmany = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+let enemyInterval;
+
 module.exports = (io, socket, room) => {
   function getIndex(id) {
     return room.findIndex((e) => e.userid.includes(id));
   }
 
-  const cycle = (index) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        let obstacle = obstacleXYV();
-        io.to(room[index].roomCode).emit(
-          "장애물 생성하거라", obstacle);
-        resolve();
-      }, 12000);
-    });
-  };
-  
-  const sendAsteroid = async (index) => {
-    for await (var i of howmany) {
-      await cycle(index);
-    }
-  };
+  function sendAsteroid(userRoomIndex) {
+    let time = 0;
+    enemyInterval = setInterval((userRoomIndex) => {
+      obstacle(userRoomIndex);
+      time += 1;
+      if(time >= 180) {
+        clearInterval(enemyInterval);
+        io.to(room[userRoomIndex].roomCode).emit("살아남기 게임끝");
+      }
+    }, 1000)
+  }
 
-  function obstacleXYV() {
-    let XYV = [];
-    for(let i = 0; i < 10; i++) {
-      XYV.push({x : Math.floor(Math.random() * (1500-400)) + 400,
-                y : Math.floor(Math.random() * (800-100)) + 100,
-                xv : Math.floor(Math.random() * (5 - 1) + 1) * (Math.random() < 0.5 ? 1 : -1),
-                yv : Math.floor(Math.random() * (5 - 1) + 1) * (Math.random() < 0.5 ? 1 : -1)
-               }) // 난수 설정하는 부분은 나중에 메서드 형식으로 따로 만들어서 관리하는게 좋을듯 하다.
-    }
-    return XYV;
+  function obstacle(userRoomIndex) {
+    leftObastacle(userRoomIndex);
+    rightObastacle(userRoomIndex);
+    upObastacle(userRoomIndex);
+    downObastacle(userRoomIndex);
+    leftObastacle(userRoomIndex);
+    rightObastacle(userRoomIndex);
+    upObastacle(userRoomIndex);
+    downObastacle(userRoomIndex);  }
+// 보낼 좌표값 : x y 시작좌표 , xv yv 이동 속도 , 이미지 타입 0~2번
+  function rightObastacle(userRoomIndex) {
+    io.to(room[userRoomIndex].emit("장애물 생성하거라"), {
+      x : 1600,
+      y : Math.floor(Math.random() * 950),
+      xv : Math.floor(Math.random() * (3 - 1) + 1) * (-1),
+      yv : Math.floor(Math.random() * (3 - 1) + 1) * (Math.random() < 0.5 ? 1 : -1),
+      type : Math.floor(Math.random() * 2)
+    })
+  }
+
+  function upObastacle(userRoomIndex) {
+      io.to(room[userRoomIndex].emit("장애물 생성하거라"), {
+      x : Math.floor(Math.random() * (1500 - 100)) + 100,
+      y : 0,
+      xv : Math.floor(Math.random() * (3 - 1) + 1) * (Math.random() < 0.5 ? 1 : -1),
+      yv : Math.floor(Math.random() * (3 - 1) + 1),
+      type : Math.floor(Math.random() * 2)
+    })
+  }
+  
+  function leftObastacle(userRoomIndex) {
+      io.to(room[userRoomIndex].emit("장애물 생성하거라"), {
+      x : 1600,
+      y : Math.floor(Math.random() * 950),
+      xv : Math.floor(Math.random() * (3 - 1) + 1),
+      yv : Math.floor(Math.random() * (3 - 1) + 1) * (Math.random() < 0.5 ? 1 : -1),
+      type : Math.floor(Math.random() * 2)
+    })
+  }
+  
+  function downObastacle(userRoomIndex) {
+      io.to(room[userRoomIndex].emit("장애물 생성하거라"), {
+      x : Math.floor(Math.random() * (1500 - 100)) + 100,
+      y : 950,
+      xv : Math.floor(Math.random() * (3 - 1) + 1) * (Math.random() < 0.5 ? 1 : -1),
+      yv : Math.floor(Math.random() * (3 - 1) + 1) * (-1),
+      type : Math.floor(Math.random() * 2)
+    })
   }
   
   function itemXYV () {

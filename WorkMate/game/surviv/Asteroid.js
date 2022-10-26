@@ -1,11 +1,10 @@
-function Asteroid(x, y, xv, yv) {
+function Asteroid(x, y, xv, yv, type) {
   // 서버랑 같이
   this.x = x;
   this.y = y;
   this.xv = xv;
   this.yv = yv;
   this.radius = 45;
-
   this.image = new Image();
   
   // 이미지 종류 : 복사기, 문서더미, 노트북
@@ -15,7 +14,7 @@ function Asteroid(x, y, xv, yv) {
     "https://cdn.discordapp.com/attachments/980090904394219562/1026201836232913006/card_laptop.png",
   ];
 
-  this.image.src = this.asset[Math.floor(Math.random() * 2)];
+  this.image.src = this.asset[type];
   // 클라이언트마다 이미지 에셋이 다르게 출력됨.
   // 매개변수에 asset을 추가하고, 서버에서 인덱스를 지정해 뿌려줘야 할듯.
 }
@@ -45,7 +44,11 @@ function moveObs()
     let R = roids[i];
     // Asteroid will move in field.
 
-    R.x += R.xv;
-    R.y += R.yv;
+      R.x += R.xv;
+      R.y += R.yv;
+    
+    if (R.x < -100 || R.x > 1900 || R.y < -100 || R.y > 1000){
+    Rs.splice(i,1);
   }
+  // roids.splice 화면 밖으로 나간 장애물 삭제
 }
