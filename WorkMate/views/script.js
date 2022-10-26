@@ -101,11 +101,11 @@ socket.on('레디유저', function(Id) {
     {
       console.log(Id);
       if(slot[i].style.background == "#FFF"){
-        slot[i].style.background == "#151515";
+        slot[i].style.background = "#151515";
         readyCount++;
       }
       else {
-        slot[i].style.background == "#FFF";
+        slot[i].style.background = "#FFF";
         readyCount--;
       }
     }
