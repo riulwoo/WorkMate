@@ -99,9 +99,8 @@ socket.on('레디유저', function(Id) {
   for (let i = 0; i < ids.length; i++) {
     if(ids[i].textContent == Id)
     {
-      console.log("샊갈 : " + slot[i].style.backgroundColor);
-      if(slot[i].style.backgroundColor == "rgb(255, 255, 255)") {
-        console.log("샊갈 : " + slot[i].style.background);
+      let color = window.getComputedStyle(slot[i]).backgroundColor;
+      if(color == "rgb(255, 255, 255)") {
         slot[i].style.backgroundColor = "#FFF555";
         readyCount++;
         console.log("이으잉"+readyCount);
