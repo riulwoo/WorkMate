@@ -56,8 +56,8 @@ jroomBtn.addEventListener('click', function () {
 socket.on('joinsuccess', (data)=>{
   adminCode.innerText = data.roomcode;
   addPlayer(data.usernick, data.userid);
-  start.display = block;
-  document.getElementById('ready').display = none;
+  start.display = none;
+  document.getElementById('ready').display = block;
 })
 
 
