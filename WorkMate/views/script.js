@@ -103,12 +103,10 @@ socket.on('레디유저', function(Id) {
       if(color == "rgb(255, 255, 255)") {
         slot[i].style.backgroundColor = "#FFF555";
         readyCount++;
-        console.log("이으잉"+readyCount);
       }
       else {
         slot[i].style.backgroundColor = "#FFFFFF";
         readyCount--;
-        console.log(readyCount);
       }
     }
   }
