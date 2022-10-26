@@ -56,13 +56,14 @@ jroomBtn.addEventListener('click', function () {
     nick : nickName,
     score : 0
   }); 
+  
+  start.style.display = 'none';
+  ready.style.display = 'block';
 })
 
 socket.on('joinsuccess', (data)=>{
   adminCode.innerText = data.roomcode;
   addPlayer(data.usernick, data.userid);
-  start.style.display = 'none';
-  ready.style.display = 'block';
 })
 
 
@@ -70,6 +71,9 @@ socket.on('joinfail', ()=>{
   alert('올바른 코드를 입력해주세요!');
   toggleRoom();
   toggleRoom2();
+  
+  start.style.display = 'block';
+  ready.style.display = 'none';
 })
 
 start.addEventListener("click", function () {
