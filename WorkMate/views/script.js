@@ -99,7 +99,8 @@ socket.on('레디유저', function(Id) {
   for (let i = 0; i < ids.length; i++) {
     if(ids[i].textContent == Id)
     {
-      if(slot[i].style.background == "#FFFFFF"){
+      console.log("샊갈 : " + slot[i].style.background);
+      if(slot[i].style.background == "rgb(255, 255, 255)") {
         console.log("샊갈 : " + slot[i].style.background);
         slot[i].style.background = "#FFF555";
         readyCount++;
