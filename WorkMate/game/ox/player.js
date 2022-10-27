@@ -1,6 +1,5 @@
 function renderPlayer() {
   // rendering a player. 플레이어를 렌더링합니다.
-    let direction;
     // 모든 플레이어를 그리는 코드
     for (let i = 0; i < playermap.length; i++) {
           let ball = playermap[i];
@@ -15,32 +14,71 @@ function renderPlayer() {
       // 플레이어 이동 
     if (!is_end && !is_checking)
     {
-        if (rightPressed) {
-            direction = 3;
-            curPlayer.player.src = curPlayer.asset[direction];
-            curPlayer.x += playerSpeed;
-            sendData(curPlayer, direction);
-        }
-          
-        else if (leftPressed) {
-            direction = 1;
-            curPlayer.player.src = curPlayer.asset[direction];
-            curPlayer.x -= playerSpeed;
-            sendData(curPlayer, direction);
-        }
-
-        if (upPressed) {
-            direction = 2;
-            curPlayer.player.src = curPlayer.asset[direction];
+        if (rightPressed){
+          curPlayer.direction = 3;
+            if (upPressed) {
+            curPlayer.direction = 7;
             curPlayer.y -= playerSpeed;
-            sendData(curPlayer, direction);
+            }
+            else if (downPressed) {
+            curPlayer.direction = 6;
+            curPlayer.y += playerSpeed;
+            }
+          curPlayer.ismove = true;
+          curPlayer.player.src = moveeffect(curPlayer);
+          curPlayer.x += playerSpeed;
+          sendData(curPlayer);
+        }
+    else if(upPressed){
+      curPlayer.direction = 2;
+        if (rightPressed) {
+          curPlayer.direction = 7;
+          curPlayer.x += playerSpeed;
+        }
+        else if (leftPressed) {
+          curPlayer.direction = 5;
+          curPlayer.x -= playerSpeed;
+        }
+      curPlayer.ismove = true;
+      curPlayer.player.src = moveeffect(curPlayer);
+      curPlayer.y -= playerSpeed;
+      sendData(curPlayer);
+    }
+    else if (leftPressed){
+      curPlayer.direction = 1;
+        if (upPressed) {
+          curPlayer.direction = 5;
+        curPlayer.y -= playerSpeed;
         }
         else if (downPressed) {
-            direction = 0;
-            curPlayer.player.src = curPlayer.asset[direction];
-            curPlayer.y += playerSpeed;
-            sendData(curPlayer, direction);
+          curPlayer.direction = 4;
+        curPlayer.y += playerSpeed;
         }
+      curPlayer.ismove = true;
+      curPlayer.player.src = moveeffect(curPlayer);
+      curPlayer.x -= playerSpeed;
+      sendData(curPlayer);
+    }
+    else if(downPressed){
+      curPlayer.direction = 0;
+        if (rightPressed) {
+          curPlayer.direction = 6;
+        curPlayer.x += playerSpeed;
+        }
+        else if (leftPressed) {
+          curPlayer.direction = 4;
+        curPlayer.x -= playerSpeed;
+        }
+      curPlayer.ismove = true;
+      curPlayer.player.src = moveeffect(curPlayer);
+      curPlayer.y += playerSpeed;
+      sendData(curPlayer);
+    }
+    else
+    {
+      curPlayer.player.src = curPlayer.asset[curPlayer.direction]
+      curPlayer.ismove = false;
+    }
       }
   
     // collision detection of player. 플레이어가 문제 출력 영역으로 이동하지 못하도록 충돌을 감지합니다.
@@ -87,12 +125,15 @@ function ox_player(id, nick)
         this.nick = nick;
     }
 
-    this.asset = [ // 플레이어 이동 시 출력 될 이미지.
-        // 순서대로 정면(방향키 아래), 좌측, 후면(방향키 위), 우측 
-        'https://cdn.discordapp.com/attachments/980090904394219562/1004271208226881606/1.png',
-        'https://cdn.discordapp.com/attachments/980090904394219562/1004271240271376385/4.png',
-        'https://cdn.discordapp.com/attachments/980090904394219562/1004271284735193139/4.png',
-        'https://cdn.discordapp.com/attachments/980090904394219562/1004271430722146345/3.png'
+    this.asset = [
+    'https://cdn.discordapp.com/attachments/980090904394219562/1026451716855582750/dd_17.png', // 아래
+    'https://cdn.discordapp.com/attachments/980090904394219562/1026451526304137217/gg_12.png', // 왼쪽
+    'https://cdn.discordapp.com/attachments/980090904394219562/1026451443055607838/gg_05.png', // 위
+    'https://cdn.discordapp.com/attachments/980090904394219562/1026451573129367592/gg_13.png', // 오른
+    'https://cdn.discordapp.com/attachments/980090904394219562/1026451629450481664/gg_16.png', // 왼아래
+    'https://cdn.discordapp.com/attachments/980090904394219562/1026451379939717130/dd_03.png', // 왼위
+    'https://cdn.discordapp.com/attachments/980090904394219562/1026451865224884234/gg_18.png', // 오른아래
+    'https://cdn.discordapp.com/attachments/980090904394219562/1026451494075125800/gg_07.png'  // 오른위
     ];
 
     this.color = "#FF00FF";
@@ -104,4 +145,9 @@ function ox_player(id, nick)
 
     // 판정 관련
     this.is_O;
+
+    // 이동 관련
+    this.ismove = false;
+    this.cnt = 0;
+    this.direction = 0;
 }

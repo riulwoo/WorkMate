@@ -123,26 +123,31 @@ function leaveUser(id){
 socket.on('leave_user', function(data){
     leaveUser(data);
 })
-function updateState(id, x, y, direction) {
+function updateState(id, x, y, direction,ismove,cnt) {
     let ball = players[id];
     if (!ball) {
         return;
     }
     ball.x = x;
     ball.y = y;
-    ball.player.src = ball.asset[direction];
+    ball.direction = direction;
+    ball.ismove = ismove;
+    ball.cnt = cnt;
+    ball.player.src = ball.ismove ? moveeffect(ball) : ball.asset[ball.direction];
 }
 socket.on('update_state', function (data) {
     updateState(data.id, data.x, data.y, data.direction);
 })
 
-function sendData(curPlayer, direction) {
+function sendData(curPlayer) {
       let data = {};
       data = {
           id : curPlayer.id,
           x: curPlayer.x,
           y: curPlayer.y,
-          direction : direction
+          direction : curPlayer.direction,
+          ismove : curPlayer.ismove,
+          cnt : curPlayer.cnt
       };
       if(data){
           socket.emit("send_location", data);

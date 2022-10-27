@@ -77,6 +77,7 @@ socket.on('joinfail', ()=>{
 })
 
 start.addEventListener("click", function () {
+  ids = document.querySelectorAll('.in_slot_hide');
   console.log("레디카운트" + readyCount + " ids 길이 : " + ids.Length);
   if(readyCount == 0) console.log("혼자있어서 안됌");
   else if(readyCount == ids.Length - 1) {
@@ -262,4 +263,9 @@ function getMyIndex(id) {
       }
     }
   return index;
+}
+
+function moveeffect(curPlayer) {
+      let moveimage = Math.floor(curPlayer.cnt++ / 4 % 4) ;
+      return moveasset[curPlayer.direction][moveimage];
 }
