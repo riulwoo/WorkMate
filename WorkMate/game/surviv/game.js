@@ -68,23 +68,25 @@ func_lding().then(() => {
 
 socket.on("게임수타투", (data) => {
   is_counting = true;
-  console.log("골 초기 좌표 : " + data.goal[0].x + " "+ data.goal[1].y);
-  console.log(`아이템 초기 좌표 : x: ${data.item.x} y : ${data.item.y} xv : ${data.item.xv} yv : ${data.item.yv}`);
+  console.log("골 초기 좌표 : " + data[0].x + " "+ data[1].y);
+  console.log(`아이템 초기 좌표 : x: ${data.x} y : ${data.y} xv : ${data.xv} yv : ${data.yv}`);
   
-  for (let i = 0; i < data.goal.length; i++) {
-    goal.push(new Goal(data.goal[i].x, data.goal[i].y));
+  for (let i = 0; i < data.length; i++) {
+    goal.push(new Goal(data[0][i].x, data[0][i].y));
   }
-  itemBox = new Item(data.item.x, data.item.y, data.item.xv, data.item.yv);  // 화면 넘어가면 반대편에 등장
+  itemBox = new Item(data.x, data.y, data.xv, data.yv);  // 화면 넘어가면 반대편에 등장
 });
 
 socket.on("아이템생성하거라", (data) => {    // 생성은 되지만 그리기는 되지 않았음
   console.log("아이템 좌표 : " + data);
-  
-  itemBox = new Item(data);
+  itemBox = new Item(data.x, data.y, data.xv, data.yv);
 });
+
 socket.on("돈을 생성하거라", (data) => {    // 생성은 되지만 그리기는 되지 않았음
   console.log(`돈 좌표 + ${data}`)
-  goal.push(new Goal(data));
+  for (let i = 0; i < data.goal.length; i++) {
+    goal.push(new Goal(data.goal[i].x, data.goal[i].y));
+  }
 });
 
 socket.on("장애물 생성하거라", (data) => {    // 생성은 되지만 그리기는 되지 않았음
@@ -167,8 +169,6 @@ function field_draw() {
   // ctx.drawImage(MAP, 0, 0);
   ctx.closePath();
 }
-
-
 
 function update() {
   field_draw();    // 바닥
