@@ -19,6 +19,7 @@ function Asteroid(x, y, xv, yv, type) {
   // 매개변수에 asset을 추가하고, 서버에서 인덱스를 지정해 뿌려줘야 할듯.
 }
 
+/** 장애물을 그림 */
 function renderObs()
 {
   for (let i = 0; i < roids.length; i++) {
@@ -38,6 +39,7 @@ function renderObs()
   }
 }
 
+/** 장애물을 움직임 */
 function moveObs()
 {
   for (let i = 0; i < roids.length; i++) {
@@ -48,8 +50,29 @@ function moveObs()
       R.y += R.yv;
     
     if (R.x < -100 || R.x > 1900 || R.y < -100 || R.y > 1000){
-    Rs.splice(i,1);
+      Rs.splice(i,1);
+    } // roids.splice 화면 밖으로 나간 장애물 삭제
+  }
+  
+}
+
+/** 장애물에 충돌하면 플레이어가 기절함 */
+function distObs()
+{
+  if (player.stunsec <= 0)
+  {
+    let px = myplayer.x;
+    let py = myplayer.y;
+    let ax;
+    let ay;
+
+    for (let i = 0; i < roids.length; i++) {
+      ax = roids[i].x + roids[i].radius;
+      ay = roids[i].y + roids[i].radius;
+
+      if (distBetweenPoints(px, py, ax, ay) < roids[i].radius + myplayer.radius) {
+        myplayer.stunsec = Math.ceil(PLAYER_STUN_DUR * FPS);
+      }
     }
   }
-  // roids.splice 화면 밖으로 나간 장애물 삭제
 }

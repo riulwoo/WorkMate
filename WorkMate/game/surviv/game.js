@@ -204,11 +204,20 @@ function score_draw() {
     );
     ctx.closePath();
 }
+
 /** 플레이어가 기절에 걸렸을 때, 지속시간이 감소되도록 하는 메서드. */
 function stun_flow()
 {
-	if (players[myId].stun_sec > 0)	players[myId].stun_sec--;
+	if (players[myId].stun_sec > 0)	
+  {
+    ctx.fillStyle = "red";
+    ctx.font = '120px DungGeunMo';
+    ctx.textAlign = "center";
+    ctx.fillText("stuned!!", WIDTH / 2, HEIGHT / 2 - 160);
+    players[myId].stun_sec--;
+  }
 }
+
 function update() {
   field_draw();    // 바닥
   // edge_draw();     // 벽
@@ -233,6 +242,7 @@ function update() {
     renderGoal();    // 돈
     renderObs();     // 장애
     moveObs();       // 장애물이 지속적으로 이동
+    distObs();
     stun_flow();
   }
   end_draw();

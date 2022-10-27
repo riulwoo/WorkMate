@@ -4,7 +4,7 @@ function Item(x, y, xv, yv) {
   this.y = y;
   this.xv = xv;
   this.yv = yv;
-  this.type = Math.floor(Math.random() * 3);
+  this.type = Math.floor(Math.random() * (3 - 1) + 1);
 
   this.effect = () => {
     if (this.type == 0) {
@@ -64,5 +64,18 @@ function moveItem()
   }
   else if (itemBox.y > HEIGHT + itemBox.radius) {
     itemBox.y = 0 - itemBox.radius;
+  }
+}
+
+/** 아이템 상자와 플레이어가 닿음을 감지하는 메서드 */
+function distItem()
+{
+  let px = myplayer.x;
+  let py = myplayer.y;
+  let ix = itemBox.x + itemBox.radius;
+  let iy = itemBox.y + itemBox.radius;
+
+  if (distBetweenPoints(px, py, ix, iy) < itemBox.radius + myplayer.radius) {
+    myplayer.itemPocket = itemBox.type;
   }
 }

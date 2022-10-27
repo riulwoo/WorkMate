@@ -25,7 +25,8 @@ module.exports = (io, socket, room) => {
     leftObastacle(index);
     rightObastacle(index);
     upObastacle(index);
-    downObastacle(index);  }
+    downObastacle(index);
+  }
 // 보낼 좌표값 : x y 시작좌표 , xv yv 이동 속도 , 이미지 타입 0~2번
   function rightObastacle(index) {
     io.to(room[index].emit("장애물 생성하거라"), {
@@ -95,8 +96,8 @@ module.exports = (io, socket, room) => {
     let wLocation = Math.floor(Math.random() * 4);
     let cLocation = CLocation();
     let v = Math.floor(Math.random() * (3 - 1) + 1);
-    for(int i = 0; i < 2; i++) {
-      if(i == 1) cLocation =
+    for(let i = 0; i < 2; i++) {
+      if(i == 1) cLocation = CLocation();
       if(location == 0) {    // 왼쪽 벽에서 생성 
         io.to(room[index].roomCode).emit('특수 장애물 생성하거라', {
           x : 100,
