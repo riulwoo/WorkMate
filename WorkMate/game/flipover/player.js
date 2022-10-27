@@ -16,30 +16,69 @@ function renderPlayer() {
     if (players[myId].stun_sec <= 0)
     {
       if (rightPressed) {
-        direction = 3;
-        curPlayer.player.src = curPlayer.asset[direction];
+        curPlayer.direction = 3;
+          if (upPressed) {
+          curPlayer.direction = 7;
+          curPlayer.y -= playerSpeed;
+          }
+          else if (downPressed) {
+          curPlayer.direction = 6;
+          curPlayer.y += playerSpeed;
+          }
+        curPlayer.ismove = true;
+        curPlayer.player.src = moveeffect(curPlayer);
         curPlayer.x += playerSpeed;
-        sendData(curPlayer, direction);
+        sendData(curPlayer);
       }
-
-    if (leftPressed) {
-        direction = 1;
-        curPlayer.player.src = curPlayer.asset[direction];
-        curPlayer.x -= playerSpeed;
-        sendData(curPlayer, direction);
+    else if(upPressed){
+      curPlayer.direction = 2;
+        if (rightPressed) {
+          curPlayer.direction = 7;
+          curPlayer.x += playerSpeed;
+        }
+        else if (leftPressed) {
+          curPlayer.direction = 5;
+          curPlayer.x -= playerSpeed;
+        }
+      curPlayer.ismove = true;
+      curPlayer.player.src = moveeffect(curPlayer);
+      curPlayer.y -= playerSpeed;
+      sendData(curPlayer);
     }
-
-    if (upPressed) {
-        direction = 2;
-        curPlayer.player.src = curPlayer.asset[direction];
+    else if (leftPressed){
+      curPlayer.direction = 1;
+        if (upPressed) {
+          curPlayer.direction = 5;
         curPlayer.y -= playerSpeed;
-        sendData(curPlayer, direction);
-    }
-    if (downPressed) {
-        direction = 0;
-        curPlayer.player.src = curPlayer.asset[direction];
+        }
+        else if (downPressed) {
+          curPlayer.direction = 4;
         curPlayer.y += playerSpeed;
-        sendData(curPlayer, direction);
+        }
+      curPlayer.ismove = true;
+      curPlayer.player.src = moveeffect(curPlayer);
+      curPlayer.x -= playerSpeed;
+      sendData(curPlayer);
+    }
+    else if(downPressed){
+      curPlayer.direction = 0;
+        if (rightPressed) {
+          curPlayer.direction = 6;
+        curPlayer.x += playerSpeed;
+        }
+        else if (leftPressed) {
+          curPlayer.direction = 4;
+        curPlayer.x -= playerSpeed;
+        }
+      curPlayer.ismove = true;
+      curPlayer.player.src = moveeffect(curPlayer);
+      curPlayer.y += playerSpeed;
+      sendData(curPlayer);
+    }
+    else
+    {
+      curPlayer.player.src = curPlayer.asset[curPlayer.direction]
+      curPlayer.ismove = false;
     }
     if (keyPressed && !players[myId].delay){
       choose(curPlayer);
@@ -68,17 +107,33 @@ function renderPlayer() {
     }
 }
 
-function sendData(curPlayer, direction) {
+function sendData(curPlayer) {
     let data = {};
     data = {
         id : curPlayer.id,
         x: curPlayer.x,
         y: curPlayer.y,
-        direction : direction
+        direction : curPlayer.direction,
+        ismove : curPlayer.ismove,
+        cnt : curPlayer.cnt
     };
     if(data){
         socket.emit("send_location", data);
     }
+}
+
+/** 유저 정보가 업데이트 */
+function updateState(id, x, y, direction,ismove,cnt) {
+    let ball = players[id];
+    if (!ball) {
+      return;
+    }
+    ball.x = x;
+    ball.y = y;
+    ball.direction = direction;
+    ball.ismove = ismove;
+    ball.cnt = cnt;
+    ball.player.src = ball.ismove ? moveeffect(ball) : ball.asset[ball.direction];
 }
 
 function flip_player(id, nick)
@@ -86,13 +141,17 @@ function flip_player(id, nick)
   this.id = id;
   // 플레이어 닉네임 설정
   this.nick = nick;
-  this.asset = [ // 플레이어 이동 시 출력 될 이미지.
-      // 순서대로 정면(방향키 아래), 좌측, 후면(방향키 위), 우측 
-      'https://cdn.discordapp.com/attachments/980090904394219562/1004271208226881606/1.png',
-      'https://cdn.discordapp.com/attachments/980090904394219562/1004271240271376385/4.png',
-      'https://cdn.discordapp.com/attachments/980090904394219562/1004271284735193139/4.png',
-      'https://cdn.discordapp.com/attachments/980090904394219562/1004271430722146345/3.png'
+  this.asset = [
+    'https://cdn.discordapp.com/attachments/980090904394219562/1026451716855582750/dd_17.png', // 아래
+    'https://cdn.discordapp.com/attachments/980090904394219562/1026451526304137217/gg_12.png', // 왼쪽
+    'https://cdn.discordapp.com/attachments/980090904394219562/1026451443055607838/gg_05.png', // 위
+    'https://cdn.discordapp.com/attachments/980090904394219562/1026451573129367592/gg_13.png', // 오른
+    'https://cdn.discordapp.com/attachments/980090904394219562/1026451629450481664/gg_16.png', // 왼아래
+    'https://cdn.discordapp.com/attachments/980090904394219562/1026451379939717130/dd_03.png', // 왼위
+    'https://cdn.discordapp.com/attachments/980090904394219562/1026451865224884234/gg_18.png', // 오른아래
+    'https://cdn.discordapp.com/attachments/980090904394219562/1026451494075125800/gg_07.png'
   ];
+  
   this.color = "#FF00FF";
   this.x = X / 2;
   this.y = Y / 2;
@@ -105,6 +164,12 @@ function flip_player(id, nick)
   this.firstpick = true; // true면 사용자가 현재 첫번째 선택을 하고 있다는 뜻.
   this.firstcard; // 사용자가 고른 첫 카드
   this.secondcard; // 사용자가 고른 두번째 카드
+  
   // 판정 관련
   this.matched;
+  
+  // 이동 관련
+  this.ismove = false;
+  this.cnt = 0;
+  this.direction = 0;
 }

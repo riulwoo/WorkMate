@@ -77,5 +77,7 @@ function distItem()
 
   if (distBetweenPoints(px, py, ix, iy) < itemBox.radius + myplayer.radius) {
     myplayer.itemPocket = itemBox.type;
+
+    socket.emit("아이템 먹었대요", myId);
   }
 }

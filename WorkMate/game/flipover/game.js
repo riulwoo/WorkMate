@@ -172,16 +172,6 @@ socket.on('leave_user', function(data){
   leaveUser(data);
 })
 
-/** 유저 정보가 업데이트 */
-function updateState(id, x, y, direction) {
-    let ball = players[id];
-    if (!ball) {
-      return;
-    }
-    ball.x = x;
-    ball.y = y;
-    ball.player.src = ball.asset[direction];
-}
 socket.on('update_state', function (data) {
   updateState(data.id, data.x, data.y, data.direction);
 })
