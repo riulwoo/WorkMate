@@ -87,63 +87,101 @@ module.exports = (io, socket, room) => {
     return goal;
   }
 
-  function CLocation(wLC, oldLC) {
-    if(wLC == 0 || wLC == 1) {
-      if(oldLC == null) return Math.floor(Math.random() * (710 - 80)) + 80;
-      else if(oldLC <= 290) return oldLC + 210
-      else if(oldLC >= 500) return Math.floor(Math.random() * (200 - 90)) + 90;
-    } 
-    if(wLC == 2 || wLC == 3) {
-      if(oldLC == null) return Math.floor(Math.random() * (1310 - 290)) + 290;
-    } 
-  }
-  
-  function specialObastable(index, id) {
-    // 생성 위치를 랜덤으로 판별한 뒤 그 위치별로 좌표 전송
-    let wLocation = Math.floor(Math.random() * 4);   // 장애물이 생성될 벽의 방향
-    let cLocation = CLocation(wLocation , null);            // 장애물이 생성될 좌표 위치
-    let v = Math.floor(Math.random() * (3 - 1) + 1);
-    for(let i = 0; i < 2; i++) {
-      if(i == 1) cLocation = CLocation(wLocation, cLocation);
-      if(wLocation == 0) {    // 왼쪽 벽에서 생성 
-        io.to(room[index].roomCode).emit('특수 장애물 생성하거라', {
-          x : 0,
-          y : cLocation,
-          xv : v,
-          yv : 0,
-          id : id
-        })
-      }
-      else if (wLocation == 1) {   //오른쪽 벽에서 생성
-        io.to(room[index].roomCode).emit('특수 장애물 생성하거라', {
-          x : 1600,
-          y : cLocation,
-          xv : v * (-1),
-          yv : 0,
-          id : id
-        })
-      }
-      else if (wLocation == 2) {  //위쪽 벽에서 생성
-        io.to(room[index].emit("특수 장애물 생성하거라"), {
-          x : cLocation,
+  function centerLocation(wLC, id) {
+    for(int i = 0; i < 3; i++) {
+      if(wLC == 0) {    // 왼쪽 벽에서 생성 
+          io.to(room[index].roomCode).emit('특수 장애물 생성하거라', {
+            x : 0,
+            y : 270 + 180 * i,
+            xv : 5,
+            yv : 0,
+            id : id
+          })
+        }
+        else if (wLC == 1) {   //오른쪽 벽에서 생성
+          io.to(room[index].roomCode).emit('특수 장애물 생성하거라', {
+            x : 1600,
+            y : 270 + 180 * i,
+            xv : 5 * (-1),
+            yv : 0,
+            id : id
+          })
+        }
+    }
+    for(int i = 0; i < 5; i++) {
+      if (wLC == 2) {  //위쪽 벽에서 생성
+        io.to(room[index].roomCode).emit("특수 장애물 생성하거라"), {
+          x : 650 + 180 * i,
           y : -200,
           xv : 0,
-          yv : v,
+          yv : 5,
           id : id
         })
       }
-      else if (wLocation == 3) {  // 아래쪽 벽에서 생성
-        io.to(room[index].emit("특수 장애물 생성하거라"), {
-          x : cLocation,
+      else if (wLC == 3) {  // 아래쪽 벽에서 생성
+        io.to(room[index].roomCode).emit("특수 장애물 생성하거라"), {
+          x : 650 + 180 * i,
           y : 1000,
           xv : 0,
-          yv : v * (-1),
+          yv : 5 * (-1),
           id : id
         })
       }
     }
   }
   
+  function LRLocation(wLC, id) {
+    let LR;
+    for(int i = 0; i < 4; i++) {
+      LR = i < 2 ? 90 : 170;
+      if(wLC == 0) {    // 왼쪽 벽에서 생성 
+          io.to(room[index].roomCode).emit('특수 장애물 생성하거라', {
+            x : 0,
+            y : LR + 180 * i,
+            xv : 5,
+            yv : 0,
+            id : id
+          })
+        }
+        else if (wLC == 1) {   //오른쪽 벽에서 생성
+          io.to(room[index].roomCode).emit('특수 장애물 생성하거라', {
+            x : 1600,
+            y : LR + 180 * i,
+            xv : 5 * (-1),
+            yv : 0,
+            id : id
+          })
+        }
+    }
+    for(int i = 0; i < 6; i++) {
+      LR = i < 3 ? 290 : 410;
+      if (wLC == 2) {  //위쪽 벽에서 생성
+        io.to(room[index].roomCode).emit("특수 장애물 생성하거라"), {
+          x : LR + 180 * i,
+          y : -200,
+          xv : 0,
+          yv : 5,
+          id : id
+        })
+      }
+      else if (wLC == 3) {  // 아래쪽 벽에서 생성
+        io.to(room[index].roomCode).emit("특수 장애물 생성하거라"), {
+          x : LR + 180 * i,
+          y : 1000,
+          xv : 0,
+          yv : 5 * (-1),
+          id : id
+        })
+      }
+    }
+  }
+  
+  function specialObastable(index, id, type) {
+    // 생성 위치를 랜덤으로 판별한 뒤 그 위치별로 좌표 전송
+    let wLocation = Math.floor(Math.random() * 4);   // 장애물이 생성될 벽의 방향
+    if(type == 0) centerLocation(wLocation, id);   // 장애물이 생성될 좌표 위치
+    else if(type == 1) LRLocation(wLocation, id); // 장애물이 생성될 좌표 위치
+  }
   
   socket.on("레이스쥰비완료쓰", (id) => {
     let index = getIndex(id);
@@ -171,21 +209,20 @@ module.exports = (io, socket, room) => {
   });
 
   // 아이템 효과 중 특수장애물 요청이 들어오면 화면 중앙 or 양쪽 끝에 특수장애물이 지나감
-  socket.on("특수장애물이래요", (id) => {
+  socket.on("특수장애물이래요", (data) => {
+    const { id, type } = data;
     let index = getIndex(id);
-    specialObastable(index, id);
-      /** 특수 장애물 생성 좌표 전달
-      *  특수장애물은 2개 생성 > 생성 좌표 2가지 화면 중앙 2개 / 화면 양쪽 끝 2개
-      */
+    specialObastable(index, id, type);
   });
 
+  socket.on("돈 먹었대요", (data)=>{
+    const {id, i} = data;
+    let index = getIndex(id);
+    io.io(room[index].roomCode).emit("돈 먹었대", i);
+  })
+  
   socket.on("돈 생성해달래요", (id) => {
     let index = getIndex(id);
-    io.to(room[index].roomCode).emit("돈을 생성하거라", {
-      /** 돈 생성 좌표 전달
-       *  돈은 이동좌표도 생성
-       */
-      
-    });
+    io.to(room[index].roomCode).emit("돈을 생성하거라", goalXY());
   });
 };

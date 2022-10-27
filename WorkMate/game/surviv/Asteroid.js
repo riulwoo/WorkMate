@@ -37,11 +37,7 @@ function renderObs()
 
     ctx.closePath();
   }
-}
 
-/** 장애물을 움직임 */
-function moveObs()
-{
   for (let i = 0; i < roids.length; i++) {
     let R = roids[i];
     // Asteroid will move in field.
@@ -50,10 +46,9 @@ function moveObs()
       R.y += R.yv;
     
     if (R.x < -100 || R.x > 1900 || R.y < -100 || R.y > 1000){
-      Rs.splice(i,1);
+      roids.splice(i,1);
     } // roids.splice 화면 밖으로 나간 장애물 삭제
   }
-  
 }
 
 /** 장애물에 충돌하면 플레이어가 기절함 */

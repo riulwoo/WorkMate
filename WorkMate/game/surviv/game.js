@@ -206,15 +206,25 @@ function score_draw() {
 }
 
 /** 플레이어가 기절에 걸렸을 때, 지속시간이 감소되도록 하는 메서드. */
-function stun_flow()
+function stunAndBlink_flow()
 {
-	if (players[myId].stun_sec > 0)	
+	if (players[myId].stunsec > 0)	
   {
     ctx.fillStyle = "red";
     ctx.font = '120px DungGeunMo';
     ctx.textAlign = "center";
     ctx.fillText("stuned!!", WIDTH / 2, HEIGHT / 2 - 160);
-    players[myId].stun_sec--;
+    players[myId].stunsec--;
+  }
+  else if (players[myId].stunsec == 0)
+  {
+    players[myId].blinksec = Math.ceil(PLAYER_BLINK_DUR * FPS);
+    players[myId].stunsec = -1;
+  }
+
+  if (players[myId].blinksec > 0)
+  {
+    players[myId].blinksec--;
   }
 }
 
@@ -238,10 +248,10 @@ function update() {
   {
     renderPlayer();  // 플레이어
     renderItem();    // 아이템
-    moveItem();      // 아이템이 지속적으로 이동
+    // moveItem();      // 아이템이 지속적으로 이동
     renderGoal();    // 돈
     renderObs();     // 장애
-    moveObs();       // 장애물이 지속적으로 이동
+    // moveObs();       // 장애물이 지속적으로 이동
     distObs();
     stun_flow();
   }

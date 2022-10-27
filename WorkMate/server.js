@@ -35,7 +35,9 @@ const onConnection = (socket) => {
               id: data.id,
               x: data.x,
               y: data.y,
-              direction: data.direction
+              direction: data.direction,
+              ismove : data.ismove,
+              cnt : data.cnt
           })
   })
 }

@@ -11,17 +11,21 @@ myfont.load().then(function(font){
 
 let question = ""          // 문제 변수
 let answer;                // 답 변수
+
 // 크기 변수
 let X = canvas.width;
 let Y = canvas.height;
+
 // 캐릭터 관련
 let radius = 16;
 let playerSpeed = 5;
+
 // 이동 관련
 var rightPressed = false;
 var leftPressed = false;
 var upPressed = false;
 var downPressed = false;
+
 // Game Flow 관련
 var is_loading; 
 var is_during = false; // 문제가 진행중일 때 true.

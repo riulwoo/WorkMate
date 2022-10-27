@@ -14,19 +14,51 @@ function Goal(x, y) { // id, x, y
 
 function renderGoal()
 {
-  for (let i = 0; i < goal.length; i++) {
-    let G = goal[i];
-    // rendering a money. 골인지점을 렌더링합니다.
-
-    ctx.beginPath();
-    ctx.drawImage(
-      G.image,
-      G.x - G.radius,
-      G.y - G.radius,
-      65,
-      65
-    ); // 크기는 65, 65
-
-    ctx.closePath();
+  if(goal.length > 0)
+  {
+    for (let i = 0; i < goal.length; i++) {
+      let G = goal[i];
+      // rendering a money. 골인지점을 렌더링합니다.
+  
+      ctx.beginPath();
+      ctx.drawImage(
+        G.image,
+        G.x - G.radius,
+        G.y - G.radius,
+        65,
+        65
+      ); // 크기는 65, 65
+  
+      ctx.closePath();
+    }
+  }
+  else
+  {
+    socket.emit("돈 생성해달래요", myId);
   }
 }
+
+function distGoal()
+{
+  let px = myplayer.x;
+  let py = myplayer.y;
+  let gx;
+  let gy;
+
+  for (let i = 0; i < goal.length; i++) {
+    gx = goal[i].x + goal[i].radius;
+    gy = goal[i].y + goal[i].radius;
+
+    if (distBetweenPoints(px, py, ax, ay) < goal[i].radius + myplayer.radius) {
+      socket.emit("돈 먹었대요", {
+        id : myId,
+        i : i
+      })
+      goal.splice(i, 1);
+      myplayer.score += 50;
+    }
+  }
+}
+socket.on("돈 먹었대", (i)=>{
+  goal.splice(i, 1);
+})
