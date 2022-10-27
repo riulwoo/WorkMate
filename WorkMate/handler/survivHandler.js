@@ -133,7 +133,11 @@ module.exports = (io, socket, room) => {
       room[index].cnt += 1;
       let player = room[index].players;
       if (room[index].cnt == player.length) {
-        io.to(room[index].roomCode).emit("게임수타투", [goalXY(), itemXYV()]); /** 초반 돈, 아이템 좌표 전달*/ 
+        io.to(room[index].roomCode).emit("게임수타투", {
+          /** 초반 돈, 아이템 좌표 전달*/
+          goal : goalXY(),
+          item : itemXYV()
+        });
         sendAsteroid(index);
         room[index].cnt = 0;
       }
