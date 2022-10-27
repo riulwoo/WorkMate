@@ -29,8 +29,8 @@ function Item(x, y, xv, yv) {
 
 function renderItem()
 {
+  // 포켓 부분 추가해야함
   // rendering a Item. 장애물을 화면에 출력합니다.
-
   ctx.beginPath();
   ctx.drawImage(
     itemBox.image,

@@ -21,6 +21,7 @@ function renderPlayer() {
     ctx.closePath();
   }
 
+  let myplayer = players[myId];
   if (myplayer.blinkNum > 0) {
     // reduce the blink time
     myplayer.blinkTime--;
@@ -32,7 +33,7 @@ function renderPlayer() {
   }
 
   // 기절중이 아닐때에만 플레이어가 움직이도록 설정
-  if (!myplayer.stunning) {
+  if (myplayer.stun_sec <= 0) {
     // player thrusting. 플레이어의 가속력을 구현하는 파트라 생각하면 편합니다.
     if (upPressed) {
       // 위쪽 방향키
@@ -183,9 +184,7 @@ function surviv_player(id, nick) {
   this.blinkTime = 0;
   this.blinkNum = 0;
 
-  this.stunTime = 0;
-  this.stunNum = 0;
-  this.stunning = false;
+  this.stunsec = 0;
   this.itemImg = new Image();
   this.itemPocket = 0;
 }

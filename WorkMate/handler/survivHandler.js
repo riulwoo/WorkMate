@@ -29,8 +29,8 @@ module.exports = (io, socket, room) => {
 // 보낼 좌표값 : x y 시작좌표 , xv yv 이동 속도 , 이미지 타입 0~2번
   function rightObastacle(index) {
     io.to(room[index].emit("장애물 생성하거라"), {
-      x : 1600,
-      y : Math.floor(Math.random() * 950),
+      x : 1500,
+      y : Math.floor(Math.random() * 900),
       xv : Math.floor(Math.random() * (3 - 1) + 1) * (-1),
       yv : Math.floor(Math.random() * (3 - 1) + 1) * (Math.random() < 0.5 ? 1 : -1),
       type : Math.floor(Math.random() * 2)
@@ -39,8 +39,8 @@ module.exports = (io, socket, room) => {
 
   function upObastacle(index) {
       io.to(room[index].emit("장애물 생성하거라"), {
-      x : Math.floor(Math.random() * (1500 - 100)) + 100,
-      y : -50,
+      x : Math.floor(Math.random() * (1400 - 200)) + 200,
+      y : -100,
       xv : Math.floor(Math.random() * (3 - 1) + 1) * (Math.random() < 0.5 ? 1 : -1),
       yv : Math.floor(Math.random() * (3 - 1) + 1),
       type : Math.floor(Math.random() * 2)
@@ -86,45 +86,55 @@ module.exports = (io, socket, room) => {
     return goal;
   }
 
+  function CLocation() {
+    
+  }
+  
   function specialObastable(index, id) {
     // 생성 위치를 랜덤으로 판별한 뒤 그 위치별로 좌표 전송
-    let location = Math.floor(Math.random() * 4);
-    if(location == 0) {    // 왼쪽 벽에서 생성 
-      io.to(room[index].roomCode).emit('특수 장애물 생성하거라', {
-        x : 100,
-        y : Math.floor(Math.random() * 950),
-        xv : Math.floor(Math.random() * (3 - 1) + 1),
-        yv : Math.floor(Math.random() * (3 - 1) + 1) * (Math.random() < 0.5 ? 1 : -1),
-        id : id
-      })
-    }
-    else if (location == 1) {   //오른쪽 벽에서 생성
+    let wLocation = Math.floor(Math.random() * 4);
+    let cLocation = CLocation();
+    let v = Math.floor(Math.random() * (3 - 1) + 1);
+    for(int i = 0; i < 2; i++) {
+      if(i == 1) cLocation =
+      if(location == 0) {    // 왼쪽 벽에서 생성 
         io.to(room[index].roomCode).emit('특수 장애물 생성하거라', {
-        x : 1600,
-        y : Math.floor(Math.random() * 950),
-        xv : Math.floor(Math.random() * (3 - 1) + 1) * (-1),
-        yv : Math.floor(Math.random() * (3 - 1) + 1) * (Math.random() < 0.5 ? 1 : -1),
-        id : id
-      })
+          x : 100,
+          y : Math.floor(Math.random() * 950),
+          xv : v,
+          yv : 0,
+          id : id
+        })
+      }
+      else if (location == 1) {   //오른쪽 벽에서 생성
+        io.to(room[index].roomCode).emit('특수 장애물 생성하거라', {
+          x : 1600,
+          y : Math.floor(Math.random() * 950),
+          xv : v * (-1),
+          yv : 0,
+          id : id
+        })
+      }
+      else if (location == 2) {  //위쪽 벽에서 생성
+        io.to(room[index].emit("장애물 생성하거라"), {
+          x : Math.floor(Math.random() * (1500 - 100)) + 100,
+          y : -50,
+          xv : 0,
+          yv : v,
+          id : id
+        })
+      }
+      else if (location == 3) {  // 아래쪽 벽에서 생성
+        io.to(room[index].emit("장애물 생성하거라"), {
+          x : Math.floor(Math.random() * (1500 - 100)) + 100,
+          y : 950,
+          xv : 0,
+          yv : v * (-1),
+          id : id
+        })
+      }
     }
-    else if (location == 2) {  //위쪽 벽에서 생성
-      io.to(room[index].emit("장애물 생성하거라"), {
-      x : Math.floor(Math.random() * (1500 - 100)) + 100,
-      y : -50,
-      xv : Math.floor(Math.random() * (3 - 1) + 1) * (Math.random() < 0.5 ? 1 : -1),
-      yv : Math.floor(Math.random() * (3 - 1) + 1),
-      id : id
-    })
-    }
-    else if (location == 3) {  // 아래쪽 벽에서 생성
-      io.to(room[index].emit("장애물 생성하거라"), {
-      x : Math.floor(Math.random() * (1500 - 100)) + 100,
-      y : 950,
-      xv : Math.floor(Math.random() * (3 - 1) + 1) * (Math.random() < 0.5 ? 1 : -1),
-      yv : Math.floor(Math.random() * (3 - 1) + 1) * (-1),
-      id : id
-    })
-    }
+    
   }
   
   socket.on("레이스쥰비완료쓰", (id) => {

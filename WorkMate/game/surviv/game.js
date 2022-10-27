@@ -31,10 +31,8 @@ var downPressed = false;
 var itemPressed = false;
 // 게임 흐름 관련
 const COUNT_DUR_TIME = 3;
-const LETS_GO = 1;
-const ITEM_REGEN_TIME = 6;
-var count_time = Math.ceil(PER_SEC * FPS);
-var count_num = Math.ceil(COUNT_DUR_TIME / PER_SEC);
+var count_sec = Math.ceil(COUNT_DUR_TIME * FPS);
+
 var lego_time = Math.ceil(PER_SEC * FPS);
 var lego_num = Math.ceil(LETS_GO / PER_SEC);
 var item_gen_time = Math.ceil(PER_SEC * FPS);
@@ -94,7 +92,7 @@ socket.on("장애물 생성하거라", (data) => {    // 생성은 되지만 그
 });
 
 socket.on("특수 장애물 생성하거라", (data) => {
-  roids_of_item.push(new ItemAsteroid(data));
+  roids_of_item.push(new ItemAsteroid(data.x, data.y, data.xv, data.yv, id));
 });
 
 socket.on("살아남기 게임끝", ()=>{
@@ -179,28 +177,64 @@ function field_draw() {
 function end_draw(){
   if(is_end)
   {
-    let overmsg = '당신의 점수를 이력서에 추가하는 중입니다..';
-      ctx.clearRect(0, 0, X, Y / 4);
-      ctx.fillStyle = "bisque";
-      ctx.fillRect(0, 0, X, Y / 4);
-      ctx.fillStyle = "black"
-      ctx.font = '48px DungGeunMo';
-      // measureText() = 문자열의 넓이 반환
-      ctx.textAlign = "center";
-      
-      ctx.fillText('게임 끝!!!!!', X / 2, Y / 5);
-      ctx.fillText(overmsg, X / 2 - (ctx.measureText(overmsg).width / 2), Y / 1.6);
+    ctx.fillStyle = "#90DBA2";
+    ctx.font = '200px DungGeunMo';
+    ctx.textAlign = "center";
+    ctx.fillText("GAME OVER", WIDTH / 2, HEIGHT / 2);
   }
+}
+
+function count_draw()
+{
+  ctx.fillStyle = "#90DBA2";
+  ctx.font = '200px DungGeunMo';
+  ctx.textAlign = "center";
+  ctx.fillText(Math.ceil(count_sec / 60), WIDTH / 2, HEIGHT / 2);
+}
+/** 게임 스코어를 그리는 메서드 */
+function score_draw() {
+    ctx.beginPath();
+    ctx.fillStyle = "black";
+    ctx.font = "55px DungGeunMo";
+    ctx.textAlign = "center";
+    ctx.fillText(
+      "score : " + players[myId].score,
+      (X * 10) / 100,
+      (Y * 7) / 100
+    );
+    ctx.closePath();
+}
+/** 플레이어가 기절에 걸렸을 때, 지속시간이 감소되도록 하는 메서드. */
+function stun_flow()
+{
+	if (players[myId].stun_sec > 0)	players[myId].stun_sec--;
 }
 function update() {
   field_draw();    // 바닥
-  renderPlayer();  // 플레이어
-  renderItem();    // 아이템
-  moveItem();      // 아이템이 지속적으로 이동
-  renderGoal();    // 돈
-  renderObs();     // 장애
-  moveObs();       // 장애물이 지속적으로 이동
   // edge_draw();     // 벽
+  score_draw();
+  if(is_counting)
+  {
+    count_sec--;
+    
+    count_draw();
+        
+    // handle countdown
+    if (count_sec == 0)
+    {
+      is_gaming = true;
+    }
+  }
+  if(is_gaming)
+  {
+    renderPlayer();  // 플레이어
+    renderItem();    // 아이템
+    moveItem();      // 아이템이 지속적으로 이동
+    renderGoal();    // 돈
+    renderObs();     // 장애
+    moveObs();       // 장애물이 지속적으로 이동
+    stun_flow();
+  }
   end_draw();
 }
 
