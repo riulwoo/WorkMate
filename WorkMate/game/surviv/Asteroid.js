@@ -49,6 +49,7 @@ function moveObs()
     
     if (R.x < -100 || R.x > 1900 || R.y < -100 || R.y > 1000){
     Rs.splice(i,1);
+    }
   }
   // roids.splice 화면 밖으로 나간 장애물 삭제
 }
