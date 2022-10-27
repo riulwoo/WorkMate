@@ -39,9 +39,9 @@ var lego_time = Math.ceil(PER_SEC * FPS);
 var lego_num = Math.ceil(LETS_GO / PER_SEC);
 var item_gen_time = Math.ceil(PER_SEC * FPS);
 var item_gen_num = Math.ceil(ITEM_REGEN_TIME / PER_SEC);
-var is_counting;
-var gogogogo;
-var is_gaming;
+var is_counting = true;
+var is_gaming = false;
+var is_end =false;
 var is_item_existing;
 
 function func_lding() {
@@ -176,6 +176,22 @@ function field_draw() {
   ctx.closePath();
 }
 
+function end_draw(){
+  if(is_end)
+  {
+    let overmsg = '당신의 점수를 이력서에 추가하는 중입니다..';
+      ctx.clearRect(0, 0, X, Y / 4);
+      ctx.fillStyle = "bisque";
+      ctx.fillRect(0, 0, X, Y / 4);
+      ctx.fillStyle = "black"
+      ctx.font = '48px DungGeunMo';
+      // measureText() = 문자열의 넓이 반환
+      ctx.textAlign = "center";
+      
+      ctx.fillText('게임 끝!!!!!', X / 2, Y / 5);
+      ctx.fillText(overmsg, X / 2 - (ctx.measureText(overmsg).width / 2), Y / 1.6);
+  }
+}
 function update() {
   field_draw();    // 바닥
   renderPlayer();  // 플레이어
@@ -185,6 +201,7 @@ function update() {
   renderObs();     // 장애
   moveObs();       // 장애물이 지속적으로 이동
   // edge_draw();     // 벽
+  end_draw();
 }
 
 function leaveUser(id) {
