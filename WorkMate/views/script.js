@@ -188,6 +188,7 @@ function checkLeader() {
     if(idArr[0] == myId) {
       start.style.display = 'inline';
       ready.style.display = 'none';
+      readyCount = 0;
     }
   }
 }
@@ -232,15 +233,13 @@ function removePlayer(id) {
   try{
     let slotId = document.querySelectorAll('.in_slot_hide');
     let arrId = Array.prototype.slice.call(slotId);
-    console.log(arrId[0].innerHTML); 
     let i = arrId.findIndex(e => e.innerHTML == id);
     let color = window.getComputedStyle(slot[i]).backgroundColor;
-    console.log(color)
+    console.log(color);
     if(color == "rgb(255, 245, 85)")
     {
-      console.log("색깔 비교 -완-")
-       slot[i].style.backgroundColor = "rgb(255, 255, 255)";
-       readyCount--;
+      slot[i].style.backgroundColor = "rgb(255, 255, 255)";
+      readyCount--;
     }
     while (slot[i].hasChildNodes()) {
       slot[i].firstChild.remove();
