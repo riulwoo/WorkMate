@@ -96,6 +96,7 @@ socket.on("살아남기 게임끝", ()=>{
   playerinfo[index].score += players[myId].score;
   setTimeout(()=>{socket.emit('gameover', myId);}, 3000);
 });
+
 let myplayer = players[myId];
 
 // 게임이 종료가 되면 playerinfo[index].score += myplayer.score;

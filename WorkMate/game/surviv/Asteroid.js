@@ -54,7 +54,7 @@ function renderObs()
 /** 장애물에 충돌하면 플레이어가 기절함 */
 function distObs()
 {
-  if (player.stunsec <= 0)
+  if (myplayer.stunsec <= 0)
   {
     let px = myplayer.x;
     let py = myplayer.y;
