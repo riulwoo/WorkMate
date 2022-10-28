@@ -44,7 +44,7 @@ function renderSpecObs()
   }
 }
 
-/** 특수 장애물과 부딫혔을 때의 . */
+/** 특수 장애물과 부딫혔을 때의 동작을 구현한 메서드. */
 function distSpecObs()
 {
     if (myplayer.stunsec <= 0)

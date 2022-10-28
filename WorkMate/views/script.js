@@ -170,9 +170,19 @@ socket.on('leave_user', (id)=> {
   checkLeader();
 })
 
+function slotClear() {
+  for(let i = 0 ; i < 6; i++)
+  {
+    while (slot[i].hasChildNodes()) {
+        slot[i].firstChild.remove();
+      }
+  }
+}
+
 function checkLeader() {
   let leader = document.getElementById('admin');
   if(!(leader.hasChildNodes())) {
+    slotClear();
     roomUpdate();
     if(idArr[0] == myId) {
       start.style.display = 'inline';

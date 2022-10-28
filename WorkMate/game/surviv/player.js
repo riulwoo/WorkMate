@@ -159,6 +159,31 @@ socket.on("update_state", function (data) {
   updateState(data.id, data.x, data.y, data.direction);
 });
 
+function useItem()
+{
+  if (myplayer.itemPocket)
+  {
+    if (myplayer.itemPocket == 1)
+    {
+      createRoidOfItemBelt();
+    }
+
+    if (myplayer.itemPocket == 2)
+    {
+      stunPlayer();
+    }
+
+    /*
+    if (myplayer.itemPocket == 3)
+    {
+      feverPlayer();
+    }
+    */
+    
+    myplayer.itemPocket = 0;
+  }
+}
+
 function surviv_player(id, nick) {
   this.id = id;
   this.nick = nick;

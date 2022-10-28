@@ -188,6 +188,7 @@ function count_draw()
   ctx.textAlign = "center";
   ctx.fillText(Math.ceil(count_sec / 60), WIDTH / 2, HEIGHT / 2);
 }
+
 /** 게임 스코어와 아이템 보유 현황을 그리는 메서드 */
 function score_draw() {
     ctx.beginPath();
