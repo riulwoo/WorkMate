@@ -139,7 +139,7 @@ function sendData(curPlayer) {
     y: curPlayer.y,
     direction: curPlayer.direction,
     ismove: curPlayer.ismove,
-    cnt: curPlayer.cntion,
+    cnt: curPlayer.cnt,
   };
   if (data) {
     socket.emit("send_location", data);
