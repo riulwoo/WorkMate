@@ -7,7 +7,6 @@ module.exports = (io, socket, room) => {
 
   function sendAsteroid(index) {
     let time = 0;
-    console.log(`인덱스1 : ${index}`);
     enemyInterval = setInterval(() => {
       obstacle(index);
       time += 5;
@@ -19,7 +18,6 @@ module.exports = (io, socket, room) => {
   }
 
   function obstacle(index) {
-    console.log(`인덱스2 : ${index}`);
     leftObastacle(index);
     rightObastacle(index);
     upObastacle(index);
@@ -55,7 +53,6 @@ module.exports = (io, socket, room) => {
   }
 
   function leftObastacle(index) {
-    console.log(`인덱스4 : ${index}`);
     io.to(room[index].roomCode).emit("장애물 생성하거라", {
       x: 100,
       y: Math.floor(Math.random() * 800),
@@ -215,8 +212,6 @@ module.exports = (io, socket, room) => {
           goal: goalXY(),
           item: itemXYV(),
         });
-        
-    console.log(`인덱스0 : ${index}`);
         sendAsteroid(index);
         room[index].cnt = 0;
       }

@@ -13,11 +13,11 @@ function ItemAsteroid(x, y, xv, yv, id) {
 /** 특수 장애물을 화면에 출력하는 메서드. */
 function renderSpecObs()
 {
-  if(roids_of_item_of_item.length >= 1)
+  if(roids_of_item.length >= 1)
   {
     //render
-    for (let i = 0; i < roids_of_item_of_item.length; i++) {
-      let R = roids_of_item_of_item[i];
+    for (let i = 0; i < roids_of_item.length; i++) {
+      let R = roids_of_item[i];
       // rendering a Asteroid. 장애물을 화면에 출력합니다.
   
       ctx.beginPath();
@@ -33,13 +33,13 @@ function renderSpecObs()
     }
 
     // move
-    for (let i = 0; i < roids_of_item_of_item.length; i++) {
-      let R = roids_of_item_of_item[i];
+    for (let i = 0; i < roids_of_item.length; i++) {
+      let R = roids_of_item[i];
       // Asteroid will move in field.
       R.x += R.xv;
       R.y += R.yv;
       // 영역밖으로 나갈 시 삭제
-      if (R.x < -100 || R.x > 1900 || R.y < -100 || R.y > 1000) roids_of_item_of_item.splice(i,1);
+      if (R.x < -100 || R.x > 1900 || R.y < -100 || R.y > 1000) roids_of_item.splice(i,1);
     }
   }
 }
