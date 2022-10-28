@@ -235,10 +235,11 @@ function removePlayer(id) {
     console.log(arrId[0].innerHTML); 
     let i = arrId.findIndex(e => e.innerHTML == id);
     let color = window.getComputedStyle(slot[i]).backgroundColor;
+    console.log(color)
     if(color == "rgb(255, 245, 85)")
     {
       console.log("색깔 비교 -완-")
-       slot[i].style.backgroundColor = "#FFFFFF";
+       slot[i].style.backgroundColor = "rgb(255, 255, 255)";
        readyCount--;
     }
     while (slot[i].hasChildNodes()) {
