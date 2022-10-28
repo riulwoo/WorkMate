@@ -263,6 +263,7 @@ function update() {
     // handle countdown
     if (count_sec == 0)
     {
+      is_counting = false;
       is_gaming = true;
     }
   }
