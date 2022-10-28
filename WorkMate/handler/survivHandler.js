@@ -236,7 +236,7 @@ module.exports = (io, socket, room) => {
   socket.on("돈 먹었대요", (data) => {
     const { id, i } = data;
     let index = getIndex(id);
-    io.io(room[index].roomCode).emit("돈 먹었대", i);
+    io.to(room[index].roomCode).emit("돈 먹었대", i);
   });
 
   socket.on("돈 생성해달래요", (id) => {
