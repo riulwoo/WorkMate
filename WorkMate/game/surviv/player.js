@@ -146,7 +146,7 @@ function sendData(curPlayer) {
   }
 }
 
-function updateState(id, x, y, direction) {
+function updateState(id, x, y, direction, ismove, cnt) {
   let player = players[id];
   if (!player) {
     return;
@@ -160,7 +160,7 @@ function updateState(id, x, y, direction) {
 }
 
 socket.on("update_state", function (data) {
-  updateState(data.id, data.x, data.y, data.direction);
+  updateState(data.id, data.x, data.y, data.direction, data.ismove, data.cnt);
 });
 
 function surviv_player(id, nick) {
