@@ -33,35 +33,39 @@ function Item(x, y, xv, yv) {
 function renderItem() {
   // 포켓 부분 추가해야함
 
-  // rendering a Item. 장애물을 화면에 출력합니다.
-  ctx.beginPath();
-  ctx.drawImage(
-    itemBox.image,
-    itemBox.x - itemBox.radius,
-    itemBox.y - itemBox.radius,
-    55,
-    55
-  ); // 크기는 55, 55
-
-  ctx.closePath();
-
-  // item will move in field.
-
-  itemBox.x += itemBox.xv;
-  itemBox.y += itemBox.yv;
-
-  // handle edge of screen.
-  if (itemBox.x < 0 - itemBox.radius) {
-    itemBox.x = WIDTH + itemBox.radius;
-  } else if (itemBox.x > WIDTH + itemBox.radius) {
-    itemBox.x = 0 - itemBox.radius;
+  if (itemBox != null)
+  {
+      // rendering a Item. 장애물을 화면에 출력합니다.
+    ctx.beginPath();
+    ctx.drawImage(
+      itemBox.image,
+      itemBox.x - itemBox.radius,
+      itemBox.y - itemBox.radius,
+      55,
+      55
+    ); // 크기는 55, 55
+  
+    ctx.closePath();
+  
+    // item will move in field.
+  
+    itemBox.x += itemBox.xv;
+    itemBox.y += itemBox.yv;
+  
+    // handle edge of screen.
+    if (itemBox.x < 0 - itemBox.radius) {
+      itemBox.x = WIDTH + itemBox.radius;
+    } else if (itemBox.x > WIDTH + itemBox.radius) {
+      itemBox.x = 0 - itemBox.radius;
+    }
+  
+    if (itemBox.y < 0 - itemBox.radius) {
+      itemBox.y = HEIGHT + itemBox.radius;
+    } else if (itemBox.y > HEIGHT + itemBox.radius) {
+      itemBox.y = 0 - itemBox.radius;
+    }
   }
-
-  if (itemBox.y < 0 - itemBox.radius) {
-    itemBox.y = HEIGHT + itemBox.radius;
-  } else if (itemBox.y > HEIGHT + itemBox.radius) {
-    itemBox.y = 0 - itemBox.radius;
-  }
+  
 }
 
 /* function moveItem()
@@ -96,7 +100,9 @@ function distItem() {
 
   if (distBetweenPoints(px, py, ix, iy) < itemBox.radius + myplayer.radius) {
     myplayer.itemPocket = itemBox.type;
-
+    
     socket.emit("아이템 먹었대요", myId);
+
+    itemBox = null;
   }
 }

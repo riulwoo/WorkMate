@@ -76,8 +76,8 @@ socket.on("아이템생성하거라", (data) => {    // 생성은 되지만 그�
 
 socket.on("돈을 생성하거라", (data) => {    // 생성은 되지만 그리기는 되지 않았음
   console.log(`돈 좌표 + ${data}`)
-  for (let i = 0; i < data.goal.length; i++) {
-    goal.push(new Goal(data.goal[i].x, data.goal[i].y));
+  for (let i = 0; i < data.length; i++) {
+    goal.push(new Goal(data[i].x, data[i].y));
   }
 });
 
