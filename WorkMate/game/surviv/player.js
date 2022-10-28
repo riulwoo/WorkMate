@@ -152,7 +152,7 @@ function updateState(id, x, y, direction, ismove, cnt) {
     return;
   }
   player.x = x;
-  player.y;
+  player.y = y;
   player.direction = direction;
   player.ismove = ismove;
   player.cnt = cnt;
