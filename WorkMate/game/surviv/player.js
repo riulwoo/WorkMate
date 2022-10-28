@@ -136,7 +136,7 @@ function sendData(curPlayer) {
   data = {
     id: curPlayer.id,
     x: curPlayer.x,
-    y: curPlay,
+    y: curPlayer.y,
     direction: curPlayer.direction,
     ismove: curPlayer.ismove,
     cnt: curPlayer.cntion,
@@ -156,9 +156,7 @@ function updateState(id, x, y, direction) {
   player.direction = direction;
   player.ismove = ismove;
   player.cnt = cnt;
-  player.player.src = player.ismove
-    ? moveeffect(player)
-    : player.asset[player.direction];
+  player.player.src = player.ismove ? moveeffect(player) : player.asset[player.direction];
 }
 
 socket.on("update_state", function (data) {
