@@ -88,9 +88,20 @@ start.addEventListener("click", function () {
 
 cancelBtn.addEventListener("click",function () {
   socket.emit("matchcancel", myId);
-  removePlayer(myId);
+  removeAllPlayer(myId);
   console.log('나가기 눌림');
 })
+
+function removeAllPlayer() {
+  for(let i = 0 ; i < arr.length ; i++)
+  {
+    while (slot[i].hasChildNodes()) {
+        slot[i].firstChild.remove();
+      }
+  }
+  userCount = 0;
+  readyCount = 0;
+}
 
 socket.on('matchfail', function(data) {
  document.getElementById('match-text').innerText = "매칭 중인 인원이 없습니다.";
@@ -166,7 +177,7 @@ function addPlayer(nickName, userid) {
         slot[i].firstChild.remove();
       }
     let name = document.createElement('div');
-    let img = document.createElement('img')
+    let img = document.createElement('img');
     let hide = document.createElement('div');
     let hidedId = document.createTextNode(id[i])
     let Node = document.createTextNode(nickName[i])
@@ -184,7 +195,7 @@ function addPlayer(nickName, userid) {
   userCount++;
 }
 
-function removePlayer(id){
+function removePlayer(id) {
   try{
     let slotId = document.querySelectorAll('.in_slot_hide');
     let arrId = Array.prototype.slice.call(slotId);

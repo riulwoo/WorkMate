@@ -32,10 +32,8 @@ module.exports = (io, socket, room) => {
     if(index !== -1) {
       const uIndex = room[index].userid.findIndex(e => e == id);      
       socket.leave(room[index].roomCode);
-      if(room[index].deleteUser(id, uIndex)) {
-        room.splice(index, 1);
-        socket.broadcast.emit('leave_user',socket.id);
-      }
+      socket.broadcast.emit('leave_user', id);
+      if(room[index].deleteUser(id, uIndex)) room.splice(index, 1);
       for(let i = 0; i < room.length; i++) {
         console.log('[matchcancel] leave 후 조인 방 정보 : ' + i + ' [ ' + room[i].roomCode + ' ] ');
         console.log('[matchcancel] 유저 정보삭제 후 정보 : '+ i + ' [ ' + room[i].userid + ' ] ');
@@ -127,7 +125,6 @@ module.exports = (io, socket, room) => {
     //   console.log('[matchcancel] 유저 정보삭제 후 정보 : '+ i + ' [ ' + room[i].userid + ' ] ');
     //   console.log('[matchcancel]  : '+ i + ' [ ' + room[i].check + ' ] ');
     // }
-    socket.broadcast.emit('leave_user',socket.id);
   }
 
   function gameover(id) {
