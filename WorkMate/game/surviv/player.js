@@ -38,7 +38,7 @@ function renderPlayer() {
   } //end of if
 
   // 기절중이 아닐때에만 플레이어가 움직이도록 설정
-  if (curPlayer.stun_sec <= 0) {
+  if (curPlayer.stunsec <= 0) {
     // 플레이어 이동
       if (rightPressed) {
         curPlayer.direction = 3;
