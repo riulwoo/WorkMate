@@ -6,9 +6,9 @@ function renderPlayer() {
 
     ctx.beginPath();
 
-    if (player.blinksec % 2 == 0) // 플레이어가 무적일 때 깜빡이게 표현
-    {
-       ctx.drawImage(
+    if (player.blinksec % 2 == 0) {
+      // 플레이어가 무적일 때 깜빡이게 표현
+      ctx.drawImage(
         player.player,
         player.x - player.radius,
         player.y - player.radius,
@@ -16,119 +16,111 @@ function renderPlayer() {
         70
       );
     }
-   
+
     ctx.fillStyle = player.color;
     ctx.font = "15px DungGeunMo";
     ctx.textAlign = "center";
     ctx.fillText(player.nick, player.x, player.y - player.radius - 10);
 
     ctx.closePath();
-  }let curPlayer = players[myId];
-    if(curPlayer.blinkNum > 0) {
-      // reduce the blink time
+  }
+  let curPlayer = players[myId];
+  if (curPlayer.blinkNum > 0) {
+    // reduce the blink time
     curPlayer.blinkTime--;
-  
-    if(curPlayer.blinkTime == 0) {
-    curPlayer.blinkTime = Math.ceil(PER_SEC * FPS);
-    curPlayer.blinkNum--;
+
+    if (curPlayer.blinkTime == 0) {
+      curPlayer.blinkTime = Math.ceil(PER_SEC * FPS);
+      curPlayer.blinkNum--;
     }
   }
 
   // 기절중이 아닐때에만 플레이어가 움직이도록 설정
-  if(curPlayer.stun_sec <= 0) {
-      // 플레이어 이동 
-    if (!is_end && !is_checking)
-    {
-        if (rightPressed){
-          curPlayer.direction = 3;
-            if (upPressed) {
-            curPlayer.direction = 7;
-            curPlayer.y -= playerSpeed;
-            }
-            else if (downPressed) {
-            curPlayer.direction = 6;
-            curPlayer.y += playerSpeed;
-            }
-          curPlayer.ismove = true;
-          curPlayer.player.src = moveeffect(curPlayer);
-          curPlayer.x += playerSpeed;
-          sendData(curPlayer);
+  if (curPlayer.stun_sec <= 0) {
+    // 플레이어 이동
+    if (!is_end && !is_checking) {
+      if (rightPressed) {
+        curPlayer.direction = 3;
+        if (upPressed) {
+          curPlayer.direction = 7;
+          curPlayer.y -= playerSpeed;
+        } else if (downPressed) {
+          curPlayer.direction = 6;
+          curPlayer.y += playerSpeed;
         }
-    else if(upPressed){
-      curPlayer.direction = 2;
+        curPlayer.ismove = true;
+        curPlayer.player.src = moveeffect(curPlayer);
+        curPlayer.x += playerSpeed;
+        sendData(curPlayer);
+      } else if (upPressed) {
+        curPlayer.direction = 2;
         if (rightPressed) {
           curPlayer.direction = 7;
           curPlayer.x += playerSpeed;
-        }
-        else if (leftPressed) {
+        } else if (leftPressed) {
           curPlayer.direction = 5;
           curPlayer.x -= playerSpeed;
         }
-      curPlayer.ismove = true;
-      curPlayer.player.src = moveeffect(curPlayer);
-      curPlayer.y -= playerSpeed;
-      sendData(curPlayer);
-    }
-    else if (leftPressed){
-      curPlayer.direction = 1;
+        curPlayer.ismove = true;
+        curPlayer.player.src = moveeffect(curPlayer);
+        curPlayer.y -= playerSpeed;
+        sendData(curPlayer);
+      } else if (leftPressed) {
+        curPlayer.direction = 1;
         if (upPressed) {
           curPlayer.direction = 5;
-        curPlayer.y -= playerSpeed;
-        }
-        else if (downPressed) {
+          curPlayer.y -= playerSpeed;
+        } else if (downPressed) {
           curPlayer.direction = 4;
-        curPlayer.y += playerSpeed;
+          curPlayer.y += playerSpeed;
         }
-      curPlayer.ismove = true;
-      curPlayer.player.src = moveeffect(curPlayer);
-      curPlayer.x -= playerSpeed;
-      sendData(curPlayer);
-    }
-    else if(downPressed){
-      curPlayer.direction = 0;
+        curPlayer.ismove = true;
+        curPlayer.player.src = moveeffect(curPlayer);
+        curPlayer.x -= playerSpeed;
+        sendData(curPlayer);
+      } else if (downPressed) {
+        curPlayer.direction = 0;
         if (rightPressed) {
           curPlayer.direction = 6;
-        curPlayer.x += playerSpeed;
-        }
-        else if (leftPressed) {
+          curPlayer.x += playerSpeed;
+        } else if (leftPressed) {
           curPlayer.direction = 4;
-        curPlayer.x -= playerSpeed;
+          curPlayer.x -= playerSpeed;
         }
-      curPlayer.ismove = true;
-      curPlayer.player.src = moveeffect(curPlayer);
-      curPlayer.y += playerSpeed;
-      sendData(curPlayer);
+        curPlayer.ismove = true;
+        curPlayer.player.src = moveeffect(curPlayer);
+        curPlayer.y += playerSpeed;
+        sendData(curPlayer);
+      } else {
+        curPlayer.player.src = curPlayer.asset[curPlayer.direction];
+        curPlayer.ismove = false;
+      }
     }
-    else
-    {
-      curPlayer.player.src = curPlayer.asset[curPlayer.direction]
-      curPlayer.ismove = false;
+
+    // handle use item. 아이템 사용을 구현합니다.
+    if (itemPressed) {
+      if (curPlayer.itemPocket == 1) {
+        itemBox.effect();
+      }
+      curPlayer.itemPocket = 0;
+    }
+
+    // handle edge of screen // 플레이어가 화면 밖으로 벗어나지 몬하도록
+    if (curPlayer.x < 0) {
+      curPlayer.x = 0;
+    } else if (curPlayer.x > WIDTH) {
+      curPlayer.x = WIDTH;
     }
   }
 
-  // handle use item. 아이템 사용을 구현합니다.
-  if (itemPressed) {
-    curPlayer.itemPocket == 1) {
-      itemBox.effect();
-    }
-    curPlayer.itemPocket = 0;
-  }
-
-  // handle edge of screen // 플레이어가 화면 밖으로 벗어나지 몬하도록
-  if( curPlayer.x < 0) {
-    curPlayer.x = 0;
-  } else curPlayer.x > WIDTH) {
-    curPlayer.x = WIDTH;}
-  }
-
-  if(curPlayer.y < 0) {
+  if (curPlayer.y < 0) {
     curPlayer.y = 0;
-  } else curPlayer.y > HEIGHT) {
+  } else if (curPlayer.y > HEIGHT) {
     curPlayer.y = HEIGHT;
   }
 
   // 플레이어의 점수가 0 미만으로 떨어지면
-  if(curPlayer.score < 0) {
+  if (curPlayer.score < 0) {
     curPlayer.score = 0;
   }
 }
@@ -139,9 +131,9 @@ function sendData(curPltion) {
     id: curPlayer.id,
     x: curPlayer.x,
     y: curPlay,
-    direction : curPlayer.direction,
-    ismove : curPlayer.ismove,
-    cnt : curPlayer.cntion,
+    direction: curPlayer.direction,
+    ismove: curPlayer.ismove,
+    cnt: curPlayer.cntion,
   };
   if (data) {
     socket.emit("send_location", data);
@@ -154,11 +146,13 @@ function updateState(id, x, y, direction) {
     return;
   }
   player.x = x;
-  player.y 
+  player.y;
   player.direction = direction;
   player.ismove = ismove;
   player.cnt = cnt;
-  player.player.src = player.ismove ? moveeffect(player) : player.asset[player.direction];on];
+  player.player.src = player.ismove
+    ? moveeffect(player)
+    : player.asset[player.direction];
 }
 
 socket.on("update_state", function (data) {
@@ -172,14 +166,14 @@ function surviv_player(id, nick) {
   this.asset = [
     // 플레이어로써 출력 될 이미지.
     // 이미지는 총 8개 (회사원 이미지로 대체 예정)
-    'https://cdn.discordapp.com/attachments/980090904394219562/1026451716855582750/dd_17.png', // 아래
-    'https://cdn.discordapp.com/attachments/980090904394219562/1026451526304137217/gg_12.png', // 왼쪽
-    'https://cdn.discordapp.com/attachments/980090904394219562/1026451443055607838/gg_05.png', // 위
-    'https://cdn.discordapp.com/attachments/980090904394219562/1026451573129367592/gg_13.png', // 오른
-    'https://cdn.discordapp.com/attachments/980090904394219562/1026451629450481664/gg_16.png', // 왼아래
-    'https://cdn.discordapp.com/attachments/980090904394219562/1026451379939717130/dd_03.png', // 왼위
-    'https://cdn.discordapp.com/attachments/980090904394219562/1026451865224884234/gg_18.png', // 오른아래
-    'https://cdn.discordapp.com/attachments/980090904394219562/1026451494075125800/gg_07.png'
+    "https://cdn.discordapp.com/attachments/980090904394219562/1026451716855582750/dd_17.png", // 아래
+    "https://cdn.discordapp.com/attachments/980090904394219562/1026451526304137217/gg_12.png", // 왼쪽
+    "https://cdn.discordapp.com/attachments/980090904394219562/1026451443055607838/gg_05.png", // 위
+    "https://cdn.discordapp.com/attachments/980090904394219562/1026451573129367592/gg_13.png", // 오른
+    "https://cdn.discordapp.com/attachments/980090904394219562/1026451629450481664/gg_16.png", // 왼아래
+    "https://cdn.discordapp.com/attachments/980090904394219562/1026451379939717130/dd_03.png", // 왼위
+    "https://cdn.discordapp.com/attachments/980090904394219562/1026451865224884234/gg_18.png", // 오른아래
+    "https://cdn.discordapp.com/attachments/980090904394219562/1026451494075125800/gg_07.png",
   ];
 
   this.radius = 40; // 반지름
