@@ -101,7 +101,7 @@ function removeAllPlayer() {
     while (slot[i].hasChildNodes()) {
       slot[i].firstChild.remove();
     }
-    slot[i].style.backgroundColor = "#FFFFFF";
+    slot[i].style.backgroundColor = "rgb(255, 255, 255)";
   }
   userCount = 0;
   readyCount = 0;
@@ -119,11 +119,11 @@ socket.on('레디유저', function(Id) {
     {
       let color = window.getComputedStyle(slot[i]).backgroundColor;
       if(color == "rgb(255, 255, 255)") {
-        slot[i].style.backgroundColor = "#FFF555";
+        slot[i].style.backgroundColor = "rgb(255, 245, 85)";
         readyCount++;
       }
       else {
-        slot[i].style.backgroundColor = "#FFFFFF";
+        slot[i].style.backgroundColor = "rgb(255, 255, 255)";
         readyCount--;
       }
     }
@@ -176,7 +176,7 @@ function slotClear() {
     while (slot[i].hasChildNodes()) {
         slot[i].firstChild.remove();
       }
-    slot[i].style.backgroundColor = "#FFFFFF";
+    slot[i].style.backgroundColor = "rgb(255, 255, 255)";
   }
 }
 
@@ -237,8 +237,9 @@ function removePlayer(id) {
     let color = window.getComputedStyle(slot[i]).backgroundColor;
     if(color == "rgb(255, 245, 85)")
     {
+      console.log("색깔 비교 -완-")
        slot[i].style.backgroundColor = "#FFFFFF";
-       readyCount--; 
+       readyCount--;
     }
     while (slot[i].hasChildNodes()) {
       slot[i].firstChild.remove();

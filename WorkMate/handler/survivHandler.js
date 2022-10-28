@@ -15,7 +15,7 @@ module.exports = (io, socket, room) => {
         clearInterval(enemyInterval);
         io.to(room[index].roomCode).emit("살아남기 게임끝");
       }
-    }, 1000);
+    }, 5000);
   }
 
   function obstacle(index) {
