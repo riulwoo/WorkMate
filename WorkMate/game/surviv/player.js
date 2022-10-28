@@ -44,56 +44,56 @@ function renderPlayer() {
         curPlayer.direction = 3;
         if (upPressed) {
           curPlayer.direction = 7;
-          curPlayer.y -= playerSpeed;
+          curPlayer.y -= PLAYERSPEED;
         } else if (downPressed) {
           curPlayer.direction = 6;
-          curPlayer.y += playerSpeed;
+          curPlayer.y += PLAYERSPEED;
         }
         curPlayer.ismove = true;
         curPlayer.player.src = moveeffect(curPlayer);
-        curPlayer.x += playerSpeed;
+        curPlayer.x += PLAYERSPEED;
         sendData(curPlayer);
       } // 
       else if (upPressed) {
         curPlayer.direction = 2;
         if (rightPressed) {
           curPlayer.direction = 7;
-          curPlayer.x += playerSpeed;
+          curPlayer.x += PLAYERSPEED;
         } else if (leftPressed) {
           curPlayer.direction = 5;
-          curPlayer.x -= playerSpeed;
+          curPlayer.x -= PLAYERSPEED;
         }
         curPlayer.ismove = true;
         curPlayer.player.src = moveeffect(curPlayer);
-        curPlayer.y -= playerSpeed;
+        curPlayer.y -= PLAYERSPEED;
         sendData(curPlayer);
       } // 
       else if (leftPressed) {
         curPlayer.direction = 1;
         if (upPressed) {
           curPlayer.direction = 5;
-          curPlayer.y -= playerSpeed;
+          curPlayer.y -= PLAYERSPEED;
         } else if (downPressed) {
           curPlayer.direction = 4;
-          curPlayer.y += playerSpeed;
+          curPlayer.y += PLAYERSPEED;
         }
         curPlayer.ismove = true;
         curPlayer.player.src = moveeffect(curPlayer);
-        curPlayer.x -= playerSpeed;
+        curPlayer.x -= PLAYERSPEED;
         sendData(curPlayer);
       } //
       else if (downPressed) {
         curPlayer.direction = 0;
         if (rightPressed) {
           curPlayer.direction = 6;
-          curPlayer.x += playerSpeed;
+          curPlayer.x += PLAYERSPEED;
         } else if (leftPressed) {
           curPlayer.direction = 4;
-          curPlayer.x -= playerSpeed;
+          curPlayer.x -= PLAYERSPEED;
         }
         curPlayer.ismove = true;
         curPlayer.player.src = moveeffect(curPlayer);
-        curPlayer.y += playerSpeed;
+        curPlayer.y += PLAYERSPEED;
         sendData(curPlayer);
       } //
       else {
