@@ -95,8 +95,8 @@ cancelBtn.addEventListener("click",function () {
 function removeAllPlayer() {
   let i = 0;
     while (slot[i].hasChildNodes()) {
-      slot[i].firstChild.remove();
-      i++;
+      slot[i++].firstChild.remove();
+      if(i >= slot.length) break;
     }
   userCount = 0;
   readyCount = 0;
