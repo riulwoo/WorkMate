@@ -77,13 +77,12 @@ socket.on('joinfail', ()=>{
 })
 
 start.addEventListener("click", function () {
-  ids = document.querySelectorAll('.in_slot_hide');
   if(readyCount == 0) console.log("혼자있어서 안됌");
-  else if(readyCount == usercount) {
+  else if(readyCount == userCount) {
     console.log("모든 유저 준비 완료 게임 시작합니다");
     socket.emit('startgame', myId);
   }
-  else console.log("안됌");
+  else console.log("다른유저가 아직 레디 안해서 안됌");
 })
 
 cancelBtn.addEventListener("click",function () {
