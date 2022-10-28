@@ -20,7 +20,7 @@ let playerinfo;          // 게임에 쓸 플레이어 정보
 let finalscore;          // 마지막 라운드에 전송할 점수 변수(게임이 종료될 때마다 그 게임에서의 점수 누적)
 let sortedScore = [];
 let readyCount = 0;
-
+let userCount = 0;
 matchBtn.addEventListener("click", match);
 
 croomBtn.addEventListener("click", function () {
@@ -78,9 +78,8 @@ socket.on('joinfail', ()=>{
 
 start.addEventListener("click", function () {
   ids = document.querySelectorAll('.in_slot_hide');
-  console.log("레디카운트" + readyCount + " ids 길이 : " + ids.Length);
   if(readyCount == 0) console.log("혼자있어서 안됌");
-  else if(readyCount == ids.Length - 1) {
+  else if(readyCount == usercount) {
     console.log("모든 유저 준비 완료 게임 시작합니다");
     socket.emit('startgame', myId);
   }
@@ -182,6 +181,7 @@ function addPlayer(nickName, userid) {
     slot[i].appendChild(name);
     slot[i].appendChild(hide);
   };
+  userCount++;
 }
 
 function removePlayer(id){
@@ -196,6 +196,7 @@ function removePlayer(id){
     }
   }
   catch(e){console.log(e)};
+  userCount--;
 }
 
 function randomCode() {
