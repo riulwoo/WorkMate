@@ -8,7 +8,7 @@ module.exports = (io, socket, room) => {
   function sendAsteroid(index) {
     let time = 0;
     console.log(`인덱스1 : ${index}`);
-    enemyInterval = setInterval((index) => {
+    enemyInterval = setInterval(() => {
       obstacle(index);
       time += 1;
       if (time >= 180) {
