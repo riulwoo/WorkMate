@@ -176,6 +176,7 @@ function slotClear() {
     while (slot[i].hasChildNodes()) {
         slot[i].firstChild.remove();
       }
+    slot[i].style.backgroundColor = "#FFFFFF";
   }
 }
 
