@@ -34,8 +34,7 @@ const COUNT_DUR_TIME = 3;
 var count_sec = Math.ceil(COUNT_DUR_TIME * FPS);
 var is_counting = true;
 var is_gaming = false;
-var is_end =false;
-var is_item_existing;
+var is_end = false;
 
 function func_lding() {
   return new Promise((r1, r2) => {
@@ -112,6 +111,8 @@ var roids_of_item = [];
 
 // 아이템 상자 : 개수 (1개), 아이템 먹는 순간 서버에서 체크 후 30초 뒤 다시 생성, 효과 (1. 특수장애물, 2. 기절, 3. 아무 효과 X)
 var itemBox;
+var item_asset = new Image();
+item_asset.src = 'https://cdn.discordapp.com/attachments/980090904394219562/1020591795580706816/item_boxxx_2.png';
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -187,7 +188,7 @@ function count_draw()
   ctx.textAlign = "center";
   ctx.fillText(Math.ceil(count_sec / 60), WIDTH / 2, HEIGHT / 2);
 }
-/** 게임 스코어를 그리는 메서드 */
+/** 게임 스코어와 아이템 보유 현황을 그리는 메서드 */
 function score_draw() {
     ctx.beginPath();
     ctx.fillStyle = "black";
@@ -198,6 +199,26 @@ function score_draw() {
       (WIDTH * 10) / 100,
       (HEIGHT * 7) / 100
     );
+
+    ctx.font = '30px DungGeunMo';
+    ctx.textAlign = 'left';
+    ctx.fillStyle = "white";
+    ctx.fillText('ITEM',
+                 (WIDTH * 5) / 100,
+                 (HEIGHT * 3) / 100
+                );
+
+    
+  
+    ctx.strokeStyle = "white";
+    ctx.lineWidth = 5;
+    ctx.strokeRect(
+                    (WIDTH * 7) / 100,
+                    (HEIGHT * 5) / 100,
+                    100,
+                    100
+                  );
+  
     ctx.closePath();
 }
 

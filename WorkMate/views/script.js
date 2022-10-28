@@ -10,6 +10,8 @@ let adminCode = document.getElementById("adminCode");
 let slot = document.querySelectorAll(".slot");
 let admin = document.getElementById("admin");
 let ids;
+let idArr;
+let nickArr;
 var roomId = '';
 var a = 1;
 var myId;
@@ -36,6 +38,8 @@ croomBtn.addEventListener("click", function () {
     nick : nickName,
     score : 0
   });
+  start.style.display = 'inline';
+  ready.style.display = 'none';
 })
 
 ready.addEventListener('click', function () {
@@ -58,7 +62,7 @@ jroomBtn.addEventListener('click', function () {
   }); 
   
   start.style.display = 'none';
-  ready.style.display = 'block';
+  ready.style.display = 'inline';
 })
 
 socket.on('joinsuccess', (data)=>{
@@ -72,7 +76,7 @@ socket.on('joinfail', ()=>{
   toggleRoom();
   toggleRoom2();
   
-  start.style.display = 'block';
+  start.style.display = 'inline';
   ready.style.display = 'none';
 })
 
@@ -158,9 +162,24 @@ socket.on('go-result', (data) => {
   $('#main').load('/result');
 })
 
-socket.on('leave_user', (data)=>{
-  removePlayer(data);
+socket.on('leave_user', (id)=> {
+  i = idArr.findIndex(ele => ele == id);
+  idArr = idArr.filter(e => e !== id);
+  nickArr.splice(i, 1);
+  removePlayer(id);
+  checkLeader();
 })
+
+function checkLeader() {
+  let leader = document.getElementById('admin');
+  if(!(leader.hasChildNodes())) {
+    roomUpdate();
+    if(idArr[0] == myId) {
+      start.style.display = 'inline';
+      ready.style.display = 'none';
+    }
+  }
+}
 
 function randomNick() {
   nickName = nickName.value == null || nickName.value == undefined || nickName.value == '' || nickName.value.replace(' ','') == ''?
@@ -168,10 +187,14 @@ function randomNick() {
 }
 
 function addPlayer(nickName, userid) {
-  let arr = nickName.length > 2 ? nickName.filter(e => e != null) : nickName;
-  let id = userid.length > 2 ? userid.filter(e => e != null) : userid;
-  console.log(userid, id);
-  for(let i = 0 ; i < arr.length ; i++)
+  nickArr = nickName.length > 2 ? nickName.filter(e => e != null) : nickName;
+  idArr = userid.length > 2 ? userid.filter(e => e != null) : userid;
+  roomUpdate();
+  userCount++;
+}
+
+function roomUpdate() {
+  for(let i = 0 ; i < nickArr.length ; i++)
   {
     while (slot[i].hasChildNodes()) {
         slot[i].firstChild.remove();
@@ -179,8 +202,8 @@ function addPlayer(nickName, userid) {
     let name = document.createElement('div');
     let img = document.createElement('img');
     let hide = document.createElement('div');
-    let hidedId = document.createTextNode(id[i])
-    let Node = document.createTextNode(nickName[i])
+    let hidedId = document.createTextNode(idArr[i]);
+    let Node = document.createTextNode(nickArr[i]);
     
     hide.classList.add('in_slot_hide');
     img.classList.add('in_slot_img');
@@ -191,8 +214,7 @@ function addPlayer(nickName, userid) {
     slot[i].appendChild(img);
     slot[i].appendChild(name);
     slot[i].appendChild(hide);
-  };
-  userCount++;
+  }
 }
 
 function removePlayer(id) {
