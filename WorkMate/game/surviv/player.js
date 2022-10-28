@@ -131,7 +131,7 @@ function renderPlayer() {
   }
 }
 
-function sendData(curPltion) {
+function sendData(curPlayer) {
   let data = {};
   data = {
     id: curPlayer.id,
