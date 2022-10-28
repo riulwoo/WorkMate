@@ -77,6 +77,7 @@ socket.on('joinfail', ()=>{
 })
 
 start.addEventListener("click", function () {
+  console.log("유저 카운트 : "+ userCount + " 레디 카운트 : " + readyCount);
   if(readyCount == 0) console.log("혼자있어서 안됌");
   else if(readyCount == userCount) {
     console.log("모든 유저 준비 완료 게임 시작합니다");
