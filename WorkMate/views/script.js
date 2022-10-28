@@ -200,7 +200,7 @@ function addPlayer(nickName, userid) {
   nickArr = nickName.length > 2 ? nickName.filter(e => e != null) : nickName;
   idArr = userid.length > 2 ? userid.filter(e => e != null) : userid;
   roomUpdate();
-  userCount++;
+  userCount = idArr.length;
 }
 
 function roomUpdate() {
@@ -232,15 +232,19 @@ function removePlayer(id) {
     let slotId = document.querySelectorAll('.in_slot_hide');
     let arrId = Array.prototype.slice.call(slotId);
     console.log(arrId[0].innerHTML); 
-    let i = arrId.findIndex(e => e.innerHTML == id)
-    
+    let i = arrId.findIndex(e => e.innerHTML == id);
+    let color = window.getComputedStyle(slot[i]).backgroundColor;
+    if(color == "rgb(255, 245, 85)")
+    {
+       slot[i].style.backgroundColor = "#FFFFFF";
+       readyCount--; 
+    }
     while (slot[i].hasChildNodes()) {
       slot[i].firstChild.remove();
-      slot[i].style.backgroundColor = "#FFFFFF";
     }
   }
   catch(e){console.log(e)};
-  userCount--;
+  userCount = idArr.length;
 }
 
 function randomCode() {
