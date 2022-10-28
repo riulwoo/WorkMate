@@ -93,11 +93,12 @@ cancelBtn.addEventListener("click",function () {
 })
 
 function removeAllPlayer() {
-  let i = 0;
+  for (let i = 0; i < slot.length; i++) {
     while (slot[i].hasChildNodes()) {
       slot[i++].firstChild.remove();
-      if(i >= slot.length) break;
     }
+    slot[i].style.backgroundColor = "#FFFFFF";
+  }
   userCount = 0;
   readyCount = 0;
 }
