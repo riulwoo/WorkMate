@@ -194,8 +194,8 @@ function score_draw() {
     ctx.textAlign = "center";
     ctx.fillText(
       "score : " + players[myId].score,
-      (X * 10) / 100,
-      (Y * 7) / 100
+      (WIDTH * 10) / 100,
+      (HEIGHT * 7) / 100
     );
     ctx.closePath();
 }
