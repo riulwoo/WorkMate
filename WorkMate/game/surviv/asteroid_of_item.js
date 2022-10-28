@@ -10,8 +10,7 @@ function ItemAsteroid(x, y, xv, yv, id) {
   this.image.src = "https://cdn.discordapp.com/attachments/980090904394219562/1025853759902990366/3ebfc342f3bcb6ca.png";
 }
 
-// 아이템은 움직이기 때문에 화면 밖으로 나가면 반대편에서 다시 나오게 설정
-
+/** 특수 장애물을 화면에 출력하는 메서드. */
 function renderSpecObs()
 {
   if(roids_of_item_of_item.length >= 1)
@@ -45,6 +44,7 @@ function renderSpecObs()
   }
 }
 
+/** 특수 장애물과 부딫혔을 때의 . */
 function distSpecObs()
 {
     if (myplayer.stunsec <= 0)

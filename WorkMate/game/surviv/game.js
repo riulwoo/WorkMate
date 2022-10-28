@@ -208,7 +208,11 @@ function score_draw() {
                  (HEIGHT * 3) / 100
                 );
 
-    
+    ctx.drawImage(
+                  item_asset,
+                  (WIDTH * 7.2) / 100,
+                  (HEIGHT * 5.2) / 100,
+                );
   
     ctx.strokeStyle = "white";
     ctx.lineWidth = 5;
@@ -270,6 +274,9 @@ function update() {
     renderObs();     // 장애
     // moveObs();       // 장애물이 지속적으로 이동
     distObs();
+    renderSpecObs();
+    distSpecObs();
+    
     stun_flow();
   }
   end_draw();

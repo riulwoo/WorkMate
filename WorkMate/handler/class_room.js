@@ -48,7 +48,10 @@ module.exports = class userroom {
     let a = 0;
     console.log(`함수의 매개변수 id : ${id}`);
     if (this.users[i].id === id)
-      this.users.splice(i, 1, { id: null, nick: null, score: null });
+    {
+      this.users.splice(i, 1);
+      this.users.push({ id: null, nick: null, score: null });
+    }
     this.users.forEach((player, index) => {
       if (player.id == null) a++;
     });
