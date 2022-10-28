@@ -278,7 +278,7 @@ function update() {
     renderSpecObs();
     distSpecObs();
     
-    stun_flow();
+    stunAndBlink_flow();
   }
   end_draw();
 }
