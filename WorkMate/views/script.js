@@ -49,7 +49,7 @@ jroomBtn.addEventListener('click', function () {
     alert('방 코드를 입력해주세요\n' + '입력받은 방코드 : ' + rmCodeTxt.value)
   toggleRoom();
   toggleRoom2();
-  
+  rmCodeTxt.innerText = "";
   socket.emit('joinroom', {
     id : myId, 
     roomid : rmCodeTxt.value,
@@ -204,6 +204,7 @@ function removePlayer(id) {
     
     while (slot[i].hasChildNodes()) {
       slot[i].firstChild.remove();
+      slot[i].style.backgroundColor = "#FFFFFF";
     }
   }
   catch(e){console.log(e)};
