@@ -32,11 +32,6 @@ var itemPressed = false;
 // 게임 흐름 관련
 const COUNT_DUR_TIME = 3;
 var count_sec = Math.ceil(COUNT_DUR_TIME * FPS);
-
-var lego_time = Math.ceil(PER_SEC * FPS);
-var lego_num = Math.ceil(LETS_GO / PER_SEC);
-var item_gen_time = Math.ceil(PER_SEC * FPS);
-var item_gen_num = Math.ceil(ITEM_REGEN_TIME / PER_SEC);
 var is_counting = true;
 var is_gaming = false;
 var is_end =false;

@@ -174,7 +174,7 @@ function addPlayer(nickName, userid) {
     hide.classList.add('in_slot_hide');
     img.classList.add('in_slot_img');
     name.classList.add('in_slot_name');
-
+    
     hide.appendChild(hidedId);
     name.appendChild(Node);
     slot[i].appendChild(img);
