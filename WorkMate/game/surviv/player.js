@@ -23,8 +23,10 @@ function renderPlayer() {
     ctx.fillText(player.nick, player.x, player.y - player.radius - 10);
 
     ctx.closePath();
-  }
+  } // end of for
+  
   let curPlayer = players[myId];
+  
   if (curPlayer.blinkNum > 0) {
     // reduce the blink time
     curPlayer.blinkTime--;
@@ -33,7 +35,7 @@ function renderPlayer() {
       curPlayer.blinkTime = Math.ceil(PER_SEC * FPS);
       curPlayer.blinkNum--;
     }
-  }
+  } //end of if
 
   // 기절중이 아닐때에만 플레이어가 움직이도록 설정
   if (curPlayer.stun_sec <= 0) {
@@ -51,7 +53,8 @@ function renderPlayer() {
         curPlayer.player.src = moveeffect(curPlayer);
         curPlayer.x += playerSpeed;
         sendData(curPlayer);
-      } else if (upPressed) {
+      } // 
+      else if (upPressed) {
         curPlayer.direction = 2;
         if (rightPressed) {
           curPlayer.direction = 7;
@@ -64,7 +67,8 @@ function renderPlayer() {
         curPlayer.player.src = moveeffect(curPlayer);
         curPlayer.y -= playerSpeed;
         sendData(curPlayer);
-      } else if (leftPressed) {
+      } // 
+      else if (leftPressed) {
         curPlayer.direction = 1;
         if (upPressed) {
           curPlayer.direction = 5;
@@ -77,7 +81,8 @@ function renderPlayer() {
         curPlayer.player.src = moveeffect(curPlayer);
         curPlayer.x -= playerSpeed;
         sendData(curPlayer);
-      } else if (downPressed) {
+      } //
+      else if (downPressed) {
         curPlayer.direction = 0;
         if (rightPressed) {
           curPlayer.direction = 6;
@@ -90,15 +95,17 @@ function renderPlayer() {
         curPlayer.player.src = moveeffect(curPlayer);
         curPlayer.y += playerSpeed;
         sendData(curPlayer);
-      } else {
+      } //
+      else {
         curPlayer.player.src = curPlayer.asset[curPlayer.direction];
         curPlayer.ismove = false;
-      }
-    }
+      } //
+    } // end of playermove
 
     // handle use item. 아이템 사용을 구현합니다.
     if (itemPressed) {
-      if (curPlayer.itemPocket == 1) {
+      if (curPlayer.itemPocket == 1)
+      {
         itemBox.effect();
       }
       curPlayer.itemPocket = 0;
@@ -110,7 +117,7 @@ function renderPlayer() {
     } else if (curPlayer.x > WIDTH) {
       curPlayer.x = WIDTH;
     }
-  }
+  
 
   if (curPlayer.y < 0) {
     curPlayer.y = 0;
