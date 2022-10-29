@@ -6,8 +6,6 @@ myfont.load().then(function(font){
     document.fonts.add(font);
 });
 
-// 게임의 프레임은 60fps.
-const FPS = 60;
 // 화면 크기
 // 캔버스의 크기 속성값을 클라이언트의 화면 크기와 같게 바꿔줌
 flip_canvas.width = document.body.clientWidth;

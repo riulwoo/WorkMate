@@ -13,8 +13,8 @@ let question = ""          // 문제 변수
 let answer;                // 답 변수
 
 // 크기 변수
-let X = ox_canvas.width;
-let Y = ox_canvas.height;
+X = ox_canvas.width;
+Y = ox_canvas.height;
 
 // 캐릭터 관련
 let radius = 16;

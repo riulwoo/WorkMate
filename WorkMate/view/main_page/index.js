@@ -4,7 +4,7 @@ var croomBtn = document.getElementById("createroom"); //방만들기 버튼
 var jroomBtn = document.getElementById("joinroom"); //방 입장 버튼
 var start = document.getElementById("start"); //게임 시작 버튼
 var ready = document.getElementById("ready"); //게임 준비완료 버튼
-var nickName = document.getElementById("nick"); // 닉네임
+var nickName = document.getElementById("set-nickname"); // 닉네임
 var rmCodeTxt = document.getElementById("roomcode"); // 입력받은 룸 코드
 let adminCode = document.getElementById("adminCode");
 let slot = document.querySelectorAll(".slot");
@@ -23,6 +23,7 @@ let finalscore;          // 마지막 라운드에 전송할 점수 변수(게�
 let sortedScore = [];
 let readyCount = 0;
 let userCount = 0;
+
 matchBtn.addEventListener("click", match);
 
 croomBtn.addEventListener("click", function () {
@@ -116,7 +117,6 @@ socket.on('matchfail', function(data) {
 
 socket.on('레디유저', function(Id) {
   ids = document.querySelectorAll('.in_slot_hide');
-  console.log(ids[1].textContent);
   for (let i = 0; i < ids.length; i++) {
     if(ids[i].textContent == Id)
     {
@@ -301,13 +301,6 @@ function toggleRoom2() {
     x.style.display = "block";
   }
 }
-
-let result = document.getElementById('result');
-
-result.addEventListener('click', ()=>{
-  $('#main').load(`/result`);
-  console.log("결과 창 로드 완료");
-});
 
 function toggleMatch()
 	{
