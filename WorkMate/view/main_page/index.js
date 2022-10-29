@@ -166,7 +166,7 @@ socket.on('go-result', (data) => {
   $('#main').load('/result');
 })
 
-socket.on('leave_user', (id)=> {
+socket.on('leave_user', (id) => {
   i = idArr.findIndex(ele => ele == id);
   idArr = idArr.filter(e => e !== id);
   nickArr.splice(i, 1);
@@ -193,6 +193,7 @@ function checkLeader() {
       start.style.display = 'inline';
       ready.style.display = 'none';
       readyCount = 0;
+      readyIndex = [];
     }
   }
 }
