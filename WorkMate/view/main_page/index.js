@@ -73,7 +73,7 @@ socket.on('joinsuccess', (data) => {
 })
 
 socket.on('rIndex', (rIndex) => {
-  
+  readyIndex = rIndex;
 })
 
 socket.on('joinfail', () => {
