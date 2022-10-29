@@ -1,5 +1,5 @@
 let surv_canvas = document.getElementById("surviv_canvas");
-let ctx = surv_canvas.getContext("2d");
+let surv_ctx = surv_canvas.getContext("2d");
 let myFont = new FontFace("DungGeunMo", "url(survival/assets/DungGeunMo.otf)");
 surv_canvas.width = document.body.clientWidth;
 surv_canvas.height = document.body.clientHeight;
@@ -165,70 +165,70 @@ function distBetweenPoints(x1, y1, x2, y2) {
 function field_draw() {
   surv_canvas.width = document.body.clientWidth;
   surv_canvas.height = document.body.clientHeight;
-  ctx.beginPath();
-  ctx.fillStyle = "black";
-  ctx.fillRect(0, 0, WIDTH, HEIGHT);
-  // ctx.drawImage(MAP, 0, 0);
-  ctx.closePath();
+  surv_ctx.beginPath();
+  surv_ctx.fillStyle = "black";
+  surv_ctx.fillRect(0, 0, WIDTH, HEIGHT);
+  // surv_ctx.drawImage(MAP, 0, 0);
+  surv_ctx.closePath();
 }
 
 function end_draw(){
   if(is_end)
   {
-    ctx.fillStyle = "#90DBA2";
-    ctx.font = '200px DungGeunMo';
-    ctx.textAlign = "center";
-    ctx.fillText("GAME OVER", WIDTH / 2, HEIGHT / 2);
+    surv_ctx.fillStyle = "#90DBA2";
+    surv_ctx.font = '200px DungGeunMo';
+    surv_ctx.textAlign = "center";
+    surv_ctx.fillText("GAME OVER", WIDTH / 2, HEIGHT / 2);
   }
 }
 
 function count_draw()
 {
-  ctx.fillStyle = "#90DBA2";
-  ctx.font = '200px DungGeunMo';
-  ctx.textAlign = "center";
-  ctx.fillText(Math.ceil(count_sec / 60), WIDTH / 2, HEIGHT / 2);
+  surv_ctx.fillStyle = "#90DBA2";
+  surv_ctx.font = '200px DungGeunMo';
+  surv_ctx.textAlign = "center";
+  surv_ctx.fillText(Math.ceil(count_sec / 60), WIDTH / 2, HEIGHT / 2);
 }
 
 /** 게임 스코어와 아이템 보유 현황을 그리는 메서드 */
 function score_draw() {
-    ctx.beginPath();
-    ctx.fillStyle = "black";
-    ctx.font = "55px DungGeunMo";
-    ctx.textAlign = "center";
-    ctx.fillText(
+    surv_ctx.beginPath();
+    surv_ctx.fillStyle = "black";
+    surv_ctx.font = "55px DungGeunMo";
+    surv_ctx.textAlign = "center";
+    surv_ctx.fillText(
       "score : " + players[myId].score,
       (WIDTH * 10) / 100,
       (HEIGHT * 7) / 100
     );
 
-    ctx.font = '30px DungGeunMo';
-    ctx.textAlign = 'left';
-    ctx.fillStyle = "white";
-    ctx.fillText('ITEM',
+    surv_ctx.font = '30px DungGeunMo';
+    surv_ctx.textAlign = 'left';
+    surv_ctx.fillStyle = "white";
+    surv_ctx.fillText('ITEM',
                  (WIDTH * 5) / 100,
                  (HEIGHT * 3) / 100
                 );
 
     if (players[myId].itemPocket != 0)
     {
-      ctx.drawImage(
+      surv_ctx.drawImage(
                   item_asset,
                   (WIDTH * 7.2) / 100,
                   (HEIGHT * 5.2) / 100,
                 );
     }
   
-    ctx.strokeStyle = "white";
-    ctx.lineWidth = 5;
-    ctx.strokeRect(
+    surv_ctx.strokeStyle = "white";
+    surv_ctx.lineWidth = 5;
+    surv_ctx.strokeRect(
                     (WIDTH * 7) / 100,
                     (HEIGHT * 5) / 100,
                     80,
                     80
                   );
   
-    ctx.closePath();
+    surv_ctx.closePath();
 }
 
 /** 플레이어가 기절에 걸렸을 때, 지속시간이 감소되도록 하는 메서드. */
@@ -236,10 +236,10 @@ function stunAndBlink_flow()
 {
 	if (players[myId].stunsec > 0)	
   {
-    ctx.fillStyle = "red";
-    ctx.font = '120px DungGeunMo';
-    ctx.textAlign = "center";
-    ctx.fillText("stuned!!", WIDTH / 2, HEIGHT / 2 - 160);
+    surv_ctx.fillStyle = "red";
+    surv_ctx.font = '120px DungGeunMo';
+    surv_ctx.textAlign = "center";
+    surv_ctx.fillText("stuned!!", WIDTH / 2, HEIGHT / 2 - 160);
     players[myId].stunsec--;
   }
   else if (players[myId].stunsec == 0)

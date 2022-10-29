@@ -35,8 +35,8 @@ function renderObs()
     let R = roids[i];
     // rendering a Asteroid. 장애물을 화면에 출력합니다.
 
-    ctx.beginPath();
-    ctx.drawImage(
+    surv_ctx.beginPath();
+    surv_ctx.drawImage(
       R.image,
       R.x - R.radius,
       R.y - R.radius,
@@ -44,7 +44,7 @@ function renderObs()
       R.radius * 2
     ); // 크기는 90, 90
 
-    ctx.closePath();
+    surv_ctx.closePath();
   }
 
   for (let i = 0; i < roids.length; i++) {

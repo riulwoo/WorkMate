@@ -120,10 +120,12 @@ socket.on('레디유저', function(Id) {
       let color = window.getComputedStyle(slot[i]).backgroundColor;
       if(color == "rgb(255, 255, 255)") {
         slot[i].style.backgroundColor = "rgb(255, 245, 85)";
+        socket.emit('readyIndex', Id);
         readyCount++;
       }
       else {
         slot[i].style.backgroundColor = "rgb(255, 255, 255)";
+        socket.emit('cancelReadyIndex', Id);
         readyCount--;
       }
     }
@@ -171,6 +173,7 @@ socket.on('leave_user', (id) => {
 })
 
 function readyUpdate() {
+  
 }
 
 function slotClear() {

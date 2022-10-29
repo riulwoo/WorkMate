@@ -22,12 +22,12 @@ function Card(x, y, info)
         {
             this.card_asset.src = card_asset_index[8];
         }
-        ctx.drawImage(this.card_asset, this.x, this.y, card_width, card_height);
-        ctx.beginPath();
-        ctx.fillStyle = "#F5FFFA";
-        ctx.font = "35px DungGeunMo";
-        ctx.textAlign = "center";
-        ctx.fillText(this.info, this.x + card_width / 2, this.y + card_height / 2);
-        ctx.closePath();
+        flip_ctx.drawImage(this.card_asset, this.x, this.y, card_width, card_height);
+        flip_ctx.beginPath();
+        flip_ctx.fillStyle = "#F5FFFA";
+        flip_ctx.font = "35px DungGeunMo";
+        flip_ctx.textAlign = "center";
+        flip_ctx.fillText(this.info, this.x + card_width / 2, this.y + card_height / 2);
+        flip_ctx.closePath();
     }
 }

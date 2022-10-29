@@ -4,11 +4,11 @@ function renderPlayer() {
     let player = playermap[i];
     // rendering a player. 플레이어를 렌더링합니다.
 
-    ctx.beginPath();
+    surv_ctx.beginPath();
 
     if (player.blinksec % 2 == 0) {
       // 플레이어가 무적일 때 깜빡이게 표현
-      ctx.drawImage(
+      surv_ctx.drawImage(
         player.player,
         player.x - player.radius,
         player.y - player.radius,
@@ -17,12 +17,12 @@ function renderPlayer() {
       );
     }
 
-    ctx.fillStyle = player.color;
-    ctx.font = "15px DungGeunMo";
-    ctx.textAlign = "center";
-    ctx.fillText(player.nick, player.x, player.y - player.radius - 10);
+    surv_ctx.fillStyle = player.color;
+    surv_ctx.font = "15px DungGeunMo";
+    surv_ctx.textAlign = "center";
+    surv_ctx.fillText(player.nick, player.x, player.y - player.radius - 10);
 
-    ctx.closePath();
+    surv_ctx.closePath();
   } // end of for
   
   let curPlayer = players[myId];

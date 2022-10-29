@@ -20,8 +20,8 @@ function renderGoal()
       let G = goal[i];
       // rendering a money. 골인지점을 렌더링합니다.
   
-      ctx.beginPath();
-      ctx.drawImage(
+      surv_ctx.beginPath();
+      surv_ctx.drawImage(
         G.image,
         G.x - G.radius,
         G.y - G.radius,
@@ -29,7 +29,7 @@ function renderGoal()
         65
       ); // 크기는 65, 65
   
-      ctx.closePath();
+      surv_ctx.closePath();
     }
   }
   else

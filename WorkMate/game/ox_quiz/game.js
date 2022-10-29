@@ -2,7 +2,7 @@ let ox_canvas = document.getElementById("ox_canvas");
 ox_canvas.width = document.body.clientWidth;
 ox_canvas.height = document.body.clientHeight;
 
-let ctx = ox_canvas.getContext('2d');
+let ox_ctx = ox_canvas.getContext('2d');
 let myfont = new FontFace('DungGeunMo', 'url(ox_quiz/asset/DungGeunMo.otf)');
 
 myfont.load().then(function(font){
@@ -79,22 +79,22 @@ function field_draw(){
   ox_canvas.width = document.body.clientWidth;
   ox_canvas.height = document.body.clientHeight;
   console.log('정상적으로 실행중');
-  ctx.beginPath();
-  ctx.fillStyle = "bisque";
-  ctx.fillRect(0, 0, X, Y / 4);
-  ctx.fillStyle = "#87AFFD";
-  ctx.fillRect(0, Y/4, X/2, Y);
-  ctx.fillStyle = "#FE8787";
-  ctx.fillRect(X/2, Y/4, X, Y);
-  ctx.fillStyle = "white"
-  ctx.font = '348px DungGeunMo';
-  ctx.textAlign = "center";
-  ctx.fillText("O", X / 4, Y/1.4);
-  ctx.fillStyle = "white"
-  ctx.font = '348px DungGeunMo';
-  ctx.textAlign = "center";
-  ctx.fillText("X", X - 300, Y/1.4);
-  ctx.closePath();
+  ox_ctx.beginPath();
+  ox_ctx.fillStyle = "bisque";
+  ox_ctx.fillRect(0, 0, X, Y / 4);
+  ox_ctx.fillStyle = "#87AFFD";
+  ox_ctx.fillRect(0, Y/4, X/2, Y);
+  ox_ctx.fillStyle = "#FE8787";
+  ox_ctx.fillRect(X/2, Y/4, X, Y);
+  ox_ctx.fillStyle = "white"
+  ox_ctx.font = '348px DungGeunMo';
+  ox_ctx.textAlign = "center";
+  ox_ctx.fillText("O", X / 4, Y/1.4);
+  ox_ctx.fillStyle = "white"
+  ox_ctx.font = '348px DungGeunMo';
+  ox_ctx.textAlign = "center";
+  ox_ctx.fillText("X", X - 300, Y/1.4);
+  ox_ctx.closePath();
 }
 
 /** 게임 시작 전 로딩창을 띄우는 메서드 */
@@ -198,116 +198,116 @@ socket.on('ox_end', ()=>{
 function update()
 {
     // draw playground. 플레이어가 이동할 필드를 그립니다.
-    ctx.clearRect(0, 0, X, Y / 4);
+    ox_ctx.clearRect(0, 0, X, Y / 4);
   
-    ctx.fillStyle = "#87AFFD";
-    ctx.fillRect(0, Y/4, X/2, Y);
-    ctx.fillStyle = "#FE8787";
-    ctx.fillRect(X/2, Y/4, X, Y);
-    ctx.fillStyle = "white"
-    ctx.font = '348px DungGeunMo';
-    ctx.textAlign = "center";
-    ctx.fillText("O", X / 4, Y/1.4);
-    ctx.fillStyle = "white"
-    ctx.font = '348px DungGeunMo';
-    ctx.textAlign = "center";
-    ctx.fillText("X", X - (X/4), Y/1.4);
+    ox_ctx.fillStyle = "#87AFFD";
+    ox_ctx.fillRect(0, Y/4, X/2, Y);
+    ox_ctx.fillStyle = "#FE8787";
+    ox_ctx.fillRect(X/2, Y/4, X, Y);
+    ox_ctx.fillStyle = "white"
+    ox_ctx.font = '348px DungGeunMo';
+    ox_ctx.textAlign = "center";
+    ox_ctx.fillText("O", X / 4, Y/1.4);
+    ox_ctx.fillStyle = "white"
+    ox_ctx.font = '348px DungGeunMo';
+    ox_ctx.textAlign = "center";
+    ox_ctx.fillText("X", X - (X/4), Y/1.4);
 
     if (is_breaking)
     {
-      ctx.clearRect(0, 0, X, Y / 4);
-      ctx.fillStyle = "bisque";
-      ctx.fillRect(0, 0, X, Y / 4);
-      ctx.fillStyle = "black"
-      ctx.font = '48px DungGeunMo';
+      ox_ctx.clearRect(0, 0, X, Y / 4);
+      ox_ctx.fillStyle = "bisque";
+      ox_ctx.fillRect(0, 0, X, Y / 4);
+      ox_ctx.fillStyle = "black"
+      ox_ctx.font = '48px DungGeunMo';
       // measureText() = 문자열의 넓이 반환
-      ctx.textAlign = "center";
-      ctx.fillText('READY??', X / 2, Y / 5);
-      ctx.fillStyle = "#90DBA2"
-      ctx.font = '200px DungGeunMo';
-      ctx.textAlign = "center";
+      ox_ctx.textAlign = "center";
+      ox_ctx.fillText('READY??', X / 2, Y / 5);
+      ox_ctx.fillStyle = "#90DBA2"
+      ox_ctx.font = '200px DungGeunMo';
+      ox_ctx.textAlign = "center";
 
-      if (break_num == 0) ctx.fillText("START!!!", X / 2, Y / 1.6);
-      else if(break_num <= 3) ctx.fillText(break_num, X / 2, Y / 1.6);
+      if (break_num == 0) ox_ctx.fillText("START!!!", X / 2, Y / 1.6);
+      else if(break_num <= 3) ox_ctx.fillText(break_num, X / 2, Y / 1.6);
     }
 
     if (is_during)
     {
         // 문제 출력 전에 영역을 초기화 시켜줌
-        ctx.clearRect(0, 0, X, Y / 4);
-        ctx.fillStyle = "bisque";
-        ctx.fillRect(0, 0, X, Y / 4);
+        ox_ctx.clearRect(0, 0, X, Y / 4);
+        ox_ctx.fillStyle = "bisque";
+        ox_ctx.fillRect(0, 0, X, Y / 4);
 
         // 문제 출력
-        ctx.fillStyle = "black"
+        ox_ctx.fillStyle = "black"
         if (question.length < 20)
         {
-            ctx.font = '48px DungGeunMo';
+            ox_ctx.font = '48px DungGeunMo';
         }
         else
         {
-            ctx.font = '36px DungGeunMo';
+            ox_ctx.font = '36px DungGeunMo';
         }
         // measureText() = 문자열의 넓이 반환
-        ctx.textAlign = "center";
-        ctx.fillText(question, X / 2, Y / 5);
+        ox_ctx.textAlign = "center";
+        ox_ctx.fillText(question, X / 2, Y / 5);
 
         // 카운트다운 출력
-        ctx.fillStyle = "#90DBA2"
-        ctx.font = '200px DungGeunMo';
-        ctx.textAlign = "center";
+        ox_ctx.fillStyle = "#90DBA2"
+        ox_ctx.font = '200px DungGeunMo';
+        ox_ctx.textAlign = "center";
         if (during_num <= 5)
         {
-            ctx.fillText(during_num, X / 2, Y / 1.6);
+            ox_ctx.fillText(during_num, X / 2, Y / 1.6);
         }
     }
     if (is_checking)
     {
-        ctx.clearRect(0, 0, X, Y / 4);
-        ctx.fillStyle = "bisque";
-        ctx.fillRect(0, 0, X, Y / 4);
+        ox_ctx.clearRect(0, 0, X, Y / 4);
+        ox_ctx.fillStyle = "bisque";
+        ox_ctx.fillRect(0, 0, X, Y / 4);
 
-        ctx.fillStyle = "black"
-        ctx.font = '48px DungGeunMo';
-        ctx.textAlign = "center";
+        ox_ctx.fillStyle = "black"
+        ox_ctx.font = '48px DungGeunMo';
+        ox_ctx.textAlign = "center";
 
         if (answer && players[myId].is_O)
         {
             // 정답이 O. and 플레이어가 O.
-            ctx.fillText('정답입니다!!', X / 2, Y / 5);
+            ox_ctx.fillText('정답입니다!!', X / 2, Y / 5);
             answer_cnt = true;
         }
         else if (!answer && !players[myId].is_O)
         {
             // 정답이 X. and 플레이어가 X.
-            ctx.fillText('정답입니다!!', X / 2, Y / 5);
+            ox_ctx.fillText('정답입니다!!', X / 2, Y / 5);
             answer_cnt = true;
         }
         else
         {
-            ctx.fillText('틀렸습니다!!', X / 2, Y / 5);
+            ox_ctx.fillText('틀렸습니다!!', X / 2, Y / 5);
         }
       }
     if(is_end)
     {
       let overmsg = '당신의 점수를 이력서에 추가하는 중입니다..';
-      ctx.clearRect(0, 0, X, Y / 4);
-      ctx.fillStyle = "bisque";
-      ctx.fillRect(0, 0, X, Y / 4);
-      ctx.fillStyle = "black"
-      ctx.font = '48px DungGeunMo';
+      ox_ctx.clearRect(0, 0, X, Y / 4);
+      ox_ctx.fillStyle = "bisque";
+      ox_ctx.fillRect(0, 0, X, Y / 4);
+      ox_ctx.fillStyle = "black"
+      ox_ctx.font = '48px DungGeunMo';
       // measureText() = 문자열의 넓이 반환
-      ctx.textAlign = "center";
+      ox_ctx.textAlign = "center";
       
-      ctx.fillText('게임 끝!!!!!', X / 2, Y / 5);
-      ctx.fillText(overmsg, X / 2 - (ctx.measureText(overmsg).width / 2), Y / 1.6);
+      ox_ctx.fillText('게임 끝!!!!!', X / 2, Y / 5);
+      ox_ctx.fillText(overmsg, X / 2 - (ox_ctx.measureText(overmsg).width / 2), Y / 1.6);
     }
   
     // 점수 출력
-    ctx.fillStyle = "black"
-    ctx.font = '24px DungGeunMo';
-    ctx.textAlign = "center";
-    ctx.fillText('Score : ' + players[myId].score, 55, 40);
+    ox_ctx.fillStyle = "black"
+    ox_ctx.font = '24px DungGeunMo';
+    ox_ctx.textAlign = "center";
+    ox_ctx.fillText('Score : ' + players[myId].score, 55, 40);
     //field_draw();
     renderPlayer();
 } // end of update

@@ -20,8 +20,8 @@ function renderSpecObs()
       let R = roids_of_item[i];
       // rendering a Asteroid. 장애물을 화면에 출력합니다.
   
-      ctx.beginPath();
-      ctx.drawImage(
+      surv_ctx.beginPath();
+      surv_ctx.drawImage(
         R.image,
         R.x - R.radius,
         R.y - R.radius,
@@ -29,7 +29,7 @@ function renderSpecObs()
         180
       ); // 크기는 180, 180
   
-      ctx.closePath();
+      surv_ctx.closePath();
     }
 
     // move

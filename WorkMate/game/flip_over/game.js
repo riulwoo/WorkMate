@@ -1,5 +1,5 @@
 let flip_canvas = document.getElementById("flip_canvas");
-let ctx = flip_canvas.getContext('2d');
+let flip_ctx = flip_canvas.getContext('2d');
 let myfont = new FontFace('DungGeunMo', 'url(flip_over/asset/DungGeunMo.otf)');
 
 myfont.load().then(function(font){
@@ -102,16 +102,16 @@ function keyUpHandler(e){
 
 /** 게임 스코어를 그리는 메서드 */
 function score_draw() {
-    ctx.beginPath();
-    ctx.fillStyle = "black";
-    ctx.font = "55px DungGeunMo";
-    ctx.textAlign = "center";
-    ctx.fillText(
+    flip_ctx.beginPath();
+    flip_ctx.fillStyle = "black";
+    flip_ctx.font = "55px DungGeunMo";
+    flip_ctx.textAlign = "center";
+    flip_ctx.fillText(
       "score : " + players[myId].score,
       (X * 10) / 100,
       (Y * 7) / 100
     );
-    ctx.closePath();
+    flip_ctx.closePath();
 }
 
 /** 게임 맵을 그리는 메서드 */
@@ -119,25 +119,25 @@ function field_draw(){
     // flip_canvas.width = document.body.clientWidth;
     // flip_canvas.height = document.body.clientHeight;
 
-    ctx.beginPath();
-    ctx.fillStyle = "#7092BE";
-    ctx.fillRect(0, 0, X, Y);
-    ctx.closePath();
+    flip_ctx.beginPath();
+    flip_ctx.fillStyle = "#7092BE";
+    flip_ctx.fillRect(0, 0, X, Y);
+    flip_ctx.closePath();
 }
 
 function count_draw()
 {
-  ctx.fillStyle = "#90DBA2";
-  ctx.font = '200px DungGeunMo';
-  ctx.textAlign = "center";
-  ctx.fillText(Math.ceil(count_sec / 60), X / 2, Y / 2);
+  flip_ctx.fillStyle = "#90DBA2";
+  flip_ctx.font = '200px DungGeunMo';
+  flip_ctx.textAlign = "center";
+  flip_ctx.fillText(Math.ceil(count_sec / 60), X / 2, Y / 2);
 }
 
 function ending_draw() {
-  ctx.fillStyle = "#90DBA2";
-  ctx.font = '200px DungGeunMo';
-  ctx.textAlign = "center";
-  ctx.fillText("GAME OVER", X / 2, Y / 2);
+  flip_ctx.fillStyle = "#90DBA2";
+  flip_ctx.font = '200px DungGeunMo';
+  flip_ctx.textAlign = "center";
+  flip_ctx.fillText("GAME OVER", X / 2, Y / 2);
 }
 
 /** 게임 시작 전 로딩창을 띄우는 메서드 */

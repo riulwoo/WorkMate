@@ -36,8 +36,8 @@ function renderItem() {
   if (itemBox != null)
   {
       // rendering a Item. 장애물을 화면에 출력합니다.
-    ctx.beginPath();
-    ctx.drawImage(
+    surv_ctx.beginPath();
+    surv_ctx.drawImage(
       itemBox.image,
       itemBox.x - itemBox.radius,
       itemBox.y - itemBox.radius,
@@ -45,7 +45,7 @@ function renderItem() {
       55
     ); // 크기는 55, 55
   
-    ctx.closePath();
+    surv_ctx.closePath();
   
     // item will move in field.
   
