@@ -1,3 +1,18 @@
+
+
+// QR & 도움말
+
+function toggle_display(id) {
+  var qr = document.getElementById(id);
+
+  if (qr.style.display != "block") {
+    qr.style.display = "block";
+  } else {
+    qr.style.display = "none";
+  }
+}
+
+// 절취선
 var matchBtn = document.getElementById("matchStart"); //매칭하기 버튼
 var cancelBtn = document.getElementById("matchcancel"); //방나가기 / 매치 나가기 버튼
 var croomBtn = document.getElementById("createroom"); //방만들기 버튼 
@@ -180,7 +195,6 @@ function readyUpdate(rIndex) {
   let arrId = Array.prototype.slice.call(slotId);
   for(var i = 0; i < 6; i++) {
     for(var j = 0; i < 6; i++) {
-      console.log("레디 업데이트 중");
       if(arrId[i].innerHTML == rIndex[j]) slot[i].style.backgroundColor = "rgb(255, 245, 85)";
     }
   }

@@ -3,7 +3,7 @@ ox_canvas.width = document.body.clientWidth;
 ox_canvas.height = document.body.clientHeight;
 
 let ox_ctx = ox_canvas.getContext('2d');
-let myfont = new FontFace('DungGeunMo', 'url(ox_quiz/asset/DungGeunMo.otf)');
+// let myfont = new FontFace('DungGeunMo', 'url(ox_quiz/asset/DungGeunMo.otf)');
 
 myfont.load().then(function(font){
     document.fonts.add(font);
@@ -21,13 +21,13 @@ let radius = 16;
 let playerSpeed = 5;
 
 // 이동 관련
-var rightPressed = false;
-var leftPressed = false;
-var upPressed = false;
-var downPressed = false;
+// var rightPressed = false;
+// var leftPressed = false;
+// var upPressed = false;
+// var downPressed = false;
 
 // Game Flow 관련
-var is_loading; 
+var ox_is_loading; // 이거 안쓰는데??
 var is_during = false; // 문제가 진행중일 때 true.
 var is_breaking = false; // 정답을 확인하고 다음 문제가 나오기 전까지 true.
 var is_checking = false; // 문제에 대한 정답을 확인할 때.
@@ -39,11 +39,11 @@ var check_num = 0;
 
 var answer_cnt = false; // 문제를 맞췄을 때 활성화 되어 점수를 올려주는 체크용 변수
 
-document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
+document.addEventListener("keydown", ox_keyDownHandler, false);
+document.addEventListener("keyup", ox_keyUpHandler, false);
 
 /** 키를 눌렀을 때 실행되는 메서드 */
-function keyDownHandler(e){
+function ox_keyDownHandler(e){
     if (e.keyCode == 68){ // 'ArrowRight'
         rightPressed = true;
     }
@@ -59,7 +59,7 @@ function keyDownHandler(e){
 }
 
 /** 키를 뗐을 때 실행되는 메서드 */
-function keyUpHandler(e){
+function ox_keyUpHandler(e){
     if (e.keyCode == 68){ // 'ArrowRight'
         rightPressed = false;
     }
@@ -75,7 +75,7 @@ function keyUpHandler(e){
 }
 
 /** 게임 맵을 그리는 메서드 */
-function field_draw(){
+function ox_field_draw(){
   ox_canvas.width = document.body.clientWidth;
   ox_canvas.height = document.body.clientHeight;
   console.log('정상적으로 실행중');
@@ -98,7 +98,7 @@ function field_draw(){
 }
 
 /** 게임 시작 전 로딩창을 띄우는 메서드 */
-function func_lding()
+function ox_func_lding()
 {
   return new Promise((r1, r2) => {
     for (let i = 0; i < playerinfo.length; i++) {
@@ -115,48 +115,48 @@ function func_lding()
   })
 }
 
-function leaveUser(id){
-  for(var i = 0 ; i < players.length; i++){
-    if(players[i].id == id){
-      players.splice(i,1);
-      break;
-    }
-  }
-  delete playermap[id];
-}
-socket.on('leave_user', function(data){
-    leaveUser(data);
-})
-function updateState(id, x, y, direction,ismove,cnt) {
-    let ball = players[id];
-    if (!ball) {
-        return;
-    }
-    ball.x = x;
-    ball.y = y;
-    ball.direction = direction;
-    ball.ismove = ismove;
-    ball.cnt = cnt;
-    ball.player.src = ball.ismove ? moveeffect(ball) : ball.asset[ball.direction];
-}
-socket.on('update_state', function (data) {
-    updateState(data.id, data.x, data.y, data.direction);
-})
+// function leaveUser(id){
+//   for(var i = 0 ; i < players.length; i++){
+//     if(players[i].id == id){
+//       players.splice(i,1);
+//       break;
+//     }
+//   }
+//   delete playermap[id];
+// }
+// socket.on('leave_user', function(data){
+//     leaveUser(data);
+// })
+// function updateState(id, x, y, direction,ismove,cnt) {
+//     let ball = players[id];
+//     if (!ball) {
+//         return;
+//     }
+//     ball.x = x;
+//     ball.y = y;
+//     ball.direction = direction;
+//     ball.ismove = ismove;
+//     ball.cnt = cnt;
+//     ball.player.src = ball.ismove ? moveeffect(ball) : ball.asset[ball.direction];
+// }
+// socket.on('update_state', function (data) {
+//     updateState(data.id, data.x, data.y, data.direction);
+// })
 
-function sendData(curPlayer) {
-      let data = {};
-      data = {
-          id : curPlayer.id,
-          x: curPlayer.x,
-          y: curPlayer.y,
-          direction : curPlayer.direction,
-          ismove : curPlayer.ismove,
-          cnt : curPlayer.cnt
-      };
-      if(data){
-          socket.emit("send_location", data);
-      }
-  }
+// function sendData(curPlayer) {
+//       let data = {};
+//       data = {
+//           id : curPlayer.id,
+//           x: curPlayer.x,
+//           y: curPlayer.y,
+//           direction : curPlayer.direction,
+//           ismove : curPlayer.ismove,
+//           cnt : curPlayer.cnt
+//       };
+//       if(data){
+//           socket.emit("send_location", data);
+//       }
+//   }
 
 socket.on('ox_breaking', (data)=>{
   const { break_time, _question } = data;

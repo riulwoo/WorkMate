@@ -1,3 +1,2 @@
-# WorkMate
 
-[html](WorkMate/views/index.html)
+유한대 졸업과제 WorkMate
