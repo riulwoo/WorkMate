@@ -188,7 +188,7 @@ module.exports = (io, socket, room) => {
     room[index].readyIndex = id;
   })
 
-  socket.on('CancelReadyIndex' (id) => {
+  socket.on('CancelReadyIndex', (id) => {
     const index = getRoomIndex(id);
     
   })
