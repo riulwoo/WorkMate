@@ -106,8 +106,7 @@ module.exports = (io, socket, room) => {
             io.to(room[Index].roomCode).emit('joinsuccess', {
               usernick : room[Index].usernick,
               roomcode : room[Index].roomCode,
-              userid : room[Index].userid,
-              r
+              userid : room[Index].userid
             });
           }
         }
