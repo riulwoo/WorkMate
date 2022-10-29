@@ -3,10 +3,11 @@ module.exports = class userroom {
   constructor() {
     this.check = ""; // 생성된 방이 matching 인지 private인지 체크
     this.roomCode = null; // 방 코드
-    this.gameName = ["surviv"]; // 게임배열 랜덤으로 게임을 시작하기위한 변수
+    this.gameName = ["survival"]; // 게임배열 랜덤으로 게임을 시작하기위한 변수
     //this.gameName = ['ox', 'surviv', 'flipover'];   // 게임배열 랜덤으로 게임을 시작하기위한 변수
     this.users = []; // 플레이어 1~6명의 정보
     this.cnt = 0; // 준비상태를 체크하기 위한 카운터 변수
+    this.readyIndex = []; //방안에 유저들이 레디했는지 체크하는 변수
     this.cur_quiz_index = [];
     this.card_deck = [
       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3,

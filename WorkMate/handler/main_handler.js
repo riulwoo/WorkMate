@@ -178,8 +178,12 @@ module.exports = (io, socket, room) => {
     }
   });
 
-  socket.on('ready', (id)=> {
+  socket.on('ready', (id) => {
     const index = getRoomIndex(id);
     io.to(room[index].roomCode).emit('레디유저', id);
+  })
+
+  socket.on('readyIndex', (rIndex) => {
+    
   })
 };
