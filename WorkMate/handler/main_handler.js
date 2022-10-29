@@ -184,6 +184,7 @@ module.exports = (io, socket, room) => {
   })
 
   socket.on('readyIndex', (rIndex) => {
-    
+    const index = getRoomIndex(id);
+    io.to(room[index].roomCode).emit('rIndex', rIndex);
   })
 };

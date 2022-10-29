@@ -68,9 +68,13 @@ jroomBtn.addEventListener('click', function () {
 
 socket.on('joinsuccess', (data) => {
   adminCode.innerText = data.roomcode;
+  socket.emit('readyIndex', readyIndex);
   addPlayer(data.usernick, data.userid);
 })
 
+socket.on('rIndex', (rIndex) => {
+  
+})
 
 socket.on('joinfail', () => {
   alert('올바른 코드를 입력해주세요!');
