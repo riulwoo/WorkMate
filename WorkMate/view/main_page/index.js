@@ -77,6 +77,7 @@ socket.on('joinsuccess', (data) => {
 
 socket.on('rIndex', (rIndex) => {
   readyIndex = rIndex;
+  readyUpdate();
 })
 
 socket.on('joinfail', () => {
@@ -180,6 +181,12 @@ socket.on('leave_user', (id) => {
   removePlayer(id);
   checkLeader();
 })
+
+function readyUpdate() {
+  for(var i = 0; i < readyIndex.length; i++) {
+    let color = window.getComputedStyle(slot[i]).backgroundColor;
+  }
+}
 
 function slotClear() {
   for(let i = 0 ; i < 6; i++)
