@@ -1,6 +1,6 @@
 let canvas = document.getElementById("flip_canvas");
 let ctx = canvas.getContext('2d');
-let myfont = new FontFace('DungGeunMo', 'url(ox/assets/fonts/DungGeunMo.otf)');
+let myfont = new FontFace('DungGeunMo', 'url(asset/DungGeunMo.otf)');
 
 myfont.load().then(function(font){
     document.fonts.add(font);

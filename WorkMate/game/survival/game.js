@@ -210,7 +210,7 @@ function score_draw() {
                  (HEIGHT * 3) / 100
                 );
 
-    if (curPlayer.itemPocket != 0)
+    if (players[myId].itemPocket != 0)
     {
       ctx.drawImage(
                   item_asset,
