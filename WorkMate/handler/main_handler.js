@@ -108,6 +108,7 @@ module.exports = (io, socket, room) => {
               roomcode : room[Index].roomCode,
               userid : room[Index].userid
             });
+            socket.emit('readyUpdate', room[Index].readyIndex);
           }
         }
       } catch {
@@ -185,11 +186,11 @@ module.exports = (io, socket, room) => {
 
   socket.on('readyIndex', (id) => {
     const index = getRoomIndex(id);
-    room[index].readyIndex = id;
+    room[index].readyIndex.push(id);
   })
 
   socket.on('CancelReadyIndex', (id) => {
     const index = getRoomIndex(id);
-    
+    room[index].rIndexUpdate(id);
   })
 };

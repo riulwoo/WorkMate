@@ -20,6 +20,10 @@ module.exports = class userroom {
     this.players = []; // 실제 게임을 할 플레이어 정보
   }
 
+  rIndexUpdate(id) {
+    this.readyIndex = this.readyIndex.filter(e => e !== id);
+  }
+  
   game() {
     if (this.gameName.length > 0) {
       const select =

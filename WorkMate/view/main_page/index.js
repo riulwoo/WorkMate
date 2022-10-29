@@ -65,11 +65,14 @@ jroomBtn.addEventListener('click', function () {
   ready.style.display = 'inline';
 })
 
-socket.on('joinsuccess', (data) => {
+socket.on('joinsuccess', (data) => { 
   adminCode.innerText = data.roomcode;
   addPlayer(data.usernick, data.userid);
 })
 
+socket.on('readyupdate', (rIndex) => {
+  readyUpdate(rIndex);
+})
 
 socket.on('joinfail', () => {
   alert('올바른 코드를 입력해주세요!');
@@ -172,8 +175,14 @@ socket.on('leave_user', (id) => {
   checkLeader();
 })
 
-function readyUpdate() {
-  
+function readyUpdate(rIndex) {
+  let slotId = document.querySelectorAll('.in_slot_hide');
+  let arrId = Array.prototype.slice.call(slotId);
+  for(var i = 0; i < 6; i++) {
+    for(var j = 0; i < 6; i++) {
+      if(arrId[i].innerHTML == rIndex[j]) slot[i].style.backgroundColor = "rgb(255, 245, 85)";
+    }
+  }
 }
 
 function slotClear() {
