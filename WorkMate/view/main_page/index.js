@@ -68,7 +68,10 @@ jroomBtn.addEventListener('click', function () {
 
 socket.on('joinsuccess', (data) => {
   adminCode.innerText = data.roomcode;
-  socket.emit('readyIndex', readyIndex);
+  socket.emit('readyIndex', {
+    id : myId,
+    rIndex : readyIndex
+  });
   addPlayer(data.usernick, data.userid);
 })
 

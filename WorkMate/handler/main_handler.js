@@ -183,7 +183,8 @@ module.exports = (io, socket, room) => {
     io.to(room[index].roomCode).emit('레디유저', id);
   })
 
-  socket.on('readyIndex', (rIndex) => {
+  socket.on('readyIndex', (data) => {
+    const { id, rIndex } = data;
     const index = getRoomIndex(id);
     io.to(room[index].roomCode).emit('rIndex', rIndex);
   })
