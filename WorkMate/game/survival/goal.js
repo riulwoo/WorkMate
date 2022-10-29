@@ -40,8 +40,8 @@ function renderGoal()
 
 function distGoal()
 {
-  let px = myplayer.x;
-  let py = myplayer.y;
+  let px = curPlayer.x;
+  let py = curPlayer.y;
   let gx;
   let gy;
 
@@ -49,13 +49,13 @@ function distGoal()
     gx = goal[i].x + goal[i].radius;
     gy = goal[i].y + goal[i].radius;
 
-    if (distBetweenPoints(px, py, gx, gy) < goal[i].radius + myplayer.radius) {
+    if (distBetweenPoints(px, py, gx, gy) < goal[i].radius + curPlayer.radius) {
       socket.emit("돈 먹었대요", {
         id : myId,
         i : i
       })
       goal.splice(i, 1);
-      myplayer.score += 50;
+      curPlayer.score += 50;
     }
   }
 }

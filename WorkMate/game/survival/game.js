@@ -97,7 +97,7 @@ socket.on("살아남기 게임끝", ()=>{
   setTimeout(()=>{socket.emit('gameover', myId);}, 3000);
 });
 
-let myplayer = players[myId];
+// let myplayer = players[myId];
 
 // 게임이 종료가 되면 playerinfo[index].score += myplayer.score;
 
@@ -210,19 +210,22 @@ function score_draw() {
                  (HEIGHT * 3) / 100
                 );
 
-    ctx.drawImage(
+    if (curPlayer.itemPocket != 0)
+    {
+      ctx.drawImage(
                   item_asset,
                   (WIDTH * 7.2) / 100,
                   (HEIGHT * 5.2) / 100,
                 );
+    }
   
     ctx.strokeStyle = "white";
     ctx.lineWidth = 5;
     ctx.strokeRect(
                     (WIDTH * 7) / 100,
                     (HEIGHT * 5) / 100,
-                    100,
-                    100
+                    80,
+                    80
                   );
   
     ctx.closePath();

@@ -5,17 +5,17 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
 /** Import Router */
-const Router = require('./router/pageRouter')(app);
+const router = require('./router/page_router')(app);
 
 /** Import SocketHandler */
 const init = require('./handler/func_conn');
-const mainHandlers = require('./handler/mainHandler');
-const oxHandlers = require('./handler/oxHandler');
-const flipHandlers = require('./handler/flipHandler');
-const survivHandlers = require('./handler/survivHandler');
+const mainHandler = require('./handler/main_handler');
+const oxHandler = require('./handler/ox_handler');
+const flipHandler = require('./handler/flip_handler');
+const survivHandler = require('./handler/survival_handler');
 
 /** Set Middleware */
-app.use(express.static('views'));
+app.use(express.static('view'));
 app.use(express.static('game'));
 app.use(express.json());
 app.use(express.urlencoded( {extended : false } ));
@@ -25,10 +25,10 @@ app.use(express.urlencoded( {extended : false } ));
 
 const onConnection = (socket) => {
   console.log(`${socket.id}님이 입장하셨습니다.`);
-  mainHandlers(io, socket, room);
-  oxHandlers(io, socket, room);
-  flipHandlers(io, socket, room);
-  survivHandlers(io, socket, room);
+  mainHandler(io, socket, room);
+  oxHandler(io, socket, room);
+  flipHandler(io, socket, room);
+  survivHandler(io, socket, room);
   
   socket.on('send_location', function(data) {
           socket.broadcast.emit('update_state', {

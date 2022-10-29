@@ -9,6 +9,7 @@ var rmCodeTxt = document.getElementById("roomcode"); // 입력받은 룸 코드
 let adminCode = document.getElementById("adminCode");
 let slot = document.querySelectorAll(".slot");
 let admin = document.getElementById("admin");
+let readyIndex = [];
 let ids;
 let idArr;
 let nickArr;
@@ -65,13 +66,13 @@ jroomBtn.addEventListener('click', function () {
   ready.style.display = 'inline';
 })
 
-socket.on('joinsuccess', (data)=>{
+socket.on('joinsuccess', (data) => {
   adminCode.innerText = data.roomcode;
   addPlayer(data.usernick, data.userid);
 })
 
 
-socket.on('joinfail', ()=>{
+socket.on('joinfail', () => {
   alert('올바른 코드를 입력해주세요!');
   toggleRoom();
   toggleRoom2();
@@ -105,6 +106,7 @@ function removeAllPlayer() {
   }
   userCount = 0;
   readyCount = 0;
+  readyIndex = [];
 }
 
 socket.on('matchfail', function(data) {
@@ -120,17 +122,19 @@ socket.on('레디유저', function(Id) {
       let color = window.getComputedStyle(slot[i]).backgroundColor;
       if(color == "rgb(255, 255, 255)") {
         slot[i].style.backgroundColor = "rgb(255, 245, 85)";
+        readyIndex.push(i);
         readyCount++;
       }
       else {
         slot[i].style.backgroundColor = "rgb(255, 255, 255)";
+        readyIndex.filter(e => e !== i);
         readyCount--;
       }
     }
   }
 })
 
-socket.on('user_id', function(data){
+socket.on('user_id', function(data) {
   myId = data;
 })
 
@@ -194,8 +198,8 @@ function checkLeader() {
 }
 
 function randomNick() {
-  nickName = nickName.value == null || nickName.value == undefined || nickName.value == '' || nickName.value.replace(' ','') == ''?
-  "Player " + Math.floor(Math.random()*100+1) : nickName.value 
+  nickName = nickName.value == null || nickName.value == undefined || nickName.value == '' || nickName.value.replace(' ','') == '' ?
+  "Player " + Math.floor(Math.random()*100+1) : nickName.value.substr(0, 10);
 }
 
 function addPlayer(nickName, userid) {
@@ -240,6 +244,7 @@ function removePlayer(id) {
     {
       slot[i].style.backgroundColor = "rgb(255, 255, 255)";
       readyCount--;
+      readyIndex.filter(e => e !== i);
     }
     while (slot[i].hasChildNodes()) {
       slot[i].firstChild.remove();

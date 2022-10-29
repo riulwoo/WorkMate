@@ -4,14 +4,23 @@ function Asteroid(x, y, xv, yv, type) {
   this.y = y;
   this.xv = xv;
   this.yv = yv;
-  this.radius = 45;
+  
+  if (type == 2)
+  {
+    this.radius = 38.5;
+  }
+  else
+  {
+    this.radius = 45;
+  }
+  
   this.image = new Image();
   
-  // 이미지 종류 : 복사기, 문서더미, 노트북
+  // 이미지 종류 : 문서더미, 복사기, 노트북
   this.asset = [
-    "https://cdn.discordapp.com/attachments/980090904394219562/1026420114792386560/60a40c6de0adf37b.png",
-    "https://cdn.discordapp.com/attachments/980090904394219562/1026421335607488572/7.png",
-    "https://cdn.discordapp.com/attachments/980090904394219562/1026201836232913006/card_laptop.png",
+    "https://cdn.discordapp.com/attachments/980090904394219562/1035884700205580308/documents.png",
+    "https://cdn.discordapp.com/attachments/980090904394219562/1035884700855709746/printer.png",
+    "https://cdn.discordapp.com/attachments/980090904394219562/1035884700528562236/laptop.png"
   ];
 
   this.image.src = this.asset[type];
@@ -31,8 +40,8 @@ function renderObs()
       R.image,
       R.x - R.radius,
       R.y - R.radius,
-      90,
-      90
+      R.radius * 2,
+      R.radius * 2
     ); // 크기는 90, 90
 
     ctx.closePath();
@@ -54,10 +63,10 @@ function renderObs()
 /** 장애물에 충돌하면 플레이어가 기절함 */
 function distObs()
 {
-  if (myplayer.stunsec <= 0)
+  if (curPlayer.stunsec <= 0)
   {
-    let px = myplayer.x;
-    let py = myplayer.y;
+    let px = curPlayer.x;
+    let py = curPlayer.y;
     let ax;
     let ay;
 
@@ -65,8 +74,8 @@ function distObs()
       ax = roids[i].x + roids[i].radius;
       ay = roids[i].y + roids[i].radius;
 
-      if (distBetweenPoints(px, py, ax, ay) < roids[i].radius + myplayer.radius) {
-        myplayer.stunsec = Math.ceil(PLAYER_STUN_DUR * FPS);
+      if (distBetweenPoints(px, py, ax, ay) < roids[i].radius + curPlayer.radius) {
+        curPlayer.stunsec = Math.ceil(PLAYER_STUN_DUR * FPS);
       }
     }
   }

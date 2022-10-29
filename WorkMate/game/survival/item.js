@@ -15,7 +15,7 @@ function Item(x, y, xv, yv) {
       });
     } else if (this.type == 1) {
       /** 기절 */
-      myplayer.stunsec = Math.ceil(PLAYER_STUN_DUR * FPS); // 기절 효과 넣어주면 됨
+      curPlayer.stunsec = Math.ceil(PLAYER_STUN_DUR * FPS); // 기절 효과 넣어주면 됨
     } else if (this.type == 2) {
       /** 아무 효과 X */
     }
@@ -93,13 +93,13 @@ function renderItem() {
 
 /** 아이템 상자와 플레이어가 닿음을 감지하는 메서드 */
 function distItem() {
-  let px = myplayer.x;
-  let py = myplayer.y;
+  let px = curPlayer.x;
+  let py = curPlayer.y;
   let ix = itemBox.x + itemBox.radius;
   let iy = itemBox.y + itemBox.radius;
 
-  if (distBetweenPoints(px, py, ix, iy) < itemBox.radius + myplayer.radius) {
-    myplayer.itemPocket = itemBox.type;
+  if (distBetweenPoints(px, py, ix, iy) < itemBox.radius + curPlayer.radius) {
+    curPlayer.itemPocket = itemBox.type;
     
     socket.emit("아이템 먹었대요", myId);
 
