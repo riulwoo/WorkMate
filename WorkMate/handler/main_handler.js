@@ -187,10 +187,12 @@ module.exports = (io, socket, room) => {
   socket.on('readyIndex', (id) => {
     const index = getRoomIndex(id);
     room[index].readyIndex.push(id);
+    console.log("삽입 후 레디 인덱스 : " + room[index].readyIndex);
   })
 
   socket.on('CancelReadyIndex', (id) => {
     const index = getRoomIndex(id);
     room[index].rIndexUpdate(id);
+    console.log("삭제 후 레디 인덱스 : " + room[index].readyIndex);
   })
 };

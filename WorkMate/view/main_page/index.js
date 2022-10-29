@@ -180,6 +180,7 @@ function readyUpdate(rIndex) {
   let arrId = Array.prototype.slice.call(slotId);
   for(var i = 0; i < 6; i++) {
     for(var j = 0; i < 6; i++) {
+      console.log("레디 업데이트 중");
       if(arrId[i].innerHTML == rIndex[j]) slot[i].style.backgroundColor = "rgb(255, 245, 85)";
     }
   }
