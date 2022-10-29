@@ -4,7 +4,7 @@ module.exports = function(app) {
   });
   
   app.get('/result', (request, response) => {
-    response.sendFile('view/result_page/result.html', {root : '.'});
+    response.sendFile('view/result_page/index.html', {root : '.'});
   });
 
   app.get('/flip_over', (request, response) => {

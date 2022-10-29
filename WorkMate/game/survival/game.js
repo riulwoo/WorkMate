@@ -1,8 +1,8 @@
-let canvas = document.getElementById("surviv_canvas");
-let ctx = canvas.getContext("2d");
-let myFont = new FontFace("DungGeunMo", "url(asset/DungGeunMo.otf)");
-canvas.width = document.body.clientWidth;
-canvas.height = document.body.clientHeight;
+let surv_canvas = document.getElementById("surviv_canvas");
+let ctx = surv_canvas.getContext("2d");
+let myFont = new FontFace("DungGeunMo", "url(survival/assets/DungGeunMo.otf)");
+surv_canvas.width = document.body.clientWidth;
+surv_canvas.height = document.body.clientHeight;
 
 myFont.load().then(function (font) {
   document.fonts.add(font);
@@ -10,8 +10,8 @@ myFont.load().then(function (font) {
 });
 // 게임의 프레임은 60fps.
 const FPS = 60;
-const WIDTH = canvas.width;
-const HEIGHT = canvas.height;
+const WIDTH = surv_canvas.width;
+const HEIGHT = surv_canvas.height;
 // 플레이어 관련
 const PLAYERSPEED = 6; // 플레이어 이동 속도
 // 플레이어 피격 관련
@@ -163,8 +163,8 @@ function distBetweenPoints(x1, y1, x2, y2) {
 
 // 맵 그리는 메서드
 function field_draw() {
-  canvas.width = document.body.clientWidth;
-  canvas.height = document.body.clientHeight;
+  surv_canvas.width = document.body.clientWidth;
+  surv_canvas.height = document.body.clientHeight;
   ctx.beginPath();
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, WIDTH, HEIGHT);

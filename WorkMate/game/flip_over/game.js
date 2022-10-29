@@ -1,6 +1,6 @@
-let canvas = document.getElementById("flip_canvas");
-let ctx = canvas.getContext('2d');
-let myfont = new FontFace('DungGeunMo', 'url(asset/DungGeunMo.otf)');
+let flip_canvas = document.getElementById("flip_canvas");
+let ctx = flip_canvas.getContext('2d');
+let myfont = new FontFace('DungGeunMo', 'url(flip_over/asset/DungGeunMo.otf)');
 
 myfont.load().then(function(font){
     document.fonts.add(font);
@@ -10,11 +10,11 @@ myfont.load().then(function(font){
 const FPS = 60;
 // 화면 크기
 // 캔버스의 크기 속성값을 클라이언트의 화면 크기와 같게 바꿔줌
-canvas.width = document.body.clientWidth;
-canvas.height = Math.ceil(document.body.clientHeight);
+flip_canvas.width = document.body.clientWidth;
+flip_canvas.height = Math.ceil(document.body.clientHeight);
 // X와 Y는 캔버스의 width와 height를 저장하는데 사용.
-let X = canvas.width;
-let Y = canvas.height;
+let X = flip_canvas.width;
+let Y = flip_canvas.height;
 // 플레이어 관련
 const PLAYER_STUN_TIME = 1.5; // 플레이어가 폭탄을 맞으면 1.5초간 기절에 걸린다. 그 기절 시간을 상수에 저장해줌
 const PLAYER_DELAY_TIME = 3;
@@ -116,8 +116,8 @@ function score_draw() {
 
 /** 게임 맵을 그리는 메서드 */
 function field_draw(){
-    // canvas.width = document.body.clientWidth;
-    // canvas.height = document.body.clientHeight;
+    // flip_canvas.width = document.body.clientWidth;
+    // flip_canvas.height = document.body.clientHeight;
 
     ctx.beginPath();
     ctx.fillStyle = "#7092BE";

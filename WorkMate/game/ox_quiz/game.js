@@ -1,9 +1,9 @@
-let canvas = document.getElementById("ox_canvas");
-canvas.width = document.body.clientWidth;
-canvas.height = document.body.clientHeight;
+let ox_canvas = document.getElementById("ox_canvas");
+ox_canvas.width = document.body.clientWidth;
+ox_canvas.height = document.body.clientHeight;
 
-let ctx = canvas.getContext('2d');
-let myfont = new FontFace('DungGeunMo', 'url(asset/DungGeunMo.otf)');
+let ctx = ox_canvas.getContext('2d');
+let myfont = new FontFace('DungGeunMo', 'url(ox_quiz/asset/DungGeunMo.otf)');
 
 myfont.load().then(function(font){
     document.fonts.add(font);
@@ -13,8 +13,8 @@ let question = ""          // 문제 변수
 let answer;                // 답 변수
 
 // 크기 변수
-let X = canvas.width;
-let Y = canvas.height;
+let X = ox_canvas.width;
+let Y = ox_canvas.height;
 
 // 캐릭터 관련
 let radius = 16;
@@ -76,8 +76,8 @@ function keyUpHandler(e){
 
 /** 게임 맵을 그리는 메서드 */
 function field_draw(){
-  canvas.width = document.body.clientWidth;
-  canvas.height = document.body.clientHeight;
+  ox_canvas.width = document.body.clientWidth;
+  ox_canvas.height = document.body.clientHeight;
   console.log('정상적으로 실행중');
   ctx.beginPath();
   ctx.fillStyle = "bisque";

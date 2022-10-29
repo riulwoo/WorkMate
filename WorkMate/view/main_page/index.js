@@ -9,7 +9,6 @@ var rmCodeTxt = document.getElementById("roomcode"); // 입력받은 룸 코드
 let adminCode = document.getElementById("adminCode");
 let slot = document.querySelectorAll(".slot");
 let admin = document.getElementById("admin");
-let readyIndex = [];
 let ids;
 let idArr;
 let nickArr;
@@ -68,17 +67,9 @@ jroomBtn.addEventListener('click', function () {
 
 socket.on('joinsuccess', (data) => {
   adminCode.innerText = data.roomcode;
-  socket.emit('readyIndex', {
-    id : myId,
-    rIndex : readyIndex
-  });
   addPlayer(data.usernick, data.userid);
 })
 
-socket.on('rIndex', (rIndex) => {
-  readyIndex = rIndex;
-  readyUpdate();
-})
 
 socket.on('joinfail', () => {
   alert('올바른 코드를 입력해주세요!');
@@ -114,7 +105,6 @@ function removeAllPlayer() {
   }
   userCount = 0;
   readyCount = 0;
-  readyIndex = [];
 }
 
 socket.on('matchfail', function(data) {
@@ -130,12 +120,10 @@ socket.on('레디유저', function(Id) {
       let color = window.getComputedStyle(slot[i]).backgroundColor;
       if(color == "rgb(255, 255, 255)") {
         slot[i].style.backgroundColor = "rgb(255, 245, 85)";
-        readyIndex.push(i);
         readyCount++;
       }
       else {
         slot[i].style.backgroundColor = "rgb(255, 255, 255)";
-        readyIndex.filter(e => e !== i);
         readyCount--;
       }
     }
@@ -183,9 +171,6 @@ socket.on('leave_user', (id) => {
 })
 
 function readyUpdate() {
-  for(var i = 0; i < readyIndex.length; i++) {
-    let color = window.getComputedStyle(slot[i]).backgroundColor;
-  }
 }
 
 function slotClear() {
@@ -207,7 +192,6 @@ function checkLeader() {
       start.style.display = 'inline';
       ready.style.display = 'none';
       readyCount = 0;
-      readyIndex = [];
     }
   }
 }
@@ -259,7 +243,6 @@ function removePlayer(id) {
     {
       slot[i].style.backgroundColor = "rgb(255, 255, 255)";
       readyCount--;
-      readyIndex.filter(e => e !== i);
     }
     while (slot[i].hasChildNodes()) {
       slot[i].firstChild.remove();
