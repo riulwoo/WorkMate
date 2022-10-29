@@ -26,10 +26,20 @@
   </head>
   <body>
     <div id="main">
-          <button>QR</button>
-          <button>?</button>
-          <input type="text" id="nick" placeholder = "닉네임을 입력해주세요"/>
-      <div class="half" id="upper-half">
+          
+    <input type="text" id="set-nickname" placeholder="닉네임을 입력해주세요." />
+    <button id="qr-button">QR</button>
+    <div id="qr-area">
+      <button id="qr-close">
+        X
+      </button>
+      <div id="qr-code">
+      </div>
+    </div>
+
+    <button id="question-mark">?</button>
+
+    <div class="half" id="upper-half">
         <div class="inner" id="logo"></div>
       </div>
       <div class="half" id="lower-half">

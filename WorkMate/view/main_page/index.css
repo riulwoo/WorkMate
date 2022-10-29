@@ -4,15 +4,75 @@
 			url("../view_asset/DungGeunMo.woff") format('woff'),
     	url("../view_asset/DungGeunMo.woff2") format('woff2');
 }
+
+*{
+ font-family : '둥근모꼴', 'DungGeunMo';
+ }
+
 html
 {
   height: 100vh;
   width: 100%;
 	overflow: hidden;
 }
-*{
- font-family : '둥근모꼴', 'DungGeunMo';
- }
+
+#set-nickname {
+  position: absolute;
+  width: 200px;
+  height: 50px;
+  left: 10px;
+  top: 10px;
+}
+
+#qr-button, #question-mark {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  top: 10px;
+  font-size: 30px;
+}
+
+#qr-button {
+  right: 10px;
+}
+
+#question-mark {
+  right: 100px;
+}
+
+#qr-area {
+  background-color: white;
+  position: absolute;
+  top: 100px;
+  right: 10px;
+  border: 2px solid black;
+  width: 300px;
+  height: 350px;
+}
+
+#qr-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  text-decoration: none;
+  background: none;
+  border: 0;
+  font-size: 30px;
+}
+
+#qr-code {
+  background-image: url("https://media.discordapp.net/attachments/980090904394219562/1035890351136854147/qrcode_workmate.ga.png");
+  background-size: cover;
+  position: absolute;
+  top: 60px;
+  left: 10px;
+  width: 275px;
+  height: 275px;
+  position: absolute;
+  border: 2px black solid;
+}
+
+	
 body
 {
   font-family : '둥근모꼴', 'DungGeunMo';
