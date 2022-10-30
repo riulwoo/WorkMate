@@ -263,11 +263,9 @@ function surviv_update() {
   if (surviv_is_gaming) {
     renderItem(); // 아이템
     distItem();
-    // moveItem();      // 아이템이 지속적으로 이동
     renderGoal(); // 돈
     distGoal();
     renderObs(); // 장애
-    // moveObs();       // 장애물이 지속적으로 이동
     distObs();
     renderSpecObs();
     distSpecObs();

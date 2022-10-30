@@ -17,8 +17,8 @@ X = ox_canvas.width;
 Y = ox_canvas.height;
 
 // 캐릭터 관련
-let radius = 16;
-let playerSpeed = 5;
+// let radius = 16;
+// let playerSpeed = 5;
 
 // 이동 관련
 // var rightPressed = false;
@@ -78,6 +78,10 @@ function ox_keyUpHandler(e){
 function ox_field_draw(){
   ox_canvas.width = document.body.clientWidth;
   ox_canvas.height = document.body.clientHeight;
+
+  X = ox_canvas.width;
+  Y = ox_canvas.height;
+
   console.log('정상적으로 실행중');
   ox_ctx.beginPath();
   ox_ctx.fillStyle = "bisque";
@@ -195,8 +199,14 @@ socket.on('ox_end', ()=>{
   setTimeout(()=>{socket.emit('gameover', myId);}, 3000);
 })
 
-function update()
+function ox_update()
 {
+    ox_canvas.width = document.body.clientWidth;
+    ox_canvas.height = document.body.clientHeight;
+
+    X = ox_canvas.width;
+    Y = ox_canvas.height;
+
     // draw playground. 플레이어가 이동할 필드를 그립니다.
     ox_ctx.clearRect(0, 0, X, Y / 4);
   
@@ -300,7 +310,7 @@ function update()
       ox_ctx.textAlign = "center";
       
       ox_ctx.fillText('게임 끝!!!!!', X / 2, Y / 5);
-      ox_ctx.fillText(overmsg, X / 2 - (ox_ctx.measureText(overmsg).width / 2), Y / 1.6);
+      ox_ctx.fillText(overmsg, X - (ox_ctx.measureText(overmsg).width / 2), Y / 1.6);
     }
   
     // 점수 출력
@@ -308,8 +318,7 @@ function update()
     ox_ctx.font = '24px DungGeunMo';
     ox_ctx.textAlign = "center";
     ox_ctx.fillText('Score : ' + players[myId].score, 55, 40);
-    //field_draw();
-    renderPlayer();
+    ox_renderPlayer();
 } // end of update
 
 
@@ -317,7 +326,7 @@ function answer_score() {
   players[myId].score += 50;
 }
 
-func_lding().then
+ox_func_lding().then
 ( () => {
   document.body.style.backgroundImage = "url('https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png')";
   // setInterval(renderPlayer, 50);
@@ -329,7 +338,7 @@ func_lding().then
       answer_cnt = false;
     }
   }, 1000);
-  setInterval(update, 20);
+  setInterval(ox_update, 20);
 } )
 
 

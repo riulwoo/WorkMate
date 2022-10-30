@@ -1,4 +1,4 @@
-function renderPlayer() {
+function flip_renderPlayer() {
   // rendering a player. 플레이어를 렌더링합니다.
     let direction;
     // 모든 플레이어를 그리는 코드
@@ -8,7 +8,7 @@ function renderPlayer() {
           flip_ctx.beginPath();
           flip_ctx.fillStyle = ball.color;
           flip_ctx.font = '15px DungGeunMo';
-          flip_ctx.fillText(ball.nick ,ball.x+15, ball.y-radius+10);
+          flip_ctx.fillText(ball.nick, ball.x+15, ball.y - ball.radius + 10);
           flip_ctx.closePath();
     }
     let curPlayer = players[myId];
@@ -87,23 +87,23 @@ function renderPlayer() {
   }
   
     // collision detection of player. 플레이어가 문제 출력 영역으로 이동하지 못하도록 충돌을 감지합니다.
-    if (players[myId].y <= 0 + radius)
+    if (players[myId].y <= 0 + curPlayer.radius)
     {
-        players[myId].y = 0 + radius;
+        players[myId].y = 0 + curPlayer.radius;
     }
 
-    if (players[myId].y > Y - (radius * 2))
+    if (players[myId].y > Y - (curPlayer.radius * 2))
     {
-        players[myId].y = Y - (radius * 2);
+        players[myId].y = Y - (curPlayer.radius * 2);
     }
 
-    if (players[myId].x < 0 + radius)
+    if (players[myId].x < 0 + curPlayer.radius)
     {
-        players[myId].x = 0 + radius;
+        players[myId].x = 0 + curPlayer.radius;
     }
-    else if (players[myId].x > X - (radius * 2))
+    else if (players[myId].x > X - (curPlayer.radius * 2))
     {
-        players[myId].x = X - (radius * 2);
+        players[myId].x = X - (curPlayer.radius * 2);
     }
 }
 
@@ -155,6 +155,8 @@ function flip_player(id, nick)
   this.color = "#FF00FF";
   this.x = X / 2;
   this.y = Y / 2;
+  this.radius = 16;
+  this.playerSpeed = (X * 0.3) / 100;
   this.player = new Image();
   this.player.src = this.asset[0];
   this.score = 0;
