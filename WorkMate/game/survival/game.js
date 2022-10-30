@@ -3,7 +3,7 @@ let surv_ctx = surv_canvas.getContext("2d");
 surv_canvas.width = document.body.clientWidth;
 surv_canvas.height = document.body.clientHeight;
 
-myFont.load().then(function (font) {
+myfont.load().then(function (font) {
   document.fonts.add(font);
 });
 
