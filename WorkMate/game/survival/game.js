@@ -1,18 +1,16 @@
 let surv_canvas = document.getElementById("surviv_canvas");
 let surv_ctx = surv_canvas.getContext("2d");
-let myFont = new FontFace("DungGeunMo", "url(survival/assets/DungGeunMo.otf)");
 surv_canvas.width = document.body.clientWidth;
 surv_canvas.height = document.body.clientHeight;
 
 myFont.load().then(function (font) {
   document.fonts.add(font);
-  //console.log('font loaded.');
 });
+
 // 게임의 프레임은 60fps.
-const WIDTH = surv_canvas.width;
-const HEIGHT = surv_canvas.height;
-// 플레이어 관련
-const PLAYERSPEED = 6; // 플레이어 이동 속도
+X = surv_canvas.width;
+Y = surv_canvas.height;
+
 // 플레이어 피격 관련
 const PLAYER_STUN_DUR = 1; // 플레이어의 장애물 피격시 기절 지속시간
 const PLAYER_BLINK_DUR = 2.5; // 플레이어 부활시 깜박임(무적) 지속시간
@@ -20,22 +18,14 @@ const PER_SEC = 0.1;
 // 장애물 관련
 // 골인지점 관련
 const SHOW_BOUNDING = true; // 이 상수가 true면 피격 판정이 항시로 켜져있음.
-// // 이동 관련
-// // 방향키를 눌렀는지 체크하는 변수
-// var rightPressed = false;
-// var leftPressed = false;
-// var upPressed = false;
-// var downPressed = false;
 
 var itemPressed = false;
 // 게임 흐름 관련
-const COUNT_DUR_TIME = 3;
-var count_sec = Math.ceil(COUNT_DUR_TIME * FPS);
-var is_counting = true;
-var is_gaming = false;
-var is_end = false;
+var surviv_is_counting = true;
+var surviv_is_gaming = false;
+var surviv_is_end = false;
 
-function func_lding() {
+function surviv_func_lding() {
   return new Promise((r1, r2) => {
     for (let i = 0; i < playerinfo.length; i++) {
       let player = new surviv_player(playerinfo[i].id, playerinfo[i].nick);
@@ -51,7 +41,7 @@ function func_lding() {
   });
 }
 
-func_lding().then(() => {
+surviv_func_lding().then(() => {
   document.body.style.backgroundImage =
     "url('https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png')";
   setInterval(update, 1000 / FPS);
@@ -126,11 +116,11 @@ var item_asset = new Image();
 item_asset.src =
   "https://cdn.discordapp.com/attachments/980090904394219562/1020591795580706816/item_boxxx_2.png";
 
-document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
+document.addEventListener("keydown", surviv_keyDownHandler, false);
+document.addEventListener("keyup", surviv_keyUpHandler, false);
 
 /** 키를 눌렀을 때 실행되는 메서드 */
-function keyDownHandler(e) {
+function surviv_keyDownHandler(e) {
   if (e.keyCode == 68) {
     // 'ArrowRight'
     rightPressed = true;
@@ -153,7 +143,7 @@ function keyDownHandler(e) {
 }
 
 /** 키를 뗐을 때 실행되는 메서드 */
-function keyUpHandler(e) {
+function surviv_keyUpHandler(e) {
   if (e.keyCode == 68) {
     // 'ArrowRight'
     rightPressed = false;
@@ -181,56 +171,58 @@ function distBetweenPoints(x1, y1, x2, y2) {
 }
 
 // 맵 그리는 메서드
-function field_draw() {
+function surviv_field_draw() {
   surv_canvas.width = document.body.clientWidth;
   surv_canvas.height = document.body.clientHeight;
+  X = surv_canvas.width;
+  Y = surv_canvas.height;
   surv_ctx.beginPath();
   surv_ctx.fillStyle = "black";
-  surv_ctx.fillRect(0, 0, WIDTH, HEIGHT);
+  surv_ctx.fillRect(0, 0, X, Y);
   // surv_ctx.drawImage(MAP, 0, 0);
   surv_ctx.closePath();
 }
 
-function end_draw() {
-  if (is_end) {
+function surviv_end_draw() {
+  if (surviv_is_end) {
     surv_ctx.fillStyle = "#90DBA2";
     surv_ctx.font = "200px DungGeunMo";
     surv_ctx.textAlign = "center";
-    surv_ctx.fillText("GAME OVER", WIDTH / 2, HEIGHT / 2);
+    surv_ctx.fillText("GAME OVER", X / 2, Y / 2);
   }
 }
 
-function count_draw() {
+function surviv_count_draw() {
   surv_ctx.fillStyle = "#90DBA2";
   surv_ctx.font = "200px DungGeunMo";
   surv_ctx.textAlign = "center";
-  surv_ctx.fillText(Math.ceil(count_sec / 60), WIDTH / 2, HEIGHT / 2);
+  surv_ctx.fillText(Math.ceil(count_sec / 60), X / 2, Y / 2);
 }
 
 /** 게임 스코어와 아이템 보유 현황을 그리는 메서드 */
-function score_draw() {
+function surviv_score_draw() {
   surv_ctx.beginPath();
   surv_ctx.fillStyle = "white";
   surv_ctx.font = "55px DungGeunMo";
   surv_ctx.textAlign = "center";
   surv_ctx.fillText(
     "score : " + players[myId].score,
-    (WIDTH * 80) / 100,
-    (HEIGHT * 3) / 100
+    (X * 85) / 100,
+    (Y * 7) / 100
   );
 
   surv_ctx.font = "30px DungGeunMo";
   surv_ctx.textAlign = "left";
   surv_ctx.fillStyle = "white";
-  surv_ctx.fillText("ITEM", (WIDTH * 5) / 100, (HEIGHT * 3) / 100);
+  surv_ctx.fillText("ITEM", (X * 5) / 100, (Y * 3) / 100);
 
   if (players[myId].hasItem) {
-    surv_ctx.drawImage(item_asset, (WIDTH * 7.2) / 100, (HEIGHT * 5.2) / 100);
+    surv_ctx.drawImage(item_asset, (X * 7.2) / 100, (Y * 5.2) / 100);
   }
 
   surv_ctx.strokeStyle = "white";
   surv_ctx.lineWidth = 5;
-  surv_ctx.strokeRect((WIDTH * 7) / 100, (HEIGHT * 5) / 100, 80, 80);
+  surv_ctx.strokeRect((X * 7) / 100, (Y * 5) / 100, 80, 80);
 
   surv_ctx.closePath();
 }
@@ -241,7 +233,7 @@ function stunAndBlink_flow() {
     surv_ctx.fillStyle = "red";
     surv_ctx.font = "120px DungGeunMo";
     surv_ctx.textAlign = "center";
-    surv_ctx.fillText("stuned!!", WIDTH / 2, HEIGHT / 2 - 160);
+    surv_ctx.fillText("stuned!!", X / 2, Y / 2 - 160);
     players[myId].stunsec--;
   } else if (players[myId].stunsec == 0) {
     players[myId].blinksec = Math.ceil(PLAYER_BLINK_DUR * FPS);
@@ -253,22 +245,22 @@ function stunAndBlink_flow() {
   }
 }
 
-function update() {
-  field_draw(); // 바닥
+function surviv_update() {
+  surviv_field_draw(); // 바닥
   // edge_draw();     // 벽
-  score_draw();
-  if (is_counting) {
+  surviv_score_draw();
+  if (surviv_is_counting) {
     count_sec--;
 
-    count_draw();
+    surviv_count_draw();
 
     // handle countdown
     if (count_sec == 0) {
-      is_counting = false;
-      is_gaming = true;
+      surviv_is_counting = false;
+      surviv_is_gaming = true;
     }
   }
-  if (is_gaming) {
+  if (surviv_is_gaming) {
     renderItem(); // 아이템
     distItem();
     // moveItem();      // 아이템이 지속적으로 이동
@@ -279,23 +271,9 @@ function update() {
     distObs();
     renderSpecObs();
     distSpecObs();
-    renderPlayer(); // 플레이어
+    surviv_renderPlayer(); // 플레이어
 
     stunAndBlink_flow();
   }
-  end_draw();
+  surviv_end_draw();
 }
-
-function leaveUser(id) {
-  for (var i = 0; i < playermap.length; i++) {
-    if (playermap[i].id == id) {
-      playermap.splice(i, 1);
-      break;
-    }
-  }
-  delete players[id];
-}
-
-socket.on("leave_user", function (data) {
-  leaveUser(data);
-});

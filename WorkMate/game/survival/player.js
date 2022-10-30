@@ -1,4 +1,4 @@
-function renderPlayer() {
+function surviv_renderPlayer() {
   //console.log(playermap);
   for (let i = 0; i < playermap.length; i++) {
     let player = playermap[i];
@@ -44,56 +44,56 @@ function renderPlayer() {
       curPlayer.direction = 3;
       if (upPressed) {
         curPlayer.direction = 7;
-        curPlayer.y -= PLAYERSPEED;
+        curPlayer.y -= curPlayer.PLAYERSPEED;
       } else if (downPressed) {
         curPlayer.direction = 6;
-        curPlayer.y += PLAYERSPEED;
+        curPlayer.y += curPlayer.PLAYERSPEED;
       }
       curPlayer.ismove = true;
       curPlayer.player.src = moveeffect(curPlayer);
-      curPlayer.x += PLAYERSPEED;
+      curPlayer.x += curPlayer.PLAYERSPEED;
       sendData(curPlayer);
     } //
     else if (upPressed) {
       curPlayer.direction = 2;
       if (rightPressed) {
         curPlayer.direction = 7;
-        curPlayer.x += PLAYERSPEED;
+        curPlayer.x += curPlayer.PLAYERSPEED;
       } else if (leftPressed) {
         curPlayer.direction = 5;
-        curPlayer.x -= PLAYERSPEED;
+        curPlayer.x -= curPlayer.PLAYERSPEED;
       }
       curPlayer.ismove = true;
       curPlayer.player.src = moveeffect(curPlayer);
-      curPlayer.y -= PLAYERSPEED;
+      curPlayer.y -= curPlayer.PLAYERSPEED;
       sendData(curPlayer);
     } //
     else if (leftPressed) {
       curPlayer.direction = 1;
       if (upPressed) {
         curPlayer.direction = 5;
-        curPlayer.y -= PLAYERSPEED;
+        curPlayer.y -= curPlayer.PLAYERSPEED;
       } else if (downPressed) {
         curPlayer.direction = 4;
-        curPlayer.y += PLAYERSPEED;
+        curPlayer.y += curPlayer.PLAYERSPEED;
       }
       curPlayer.ismove = true;
       curPlayer.player.src = moveeffect(curPlayer);
-      curPlayer.x -= PLAYERSPEED;
+      curPlayer.x -= curPlayer.PLAYERSPEED;
       sendData(curPlayer);
     } //
     else if (downPressed) {
       curPlayer.direction = 0;
       if (rightPressed) {
         curPlayer.direction = 6;
-        curPlayer.x += PLAYERSPEED;
+        curPlayer.x += curPlayer.PLAYERSPEED;
       } else if (leftPressed) {
         curPlayer.direction = 4;
-        curPlayer.x -= PLAYERSPEED;
+        curPlayer.x -= curPlayer.PLAYERSPEED;
       }
       curPlayer.ismove = true;
       curPlayer.player.src = moveeffect(curPlayer);
-      curPlayer.y += PLAYERSPEED;
+      curPlayer.y += curPlayer.PLAYERSPEED;
       sendData(curPlayer);
     } //
     else {
@@ -113,14 +113,14 @@ function renderPlayer() {
   // handle edge of screen // 플레이어가 화면 밖으로 벗어나지 몬하도록
   if (curPlayer.x < 0) {
     curPlayer.x = 0;
-  } else if (curPlayer.x > WIDTH) {
-    curPlayer.x = WIDTH;
+  } else if (curPlayer.x > X) {
+    curPlayer.x = X;
   }
 
   if (curPlayer.y < 0) {
     curPlayer.y = 0;
-  } else if (curPlayer.y > HEIGHT) {
-    curPlayer.y = HEIGHT;
+  } else if (curPlayer.y > Y) {
+    curPlayer.y = Y;
   }
 
   // 플레이어의 점수가 0 미만으로 떨어지면
@@ -128,40 +128,6 @@ function renderPlayer() {
     curPlayer.score = 0;
   }
 }
-
-function sendData(curPlayer) {
-  let data = {};
-  data = {
-    id: curPlayer.id,
-    x: curPlayer.x,
-    y: curPlayer.y,
-    direction: curPlayer.direction,
-    ismove: curPlayer.ismove,
-    cnt: curPlayer.cnt,
-  };
-  if (data) {
-    socket.emit("send_location", data);
-  }
-}
-
-function updateState(id, x, y, direction, ismove, cnt) {
-  let player = players[id];
-  if (!player) {
-    return;
-  }
-  player.x = x;
-  player.y = y;
-  player.direction = direction;
-  player.ismove = ismove;
-  player.cnt = cnt;
-  player.player.src = player.ismove
-    ? moveeffect(player)
-    : player.asset[player.direction];
-}
-
-socket.on("update_state", function (data) {
-  updateState(data.id, data.x, data.y, data.direction, data.ismove, data.cnt);
-});
 
 function surviv_player(id, nick) {
   this.id = id;
@@ -179,7 +145,7 @@ function surviv_player(id, nick) {
     "https://cdn.discordapp.com/attachments/980090904394219562/1026451865224884234/gg_18.png", // 오른아래
     "https://cdn.discordapp.com/attachments/980090904394219562/1026451494075125800/gg_07.png",
   ];
-
+  this.PLAYERSPEED = 6;
   this.radius = 40; // 반지름
   this.color = "#FF00FF"; // 닉네임 색
   this.x = WIDTH / 2; // x 좌표

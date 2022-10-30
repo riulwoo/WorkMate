@@ -21,7 +21,7 @@ function Itemeffect(type) {
     /** 특수 장애물 생성 */
     socket.emit("특수장애물이래요", {
       id: myId,
-      type: Math.floor(Math.random() * 1), // 0 - 중앙 생성 1 - 양쪽 생성
+      type: Math.ceil(Math.random() * 1), // 0 - 중앙 생성 1 - 양쪽 생성
     });
   } else if (type == 1) {
     /** 기절 */
@@ -54,41 +54,18 @@ function renderItem() {
 
     // handle edge of screen.
     if (itemBox.x < 0 - itemBox.radius) {
-      itemBox.x = WIDTH + itemBox.radius;
-    } else if (itemBox.x > WIDTH + itemBox.radius) {
+      itemBox.x = X + itemBox.radius;
+    } else if (itemBox.x > X + itemBox.radius) {
       itemBox.x = 0 - itemBox.radius;
     }
 
     if (itemBox.y < 0 - itemBox.radius) {
-      itemBox.y = HEIGHT + itemBox.radius;
-    } else if (itemBox.y > HEIGHT + itemBox.radius) {
+      itemBox.y = Y + itemBox.radius;
+    } else if (itemBox.y > Y + itemBox.radius) {
       itemBox.y = 0 - itemBox.radius;
     }
   }
 }
-
-/* function moveItem()
-{
-  // item will move in field.
-
-  itemBox.x += itemBox.xv;
-  itemBox.y += itemBox.yv;
-
-  // handle edge of screen.
-  if (itemBox.x < 0 - itemBox.radius) {
-    itemBox.x = WIDTH + itemBox.radius;
-  }
-  else if (itemBox.x > WIDTH + itemBox.radius) {
-    itemBox.x = 0 - itemBox.radius;
-  }
-
-  if (itemBox.y < 0 - itemBox.radius) {
-    itemBox.y = HEIGHT + itemBox.radius;
-  }
-  else if (itemBox.y > HEIGHT + itemBox.radius) { 
-    itemBox.y = 0 - itemBox.radius;
-  }
-} */
 
 /** 아이템 상자와 플레이어가 닿음을 감지하는 메서드 */
 function distItem() {
