@@ -210,7 +210,7 @@ function count_draw() {
 /** 게임 스코어와 아이템 보유 현황을 그리는 메서드 */
 function score_draw() {
   surv_ctx.beginPath();
-  surv_ctx.fillStyle = "black";
+  surv_ctx.fillStyle = "white";
   surv_ctx.font = "55px DungGeunMo";
   surv_ctx.textAlign = "center";
   surv_ctx.fillText(
