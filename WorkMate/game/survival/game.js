@@ -1,6 +1,6 @@
 let surv_canvas = document.getElementById("surviv_canvas");
 let surv_ctx = surv_canvas.getContext("2d");
-let myFont = new FontFace("DungGeunMo", "url(survival/assets/DungGeunMo.otf)");
+// let myFont = new FontFace("DungGeunMo", "url(survival/assets/DungGeunMo.otf)");
 surv_canvas.width = document.body.clientWidth;
 surv_canvas.height = document.body.clientHeight;
 
@@ -8,6 +8,7 @@ myFont.load().then(function (font) {
   document.fonts.add(font);
   //console.log('font loaded.');
 });
+
 // 게임의 프레임은 60fps.
 const WIDTH = surv_canvas.width;
 const HEIGHT = surv_canvas.height;

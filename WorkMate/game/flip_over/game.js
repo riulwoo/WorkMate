@@ -1,6 +1,6 @@
 let flip_canvas = document.getElementById("flip_canvas");
 let flip_ctx = flip_canvas.getContext("2d");
-let myfont = new FontFace("DungGeunMo", "url(flip_over/asset/DungGeunMo.otf)");
+// let myfont = new FontFace("DungGeunMo", "url(flip_over/asset/DungGeunMo.otf)");
 
 myfont.load().then(function (font) {
   document.fonts.add(font);
@@ -11,22 +11,20 @@ myfont.load().then(function (font) {
 flip_canvas.width = document.body.clientWidth;
 flip_canvas.height = Math.ceil(document.body.clientHeight);
 // X와 Y는 캔버스의 width와 height를 저장하는데 사용.
-let X = flip_canvas.width;
-let Y = flip_canvas.height;
+X = flip_canvas.width;
+Y = flip_canvas.height;
 // 플레이어 관련
-const PLAYER_STUN_TIME = 1.5; // 플레이어가 폭탄을 맞으면 1.5초간 기절에 걸린다. 그 기절 시간을 상수에 저장해줌
-const PLAYER_DELAY_TIME = 3;
-var radius = 16;
-var playerSpeed = (X * 0.3) / 100;
+const FLIP_PLAYER_STUN_TIME = 1.5; // 플레이어가 폭탄을 맞으면 1.5초간 기절에 걸린다. 그 기절 시간을 상수에 저장해줌
+const FLIP_PLAYER_DELAY_TIME = 3;
 
 // 플레이어 이동
-var rightPressed = false;
-var leftPressed = false;
-var upPressed = false;
-var downPressed = false;
+// var rightPressed = false;
+// var leftPressed = false;
+// var upPressed = false;
+// var downPressed = false;
 
 // 플레이어
-var player = players[myId];
+// var player = players[myId];
 
 // 상호작용 키
 var keyPressed = false;
@@ -50,18 +48,18 @@ var firstY = (Y * 12) / 100; // 카드가 처음 그려질 y 좌표
 var deck = []; // 카드가 들어갈 배열
 
 // 게임 흐름 관련
-const COUNT_DUR_TIME = 3;
-var count_sec = Math.ceil(COUNT_DUR_TIME * FPS);
+// const COUNT_DUR_TIME = 3;
+// var count_sec = Math.ceil(COUNT_DUR_TIME * FPS);
 
 // Game Flow 관련
 var is_counting = false;
 var is_gaming = false;
 var is_ending = false;
-document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
+document.addEventListener("keydown", card_keyDownHandler, false);
+document.addEventListener("keyup", card_keyUpHandler, false);
 
 /** 키를 눌렀을 때 실행되는 메서드 */
-function keyDownHandler(e) {
+function card_keyDownHandler(e) {
   if (e.keyCode == 68) {
     // 'ArrowRight'
     rightPressed = true;
@@ -84,7 +82,7 @@ function keyDownHandler(e) {
 }
 
 /** 키를 뗐을 때 실행되는 메서드 */
-function keyUpHandler(e) {
+function card_keyUpHandler(e) {
   if (e.keyCode == 68) {
     // 'ArrowRight'
     rightPressed = false;
@@ -107,7 +105,7 @@ function keyUpHandler(e) {
 }
 
 /** 게임 스코어를 그리는 메서드 */
-function score_draw() {
+function flip_score_draw() {
   flip_ctx.beginPath();
   flip_ctx.fillStyle = "black";
   flip_ctx.font = "55px DungGeunMo";
@@ -121,9 +119,12 @@ function score_draw() {
 }
 
 /** 게임 맵을 그리는 메서드 */
-function field_draw() {
-  // flip_canvas.width = document.body.clientWidth;
-  // flip_canvas.height = document.body.clientHeight;
+function flip_field_draw() {
+  flip_canvas.width = document.body.clientWidth;
+  flip_canvas.height = document.body.clientHeight;
+
+  X = flip_canvas.width;
+  Y = flip_canvas.height;
 
   flip_ctx.beginPath();
   flip_ctx.fillStyle = "#7092BE";
@@ -146,7 +147,7 @@ function ending_draw() {
 }
 
 /** 게임 시작 전 로딩창을 띄우는 메서드 */
-function func_lding() {
+function flip_func_lding() {
   return new Promise((r1, r2) => {
     document.body.style.backgroundImage =
       "url('https://media.discordapp.net/attachments/980090904394219562/1021799584667803839/GIF_2022-09-21_12-06-13.gif?width=1266&height=636')"; // 나중에 카드 로딩창으로 수정하기.
@@ -352,7 +353,7 @@ function choose(player) {
       player.secondcard = -1;
       deck[card_index].poly = 1;
       // 플레이어를 기절 상태로 만듬.
-      player.stun_sec = Math.ceil(PLAYER_STUN_TIME * FPS);
+      player.stun_sec = Math.ceil(FLIP_PLAYER_STUN_TIME * FPS);
       setTimeout(() => {
         deck[card_index].untouchable = true;
         player.score -= 10;
@@ -367,7 +368,7 @@ function choose(player) {
       player.firstcard = card_index;
       console.log(player.firstcard);
       player.firstpick = false;
-      player.first_delay_sec = Math.ceil(PLAYER_DELAY_TIME * FPS);
+      player.first_delay_sec = Math.ceil(FLIP_PLAYER_DELAY_TIME * FPS);
       deck[card_index].poly = 1;
       socket.emit("이카드뒤집혔대", {
         id: myId,
@@ -406,12 +407,12 @@ function choose(player) {
   }
 }
 
-function update() {
+function flip_update() {
   is_counting = count_sec > 0;
 
-  field_draw();
+  flip_field_draw()
   draw_Deck();
-  score_draw();
+  flip_score_draw();
   if (is_counting) {
     count_sec--;
 
@@ -432,8 +433,8 @@ function update() {
   }
 } // end of update
 
-func_lding().then(() => {
+flip_func_lding().then(() => {
   document.body.style.backgroundImage =
     "url('https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png')";
-  setInterval(update, 1000 / FPS);
+  setInterval(flip_update, 1000 / FPS);
 });
