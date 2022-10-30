@@ -101,7 +101,7 @@ module.exports = (io, socket, room) => {
     return goal;
   }
 
-  function centerLocation(wLC, id) {
+  function centerLocation(index, wLC, id) {
     for (let i = 0; i < 3; i++) {
       if (wLC == 0) {
         // 왼쪽 벽에서 생성
@@ -146,7 +146,7 @@ module.exports = (io, socket, room) => {
     }
   }
 
-  function LRLocation(wLC, id) {
+  function LRLocation(index, wLC, id) {
     let LR;
     for (let i = 0; i < 4; i++) {
       LR = i < 2 ? 90 : 170;
@@ -197,8 +197,9 @@ module.exports = (io, socket, room) => {
   function specialObastable(index, id, type) {
     // 생성 위치를 랜덤으로 판별한 뒤 그 위치별로 좌표 전송
     let wLocation = Math.floor(Math.random() * 4); // 장애물이 생성될 벽의 방향
-    if (type == 0) centerLocation(wLocation, id); // 장애물이 생성될 좌표 위치
-    else if (type == 1) LRLocation(wLocation, id); // 장애물이 생성될 좌표 위치
+    if (type == 0)
+      centerLocation(index, wLocation, id); // 장애물이 생성될 좌표 위치
+    else if (type == 1) LRLocation(index, wLocation, id); // 장애물이 생성될 좌표 위치
   }
 
   socket.on("레이스쥰비완료쓰", (id) => {
@@ -221,6 +222,7 @@ module.exports = (io, socket, room) => {
   // 아이템 먹으면 30초 뒤에 다시 생성
   socket.on("아이템 먹었대요", (id) => {
     let index = getIndex(id);
+    io.to(room[index].roomCode).emit("아이템먹었음");
     setTimeout(() => {
       io.to(room[index].roomCode).emit("아이템생성하거라", itemXYV());
     }, 30000);

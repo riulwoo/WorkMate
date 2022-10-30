@@ -24,9 +24,9 @@ function renderPlayer() {
 
     surv_ctx.closePath();
   } // end of for
-  
+
   let curPlayer = players[myId];
-  
+
   if (curPlayer.blinkNum > 0) {
     // reduce the blink time
     curPlayer.blinkTime--;
@@ -40,84 +40,82 @@ function renderPlayer() {
   // 기절중이 아닐때에만 플레이어가 움직이도록 설정
   if (curPlayer.stunsec <= 0) {
     // 플레이어 이동
-      if (rightPressed) {
-        curPlayer.direction = 3;
-        if (upPressed) {
-          curPlayer.direction = 7;
-          curPlayer.y -= PLAYERSPEED;
-        } else if (downPressed) {
-          curPlayer.direction = 6;
-          curPlayer.y += PLAYERSPEED;
-        }
-        curPlayer.ismove = true;
-        curPlayer.player.src = moveeffect(curPlayer);
-        curPlayer.x += PLAYERSPEED;
-        sendData(curPlayer);
-      } // 
-      else if (upPressed) {
-        curPlayer.direction = 2;
-        if (rightPressed) {
-          curPlayer.direction = 7;
-          curPlayer.x += PLAYERSPEED;
-        } else if (leftPressed) {
-          curPlayer.direction = 5;
-          curPlayer.x -= PLAYERSPEED;
-        }
-        curPlayer.ismove = true;
-        curPlayer.player.src = moveeffect(curPlayer);
+    if (rightPressed) {
+      curPlayer.direction = 3;
+      if (upPressed) {
+        curPlayer.direction = 7;
         curPlayer.y -= PLAYERSPEED;
-        sendData(curPlayer);
-      } // 
-      else if (leftPressed) {
-        curPlayer.direction = 1;
-        if (upPressed) {
-          curPlayer.direction = 5;
-          curPlayer.y -= PLAYERSPEED;
-        } else if (downPressed) {
-          curPlayer.direction = 4;
-          curPlayer.y += PLAYERSPEED;
-        }
-        curPlayer.ismove = true;
-        curPlayer.player.src = moveeffect(curPlayer);
-        curPlayer.x -= PLAYERSPEED;
-        sendData(curPlayer);
-      } //
-      else if (downPressed) {
-        curPlayer.direction = 0;
-        if (rightPressed) {
-          curPlayer.direction = 6;
-          curPlayer.x += PLAYERSPEED;
-        } else if (leftPressed) {
-          curPlayer.direction = 4;
-          curPlayer.x -= PLAYERSPEED;
-        }
-        curPlayer.ismove = true;
-        curPlayer.player.src = moveeffect(curPlayer);
+      } else if (downPressed) {
+        curPlayer.direction = 6;
         curPlayer.y += PLAYERSPEED;
-        sendData(curPlayer);
-      } //
-      else {
-        curPlayer.player.src = curPlayer.asset[curPlayer.direction];
-        curPlayer.ismove = false;
-      } //
-    } // end of playermove
-
-    // handle use item. 아이템 사용을 구현합니다.
-    if (itemPressed) {
-      if (curPlayer.itemPocket == 1)
-      {
-        itemBox.effect();
       }
-      curPlayer.itemPocket = 0;
-    }
+      curPlayer.ismove = true;
+      curPlayer.player.src = moveeffect(curPlayer);
+      curPlayer.x += PLAYERSPEED;
+      sendData(curPlayer);
+    } //
+    else if (upPressed) {
+      curPlayer.direction = 2;
+      if (rightPressed) {
+        curPlayer.direction = 7;
+        curPlayer.x += PLAYERSPEED;
+      } else if (leftPressed) {
+        curPlayer.direction = 5;
+        curPlayer.x -= PLAYERSPEED;
+      }
+      curPlayer.ismove = true;
+      curPlayer.player.src = moveeffect(curPlayer);
+      curPlayer.y -= PLAYERSPEED;
+      sendData(curPlayer);
+    } //
+    else if (leftPressed) {
+      curPlayer.direction = 1;
+      if (upPressed) {
+        curPlayer.direction = 5;
+        curPlayer.y -= PLAYERSPEED;
+      } else if (downPressed) {
+        curPlayer.direction = 4;
+        curPlayer.y += PLAYERSPEED;
+      }
+      curPlayer.ismove = true;
+      curPlayer.player.src = moveeffect(curPlayer);
+      curPlayer.x -= PLAYERSPEED;
+      sendData(curPlayer);
+    } //
+    else if (downPressed) {
+      curPlayer.direction = 0;
+      if (rightPressed) {
+        curPlayer.direction = 6;
+        curPlayer.x += PLAYERSPEED;
+      } else if (leftPressed) {
+        curPlayer.direction = 4;
+        curPlayer.x -= PLAYERSPEED;
+      }
+      curPlayer.ismove = true;
+      curPlayer.player.src = moveeffect(curPlayer);
+      curPlayer.y += PLAYERSPEED;
+      sendData(curPlayer);
+    } //
+    else {
+      curPlayer.player.src = curPlayer.asset[curPlayer.direction];
+      curPlayer.ismove = false;
+    } //
+  } // end of playermove
 
-    // handle edge of screen // 플레이어가 화면 밖으로 벗어나지 몬하도록
-    if (curPlayer.x < 0) {
-      curPlayer.x = 0;
-    } else if (curPlayer.x > WIDTH) {
-      curPlayer.x = WIDTH;
+  // handle use item. 아이템 사용을 구현합니다.
+  if (itemPressed) {
+    if (curPlayer.hasItem) {
+      Itemeffect(curPlayer.itemPocket);
     }
-  
+    curPlayer.hasItem = false;
+  }
+
+  // handle edge of screen // 플레이어가 화면 밖으로 벗어나지 몬하도록
+  if (curPlayer.x < 0) {
+    curPlayer.x = 0;
+  } else if (curPlayer.x > WIDTH) {
+    curPlayer.x = WIDTH;
+  }
 
   if (curPlayer.y < 0) {
     curPlayer.y = 0;
@@ -156,7 +154,9 @@ function updateState(id, x, y, direction, ismove, cnt) {
   player.direction = direction;
   player.ismove = ismove;
   player.cnt = cnt;
-  player.player.src = player.ismove ? moveeffect(player) : player.asset[player.direction];
+  player.player.src = player.ismove
+    ? moveeffect(player)
+    : player.asset[player.direction];
 }
 
 socket.on("update_state", function (data) {
@@ -191,7 +191,8 @@ function surviv_player(id, nick) {
 
   this.stunsec = -1;
   this.itemImg = new Image();
-  this.itemPocket = 0;
+  this.hasItem = false;
+  this.itemPocket = -1;
 
   // 이동관련
   this.ismove = false;

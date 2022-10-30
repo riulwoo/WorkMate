@@ -3,8 +3,8 @@ module.exports = class userroom {
   constructor() {
     this.check = ""; // 생성된 방이 matching 인지 private인지 체크
     this.roomCode = null; // 방 코드
-    //this.gameName = ["survival"]; // 게임배열 랜덤으로 게임을 시작하기위한 변수
-    this.gameName = ['ox_quiz', 'flip_over'];   // 게임배열 랜덤으로 게임을 시작하기위한 변수
+    this.gameName = ["survival"]; // 게임배열 랜덤으로 게임을 시작하기위한 변수
+    //this.gameName = ['ox_quiz', 'flip_over'];   // 게임배열 랜덤으로 게임을 시작하기위한 변수
     this.users = []; // 플레이어 1~6명의 정보
     this.cnt = 0; // 준비상태를 체크하기 위한 카운터 변수
     this.readyIndex = []; //방안에 유저들이 레디했는지 체크하는 변수
@@ -21,9 +21,9 @@ module.exports = class userroom {
   }
 
   rIndexUpdate(id) {
-    this.readyIndex = this.readyIndex.filter(e => e !== id);
+    this.readyIndex = this.readyIndex.filter((e) => e !== id);
   }
-  
+
   game() {
     if (this.gameName.length > 0) {
       const select =
@@ -52,8 +52,7 @@ module.exports = class userroom {
   deleteUser(id, i) {
     let a = 0;
     console.log(`함수의 매개변수 id : ${id}`);
-    if (this.users[i].id === id)
-    {
+    if (this.users[i].id === id) {
       this.users.splice(i, 1);
       this.users.push({ id: null, nick: null, score: null });
     }
