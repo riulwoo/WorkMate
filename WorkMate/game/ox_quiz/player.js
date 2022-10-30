@@ -83,8 +83,8 @@ function ox_renderPlayer() {
 
   if (players[myId].x < 0) {
     players[myId].x = 0;
-  } else if (players[myId].x > X - radius * 2) {
-    players[myId].x = X - radius * 2;
+  } else if (players[myId].x > X - curPlayer.radius * 2) {
+    players[myId].x = X - curPlayer.radius * 2;
   }
 
   if (players[myId].x < X / 2) {
