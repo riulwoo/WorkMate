@@ -92,7 +92,7 @@ function flip_renderPlayer() {
   }
 }
 
-function flip_player(id, nick) {
+function flip_player(id, nick, x, y) {
   this.id = id;
   // 플레이어 닉네임 설정
   this.nick = nick;
@@ -108,8 +108,8 @@ function flip_player(id, nick) {
   ];
 
   this.color = "#FF00FF";
-  this.x = X / 2;
-  this.y = Y / 2;
+  this.x = x;
+  this.y = y;
   this.radius = 16;
   this.PLAYERSPEED = 5;
   this.player = new Image();

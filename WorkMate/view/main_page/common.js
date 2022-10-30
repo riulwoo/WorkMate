@@ -9,6 +9,23 @@ let myfont = new FontFace("DungGeunMo", "url(../game_asset/DungGeunMo.otf)");
 let X;
 let Y;
 
+/** 각 캐릭터의 생성 좌표를 기술해둔 배열. (게임 시작시 중앙에서 육각형의 형태를 유지하며 캐릭터가 생성.) */
+
+
+
+
+let surv_XY = 
+  [
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+  ];
+
+
+
 /** card, surviv에서 사용하는 게임의 프레임 */
 const FPS = 60;
 

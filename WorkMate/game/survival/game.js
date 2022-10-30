@@ -11,6 +11,16 @@ myfont.load().then(function (font) {
 X = surv_canvas.width;
 Y = surv_canvas.height;
 
+let surv_XY = 
+  [
+    [ X / 2 - 116, Y / 2 - 110 ],
+    [ X / 2      , Y / 2 - 110 ],
+    [ X / 2 + 116, Y / 2 - 110 ],
+    [ X / 2 - 116, Y / 2 + 110 ],
+    [ X / 2      , Y / 2 + 110 ],
+    [ X / 2 + 116, Y / 2 + 110 ]
+  ];
+
 // 플레이어 피격 관련
 const PLAYER_STUN_DUR = 1; // 플레이어의 장애물 피격시 기절 지속시간
 const PLAYER_BLINK_DUR = 2.5; // 플레이어 부활시 깜박임(무적) 지속시간
@@ -28,7 +38,7 @@ var surviv_is_end = false;
 function surviv_func_lding() {
   return new Promise((r1, r2) => {
     for (let i = 0; i < playerinfo.length; i++) {
-      let player = new surviv_player(playerinfo[i].id, playerinfo[i].nick);
+      let player = new surviv_player(playerinfo[i].id, playerinfo[i].nick, surv_XY[i][0], surv_XY[i][1]);
       playermap[i] = player;
       players[playerinfo[i].id] = player;
     }

@@ -129,7 +129,7 @@ function surviv_renderPlayer() {
   }
 }
 
-function surviv_player(id, nick) {
+function surviv_player(id, nick, x, y) {
   this.id = id;
   this.nick = nick;
   this.direction;
@@ -148,8 +148,8 @@ function surviv_player(id, nick) {
   this.PLAYERSPEED = 5;
   this.radius = 40; // 반지름
   this.color = "#FF00FF"; // 닉네임 색
-  this.x = X / 2; // x 좌표
-  this.y = Y / 2; // y 좌표
+  this.x = x; // x 좌표
+  this.y = y; // y 좌표
   this.player = new Image();
   this.player.src = this.asset[0]; // 플레이어의 현재 이미지. 방향키를 누를때 바뀐다.
   this.score = 0; // 플레이어의 현재 점수

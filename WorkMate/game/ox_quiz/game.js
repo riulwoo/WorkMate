@@ -12,6 +12,16 @@ myfont.load().then(function(font){
 let question = ""          // 문제 변수
 let answer;                // 답 변수
 
+let ox_XY = 
+  [
+    [ X / 2 - 16, Y / 2 - 10 ],
+    [ X / 2     , Y / 2 - 10 ],
+    [ X / 2 + 16, Y / 2 - 10 ],
+    [ X / 2 - 16, Y / 2 + 10 ],
+    [ X / 2     , Y / 2 + 10 ],
+    [ X / 2 + 16, Y / 2 + 10 ]
+  ];
+
 // 크기 변수
 X = ox_canvas.width;
 Y = ox_canvas.height;
@@ -106,7 +116,7 @@ function ox_func_lding()
 {
   return new Promise((r1, r2) => {
     for (let i = 0; i < playerinfo.length; i++) {
-      let player = new ox_player(playerinfo[i].id, playerinfo[i].nick);
+      let player = new ox_player(playerinfo[i].id, playerinfo[i].nick, ox_XY[i][0], ox_XY[i][1]);
       playermap[i] = player;
       players[playerinfo[i].id] = player;
     }

@@ -74,19 +74,20 @@ function ox_renderPlayer() {
   if (players[myId].y > Y - curPlayer.radius * 2) {
     players[myId].y = Y - curPlayer.radius * 2;
   }
+  else if (players[myId].y < Y / 4)
+  {
+    players[myId].y = Y / 4;
+  }
 
-  if (players[myId].x < 0) {
+  if (players[myId].x < 0)
+  {
     players[myId].x = 0;
-  } else if (players[myId].x > X - curPlayer.radius * 2) {
+  }
+  else if (players[myId].x > X - curPlayer.radius * 2) {
     players[myId].x = X - curPlayer.radius * 2;
   }
 
-  if (players[myId].x < 0) {
-    players[myId].x = 0;
-  } else if (players[myId].x > X - curPlayer.radius * 2) {
-    players[myId].x = X - curPlayer.radius * 2;
-  }
-
+  /** 플레이어가 현재 O인지 X인지를 식별하는 조건문 */
   if (players[myId].x < X / 2) {
     players[myId].is_O = true;
   } else if (players[myId].x >= X / 2) {
@@ -94,7 +95,7 @@ function ox_renderPlayer() {
   }
 }
 
-function ox_player(id, nick) {
+function ox_player(id, nick, x, y) {
   this.id = id;
   this.nick = nick;
   this.asset = [
@@ -109,8 +110,8 @@ function ox_player(id, nick) {
   ];
 
   this.color = "#FF00FF";
-  this.x = X / 2;
-  this.y = Y / 2;
+  this.x = x;
+  this.y = y;
   this.player = new Image();
   this.player.src = this.asset[0];
   this.score = 0;

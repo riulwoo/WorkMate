@@ -13,6 +13,18 @@ flip_canvas.height = Math.ceil(document.body.clientHeight);
 // X와 Y는 캔버스의 width와 height를 저장하는데 사용.
 X = flip_canvas.width;
 Y = flip_canvas.height;
+
+// 
+let flip_XY = 
+  [
+    [ X / 2 - 116, Y / 2 - 110 ],
+    [ X / 2      , Y / 2 - 110 ],
+    [ X / 2 + 116, Y / 2 - 110 ],
+    [ X / 2 - 116, Y / 2 + 110 ],
+    [ X / 2      , Y / 2 + 110 ], 
+    [ X / 2 + 116, Y / 2 + 110 ]
+  ];
+
 // 플레이어 관련
 const FLIP_PLAYER_STUN_TIME = 1.5; // 플레이어가 폭탄을 맞으면 1.5초간 기절에 걸린다. 그 기절 시간을 상수에 저장해줌
 const FLIP_PLAYER_DELAY_TIME = 3;
@@ -152,7 +164,7 @@ function flip_func_lding() {
     document.body.style.backgroundImage =
       "url('https://media.discordapp.net/attachments/980090904394219562/1021799584667803839/GIF_2022-09-21_12-06-13.gif?width=1266&height=636')"; // 나중에 카드 로딩창으로 수정하기.
     for (let i = 0; i < playerinfo.length; i++) {
-      let player = new flip_player(playerinfo[i].id, playerinfo[i].nick);
+      let player = new flip_player(playerinfo[i].id, playerinfo[i].nick, flip_XY[i][0], flip_XY[i][1]);
       playermap[i] = player;
       players[playerinfo[i].id] = player;
     }
