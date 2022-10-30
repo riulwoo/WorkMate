@@ -44,7 +44,7 @@ function surviv_func_lding() {
 surviv_func_lding().then(() => {
   document.body.style.backgroundImage =
     "url('https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png')";
-  setInterval(update, 1000 / FPS);
+  setInterval(surviv_update, 1000 / FPS);
 });
 
 socket.on("게임수타투", (data) => {

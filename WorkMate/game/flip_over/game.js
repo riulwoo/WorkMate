@@ -52,9 +52,9 @@ var deck = []; // 카드가 들어갈 배열
 // var count_sec = Math.ceil(COUNT_DUR_TIME * FPS);
 
 // Game Flow 관련
-var is_counting = false;
-var is_gaming = false;
-var is_ending = false;
+var flip_is_counting = false;
+var flip_is_gaming = false;
+var flip_is_ending = false;
 document.addEventListener("keydown", card_keyDownHandler, false);
 document.addEventListener("keyup", card_keyUpHandler, false);
 
@@ -132,14 +132,14 @@ function flip_field_draw() {
   flip_ctx.closePath();
 }
 
-function count_draw() {
+function flip_count_draw() {
   flip_ctx.fillStyle = "#90DBA2";
   flip_ctx.font = "200px DungGeunMo";
   flip_ctx.textAlign = "center";
   flip_ctx.fillText(Math.ceil(count_sec / 60), X / 2, Y / 2);
 }
 
-function ending_draw() {
+function flip_ending_draw() {
   flip_ctx.fillStyle = "#90DBA2";
   flip_ctx.font = "200px DungGeunMo";
   flip_ctx.textAlign = "center";
@@ -162,24 +162,6 @@ function flip_func_lding() {
     }, 3000);
   });
 }
-
-/** 유저가 떠나는 이벤트 발생 시 실행되는 메서드 */
-function leaveUser(id) {
-  for (var i = 0; i < playermap.length; i++) {
-    if (playermap[i].id == id) {
-      playermap.splice(i, 1);
-      break;
-    }
-  }
-  delete players[id];
-}
-socket.on("leave_user", function (data) {
-  leaveUser(data);
-});
-
-socket.on("update_state", function (data) {
-  updateState(data.id, data.x, data.y, data.direction);
-});
 
 socket.on("뒤집기수타투", (data) => {
   let cx = firstX;
@@ -408,28 +390,28 @@ function choose(player) {
 }
 
 function flip_update() {
-  is_counting = count_sec > 0;
+  flip_is_counting = count_sec > 0;
 
-  flip_field_draw()
+  flip_field_draw();
   draw_Deck();
   flip_score_draw();
-  if (is_counting) {
+  if (flip_is_counting) {
     count_sec--;
 
-    count_draw();
+    flip_count_draw();
 
     // handle countdown
     if (count_sec == 0) {
-      is_gaming = true;
+      flip_is_gaming = true;
     }
   }
-  if (is_gaming) {
-    renderPlayer();
+  if (flip_is_gaming) {
+    flip_renderPlayer();
     stun_flow();
     delay_check();
   }
-  if (is_ending) {
-    ending_draw();
+  if (flip_is_ending) {
+    flip_ending_draw();
   }
 } // end of update
 

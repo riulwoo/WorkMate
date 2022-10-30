@@ -145,7 +145,7 @@ function surviv_player(id, nick) {
     "https://cdn.discordapp.com/attachments/980090904394219562/1026451865224884234/gg_18.png", // 오른아래
     "https://cdn.discordapp.com/attachments/980090904394219562/1026451494075125800/gg_07.png",
   ];
-  this.PLAYERSPEED = 6;
+  this.PLAYERSPEED = 5;
   this.radius = 40; // 반지름
   this.color = "#FF00FF"; // 닉네임 색
   this.x = WIDTH / 2; // x 좌표
