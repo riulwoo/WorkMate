@@ -129,49 +129,6 @@ function ox_func_lding()
   })
 }
 
-// function leaveUser(id){
-//   for(var i = 0 ; i < players.length; i++){
-//     if(players[i].id == id){
-//       players.splice(i,1);
-//       break;
-//     }
-//   }
-//   delete playermap[id];
-// }
-// socket.on('leave_user', function(data){
-//     leaveUser(data);
-// })
-// function updateState(id, x, y, direction,ismove,cnt) {
-//     let ball = players[id];
-//     if (!ball) {
-//         return;
-//     }
-//     ball.x = x;
-//     ball.y = y;
-//     ball.direction = direction;
-//     ball.ismove = ismove;
-//     ball.cnt = cnt;
-//     ball.player.src = ball.ismove ? moveeffect(ball) : ball.asset[ball.direction];
-// }
-// socket.on('update_state', function (data) {
-//     updateState(data.id, data.x, data.y, data.direction);
-// })
-
-// function sendData(curPlayer) {
-//       let data = {};
-//       data = {
-//           id : curPlayer.id,
-//           x: curPlayer.x,
-//           y: curPlayer.y,
-//           direction : curPlayer.direction,
-//           ismove : curPlayer.ismove,
-//           cnt : curPlayer.cnt
-//       };
-//       if(data){
-//           socket.emit("send_location", data);
-//       }
-//   }
-
 socket.on('ox_breaking', (data)=>{
   const { break_time, _question } = data;
   is_checking = false;
@@ -320,7 +277,7 @@ function ox_update()
       ox_ctx.textAlign = "center";
       
       ox_ctx.fillText('게임 끝!!!!!', X / 2, Y / 5);
-      ox_ctx.fillText(overmsg, X - (ox_ctx.measureText(overmsg).width / 2), Y / 1.6);
+      ox_ctx.fillText(overmsg, X / 2 - (ox_ctx.measureText(overmsg).width / 2), Y / 1.6);
     }
   
     // 점수 출력

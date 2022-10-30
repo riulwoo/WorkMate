@@ -412,6 +412,7 @@ function flip_update() {
 
     flip_count_draw();
 
+  console.log('카운팅 랜더링중')
     // handle countdown
     if (count_sec == 0) {
       flip_is_gaming = true;
@@ -421,9 +422,13 @@ function flip_update() {
     flip_renderPlayer();
     stun_flow();
     delay_check();
+    
+  console.log('게이밍 랜더링중')
   }
   if (flip_is_ending) {
     flip_ending_draw();
+    
+  console.log('엔딩 랜더링중')
   }
 } // end of update
 
