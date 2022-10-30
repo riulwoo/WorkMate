@@ -5,6 +5,10 @@ var socket = io();
 /** 사용할 폰트*/
 let myfont = new FontFace("DungGeunMo", "url(../game_asset/DungGeunMo.otf)");
 
+myfont.load().then(function(font){
+    document.fonts.add(font);
+});
+
 /** 게임 canvas의 Width와 Height */
 let X;
 let Y;

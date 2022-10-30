@@ -2,9 +2,9 @@ let flip_canvas = document.getElementById("flip_canvas");
 let flip_ctx = flip_canvas.getContext("2d");
 // let myfont = new FontFace("DungGeunMo", "url(flip_over/asset/DungGeunMo.otf)");
 
-myfont.load().then(function (font) {
-  document.fonts.add(font);
-});
+// myfont.load().then(function (font) {
+//   document.fonts.add(font);
+// });
 
 // 화면 크기
 // 캔버스의 크기 속성값을 클라이언트의 화면 크기와 같게 바꿔줌

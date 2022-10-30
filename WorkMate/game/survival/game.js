@@ -3,9 +3,9 @@ let surv_ctx = surv_canvas.getContext("2d");
 surv_canvas.width = document.body.clientWidth;
 surv_canvas.height = document.body.clientHeight;
 
-myfont.load().then(function (font) {
-  document.fonts.add(font);
-});
+// myfont.load().then(function (font) {
+//   document.fonts.add(font);
+// });
 
 // 게임의 프레임은 60fps.
 X = surv_canvas.width;
