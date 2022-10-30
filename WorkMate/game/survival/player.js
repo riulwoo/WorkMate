@@ -148,8 +148,8 @@ function surviv_player(id, nick) {
   this.PLAYERSPEED = 5;
   this.radius = 40; // 반지름
   this.color = "#FF00FF"; // 닉네임 색
-  this.x = WIDTH / 2; // x 좌표
-  this.y = HEIGHT - this.radius; // y 좌표
+  this.x = X / 2; // x 좌표
+  this.y = Y / 2; // y 좌표
   this.player = new Image();
   this.player.src = this.asset[0]; // 플레이어의 현재 이미지. 방향키를 누를때 바뀐다.
   this.score = 0; // 플레이어의 현재 점수
