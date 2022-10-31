@@ -27,7 +27,7 @@ function Card(x, y, info)
         flip_ctx.fillStyle = "#F5FFFA";
         flip_ctx.font = "35px DungGeunMo";
         flip_ctx.textAlign = "center";
-        flip_ctx.fillText(this.info, this.x + card_width / 2, this.y + card_height / 2);
+        //flip_ctx.fillText(this.info, this.x + card_width / 2, this.y + card_height / 2);
         flip_ctx.closePath();
     }
 }
