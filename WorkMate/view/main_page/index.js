@@ -342,3 +342,10 @@ function moveeffect(curPlayer) {
   let moveimage = Math.floor((curPlayer.cnt++ / 4) % 4);
   return moveasset[curPlayer.direction][moveimage];
 }
+
+let result = document.getElementById('result');
+
+result.addEventListener('click', ()=>{
+  $('#main').load(`/result`);
+  console.log("결과 창 로드 완료");
+});
