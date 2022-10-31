@@ -4,7 +4,7 @@ const userroom = require("./class_room");
 const BREAK_DUR_TIME = 4000; // 퀴즈와 퀴즈 사이의 대기 시간    (ms)
 const QUIZ_DUR_TIME = 6000; // 문제 출력 후 퀴즈 진행 시간      (ms)
 const CHECK_DUR_TIME = 990; // 퀴즈를 풀고 난 뒤 정답 체크 시간  (ms)
-const quiz_num = [1, 2, 3, 4, 5, 6, 7, 8]; //문제 수
+const quiz_num = [1, 2, 3, 4, 5, 6, 7]; //문제 수
 module.exports = (io, socket, room) => {
 
   function random_quiz(ms, Index) {

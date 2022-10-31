@@ -10,7 +10,7 @@ module.exports = (io, socket, room) => {
     enemyInterval = setInterval(() => {
       obstacle(index);
       time += 5;
-      if (time >= 180) {
+      if (time >= 120) {
         clearInterval(enemyInterval);
         io.to(room[index].roomCode).emit("살아남기 게임끝");
       }
@@ -197,7 +197,6 @@ module.exports = (io, socket, room) => {
   function specialObastable(index, id, type) {
     // 생성 위치를 랜덤으로 판별한 뒤 그 위치별로 좌표 전송
     let wLocation = Math.floor(Math.random() * 4); // 장애물이 생성될 벽의 방향
-    console.log(type);
     if (type == 0)
       centerLocation(index, wLocation, id); // 장애물이 생성될 좌표 위치
     else if (type == 1) LRLocation(index, wLocation, id); // 장애물이 생성될 좌표 위치

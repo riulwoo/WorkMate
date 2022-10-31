@@ -98,8 +98,8 @@ socket.on("특수 장애물 생성하거라", (data) => {
 });
 
 socket.on("살아남기 게임끝", () => {
-  is_end = true;
-  is_gaming = false;
+  surviv_is_end = true;
+  surviv_is_gaming = false;
   let index = getMyIndex(myId);
   playerinfo[index].score += players[myId].score;
   setTimeout(() => {
