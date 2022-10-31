@@ -208,7 +208,8 @@ socket.on("못맞췄대", (c_index) => {
 socket.on("flip_end", () => {
   let index = getMyIndex(myId);
   playerinfo[index].score += players[myId].score;
-  is_ending = true;
+  flip_is_ending = true;
+  flip_is_gaming = false;
   setTimeout(() => {
     clearInterval(flip_interval);
     socket.emit("gameover", myId);

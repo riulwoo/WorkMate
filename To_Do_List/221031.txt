@@ -5,7 +5,7 @@
 5. (surviv) 다 잘되는데 돈이 너무 많이 나와
 6. (surviv) 특수 장애물 가끔 씹혀
 7. (surviv) 모든 장애물 피격범위 바꿔야 함
-NEW (loading) game이 종료된 후 로딩창이 나와야 함
+--NEW (loading) game이 종료된 후 로딩창이 나와야 함
 
 해결
 player객체의 PLAYERSPEED와 renderPlayer의 playerSpeed가 달랐음
@@ -14,7 +14,8 @@ player객체의 PLAYERSPEED와 renderPlayer의 playerSpeed가 달랐음
 count_sec가 초기화가 안되서 캐릭터가 안나오는거였음
 3. (flip) 카운팅이 시작이 안되요.
 4. (flip) 맵이랑 카드는 나오는데 캐릭터는 안나옴
-
+변수이름 변경 안됨 is_end > surviv_is_end
+NEW (loading) game이 종료된 후 로딩창이 나와야 함
 오늘 한 일
 #클라이언트
 1. 메인 페이지 버튼 도트느낌으로 (검은 선 오류는 차차 고칠예정)
