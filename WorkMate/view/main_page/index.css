@@ -370,10 +370,10 @@ body {
   user-select: none;
 }
 
-.pixel:active {
+.main_pixel:active {
   top: 2px;
 }
-.pixel {
+.main_pixel {
   position: relative;
   display: block;
   font-family : '둥근모꼴', 'DungGeunMo';
@@ -383,7 +383,7 @@ body {
   color: white;
 }
 
-.pixel::before {
+.main_pixel::before {
   content: "";
   display: block;
   position: absolute;
@@ -395,7 +395,7 @@ body {
   z-index: -1;
 }
 
-.pixel::after {
+.main_pixel::after {
   content: "";
   display: block;
   position: absolute;

@@ -17,7 +17,7 @@ html {
   background-repeat: no-repeat;
 }
 
-.pixel {
+.result_pixel {
   position: absolute;
   width: 35%;
   bottom: 20px;
@@ -181,7 +181,7 @@ p{
 }
 
 /*------------------------------------최종결과-------------------------------------------------------*/
-.pixel {
+.result_pixel {
   top: 150px;
   height: 600px;
   position: relative;
@@ -191,7 +191,7 @@ p{
   color: black;
 }
 
-.pixel::before {
+.result_pixel::before {
   content: "";
   display: block;
   position: absolute;
@@ -202,7 +202,7 @@ p{
   background: rgb(174, 184, 255);
   z-index: -1;
 }
-.pixel::after {
+.result_pixel::after {
   content: "";
   display: block;
   position: absolute;
