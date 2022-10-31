@@ -4,7 +4,7 @@ function ox_renderPlayer() {
   for (let i = 0; i < playermap.length; i++) {
     let ball = playermap[i];
     console.log(ball.x, ball.y);
-    ox_ctx.drawImage(ball.player, ball.x, ball.y);
+    ox_ctx.drawImage(ball.player, ball.x, ball.y, 50, 70);
     ox_ctx.beginPath();
     ox_ctx.fillStyle = ball.color;
     ox_ctx.font = "15px Arial";
@@ -69,22 +69,19 @@ function ox_renderPlayer() {
     } else {
       curPlayer.player.src = curPlayer.asset[curPlayer.direction];
       curPlayer.ismove = false;
+      sendData(curPlayer);
     }
   }
 
   if (players[myId].y > Y - curPlayer.radius * 2) {
     players[myId].y = Y - curPlayer.radius * 2;
-  }
-  else if (players[myId].y < Y / 4)
-  {
+  } else if (players[myId].y < Y / 4) {
     players[myId].y = Y / 4;
   }
 
-  if (players[myId].x < 0)
-  {
+  if (players[myId].x < 0) {
     players[myId].x = 0;
-  }
-  else if (players[myId].x > X - curPlayer.radius * 2) {
+  } else if (players[myId].x > X - curPlayer.radius * 2) {
     players[myId].x = X - curPlayer.radius * 2;
   }
 

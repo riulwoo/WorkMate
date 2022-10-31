@@ -1,10 +1,8 @@
 @font-face {
-	font-family: 'DungGeunMo';
-	src: 
-		url("../view_asset/DungGeunMo.woff") format('woff'),
-		url("../view_asset/DungGeunMo.woff2") format('woff2');
+  font-family: "DungGeunMo";
+  src: url("../view_asset/DungGeunMo.woff") format("woff"),
+    url("../view_asset/DungGeunMo.woff2") format("woff2");
 }
-
 
 * {
   font-family: "둥근모꼴", "DungGeunMo";
@@ -99,9 +97,11 @@ html {
   top: -200%;
 }
 
-.btn_box{
+.btn_box {
   position: relative;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-self: center;
   background: rgb(60, 181, 197);
   font-size: 25px;
   color: black;
@@ -139,37 +139,37 @@ html {
   color: white;
 }
 /*-------------------------------------------------------------------------------------------*/
-span.btn{
+span.btn {
   position: relative;
   text-align: center;
   top: 25%;
 }
-p{
+p {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
 
-.name{
+.name {
   text-align: center;
   width: 250px;
 }
-.score{
-  width:120px;
+.score {
+  width: 120px;
 }
 
-.names{
+.names {
   text-align: center;
   width: 200px;
 }
-.scores{
-  width:140px
+.scores {
+  width: 140px;
 }
 .p > div {
   font-size: 5px;
 }
 
-.num{
+.num {
   position: absolute;
   width: 200px;
   left: 17%;

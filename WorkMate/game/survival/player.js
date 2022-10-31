@@ -12,7 +12,7 @@ function surviv_renderPlayer() {
         player.player,
         player.x - player.radius,
         player.y - player.radius,
-        70,
+        50,
         70
       );
     }
@@ -99,6 +99,7 @@ function surviv_renderPlayer() {
     else {
       curPlayer.player.src = curPlayer.asset[curPlayer.direction];
       curPlayer.ismove = false;
+      sendData(curPlayer);
     } //
   } // end of playermove
 
@@ -146,7 +147,7 @@ function surviv_player(id, nick, x, y) {
     "https://cdn.discordapp.com/attachments/980090904394219562/1026451494075125800/gg_07.png",
   ];
   this.PLAYERSPEED = 5;
-  this.radius = 40; // 반지름
+  this.radius = 25; // 반지름
   this.color = "#FF00FF"; // 닉네임 색
   this.x = x; // x 좌표
   this.y = y; // y 좌표

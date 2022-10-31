@@ -5,8 +5,8 @@ var socket = io();
 /** 사용할 폰트*/
 let myfont = new FontFace("DungGeunMo", "url(../game_asset/DungGeunMo.otf)");
 
-myfont.load().then(function(font){
-    document.fonts.add(font);
+myfont.load().then(function (font) {
+  document.fonts.add(font);
 });
 
 /** 게임 canvas의 Width와 Height */
@@ -50,7 +50,7 @@ function updateState(id, x, y, direction, ismove, cnt) {
   ball.player.src = ball.ismove ? moveeffect(ball) : ball.asset[ball.direction];
 }
 socket.on("update_state", function (data) {
-  updateState(data.id, data.x, data.y, data.direction);
+  updateState(data.id, data.x, data.y, data.direction, data.ismove, data.cnt);
 });
 
 function sendData(curPlayer) {
