@@ -1,43 +1,33 @@
 let ox_canvas = document.getElementById("ox_canvas");
-ox_canvas.width = document.body.clientWidth;
-ox_canvas.height = document.body.clientHeight;
-
 let ox_ctx = ox_canvas.getContext('2d');
 // let myfont = new FontFace('DungGeunMo', 'url(ox_quiz/asset/DungGeunMo.otf)');
 
 // myfont.load().then(function(font){
 //     document.fonts.add(font);
 // });
-
+count_sec = Math.ceil(COUNT_DUR_TIME * FPS);
 let question = ""          // 문제 변수
 let answer;                // 답 변수
 
-let ox_XY = 
-  [
-    [ X / 2 - 16, Y / 2 - 10 ],
-    [ X / 2     , Y / 2 - 10 ],
-    [ X / 2 + 16, Y / 2 - 10 ],
-    [ X / 2 - 16, Y / 2 + 10 ],
-    [ X / 2     , Y / 2 + 10 ],
-    [ X / 2 + 16, Y / 2 + 10 ]
-  ];
-
 // 크기 변수
+ox_canvas.width = document.body.clientWidth;
+ox_canvas.height = document.body.clientHeight;
 X = ox_canvas.width;
 Y = ox_canvas.height;
 
-// 캐릭터 관련
-// let radius = 16;
-// let playerSpeed = 5;
+let ox_XY = [
+  [X / 2 - 16, Y / 2 - 10],
+  [X / 2, Y / 2 - 10],
+  [X / 2 + 16, Y / 2 - 10],
+  [X / 2 - 16, Y / 2 + 10],
+  [X / 2, Y / 2 + 10],
+  [X / 2 + 16, Y / 2 + 10],
+];
 
-// 이동 관련
-// var rightPressed = false;
-// var leftPressed = false;
-// var upPressed = false;
-// var downPressed = false;
+let ox_interval1;
+let ox_interval2;
 
 // Game Flow 관련
-var ox_is_loading; // 이거 안쓰는데??
 var is_during = false; // 문제가 진행중일 때 true.
 var is_breaking = false; // 정답을 확인하고 다음 문제가 나오기 전까지 true.
 var is_checking = false; // 문제에 대한 정답을 확인할 때.
@@ -116,6 +106,7 @@ function ox_func_lding()
 {
   return new Promise((r1, r2) => {
     for (let i = 0; i < playerinfo.length; i++) {
+      console.log(ox_XY[i]);
       let player = new ox_player(playerinfo[i].id, playerinfo[i].nick, ox_XY[i][0], ox_XY[i][1]);
       playermap[i] = player;
       players[playerinfo[i].id] = player;
@@ -163,7 +154,11 @@ socket.on('ox_end', ()=>{
   is_end = true;
   let index = getMyIndex(myId);
   playerinfo[index].score += players[myId].score;
-  setTimeout(()=>{socket.emit('gameover', myId);}, 3000);
+  setTimeout(()=>{
+    clearInterval(ox_interval1);
+    clearInterval(ox_interval2);
+    socket.emit('gameover', myId);
+  }, 3000);
 })
 
 function ox_update()
@@ -297,15 +292,15 @@ ox_func_lding().then
 ( () => {
   document.body.style.backgroundImage = "url('https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png')";
   // setInterval(renderPlayer, 50);
-  setInterval(() => {
-    if(is_breaking) break_num--;
+  ox_interval2 = setInterval(() => {
+    if (is_breaking) break_num--;
     else if (is_during) during_num--;
     if (answer_cnt) {
       players[myId].score += 50;
       answer_cnt = false;
     }
   }, 1000);
-  setInterval(ox_update, 20);
+  ox_interval1 = setInterval(ox_update, 20);
 } )
 
 

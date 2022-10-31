@@ -10,7 +10,7 @@ surv_canvas.height = document.body.clientHeight;
 // 게임의 프레임은 60fps.
 X = surv_canvas.width;
 Y = surv_canvas.height;
-
+count_sec = Math.ceil(COUNT_DUR_TIME * FPS);
 let surv_XY = 
   [
     [ X / 2 - 116, Y / 2 - 110 ],
@@ -20,7 +20,7 @@ let surv_XY =
     [ X / 2      , Y / 2 + 110 ],
     [ X / 2 + 116, Y / 2 + 110 ]
   ];
-
+let surviv_interval;
 // 플레이어 피격 관련
 const PLAYER_STUN_DUR = 1; // 플레이어의 장애물 피격시 기절 지속시간
 const PLAYER_BLINK_DUR = 2.5; // 플레이어 부활시 깜박임(무적) 지속시간
@@ -54,7 +54,7 @@ function surviv_func_lding() {
 surviv_func_lding().then(() => {
   document.body.style.backgroundImage =
     "url('https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png')";
-  setInterval(surviv_update, 1000 / FPS);
+  surviv_interval = setInterval(surviv_update, 1000 / FPS);
 });
 
 socket.on("게임수타투", (data) => {
@@ -103,6 +103,7 @@ socket.on("살아남기 게임끝", () => {
   let index = getMyIndex(myId);
   playerinfo[index].score += players[myId].score;
   setTimeout(() => {
+    clearInterval(surviv_interval);
     socket.emit("gameover", myId);
   }, 3000);
 });
@@ -194,12 +195,10 @@ function surviv_field_draw() {
 }
 
 function surviv_end_draw() {
-  if (surviv_is_end) {
     surv_ctx.fillStyle = "#90DBA2";
     surv_ctx.font = "200px DungGeunMo";
     surv_ctx.textAlign = "center";
     surv_ctx.fillText("GAME OVER", X / 2, Y / 2);
-  }
 }
 
 function surviv_count_draw() {
@@ -270,7 +269,7 @@ function surviv_update() {
       surviv_is_gaming = true;
     }
   }
-  if (surviv_is_gaming) {
+  else if (surviv_is_gaming) {
     renderItem(); // 아이템
     distItem();
     renderGoal(); // 돈
@@ -283,5 +282,8 @@ function surviv_update() {
 
     stunAndBlink_flow();
   }
-  surviv_end_draw();
+  
+  else if (surviv_is_end) {
+    surviv_end_draw();
+  }
 }

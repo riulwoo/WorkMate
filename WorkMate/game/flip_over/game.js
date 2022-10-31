@@ -13,7 +13,7 @@ flip_canvas.height = Math.ceil(document.body.clientHeight);
 // X와 Y는 캔버스의 width와 height를 저장하는데 사용.
 X = flip_canvas.width;
 Y = flip_canvas.height;
-
+count_sec = Math.ceil(COUNT_DUR_TIME * FPS);
 // 
 let flip_XY = 
   [
@@ -37,7 +37,7 @@ const FLIP_PLAYER_DELAY_TIME = 3;
 
 // 플레이어
 // var player = players[myId];
-
+let flip_interval;
 // 상호작용 키
 var keyPressed = false;
 // 그려질 카드
@@ -58,10 +58,6 @@ var card_height = (Y * 13) / 100; // 카드의 세로 길이
 var firstX = (X * 3) / 100; // 카드가 처음 그려질 x 좌표
 var firstY = (Y * 12) / 100; // 카드가 처음 그려질 y 좌표
 var deck = []; // 카드가 들어갈 배열
-
-// 게임 흐름 관련
-// const COUNT_DUR_TIME = 3;
-// var count_sec = Math.ceil(COUNT_DUR_TIME * FPS);
 
 // Game Flow 관련
 var flip_is_counting = false;
@@ -214,6 +210,7 @@ socket.on("flip_end", () => {
   playerinfo[index].score += players[myId].score;
   is_ending = true;
   setTimeout(() => {
+    clearInterval(flip_interval);
     socket.emit("gameover", myId);
   }, 3000);
 });
@@ -435,5 +432,5 @@ function flip_update() {
 flip_func_lding().then(() => {
   document.body.style.backgroundImage =
     "url('https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png')";
-  setInterval(flip_update, 1000 / FPS);
+  flip_interval = setInterval(flip_update, 1000 / FPS);
 });

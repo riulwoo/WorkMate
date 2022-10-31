@@ -3,6 +3,7 @@ function ox_renderPlayer() {
   // 모든 플레이어를 그리는 코드
   for (let i = 0; i < playermap.length; i++) {
     let ball = playermap[i];
+    console.log(ball.x, ball.y);
     ox_ctx.drawImage(ball.player, ball.x, ball.y);
     ox_ctx.beginPath();
     ox_ctx.fillStyle = ball.color;
@@ -17,53 +18,53 @@ function ox_renderPlayer() {
       curPlayer.direction = 3;
       if (upPressed) {
         curPlayer.direction = 7;
-        curPlayer.y -= curPlayer.playerSpeed;
+        curPlayer.y -= curPlayer.PLAYERSPEED;
       } else if (downPressed) {
         curPlayer.direction = 6;
-        curPlayer.y += curPlayer.playerSpeed;
+        curPlayer.y += curPlayer.PLAYERSPEED;
       }
       curPlayer.ismove = true;
       curPlayer.player.src = moveeffect(curPlayer);
-      curPlayer.x += curPlayer.playerSpeed;
+      curPlayer.x += curPlayer.PLAYERSPEED;
       sendData(curPlayer);
     } else if (upPressed) {
       curPlayer.direction = 2;
       if (rightPressed) {
         curPlayer.direction = 7;
-        curPlayer.x += curPlayer.playerSpeed;
+        curPlayer.x += curPlayer.PLAYERSPEED;
       } else if (leftPressed) {
         curPlayer.direction = 5;
-        curPlayer.x -= curPlayer.playerSpeed;
+        curPlayer.x -= curPlayer.PLAYERSPEED;
       }
       curPlayer.ismove = true;
       curPlayer.player.src = moveeffect(curPlayer);
-      curPlayer.y -= curPlayer.playerSpeed;
+      curPlayer.y -= curPlayer.PLAYERSPEED;
       sendData(curPlayer);
     } else if (leftPressed) {
       curPlayer.direction = 1;
       if (upPressed) {
         curPlayer.direction = 5;
-        curPlayer.y -= curPlayer.playerSpeed;
+        curPlayer.y -= curPlayer.PLAYERSPEED;
       } else if (downPressed) {
         curPlayer.direction = 4;
-        curPlayer.y += curPlayer.playerSpeed;
+        curPlayer.y += curPlayer.PLAYERSPEED;
       }
       curPlayer.ismove = true;
       curPlayer.player.src = moveeffect(curPlayer);
-      curPlayer.x -= curPlayer.playerSpeed;
+      curPlayer.x -= curPlayer.PLAYERSPEED;
       sendData(curPlayer);
     } else if (downPressed) {
       curPlayer.direction = 0;
       if (rightPressed) {
         curPlayer.direction = 6;
-        curPlayer.x += curPlayer.playerSpeed;
+        curPlayer.x += curPlayer.PLAYERSPEED;
       } else if (leftPressed) {
         curPlayer.direction = 4;
-        curPlayer.x -= curPlayer.playerSpeed;
+        curPlayer.x -= curPlayer.PLAYERSPEED;
       }
       curPlayer.ismove = true;
       curPlayer.player.src = moveeffect(curPlayer);
-      curPlayer.y += curPlayer.playerSpeed;
+      curPlayer.y += curPlayer.PLAYERSPEED;
       sendData(curPlayer);
     } else {
       curPlayer.player.src = curPlayer.asset[curPlayer.direction];

@@ -70,4 +70,4 @@ function sendData(curPlayer) {
 
 /** flip, surv에서 카운트다운에 쓰이는 변수. */
 const COUNT_DUR_TIME = 3;
-var count_sec = Math.ceil(COUNT_DUR_TIME * FPS);
+var count_sec;
