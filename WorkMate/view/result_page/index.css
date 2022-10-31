@@ -113,6 +113,21 @@ p {
   justify-content: space-around;
 }
 
+.name{
+  text-align: center;
+  width: 250px;
+}
+.score{
+  width:120px;
+}
+
+.names{
+  text-align: center;
+  width: 200px;
+}
+.scores{
+  width:140px
+}
 p > div {
   font-size: 5px;
 }
