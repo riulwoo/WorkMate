@@ -246,7 +246,6 @@ module.exports = (io, socket, room) => {
     let index = getIndex(id);
     if(goalCount) {
       io.to(room[index].roomCode).emit("돈을 생성하거라", goalXY());
-      goalCount = false;
     }
   });
 };

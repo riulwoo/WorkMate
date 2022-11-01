@@ -56,14 +56,14 @@ function renderSpecObs() {
 /** 특수 장애물과 부딫혔을 때의 동작을 구현한 메서드. */
 function distSpecObs() {
   if (players[myId].stunsec <= 0) {
-    let px = players[myId].x;
-    let py = players[myId].y;
+    let px = players[myId].x - players[myId].radius;
+    let py = players[myId].y - players[myId].radius;
     let sx;
     let sy;
 
     for (let i = 0; i < roids_of_item.length; i++) {
-      sx = roids_of_item[i].x + roids_of_item[i].radius;
-      sy = roids_of_item[i].y + roids_of_item[i].radius;
+      sx = roids_of_item[i].x - roids_of_item[i].radius;
+      sy = roids_of_item[i].y - roids_of_item[i].radius;
 
       if (
         distBetweenPoints(px, py, sx, sy) <

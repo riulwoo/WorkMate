@@ -75,14 +75,14 @@ function renderObs() {
 /** 장애물에 충돌하면 플레이어가 기절함 */
 function distObs() {
   if (players[myId].stunsec <= 0) {
-    let px = players[myId].x;
-    let py = players[myId].y;
+    let px = players[myId].x - players[myId].radius;
+    let py = players[myId].y - players[myId].radius;
     let ax;
     let ay;
 
     for (let i = 0; i < roids.length; i++) {
-      ax = roids[i].x + roids[i].radius;
-      ay = roids[i].y + roids[i].radius;
+      ax = roids[i].x - roids[i].radius;
+      ay = roids[i].y - roids[i].radius;
 
       if (
         distBetweenPoints(px, py, ax, ay) <
