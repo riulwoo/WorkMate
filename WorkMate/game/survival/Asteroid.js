@@ -5,8 +5,8 @@ function Asteroid(x, y, xv, yv, type) {
   this.xv = xv;
   this.yv = yv;
 
-  if (type == 2) {
-    this.radius = 38.5;
+  if (type == 2 || type == 3) {
+    this.radius = 35;
   } else {
     this.radius = 45;
   }
@@ -18,6 +18,7 @@ function Asteroid(x, y, xv, yv, type) {
     "https://cdn.discordapp.com/attachments/980090904394219562/1035884700205580308/documents.png",
     "https://cdn.discordapp.com/attachments/980090904394219562/1035884700855709746/printer.png",
     "https://cdn.discordapp.com/attachments/980090904394219562/1035884700528562236/laptop.png",
+    "https://cdn.discordapp.com/attachments/980090904394219562/1036893353297575997/calculer.png"
   ];
 
   this.image.src = this.asset[type];

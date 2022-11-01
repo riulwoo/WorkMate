@@ -96,6 +96,7 @@ socket.on("장애물 생성하거라", (data) => {
 });
 
 socket.on("특수 장애물 생성하거라", (data) => {
+  console.log(`특수 장애물 데이터 : ${data.x} / ${data.y} / ${data.xv} / ${data.yv}`);
   roids_of_item.push(
     new ItemAsteroid(data.x, data.y, data.xv, data.yv, data.id)
   );

@@ -1,5 +1,4 @@
 let enemyInterval;
-let goalCount = true;
 
 module.exports = (io, socket, room) => {
   function getIndex(id) {
@@ -32,48 +31,48 @@ module.exports = (io, socket, room) => {
   function rightObastacle(index) {
     io.to(room[index].roomCode).emit("장애물 생성하거라", {
       x: 1500,
-      y: Math.floor(Math.random() * 900),
+      y: Math.floor(Math.random() * 1030),
       xv: Math.floor(Math.random() * (3 - 1) + 1) * -1,
       yv:
         Math.floor(Math.random() * (3 - 1) + 1) *
         (Math.random() < 0.5 ? 1 : -1),
-      type: Math.floor(Math.random() * 2),
+      type: Math.floor(Math.random() * 3),
     });
   }
 
   function upObastacle(index) {
     io.to(room[index].roomCode).emit("장애물 생성하거라", {
-      x: Math.floor(Math.random() * (1400 - 200)) + 200,
+      x: Math.floor(Math.random() * (1650 - 90)) + 90,
       y: -100,
       xv:
         Math.floor(Math.random() * (3 - 1) + 1) *
         (Math.random() < 0.5 ? 1 : -1),
       yv: Math.floor(Math.random() * (3 - 1) + 1),
-      type: Math.floor(Math.random() * 2),
+      type: Math.floor(Math.random() * 3),
     });
   }
 
   function leftObastacle(index) {
     io.to(room[index].roomCode).emit("장애물 생성하거라", {
       x: 100,
-      y: Math.floor(Math.random() * 800),
+      y: Math.floor(Math.random() * 1030),
       xv: Math.floor(Math.random() * (3 - 1) + 1),
       yv:
         Math.floor(Math.random() * (3 - 1) + 1) *
         (Math.random() < 0.5 ? 1 : -1),
-      type: Math.floor(Math.random() * 2),
+      type: Math.floor(Math.random() * 3),
     });
   }
 
   function downObastacle(index) {
     io.to(room[index].roomCode).emit("장애물 생성하거라", {
-      x: Math.floor(Math.random() * (1400 - 200)) + 200,
+      x: Math.floor(Math.random() * (1650 - 90)) + 90,
       y: 900,
       xv:
         Math.floor(Math.random() * (3 - 1) + 1) *
         (Math.random() < 0.5 ? 1 : -1),
       yv: Math.floor(Math.random() * (3 - 1) + 1) * -1,
-      type: Math.floor(Math.random() * 2),
+      type: Math.floor(Math.random() * 3),
     });
   }
 
@@ -95,8 +94,8 @@ module.exports = (io, socket, room) => {
     let goal = [];
     for (let i = 0; i < 2; i++) {
       goal.push({
-        x: Math.floor(Math.random() * (1300 - 400)) + 400,
-        y: Math.floor(Math.random() * (700 - 100)) + 100,
+        x: Math.floor(Math.random() * (1670 - 250)) + 250,
+        y: Math.floor(Math.random() * (830 - 100)) + 100,
       });
     }
     return goal;
@@ -232,6 +231,7 @@ module.exports = (io, socket, room) => {
   // 아이템 효과 중 특수장애물 요청이 들어오면 화면 중앙 or 양쪽 끝에 특수장애물이 지나감
   socket.on("특수장애물이래요", (data) => {
     const { id, type } = data;
+    console.log("타입 메시지 : " + type)
     let index = getIndex(id);
     specialObastable(index, id, type);
   });
@@ -244,8 +244,6 @@ module.exports = (io, socket, room) => {
 
   socket.on("돈 생성해달래요", (id) => {
     let index = getIndex(id);
-    if(goalCount) {
       io.to(room[index].roomCode).emit("돈을 생성하거라", goalXY());
-    }
   });
 };

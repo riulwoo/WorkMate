@@ -30,14 +30,14 @@ function renderGoal() {
 }
 
 function distGoal() {
-  let px = players[myId].x;
-  let py = players[myId].y;
+  let px = players[myId].x - players[myId].radius;
+  let py = players[myId].y - players[myId].radius;
   let gx;
   let gy;
 
   for (let i = 0; i < goal.length; i++) {
-    gx = goal[i].x + goal[i].radius;
-    gy = goal[i].y + goal[i].radius;
+    gx = goal[i].x - goal[i].radius;
+    gy = goal[i].y - goal[i].radius;
 
     if (distBetweenPoints(px, py, gx, gy) < goal[i].radius + players[myId].radius) {
       socket.emit("돈 먹었대요", {

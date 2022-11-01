@@ -21,7 +21,7 @@ function Itemeffect(type) {
     /** 특수 장애물 생성 */
     socket.emit("특수장애물이래요", {
       id: myId,
-      type: Math.ceil(Math.random() * 1), // 0 - 중앙 생성 1 - 양쪽 생성
+      type: Math.random() < 0.5 ? 0 : 1, // 0 - 중앙 생성 1 - 양쪽 생성
     });
   } else if (type == 1) {
     /** 기절 */
