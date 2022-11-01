@@ -123,11 +123,11 @@ module.exports = (io, socket, room) => {
         });
       }
     }
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 6; i++) {
       if (wLC == 2) {
         //위쪽 벽에서 생성
         io.to(room[index].roomCode).emit("특수 장애물 생성하거라", {
-          x: 260 + 200 * i,
+          x: 420 + 220 * i,
           y: -100,
           xv: 0,
           yv: 5,
@@ -136,7 +136,7 @@ module.exports = (io, socket, room) => {
       } else if (wLC == 3) {
         // 아래쪽 벽에서 생성
         io.to(room[index].roomCode).emit("특수 장애물 생성하거라", {
-          x: 260 + 200 * i,
+          x: 420 + 220 * i,
           y: 1000,
           xv: 0,
           yv: 5 * -1,

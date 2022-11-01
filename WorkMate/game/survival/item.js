@@ -58,12 +58,15 @@ function renderItem() {
       itemBox.xv *= -1;
     } else if (itemBox.x > X + itemBox.radius) {
       itemBox.x = 0 - itemBox.radius;
+      itemBox.xv *= -1;
     }
 
     if (itemBox.y < 0 - itemBox.radius) {
       itemBox.y = Y + itemBox.radius;
+      itemBox.yv *= -1;
     } else if (itemBox.y > Y + itemBox.radius) {
       itemBox.y = 0 - itemBox.radius;
+      itemBox.yv *= -1;
     }
   }
 }
