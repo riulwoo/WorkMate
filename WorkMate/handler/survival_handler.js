@@ -9,12 +9,12 @@ module.exports = (io, socket, room) => {
     let time = 0;
     enemyInterval = setInterval(() => {
       obstacle(index);
-      time += 8;
+      time += 4;
       if (time >= 90) {
         clearInterval(enemyInterval);
         io.to(room[index].roomCode).emit("살아남기 게임끝");
       }
-    }, 8000);
+    }, 4000);
   }
 
   function obstacle(index) {
@@ -109,7 +109,7 @@ module.exports = (io, socket, room) => {
         io.to(room[index].roomCode).emit("특수 장애물 생성하거라", {
           x: 0,
           y: 270 + 200 * i,
-          xv: 5,
+          xv: 6,
           yv: 0,
           id: id,
         });
@@ -118,7 +118,7 @@ module.exports = (io, socket, room) => {
         io.to(room[index].roomCode).emit("특수 장애물 생성하거라", {
           x: 1600,
           y: 270 + 200 * i,
-          xv: 5 * -1,
+          xv: 6 * -1,
           yv: 0,
           id: id,
         });
@@ -131,7 +131,7 @@ module.exports = (io, socket, room) => {
           x: 420 + 220 * i,
           y: -100,
           xv: 0,
-          yv: 5,
+          yv: 4,
           id: id,
         });
       } else if (wLC == 3) {
@@ -140,7 +140,7 @@ module.exports = (io, socket, room) => {
           x: 420 + 220 * i,
           y: 1000,
           xv: 0,
-          yv: 5 * -1,
+          yv: 4 * -1,
           id: id,
         });
       }
@@ -156,7 +156,7 @@ module.exports = (io, socket, room) => {
         io.to(room[index].roomCode).emit("특수 장애물 생성하거라", {
           x: 0,
           y: LR + 200 * i,
-          xv: 5,
+          xv: 6,
           yv: 0,
           id: id,
         });
@@ -165,7 +165,7 @@ module.exports = (io, socket, room) => {
         io.to(room[index].roomCode).emit("특수 장애물 생성하거라", {
           x: 1600,
           y: LR + 200 * i,
-          xv: 5 * -1,
+          xv: 6 * -1,
           yv: 0,
           id: id,
         });
@@ -179,7 +179,7 @@ module.exports = (io, socket, room) => {
           x: LR + 220 * i,
           y: -100,
           xv: 0,
-          yv: 5,
+          yv: 4,
           id: id,
         });
       } else if (wLC == 3) {
@@ -188,7 +188,7 @@ module.exports = (io, socket, room) => {
           x: LR + 220 * i,
           y: 1000,
           xv: 0,
-          yv: 5 * -1,
+          yv: 4 * -1,
           id: id,
         });
       }
