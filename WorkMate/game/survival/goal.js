@@ -48,6 +48,7 @@ function distGoal() {
     }
   }
 }
+
 socket.on("돈 먹었대", (i) => {
   goal.splice(i, 1);
 });

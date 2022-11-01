@@ -28,7 +28,13 @@ function renderSpecObs() {
         surv_ctx.beginPath();
         surv_ctx.strokeStyle = "lime";
         surv_ctx.lineWidth = 3;
-        surv_ctx.arc(R.x, R.y, R.radius, Math.PI * 2, false);
+        surv_ctx.strokeRect(
+          R.x - R.radius,
+          R.y - R.radius,
+          R.radius * 2,
+          R.radius * 2
+        );
+        // surv_ctx.arc(R.x, R.y, R.radius, Math.PI * 2, false);
         surv_ctx.stroke();
         surv_ctx.closePath();
       }

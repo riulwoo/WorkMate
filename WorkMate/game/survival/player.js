@@ -23,6 +23,22 @@ function surviv_renderPlayer() {
     surv_ctx.fillText(player.nick, player.x, player.y - player.radius - 10);
 
     surv_ctx.closePath();
+
+    // draw collision of player. 플레이어의 피격판정을 그립니다.
+    if (SHOW_BOUNDING) {
+      surv_ctx.beginPath();
+      surv_ctx.strokeStyle = "lime";
+      surv_ctx.lineWidth = 3;
+      surv_ctx.strokeRect
+        player.x - player.radius,
+        player.y - player.radius,
+        50,
+        70
+      );
+      //surv_ctx.arc(player.x, player.y, player.radius, Math.PI * 2, false);
+      surv_ctx.stroke();
+      surv_ctx.closePath();
+    }
   } // end of for
 
   let curPlayer = players[myId];
@@ -101,16 +117,6 @@ function surviv_renderPlayer() {
       curPlayer.ismove = false;
       sendData(curPlayer);
     } //
-
-    // draw collision of player. 플레이어의 피격판정을 그립니다.
-    if (SHOW_BOUNDING) {
-      surv_ctx.beginPath();
-      surv_ctx.strokeStyle = "lime";
-      surv_ctx.lineWidth = 3;
-      surv_ctx.arc(player_1.x, player_1.y, player_1.radius - 13, Math.PI * 2, false);
-      surv_ctx.stroke();
-      surv_ctx.closePath();
-    }
   } // end of playermove
 
   // handle use item. 아이템 사용을 구현합니다.

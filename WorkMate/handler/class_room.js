@@ -14,6 +14,7 @@ module.exports = class userroom {
       3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
     ];
+    this.goal
     for (let i = 0; i < 6; i++) {
       this.users.push({ id: null, nick: null, score: null });
     }

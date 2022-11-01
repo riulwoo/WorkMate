@@ -1,4 +1,5 @@
 let enemyInterval;
+let goalCount = true;
 
 module.exports = (io, socket, room) => {
   function getIndex(id) {
@@ -10,7 +11,7 @@ module.exports = (io, socket, room) => {
     enemyInterval = setInterval(() => {
       obstacle(index);
       time += 5;
-      if (time >= 90) {
+      if (time >= 90000) {
         clearInterval(enemyInterval);
         io.to(room[index].roomCode).emit("살아남기 게임끝");
       }
@@ -243,6 +244,9 @@ module.exports = (io, socket, room) => {
 
   socket.on("돈 생성해달래요", (id) => {
     let index = getIndex(id);
-    io.to(room[index].roomCode).emit("돈을 생성하거라", goalXY());
+    if(goalCount) {
+      io.to(room[index].roomCode).emit("돈을 생성하거라", goalXY());
+      goalCount = false;
+    }
   });
 };
