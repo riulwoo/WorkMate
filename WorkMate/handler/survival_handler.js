@@ -172,7 +172,7 @@ module.exports = (io, socket, room) => {
       }
     }
     for (let i = 0; i < 6; i++) {
-      LR = i < 3 ? 0 : 700;
+      LR = i < 3 ? 90 : 730;
       if (wLC == 2) {
         //위쪽 벽에서 생성
         io.to(room[index].roomCode).emit("특수 장애물 생성하거라", {
