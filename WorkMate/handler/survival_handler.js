@@ -9,12 +9,12 @@ module.exports = (io, socket, room) => {
     let time = 0;
     enemyInterval = setInterval(() => {
       obstacle(index);
-      time += 5;
+      time += 8;
       if (time >= 90) {
         clearInterval(enemyInterval);
         io.to(room[index].roomCode).emit("살아남기 게임끝");
       }
-    }, 5000);
+    }, 8000);
   }
 
   function obstacle(index) {
@@ -32,9 +32,9 @@ module.exports = (io, socket, room) => {
     io.to(room[index].roomCode).emit("장애물 생성하거라", {
       x: 1800,
       y: Math.floor(Math.random() * 1030),
-      xv: Math.floor(Math.random() * (3 - 1) + 1) * -1,
+      xv: Math.floor(Math.random() * (4 - 2) + 2) * -1,
       yv:
-        Math.floor(Math.random() * (3 - 1) + 1) *
+        Math.floor(Math.random() * (4 - 2) + 2) *
         (Math.random() < 0.5 ? 1 : -1),
       type: Math.floor(Math.random() * 4),
     });
@@ -45,9 +45,9 @@ module.exports = (io, socket, room) => {
       x: Math.floor(Math.random() * (1650 - 90)) + 90,
       y: 0,
       xv:
-        Math.floor(Math.random() * (3 - 1) + 1) *
+        Math.floor(Math.random() * (4 - 2) + 2) *
         (Math.random() < 0.5 ? 1 : -1),
-      yv: Math.floor(Math.random() * (3 - 1) + 1),
+      yv: Math.floor(Math.random() * (4 - 2) + 2),
       type: Math.floor(Math.random() * 4),
     });
   }
@@ -56,9 +56,9 @@ module.exports = (io, socket, room) => {
     io.to(room[index].roomCode).emit("장애물 생성하거라", {
       x: 0,
       y: Math.floor(Math.random() * 1030),
-      xv: Math.floor(Math.random() * (3 - 1) + 1),
+      xv: Math.floor(Math.random() * (4 - 2) + 2),
       yv:
-        Math.floor(Math.random() * (3 - 1) + 1) *
+        Math.floor(Math.random() * (4 - 2) + 2) *
         (Math.random() < 0.5 ? 1 : -1),
       type: Math.floor(Math.random() * 4),
     });
@@ -69,9 +69,9 @@ module.exports = (io, socket, room) => {
       x: Math.floor(Math.random() * (1650 - 90)) + 90,
       y: 1000,
       xv:
-        Math.floor(Math.random() * (3 - 1) + 1) *
+        Math.floor(Math.random() * (4 - 2) + 2) *
         (Math.random() < 0.5 ? 1 : -1),
-      yv: Math.floor(Math.random() * (3 - 1) + 1) * -1,
+      yv: Math.floor(Math.random() * (4 - 2) + 2) * -1,
       type: Math.floor(Math.random() * 4),
     });
   }
@@ -86,6 +86,7 @@ module.exports = (io, socket, room) => {
       yv:
         Math.floor(Math.random() * (5 - 1) + 1) *
         (Math.random() < 0.5 ? 1 : -1),
+      // type : Math.floor(Math.random() * (3 - 1) + 1) 
     };
     return item;
   }
@@ -107,7 +108,7 @@ module.exports = (io, socket, room) => {
         // 왼쪽 벽에서 생성
         io.to(room[index].roomCode).emit("특수 장애물 생성하거라", {
           x: 0,
-          y: 270 + 220 * i,
+          y: 270 + 200 * i,
           xv: 5,
           yv: 0,
           id: id,
@@ -116,7 +117,7 @@ module.exports = (io, socket, room) => {
         //오른쪽 벽에서 생성
         io.to(room[index].roomCode).emit("특수 장애물 생성하거라", {
           x: 1600,
-          y: 270 + 220 * i,
+          y: 270 + 200 * i,
           xv: 5 * -1,
           yv: 0,
           id: id,
@@ -154,7 +155,7 @@ module.exports = (io, socket, room) => {
         // 왼쪽 벽에서 생성
         io.to(room[index].roomCode).emit("특수 장애물 생성하거라", {
           x: 0,
-          y: LR + 220 * i,
+          y: LR + 200 * i,
           xv: 5,
           yv: 0,
           id: id,
@@ -163,7 +164,7 @@ module.exports = (io, socket, room) => {
         //오른쪽 벽에서 생성
         io.to(room[index].roomCode).emit("특수 장애물 생성하거라", {
           x: 1600,
-          y: LR + 220 * i,
+          y: LR + 200 * i,
           xv: 5 * -1,
           yv: 0,
           id: id,
@@ -171,7 +172,7 @@ module.exports = (io, socket, room) => {
       }
     }
     for (let i = 0; i < 6; i++) {
-      LR = i < 3 ? 290 : 410;
+      LR = i < 3 ? 290 : 530;
       if (wLC == 2) {
         //위쪽 벽에서 생성
         io.to(room[index].roomCode).emit("특수 장애물 생성하거라", {
