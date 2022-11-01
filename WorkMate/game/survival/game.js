@@ -78,7 +78,11 @@ socket.on("아이템생성하거라", (data) => {
 
 socket.on("돈을 생성하거라", (data) => {
   // 생성은 되지만 그리기는 되지 않았음
-  console.log(`돈 좌표 + ${data}`);
+  for(let i=0; i < data.length ; i++)
+  {
+    console.log(`돈 좌표 + ${data[i]}`);  
+  }
+  
   for (let i = 0; i < data.length; i++) {
     goal.push(new Goal(data[i].x, data[i].y));
   }
@@ -107,11 +111,6 @@ socket.on("살아남기 게임끝", () => {
     socket.emit("gameover", myId);
   }, 3000);
 });
-
-// let myplayer = players[myId];
-
-// 게임이 종료가 되면 playerinfo[index].score += myplayer.score;
-
 // 장애물 생성 배열 : 서버에서 일정한 시간 간격으로 좌표 전달
 var roids = [];
 

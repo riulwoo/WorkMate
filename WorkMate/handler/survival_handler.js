@@ -10,7 +10,7 @@ module.exports = (io, socket, room) => {
     enemyInterval = setInterval(() => {
       obstacle(index);
       time += 5;
-      if (time >= 120) {
+      if (time >= 90) {
         clearInterval(enemyInterval);
         io.to(room[index].roomCode).emit("살아남기 게임끝");
       }

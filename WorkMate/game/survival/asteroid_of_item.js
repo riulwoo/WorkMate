@@ -23,6 +23,15 @@ function renderSpecObs() {
       surv_ctx.drawImage(R.image, R.x - R.radius, R.y - R.radius, 180, 180); // 크기는 180, 180
 
       surv_ctx.closePath();
+
+      if (SHOW_BOUNDING) {
+        surv_ctx.beginPath();
+        surv_ctx.strokeStyle = "lime";
+        surv_ctx.lineWidth = 3;
+        surv_ctx.arc(R.x, R.y, R.radius, Math.PI * 2, false);
+        surv_ctx.stroke();
+        surv_ctx.closePath();
+      }
     }
 
     // move

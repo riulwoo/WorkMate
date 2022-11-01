@@ -39,10 +39,7 @@ function distGoal() {
     gx = goal[i].x + goal[i].radius;
     gy = goal[i].y + goal[i].radius;
 
-    if (
-      distBetweenPoints(px, py, gx, gy) <
-      goal[i].radius + players[myId].radius
-    ) {
+    if (distBetweenPoints(px, py, gx, gy) < goal[i].radius + players[myId].radius) {
       socket.emit("돈 먹었대요", {
         id: myId,
         i: i,

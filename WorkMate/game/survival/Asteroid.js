@@ -41,6 +41,15 @@ function renderObs() {
     ); // 크기는 90, 90
 
     surv_ctx.closePath();
+
+    if (SHOW_BOUNDING) {
+      surv_ctx.beginPath();
+      surv_ctx.strokeStyle = "lime";
+      surv_ctx.lineWidth = 3;
+      surv_ctx.arc(R.x, R.y, R.radius, Math.PI * 2, false);
+      surv_ctx.stroke();
+      surv_ctx.closePath();
+    }
   }
 
   for (let i = 0; i < roids.length; i++) {
