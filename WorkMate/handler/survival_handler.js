@@ -10,7 +10,7 @@ module.exports = (io, socket, room) => {
     enemyInterval = setInterval(() => {
       obstacle(index);
       time += 5;
-      if (time >= 90000) {
+      if (time >= 90) {
         clearInterval(enemyInterval);
         io.to(room[index].roomCode).emit("살아남기 게임끝");
       }
@@ -30,7 +30,7 @@ module.exports = (io, socket, room) => {
   // 보낼 좌표값 : x y 시작좌표 , xv yv 이동 속도 , 이미지 타입 0~2번
   function rightObastacle(index) {
     io.to(room[index].roomCode).emit("장애물 생성하거라", {
-      x: 1500,
+      x: 1800,
       y: Math.floor(Math.random() * 1030),
       xv: Math.floor(Math.random() * (3 - 1) + 1) * -1,
       yv:
@@ -43,7 +43,7 @@ module.exports = (io, socket, room) => {
   function upObastacle(index) {
     io.to(room[index].roomCode).emit("장애물 생성하거라", {
       x: Math.floor(Math.random() * (1650 - 90)) + 90,
-      y: -100,
+      y: 0,
       xv:
         Math.floor(Math.random() * (3 - 1) + 1) *
         (Math.random() < 0.5 ? 1 : -1),
@@ -54,7 +54,7 @@ module.exports = (io, socket, room) => {
 
   function leftObastacle(index) {
     io.to(room[index].roomCode).emit("장애물 생성하거라", {
-      x: 100,
+      x: 0,
       y: Math.floor(Math.random() * 1030),
       xv: Math.floor(Math.random() * (3 - 1) + 1),
       yv:
@@ -67,7 +67,7 @@ module.exports = (io, socket, room) => {
   function downObastacle(index) {
     io.to(room[index].roomCode).emit("장애물 생성하거라", {
       x: Math.floor(Math.random() * (1650 - 90)) + 90,
-      y: 900,
+      y: 1000,
       xv:
         Math.floor(Math.random() * (3 - 1) + 1) *
         (Math.random() < 0.5 ? 1 : -1),
@@ -123,11 +123,11 @@ module.exports = (io, socket, room) => {
         });
       }
     }
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 7; i++) {
       if (wLC == 2) {
         //위쪽 벽에서 생성
         io.to(room[index].roomCode).emit("특수 장애물 생성하거라", {
-          x: 650 + 220 * i,
+          x: 260 + 200 * i,
           y: -100,
           xv: 0,
           yv: 5,
@@ -136,7 +136,7 @@ module.exports = (io, socket, room) => {
       } else if (wLC == 3) {
         // 아래쪽 벽에서 생성
         io.to(room[index].roomCode).emit("특수 장애물 생성하거라", {
-          x: 650 + 220 * i,
+          x: 260 + 200 * i,
           y: 1000,
           xv: 0,
           yv: 5 * -1,
@@ -225,7 +225,7 @@ module.exports = (io, socket, room) => {
     io.to(room[index].roomCode).emit("아이템먹었음");
     setTimeout(() => {
       io.to(room[index].roomCode).emit("아이템생성하거라", itemXYV());
-    }, 15000);
+    }, 8000);
   });
 
   // 아이템 효과 중 특수장애물 요청이 들어오면 화면 중앙 or 양쪽 끝에 특수장애물이 지나감

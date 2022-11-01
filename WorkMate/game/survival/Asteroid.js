@@ -67,7 +67,7 @@ function renderObs() {
     R.x += R.xv;
     R.y += R.yv;
 
-    if (R.x < -100 || R.x > 1900 || R.y < -100 || R.y > 1000) {
+    if (R.x < -100 || R.x > 1900 || R.y < -100 || R.y > 1100) {
       roids.splice(i, 1);
     } // roids.splice 화면 밖으로 나간 장애물 삭제
   }
@@ -75,7 +75,7 @@ function renderObs() {
 
 /** 장애물에 충돌하면 플레이어가 기절함 */
 function distObs() {
-  if (players[myId].stunsec <= 0) {
+  if (players[myId].stunsec < 0) {
     let px = players[myId].x - players[myId].radius;
     let py = players[myId].y - players[myId].radius;
     let ax;

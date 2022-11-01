@@ -55,6 +55,7 @@ function renderItem() {
     // handle edge of screen.
     if (itemBox.x < 0 - itemBox.radius) {
       itemBox.x = X + itemBox.radius;
+      itemBox.xv *= -1;
     } else if (itemBox.x > X + itemBox.radius) {
       itemBox.x = 0 - itemBox.radius;
     }
