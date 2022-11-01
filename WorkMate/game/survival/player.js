@@ -29,7 +29,7 @@ function surviv_renderPlayer() {
       surv_ctx.beginPath();
       surv_ctx.strokeStyle = "lime";
       surv_ctx.lineWidth = 3;
-      surv_ctx.strokeRect
+      surv_ctx.strokeRect(
         player.x - player.radius,
         player.y - player.radius,
         50,
