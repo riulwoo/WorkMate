@@ -150,7 +150,7 @@ module.exports = (io, socket, room) => {
   function LRLocation(index, wLC, id) {
     let LR;
     for (let i = 0; i < 4; i++) {
-      LR = i < 2 ? 90 : 170;
+      LR = i < 2 ? 90 : 246;
       if (wLC == 0) {
         // 왼쪽 벽에서 생성
         io.to(room[index].roomCode).emit("특수 장애물 생성하거라", {
