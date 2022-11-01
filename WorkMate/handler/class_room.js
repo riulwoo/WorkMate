@@ -3,7 +3,7 @@ module.exports = class userroom {
   constructor() {
     this.check = ""; // 생성된 방이 matching 인지 private인지 체크
     this.roomCode = null; // 방 코드
-    this.gameName = ["survival"]; // 게임배열 랜덤으로 게임을 시작하기위한 변수
+    this.gameName = ["ox_quiz"]; // 게임배열 랜덤으로 게임을 시작하기위한 변수
     //this.gameName = ["ox_quiz", "flip_over", "survival"]; // 게임배열 랜덤으로 게임을 시작하기위한 변수
     this.users = []; // 플레이어 1~6명의 정보
     this.cnt = 0; // 준비상태를 체크하기 위한 카운터 변수
@@ -14,7 +14,7 @@ module.exports = class userroom {
       3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
     ];
-    this.goal
+    this.goal;
     for (let i = 0; i < 6; i++) {
       this.users.push({ id: null, nick: null, score: null });
     }

@@ -270,7 +270,7 @@ function ox_update() {
     ox_ctx.textAlign = "center";
 
     ox_ctx.fillText("게임 끝!!!!!", X / 2, Y / 6.5);
-    ox_ctx.fillText(overmsg, X - ox_ctx.measureText(overmsg).width, Y / 1.6);
+    ox_ctx.fillText(overmsg, ox_ctx.measureText(overmsg).width, Y / 1.6);
   }
 
   // 점수 출력

@@ -86,7 +86,6 @@ module.exports = (io, socket, room) => {
       yv:
         Math.floor(Math.random() * (5 - 1) + 1) *
         (Math.random() < 0.5 ? 1 : -1),
-      // type : Math.floor(Math.random() * (3 - 1) + 1) 
     };
     return item;
   }
@@ -232,7 +231,7 @@ module.exports = (io, socket, room) => {
   // 아이템 효과 중 특수장애물 요청이 들어오면 화면 중앙 or 양쪽 끝에 특수장애물이 지나감
   socket.on("특수장애물이래요", (data) => {
     const { id, type } = data;
-    console.log("타입 메시지 : " + type)
+    console.log("타입 메시지 : " + type);
     let index = getIndex(id);
     specialObastable(index, id, type);
   });
@@ -245,6 +244,6 @@ module.exports = (io, socket, room) => {
 
   socket.on("돈 생성해달래요", (id) => {
     let index = getIndex(id);
-      io.to(room[index].roomCode).emit("돈을 생성하거라", goalXY());
+    io.to(room[index].roomCode).emit("돈을 생성하거라", goalXY());
   });
 };

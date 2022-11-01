@@ -4,7 +4,7 @@ function flip_renderPlayer() {
   // 모든 플레이어를 그리는 코드
   for (let i = 0; i < playermap.length; i++) {
     let ball = playermap[i];
-    flip_ctx.drawImage(ball.player, ball.x, ball.y);
+    flip_ctx.drawImage(ball.player, ball.x, ball.y, 50, 70);
     flip_ctx.beginPath();
     flip_ctx.fillStyle = ball.color;
     flip_ctx.font = "15px DungGeunMo";

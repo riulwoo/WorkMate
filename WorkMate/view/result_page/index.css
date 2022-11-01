@@ -1,22 +1,3 @@
-[-0@font-face {
-  font-family: "DungGeunMo";
-  src: url("../view_asset/DungGeunMo.woff") format("woff"),
-    url("../view_asset/DungGeunMo.woff2") format("woff2");
-}
-
-* {
-  font-family: "둥근모꼴", "DungGeunMo";
-}
-
-
-html {
-  width: 100%;
-  height: 100%;
-  background-image: url("https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
 .result_pixel {
   position: absolute;
   width: 35%;
@@ -99,7 +80,7 @@ html {
   top: -200%;
 }
 
-.btn_box{
+.btn_box {
   position: relative;
   display: block;
   background: rgb(60, 181, 197);
@@ -132,44 +113,43 @@ html {
   z-index: -1;
 }
 
-
 .btn_box:active {
   position: relative;
   text-align: center;
   color: white;
 }
 /*-------------------------------------------------------------------------------------------*/
-span.btn{
+span.btn {
   position: relative;
   text-align: center;
   top: 25%;
 }
-p{
+p {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
 
-.name{
+.name {
   text-align: center;
   width: 250px;
 }
-.score{
-  width:120px;
+.score {
+  width: 120px;
 }
 
-.names{
+.names {
   text-align: center;
   width: 200px;
 }
-.scores{
-  width:140px
+.scores {
+  width: 140px;
 }
 .p > div {
   font-size: 5px;
 }
 
-.num{
+.num {
   position: absolute;
   width: 200px;
   left: 17%;

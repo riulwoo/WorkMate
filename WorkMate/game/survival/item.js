@@ -85,8 +85,8 @@ function distItem() {
       itemBox.radius + players[myId].radius
     ) {
       players[myId].hasItem = true;
-      //players[myId].itemPocket = itemBox.type;
-      players[myId].itemPocket = 0;
+      players[myId].itemPocket = itemBox.type;
+      //players[myId].itemPocket = 0;
 
       socket.emit("아이템 먹었대요", myId);
     }

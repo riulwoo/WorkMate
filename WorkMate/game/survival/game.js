@@ -11,15 +11,14 @@ surv_canvas.height = document.body.clientHeight;
 X = surv_canvas.width;
 Y = surv_canvas.height;
 count_sec = Math.ceil(COUNT_DUR_TIME * FPS);
-let surv_XY = 
-  [
-    [ X / 2 - 116, Y / 2 - 110 ],
-    [ X / 2      , Y / 2 - 110 ],
-    [ X / 2 + 116, Y / 2 - 110 ],
-    [ X / 2 - 116, Y / 2 + 110 ],
-    [ X / 2      , Y / 2 + 110 ],
-    [ X / 2 + 116, Y / 2 + 110 ]
-  ];
+let surv_XY = [
+  [X / 2 - 216, Y / 2 - 110],
+  [X / 2, Y / 2 - 110],
+  [X / 2 + 216, Y / 2 - 110],
+  [X / 2 - 216, Y / 2 + 110],
+  [X / 2, Y / 2 + 110],
+  [X / 2 + 216, Y / 2 + 110],
+];
 let surviv_interval;
 // 플레이어 피격 관련
 const PLAYER_STUN_DUR = 1; // 플레이어의 장애물 피격시 기절 지속시간
@@ -38,7 +37,12 @@ var surviv_is_end = false;
 function surviv_func_lding() {
   return new Promise((r1, r2) => {
     for (let i = 0; i < playerinfo.length; i++) {
-      let player = new surviv_player(playerinfo[i].id, playerinfo[i].nick, surv_XY[i][0], surv_XY[i][1]);
+      let player = new surviv_player(
+        playerinfo[i].id,
+        playerinfo[i].nick,
+        surv_XY[i][0],
+        surv_XY[i][1]
+      );
       playermap[i] = player;
       players[playerinfo[i].id] = player;
     }
@@ -78,11 +82,10 @@ socket.on("아이템생성하거라", (data) => {
 
 socket.on("돈을 생성하거라", (data) => {
   // 생성은 되지만 그리기는 되지 않았음
-  for(let i=0; i < data.length ; i++)
-  {
-    console.log(`돈 좌표 + ${data[i]}`);  
+  for (let i = 0; i < data.length; i++) {
+    console.log(`돈 좌표 + ${data[i]}`);
   }
-  
+
   for (let i = 0; i < data.length; i++) {
     goal.push(new Goal(data[i].x, data[i].y));
   }
@@ -96,7 +99,9 @@ socket.on("장애물 생성하거라", (data) => {
 });
 
 socket.on("특수 장애물 생성하거라", (data) => {
-  console.log(`특수 장애물 데이터 : ${data.x} / ${data.y} / ${data.xv} / ${data.yv}`);
+  console.log(
+    `특수 장애물 데이터 : ${data.x} / ${data.y} / ${data.xv} / ${data.yv}`
+  );
   roids_of_item.push(
     new ItemAsteroid(data.x, data.y, data.xv, data.yv, data.id)
   );
@@ -195,10 +200,10 @@ function surviv_field_draw() {
 }
 
 function surviv_end_draw() {
-    surv_ctx.fillStyle = "#90DBA2";
-    surv_ctx.font = "200px DungGeunMo";
-    surv_ctx.textAlign = "center";
-    surv_ctx.fillText("GAME OVER", X / 2, Y / 2);
+  surv_ctx.fillStyle = "#90DBA2";
+  surv_ctx.font = "200px DungGeunMo";
+  surv_ctx.textAlign = "center";
+  surv_ctx.fillText("GAME OVER", X / 2, Y / 2);
 }
 
 function surviv_count_draw() {
@@ -268,8 +273,7 @@ function surviv_update() {
       surviv_is_counting = false;
       surviv_is_gaming = true;
     }
-  }
-  else if (surviv_is_gaming) {
+  } else if (surviv_is_gaming) {
     renderItem(); // 아이템
     distItem();
     renderGoal(); // 돈
@@ -281,9 +285,7 @@ function surviv_update() {
     surviv_renderPlayer(); // 플레이어
 
     stunAndBlink_flow();
-  }
-  
-  else if (surviv_is_end) {
+  } else if (surviv_is_end) {
     surviv_end_draw();
   }
 }
