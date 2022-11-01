@@ -26,13 +26,13 @@ var downPressed = false;
   socket.on도 공통적인 부분인 것 같아서 작성함.
 */
 function leaveUser(id) {
-  for (var i = 0; i < players.length; i++) {
-    if (players[i].id == id) {
-      players.splice(i, 1);
+  for (var i = 0; i < playermap.length; i++) {
+    if (playermap[i].id == id) {
+      playermap.splice(i, 1);
       break;
     }
   }
-  delete playermap[id];
+  delete players[id];
 }
 socket.on("leave_user", function (data) {
   leaveUser(data);

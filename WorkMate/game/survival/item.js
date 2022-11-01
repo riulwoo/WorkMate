@@ -4,8 +4,8 @@ function Item(x, y, xv, yv) {
   this.y = y;
   this.xv = xv;
   this.yv = yv;
-  //this.type = type;
-  this.type = Math.floor(Math.random() * (3 - 1) + 1);
+  this.typenum = Math.random();
+  this.type = this.typenum > 0.5 ? (typenum > 0.8 ? 0 : 1) : 2;
 
   // item type
   // 1 : 특수 장애물 생성
