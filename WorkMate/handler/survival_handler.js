@@ -36,7 +36,7 @@ module.exports = (io, socket, room) => {
       yv:
         Math.floor(Math.random() * (3 - 1) + 1) *
         (Math.random() < 0.5 ? 1 : -1),
-      type: Math.floor(Math.random() * 3),
+      type: Math.floor(Math.random() * 4),
     });
   }
 
@@ -48,7 +48,7 @@ module.exports = (io, socket, room) => {
         Math.floor(Math.random() * (3 - 1) + 1) *
         (Math.random() < 0.5 ? 1 : -1),
       yv: Math.floor(Math.random() * (3 - 1) + 1),
-      type: Math.floor(Math.random() * 3),
+      type: Math.floor(Math.random() * 4),
     });
   }
 
@@ -60,7 +60,7 @@ module.exports = (io, socket, room) => {
       yv:
         Math.floor(Math.random() * (3 - 1) + 1) *
         (Math.random() < 0.5 ? 1 : -1),
-      type: Math.floor(Math.random() * 3),
+      type: Math.floor(Math.random() * 4),
     });
   }
 
@@ -72,7 +72,7 @@ module.exports = (io, socket, room) => {
         Math.floor(Math.random() * (3 - 1) + 1) *
         (Math.random() < 0.5 ? 1 : -1),
       yv: Math.floor(Math.random() * (3 - 1) + 1) * -1,
-      type: Math.floor(Math.random() * 3),
+      type: Math.floor(Math.random() * 4),
     });
   }
 
@@ -107,7 +107,7 @@ module.exports = (io, socket, room) => {
         // 왼쪽 벽에서 생성
         io.to(room[index].roomCode).emit("특수 장애물 생성하거라", {
           x: 0,
-          y: 270 + 180 * i,
+          y: 270 + 220 * i,
           xv: 5,
           yv: 0,
           id: id,
@@ -116,7 +116,7 @@ module.exports = (io, socket, room) => {
         //오른쪽 벽에서 생성
         io.to(room[index].roomCode).emit("특수 장애물 생성하거라", {
           x: 1600,
-          y: 270 + 180 * i,
+          y: 270 + 220 * i,
           xv: 5 * -1,
           yv: 0,
           id: id,
@@ -127,8 +127,8 @@ module.exports = (io, socket, room) => {
       if (wLC == 2) {
         //위쪽 벽에서 생성
         io.to(room[index].roomCode).emit("특수 장애물 생성하거라", {
-          x: 650 + 180 * i,
-          y: -200,
+          x: 650 + 220 * i,
+          y: -100,
           xv: 0,
           yv: 5,
           id: id,
@@ -136,7 +136,7 @@ module.exports = (io, socket, room) => {
       } else if (wLC == 3) {
         // 아래쪽 벽에서 생성
         io.to(room[index].roomCode).emit("특수 장애물 생성하거라", {
-          x: 650 + 180 * i,
+          x: 650 + 220 * i,
           y: 1000,
           xv: 0,
           yv: 5 * -1,
@@ -154,7 +154,7 @@ module.exports = (io, socket, room) => {
         // 왼쪽 벽에서 생성
         io.to(room[index].roomCode).emit("특수 장애물 생성하거라", {
           x: 0,
-          y: LR + 180 * i,
+          y: LR + 220 * i,
           xv: 5,
           yv: 0,
           id: id,
@@ -163,7 +163,7 @@ module.exports = (io, socket, room) => {
         //오른쪽 벽에서 생성
         io.to(room[index].roomCode).emit("특수 장애물 생성하거라", {
           x: 1600,
-          y: LR + 180 * i,
+          y: LR + 220 * i,
           xv: 5 * -1,
           yv: 0,
           id: id,
@@ -175,8 +175,8 @@ module.exports = (io, socket, room) => {
       if (wLC == 2) {
         //위쪽 벽에서 생성
         io.to(room[index].roomCode).emit("특수 장애물 생성하거라", {
-          x: LR + 180 * i,
-          y: -200,
+          x: LR + 220 * i,
+          y: -100,
           xv: 0,
           yv: 5,
           id: id,
@@ -184,7 +184,7 @@ module.exports = (io, socket, room) => {
       } else if (wLC == 3) {
         // 아래쪽 벽에서 생성
         io.to(room[index].roomCode).emit("특수 장애물 생성하거라", {
-          x: LR + 180 * i,
+          x: LR + 220 * i,
           y: 1000,
           xv: 0,
           yv: 5 * -1,
@@ -225,7 +225,7 @@ module.exports = (io, socket, room) => {
     io.to(room[index].roomCode).emit("아이템먹었음");
     setTimeout(() => {
       io.to(room[index].roomCode).emit("아이템생성하거라", itemXYV());
-    }, 30000);
+    }, 15000);
   });
 
   // 아이템 효과 중 특수장애물 요청이 들어오면 화면 중앙 or 양쪽 끝에 특수장애물이 지나감

@@ -47,7 +47,7 @@ function renderSpecObs() {
       R.x += R.xv;
       R.y += R.yv;
       // 영역밖으로 나갈 시 삭제
-      if (R.x < -100 || R.x > 1900 || R.y < -100 || R.y > 1000)
+      if (R.x < -200 || R.x > 1900 || R.y < -200 || R.y > 1000)
         roids_of_item.splice(i, 1);
     }
   }
