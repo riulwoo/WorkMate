@@ -9,12 +9,12 @@ module.exports = (io, socket, room) => {
     let time = 0;
     enemyInterval = setInterval(() => {
       obstacle(index);
-      time += 4;
+      time += 3.5;
       if (time >= 90) {
         clearInterval(enemyInterval);
         io.to(room[index].roomCode).emit("살아남기 게임끝");
       }
-    }, 4000);
+    }, 3500);
   }
 
   function obstacle(index) {
