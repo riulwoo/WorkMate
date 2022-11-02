@@ -71,3 +71,8 @@ function sendData(curPlayer) {
 /** flip, surv에서 카운트다운에 쓰이는 변수. */
 const COUNT_DUR_TIME = 3;
 var count_sec;
+
+// 플레이어와 다른 오브젝트(장애물, 아이템상자, 골인지점)간의 거리를 계산하는 메서드
+function distBetweenPoints(x1, y1, x2, y2) {
+  return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+}
