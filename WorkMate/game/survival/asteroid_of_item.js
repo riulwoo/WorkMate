@@ -6,7 +6,7 @@ function ItemAsteroid(x, y, xv, yv, id) {
   this.yv = yv;
   this.radius = 90; // 반지름
   this.image = new Image();
-  // 커피
+  // 편지
   this.image.src =
     "https://cdn.discordapp.com/attachments/980090904394219562/1035889079222554724/Untitled_10-29-2022_09-10-45.png";
 }

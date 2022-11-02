@@ -1,10 +1,5 @@
 let ox_canvas = document.getElementById("ox_canvas");
 let ox_ctx = ox_canvas.getContext("2d");
-// let myfont = new FontFace('DungGeunMo', 'url(ox_quiz/asset/DungGeunMo.otf)');
-
-// myfont.load().then(function(font){
-//     document.fonts.add(font);
-// });
 count_sec = Math.ceil(COUNT_DUR_TIME * FPS);
 let question = ""; // 문제 변수
 let answer; // 답 변수

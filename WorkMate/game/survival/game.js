@@ -214,7 +214,7 @@ function surviv_count_draw() {
 }
 
 /** 게임 스코어와 아이템 보유 현황을 그리는 메서드 */
-function surviv_score_draw() {
+function surviv_score_draw() { 
   surv_ctx.beginPath();
   surv_ctx.fillStyle = "white";
   surv_ctx.font = "55px DungGeunMo";

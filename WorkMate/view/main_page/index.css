@@ -51,10 +51,16 @@ body {
 
 #qr-button {
   right: 10px;
+  background-image: url("https://media.discordapp.net/attachments/980090904394219562/1036960711512956998/c261c2ece9a48e97.png");
+  background-size: cover;
+  position: absolute;
 }
 
 #question-mark {
   right: 100px;
+  background-image: url("https://media.discordapp.net/attachments/980090904394219562/1036960279751311450/581f51d3bd46bb0c.png");
+  background-size: cover;
+  position: absolute;
 }
 
 #qr-area {
@@ -92,6 +98,9 @@ body {
   z-index: 100;
   border: 3px solid black;
   display: none;
+  background-image: url("https://media.discordapp.net/attachments/980090904394219562/1036973540433461329/unknown.png?width=874&height=453");
+  background-size: cover;
+  position: absolute;
 }
 
 	
