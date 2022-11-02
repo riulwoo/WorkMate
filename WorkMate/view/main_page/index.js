@@ -92,13 +92,13 @@ function readyUpdate(rIndex) {
   let arrId = Array.prototype.slice.call(slotId);
   // arrId = [id1,id2,id3,id4,id5,id6] rIndex = [id3, id5]
   /** for(let i = 0 ; i < 6 ; i++)
-      if(rIndex.includes(arrId[i]))  
+      if(rIndex.includes(arrId[i].innerHTML))  
       slot[i].style.backgroundColor = "rgb(255,245,85)";
     
   */
   for (var i = 0; i < 6; i++) {
-  console.log("슬롯 : " + arrId[i]);
-      if (false)
+  console.log("슬롯 : " + arrId[i].innerHTML);
+      if (rIndex.includes(arrId[i].innerHTML))
         slot[i].style.backgroundColor = "rgb(255, 245, 85)";
   }
 }
