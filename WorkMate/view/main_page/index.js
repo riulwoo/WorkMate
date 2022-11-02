@@ -145,15 +145,15 @@ socket.on("matchfail", function (data) {
 socket.on("레디유저", function (Id) {
   ids = document.querySelectorAll(".in_slot_hide");
   for (let i = 0; i < ids.length; i++) {
-    if (ids[i].textContent == Id && myId == Id) {
+    if (ids[i].textContent == Id) {
       let color = window.getComputedStyle(slot[i]).backgroundColor;
       if (color == "rgb(255, 255, 255)") {
         slot[i].style.backgroundColor = "rgb(255, 245, 85)";
-        socket.emit("readyIndex", Id);
+        if(myId == Id) socket.emit("readyIndex", Id);
         readyCount++;
       } else {
         slot[i].style.backgroundColor = "rgb(255, 255, 255)";
-        socket.emit("cancelReadyIndex", Id);
+        if(myId == Id) socket.emit("cancelReadyIndex", Id);
         readyCount--;
       }
     }
