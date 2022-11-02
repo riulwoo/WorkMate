@@ -107,14 +107,8 @@ body {
 	display: flex;
 }
 
-@media (max-aspect-ratio: 4/3) {
-	#main-container {
-		flex-direction: row;
-	}
-}
-
 .half {
-  height: 50%;
+  flex-basis: 50%;
   width: 100%;
 }
 
