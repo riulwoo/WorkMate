@@ -90,11 +90,16 @@ socket.on("readyupdate", (rIndex) => {
 function readyUpdate(rIndex) {
   let slotId = document.querySelectorAll(".in_slot_hide");
   let arrId = Array.prototype.slice.call(slotId);
+  console.log("rIndex : " + rIndex);
+  // arrId = [id1,id2,id3,id4,id5,id6] rIndex = [id3, id5]
+  /** for(let i = 0 ; i < 6 ; i++)
+      if(rIndex.includes(arrId[i]))
+      slot[i].style.backgroundColor = "rgb(255,245,85)";
+    
+  */
   for (var i = 0; i < 6; i++) {
-    for (var j = 0; i < 6; i++) {
-      if (arrId[i].innerHTML == rIndex[j])
+      if (rIndex.includes(arrId[i]))
         slot[i].style.backgroundColor = "rgb(255, 245, 85)";
-    }
   }
 }
 socket.on("joinfail", () => {
