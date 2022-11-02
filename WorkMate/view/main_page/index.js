@@ -84,7 +84,7 @@ socket.on("joinsuccess", (data) => {
   addPlayer(data.usernick, data.userid);
 });
 
-socket.on("readyupdate", (rIndex) => {
+socket.on("readyUpdate", (rIndex) => {
   readyUpdate(rIndex);
 });
 function readyUpdate(rIndex) {
