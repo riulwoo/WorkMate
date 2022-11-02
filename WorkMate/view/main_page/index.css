@@ -161,7 +161,6 @@ body {
   border: 3px solid black;
   border-radius: 10px;
   text-align: center;
-  font-size : 40px;
 }
 .room input
 {
@@ -192,16 +191,37 @@ body {
   top: 12.5%;
   left: 50%;
   transform: translate(-50%, -50%);
+  font-size : 40px;
 }
 .roomBottom
 {
   position: absolute;
-  top: 82.5%;
   left: 50%;
   width: 100%;
+  padding: 5%;
   transform: translate(-50%, -50%);
 }
 
+#croom { 
+  top: 88%;
+}
+
+#jroom { 
+  top: 80%;
+}
+
+.roomBottom > button {
+  border: 2px solid black;
+  margin : 5%;
+  width : 20%;
+  height: 60px;
+  min-width : 10%;
+  border-radius: 10px;
+  font-size : 32px;
+}
+#ready{
+  display : none;
+}
 .players
 {
   height: 50%;
@@ -211,9 +231,7 @@ body {
   display : flex;
   justify-content : space-around;
 }
-#ready{
-  display : none;
-}
+
 .slot
 {
   border: 1px solid black;
@@ -221,10 +239,14 @@ body {
   height: 100%;
   width: 15%;
   background-Color : rgb(255, 255, 255);
+  font-size : 1.5rem;
+  padding-top: 2%;
 }
 
 .in_slot_name
 {  
+  font-size : 2rem;
+  margin-bottom: 5%;
 }
 
 .in_slot_img
@@ -232,8 +254,8 @@ body {
   background-image: url("https://cdn.discordapp.com/attachments/980090904394219562/1004271208226881606/1.png");
   background-size: contain;
   background-repeat: no-repeat;
-  margin-top : 20%;
-  margin-bottom : 10%;
+  margin-top : 10%;
+  margin-bottom : 5%;
   width: 50%;
   height: 50%;
   border: 0;

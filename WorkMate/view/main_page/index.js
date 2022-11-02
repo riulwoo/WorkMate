@@ -87,7 +87,16 @@ socket.on("joinsuccess", (data) => {
 socket.on("readyupdate", (rIndex) => {
   readyUpdate(rIndex);
 });
-
+function readyUpdate(rIndex) {
+  let slotId = document.querySelectorAll(".in_slot_hide");
+  let arrId = Array.prototype.slice.call(slotId);
+  for (var i = 0; i < 6; i++) {
+    for (var j = 0; i < 6; i++) {
+      if (arrId[i].innerHTML == rIndex[j])
+        slot[i].style.backgroundColor = "rgb(255, 245, 85)";
+    }
+  }
+}
 socket.on("joinfail", () => {
   alert("올바른 코드를 입력해주세요!");
   toggleRoom();
@@ -186,16 +195,7 @@ socket.on("leave_user", (id) => {
   checkLeader();
 });
 
-function readyUpdate(rIndex) {
-  let slotId = document.querySelectorAll(".in_slot_hide");
-  let arrId = Array.prototype.slice.call(slotId);
-  for (var i = 0; i < 6; i++) {
-    for (var j = 0; i < 6; i++) {
-      if (arrId[i].innerHTML == rIndex[j])
-        slot[i].style.backgroundColor = "rgb(255, 245, 85)";
-    }
-  }
-}
+
 
 function slotClear() {
   for (let i = 0; i < 6; i++) {
@@ -244,17 +244,24 @@ function roomUpdate() {
     let name = document.createElement("div");
     let img = document.createElement("img");
     let hide = document.createElement("div");
+    let titlediv = document.createElement("div");
+    let idcarddiv = document.createElement("div");
     let hidedId = document.createTextNode(idArr[i]);
     let Node = document.createTextNode(nickArr[i]);
-
+    let title = document.createTextNode("유한주식회사");
+    let idcard = document.createTextNode("사원증");
     hide.classList.add("in_slot_hide");
     img.classList.add("in_slot_img");
     name.classList.add("in_slot_name");
 
+    titlediv.appendChild(title);
+    idcarddiv.appendChild(idcard);
     hide.appendChild(hidedId);
     name.appendChild(Node);
+    slot[i].appendChild(titlediv);
     slot[i].appendChild(img);
     slot[i].appendChild(name);
+    slot[i].appendChild(idcard);
     slot[i].appendChild(hide);
   }
 }
