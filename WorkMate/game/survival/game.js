@@ -181,11 +181,6 @@ function surviv_keyUpHandler(e) {
   }
 }
 
-// 플레이어와 다른 오브젝트(장애물, 아이템상자, 골인지점)간의 거리를 계산하는 메서드
-function distBetweenPoints(x1, y1, x2, y2) {
-  return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-}
-
 // 맵 그리는 메서드
 function surviv_field_draw() {
   surv_canvas.width = document.body.clientWidth;
@@ -214,7 +209,7 @@ function surviv_count_draw() {
 }
 
 /** 게임 스코어와 아이템 보유 현황을 그리는 메서드 */
-function surviv_score_draw() { 
+function surviv_score_draw() {
   surv_ctx.beginPath();
   surv_ctx.fillStyle = "white";
   surv_ctx.font = "55px DungGeunMo";
