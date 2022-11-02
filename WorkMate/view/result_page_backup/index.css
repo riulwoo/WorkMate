@@ -1,308 +1,175 @@
-.result_pixel {
-  position: absolute;
-  width: 35%;
-  bottom: 20px;
-  left: 10%;
-  background-color: rgb(209, 255, 255);
-  text-align: center;
-  font-size: 200%;
-  text-transform: uppercase;
-  cursor: pointer;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+@font-face {
+    font-family: "DungGeunMo";
+    src: url("../fonts/DungGeunMo.woff") format("woff"),
+    url("../fonts/DungGeunMo.woff2") format("woff2");
+    } 
+* {
+    font-family: "둥근모꼴", "DungGeunMo";
 }
-/*------------------------------------사원-------------------------------------------------------*/
+
+html{
+width: 100%;
+height: 100vh;
+overflow: hidden;
+font-size: 22px;
+}
+
+body{
+width: 100%;
+height: 100%;
+margin: 0;
+}
+
+#wrapper {
+width: 100%;
+height: 100%;
+display: flex;
+flex-direction: column;
+background-image: url("https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png");
+}
+
+#result-top {
+flex-grow: 11;
+display: flex;
+}
+
+#result-left, #result-right {
+display: flex;
+align-items: center;
+}
+
+#result-left {
+flex-grow: 1;
+}
+
+#result-right {
+flex-grow: 1;
+align-items: center;
+}
+
+.side-inner2 {
+width: 98%;
+height: 98%;
+margin: auto;
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: space-around;
+}
+
+.side_inner{
+width: 98%;
+height: 98%;
+margin: auto;
+}
+
+#result-bottom {
+display: flex;
+align-items: center;
+flex-basis: 100px;
+}
+
+#back-to-main {
+margin: auto;
+font-size: 2rem;
+}
+
+
+/* Desktop */
+@media (min-aspect-ratio: 1/1) {
+#result-right {
+    flex-grow: 2;
+}
+}
+
+/* Mobile */
+@media (max-aspect-ratio: 1/1) {
+#result-top {
+    flex-direction: column-reverse;
+}
+}
+
+@media (min-width: 1280px) {
+html {
+    font-size: 22px;
+}
+}
+
+@media (max-width: 1279px) {
+html {
+    font-size: 18px;
+}
+
+}
+
+@media (max-width: 768px) {
+html {
+    font-size: 14px;
+}
+}
+
+@media (max-width: 480px) {
+html {
+    font-size: 10px;
+}
+}
+
+
+#result_pixel {
+width: 80%;
+height: 80%;
+background-color: rgb(164, 174, 255);
+text-align: center;
+font-size: 200%;
+text-transform: uppercase;
+cursor: pointer;
+position: relative;
+z-index: 1;
+border: 0.7rem solid rgb(130, 138, 201);
+}
 
 .winner_box1 {
-  position: absolute;
-  background-color: #add8e6;
-  text-align: center;
-  text-transform: uppercase;
-  cursor: pointer;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+width: 25%;
+height: 40%;
+text-align: center;
+background: rgb(255, 224, 220);
+color: black;
+z-index: 3;
+border: 0.7rem solid rgb(207, 183, 180);
+position: relative;
+margin: 10px;
 }
 .winner_box2 {
-  position: absolute;
-  background-color: #faf4c0;
-  text-align: center;
-  text-transform: uppercase;
-  cursor: pointer;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+width: 25%;
+height: 40%;
+text-align: center;
+background: rgb(254, 255, 200);
+color: black;
+z-index: 3;
+border: 0.7rem solid rgb(224, 224, 177);
+position: relative;
+margin: 10px;
 }
 .winner_box3 {
-  position: absolute;
-  background-color: #fae0d4;
-  text-align: center;
-  text-transform: uppercase;
-  cursor: pointer;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-/*-------------------------------------------------------------------------------------------*/
-.img {
-  /*캐릭터 이미지*/
-  width: 80%;
-  height: 80%;
-  background-image: url("https://cdn.discordapp.com/attachments/896478465237348402/1006409267257024614/1.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  margin: 0px;
-  border: 0;
-  display: block;
-  left: 7%;
-  bottom: 10%;
-  position: absolute;
-}
-/*--------------------------------------버튼-------------------------------------------------------*/
-.btn_box {
-  /*버튼*/
-  width: 50%;
-  height: 10%;
-  left: 150%;
-  top: -200%;
+width: 25%;
+height: 40%;
+border: 0.7rem solid rgb(146, 219, 219);
+text-align: center;
+background: rgb(209, 255, 255);
+color: black;
+position: relative;
+z-index: 3;
+margin: 10px;
 }
 
-.btn_box {
-  position: relative;
-  display: block;
-  background: rgb(60, 181, 197);
-  font-size: 25px;
-  color: black;
+p{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
-.btn_box::before {
-  text-align: center;
-  content: "";
-  display: block;
-  position: absolute;
-  top: 10px;
-  bottom: 10px;
-  left: -10px;
-  right: -10px;
-  background: rgb(60, 181, 197);
-  z-index: -1;
-}
-.btn_box::after {
-  text-align: center;
-  content: "";
-  display: block;
-  position: absolute;
-  top: 4px;
-  bottom: 4px;
-  left: -6px;
-  right: -6px;
-  background: rgb(60, 181, 197);
-  z-index: -1;
-}
 
-.btn_box:active {
-  position: relative;
-  text-align: center;
-  color: white;
-}
-/*-------------------------------------------------------------------------------------------*/
-span.btn {
-  position: relative;
-  text-align: center;
-  top: 25%;
-}
-p {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
+.num{
+    text-align: center;
 
-.name {
-  text-align: center;
-  width: 250px;
-}
-.score {
-  width: 120px;
-}
-
-.names {
-  text-align: center;
-  width: 200px;
-}
-.scores {
-  width: 140px;
-}
-.p > div {
-  font-size: 5px;
-}
-
-.num {
-  position: absolute;
-  width: 200px;
-  left: 17%;
-  top: 78%;
-}
-@media (min-width: 1200px) {
-  :root {
-    font-size: 1em;
-  }
-}
-
-/*------------------------------------최종결과-------------------------------------------------------*/
-.result_pixel {
-  top: 150px;
-  height: 600px;
-  position: relative;
-  display: block;
-  text-transform: uppercase;
-  background: rgb(174, 184, 255);
-  color: black;
-}
-
-.result_pixel::before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 10px;
-  bottom: 10px;
-  left: -10px;
-  right: -10px;
-  background: rgb(174, 184, 255);
-  z-index: -1;
-}
-.result_pixel::after {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 4px;
-  bottom: 4px;
-  left: -6px;
-  right: -6px;
-  background: rgb(174, 184, 255);
-  z-index: -1;
-}
-
-/*------------------------------------최우수사원-------------------------------------------------------*/
-.winner_box1 {
-  width: 300px;
-  height: 400px;
-  top: -500px;
-  left: 1000px;
-  position: relative;
-  display: block;
-  text-transform: uppercase;
-  background: rgb(255, 224, 220);
-  color: black;
-  z-index: 3;
-}
-
-.winner_box1::before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 10px;
-  bottom: 10px;
-  left: -10px;
-  right: -10px;
-  background: rgb(255, 224, 220);
-  z-index: -1;
-}
-
-.winner_box1::after {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 4px;
-  bottom: 4px;
-  left: -6px;
-  right: -6px;
-  background: rgb(255, 224, 220);
-  z-index: -1;
-}
-/*------------------------------------우수사원-------------------------------------------------------*/
-.winner_box2 {
-  width: 300px;
-  height: 400px;
-  top: -850px;
-  left: 750px;
-  position: relative;
-  display: block;
-  text-transform: uppercase;
-  background: rgb(254, 255, 200);
-  color: black;
-  z-index: 2;
-}
-
-.winner_box2::before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 10px;
-  bottom: 10px;
-  left: -10px;
-  right: -10px;
-  background: rgb(254, 255, 200);
-  z-index: -1;
-}
-
-.winner_box2::after {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 4px;
-  bottom: 4px;
-  left: -6px;
-  right: -6px;
-  background: rgb(254, 255, 200);
-  z-index: -1;
-}
-/*------------------------------------장려사원-------------------------------------------------------*/
-.winner_box3 {
-  width: 300px;
-  height: 400px;
-  top: -1250px;
-  left: 1250px;
-  position: relative;
-  display: block;
-  text-transform: uppercase;
-  background: rgb(209, 255, 255);
-  color: black;
-  z-index: 1;
-}
-
-.winner_box3::before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 10px;
-  bottom: 10px;
-  left: -10px;
-  right: -10px;
-  background: rgb(209, 255, 255);
-  z-index: -1;
-}
-
-.winner_box3::after {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 4px;
-  bottom: 4px;
-  left: -6px;
-  right: -6px;
-  background: rgb(209, 255, 255);
-  z-index: -1;
 }
