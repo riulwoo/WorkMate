@@ -90,15 +90,15 @@ socket.on("readyUpdate", (rIndex) => {
 function readyUpdate(rIndex) {
   let slotId = document.querySelectorAll(".in_slot_hide");
   let arrId = Array.prototype.slice.call(slotId);
-  console.log("rIndex : " + rIndex);
   // arrId = [id1,id2,id3,id4,id5,id6] rIndex = [id3, id5]
   /** for(let i = 0 ; i < 6 ; i++)
-      if(rIndex.includes(arrId[i]))
+      if(rIndex.includes(arrId[i]))  
       slot[i].style.backgroundColor = "rgb(255,245,85)";
     
   */
   for (var i = 0; i < 6; i++) {
-      if (rIndex.includes(arrId[i]))
+  console.log("슬롯 : " + arrId[i]);
+      if (false)
         slot[i].style.backgroundColor = "rgb(255, 245, 85)";
   }
 }
@@ -145,7 +145,7 @@ socket.on("matchfail", function (data) {
 socket.on("레디유저", function (Id) {
   ids = document.querySelectorAll(".in_slot_hide");
   for (let i = 0; i < ids.length; i++) {
-    if (ids[i].textContent == Id) {
+    if (ids[i].textContent == Id && myId == Id) {
       let color = window.getComputedStyle(slot[i]).backgroundColor;
       if (color == "rgb(255, 255, 255)") {
         slot[i].style.backgroundColor = "rgb(255, 245, 85)";
