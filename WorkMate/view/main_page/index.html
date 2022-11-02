@@ -3,21 +3,18 @@
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta
-			name="viewport"
-			content="
+    <meta name="viewport" content="
 				width=device-width, 
 				initial-scale=1.0, 
 				maximum-scale=1.0, 
 				minimum-scale=1.0, 
 				user-scalable=no,
-			"
-		/>
+			" />
     <title>WorkMate</title>
-		<!-- link -->
+    <!-- link -->
     <link rel="stylesheet" href="main_page/index.css">
     <link rel="shortcut icon" href="view_asset/logo.ico">
-		<!-- script  -->
+    <!-- script  -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-3.5.0.js"></script>
     <script src="main_page/data.js" defer></script>
@@ -26,52 +23,40 @@
   </head>
   <body>
     <div id="main">
-          
-    <input type="text" id="set-nickname" placeholder="닉네임을 입력해주세요." />
-    <button id="qr-button" onclick ="toggle_display('qr-area')">QR</button>
-    <div id="qr-area">
-      <button id="qr-close">
-        X
-      </button>
-      <div id="qr-code">
+      <input type="text" id="set-nickname" placeholder="닉네임을 입력해주세요." />
+      <button id="qr-button" onclick="toggle_display('qr-area')">QR</button>
+      <div id="qr-area">
+        <button id="qr-close"> X </button>
+        <div id="qr-code"></div>
       </div>
-    </div>
-
-    <button id="question-mark" onclick="toggle_display('manual-window')">?</button>
-
-    <div id="manual-window">
-
-    </div>
-    
-    <div class="half" id="upper-half">
-        <div class="inner" id="logo"></div>
-      </div>
-      <div class="half" id="lower-half">
-        <div class="inner" id="menu">
-          <button class="main_pixel" id="matchStart" onclick="toggleMatch()">매칭하기</button>
-          <button class="main_pixel" id="createroom" >방만들기</button>
-          <button class="main_pixel" onclick="toggleRoom2()">입장하기</button>
-          <button id="result">임시결과</button>
-        </div>
-      </div>
+      <button id="question-mark" onclick="toggle_display('manual-window')">?</button>
+      <div id="manual-window"></div>
+			<div id="main-container">
+      	<div class="half" id="upper-half">
+	        <div class="inner" id="logo"></div>
+	      </div>
+	      <div class="half" id="lower-half">
+	        <div class="inner" id="menu">
+	          <button class="main_pixel" id="matchStart" onclick="toggleMatch()">매칭하기</button>
+	          <button class="main_pixel" id="createroom">방만들기</button>
+	          <button class="main_pixel" onclick="toggleRoom2()">입장하기</button>
+	          <button id="result">임시결과</button>
+	        </div>
+	      </div>
+			</div>
       <div class="room" id="room">
-        <div class="roomTop">
-          입장 코드<br>
-          <b><span id="adminCode"></span></b>
+        <div class="roomTop"> 입장 코드 <br>
+          <b>
+            <span id="adminCode"></span>
+          </b>
         </div>
         <div class="players">
-          <div class="slot" id="admin">
-          </div>
-          <div class="slot">
-          </div>
-          <div class="slot">
-          </div>
-          <div class="slot">
-          </div>
-          <div class="slot">
-          </div>
-          <div class="slot">
-          </div>
+          <div class="slot" id="admin"></div>
+          <div class="slot"></div>
+          <div class="slot"></div>
+          <div class="slot"></div>
+          <div class="slot"></div>
+          <div class="slot"></div>
         </div>
         <!--players-->
         <div class="roomBottom" id="croom">
@@ -82,10 +67,10 @@
       </div>
       <!--room-->
       <div class="room" id="room2">
-        <div class="roomTop">
-          입장 코드<br>
+        <div class="roomTop"> 입장 코드 <br>
         </div>
-        <input type="text" id="roomcode"/></br>
+        <input type="text" id="roomcode" />
+        </br>
         <div class="roomBottom" id="jroom">
           <button class="roomButton" id="joinroom">입장하기</button>
           <button onclick="toggleRoom2()">취소</button>

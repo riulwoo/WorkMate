@@ -1,37 +1,34 @@
-
 @font-face {
-	font-family: 'DungGeunMo';
-	src: 
+  font-family: 'DungGeunMo';
+  src:
 		url("../view_asset/DungGeunMo.woff") format('woff'),
 		url("../view_asset/DungGeunMo.woff2") format('woff2');
 }
 
 * {
-	font-family : '둥근모꼴', 'DungGeunMo';
+  font-family: '둥근모꼴', 'DungGeunMo';
 }
 
 html {
-	height: 100vh;
-	width: 100%;
-	overflow: hidden;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
 }
 
-
 body {
-	font-family : '둥근모꼴', 'DungGeunMo';
-	margin: 0px;
-	height: 100%;
-	width: 100%;
-	background-image: url("https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png");
-	background-size: cover;
-	background-position: center;
+  font-family: '둥근모꼴', 'DungGeunMo';
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+  background-image: url("https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png");
+  background-size: cover;
+  background-position: center;
 }
 
 #main {
   width: 100%;
   height: 100%;
 }
-	
 
 #set-nickname {
   position: absolute;
@@ -41,7 +38,8 @@ body {
   top: 10px;
 }
 
-#qr-button, #question-mark {
+#qr-button,
+#question-mark {
   position: absolute;
   width: 80px;
   height: 80px;
@@ -98,19 +96,29 @@ body {
   z-index: 100;
   border: 3px solid black;
   display: none;
-  background-image: url("https://media.discordapp.net/attachments/980090904394219562/1036973540433461329/unknown.png?width=874&height=453");
+  background-image: url("https://media.discordapp.net/attachments/980090904394219562/1036973540433461329/unknown.png");
   background-size: cover;
   position: absolute;
 }
 
-	
-.half
-{
+#main-container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+}
+
+@media (max-aspect-ratio: 4/3) {
+	#main-container {
+		flex-direction: row;
+	}
+}
+
+.half {
   height: 50%;
   width: 100%;
 }
-.inner
-{
+
+.inner {
   position: absolute;
   width: 50%;
   max-width: 50%;
@@ -122,19 +130,19 @@ body {
   min-height: 100px;
   min-width: 200px;
 }
-#logo
-{
+
+#logo {
   background-image: url("https://cdn.discordapp.com/attachments/980090904394219562/980091289414557736/logo.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
-#menu
-{
+
+#menu {
   top: 70%;
 }
-.inner > button
-{
+
+.inner>button {
   width: 25%;
   height: 37%;
   border-radius: 10px;
@@ -142,13 +150,12 @@ body {
   margin-top: 35px;
   margin-left: 50%;
   transform: translate(-50%, 0%);
-  min-width : 100px;
-  min-height : 30px;
-  font-size : 32px;
+  min-width: 100px;
+  min-height: 30px;
+  font-size: 32px;
 }
 
-.inner > input
-{
+.inner>input {
   width: 20%;
   height: 30%;
   border-radius: 10px;
@@ -156,14 +163,15 @@ body {
   margin-top: 10px;
   margin-left: 50%;
   transform: translate(-50%, 0%);
-  min-width : 100px;
+  min-width: 100px;
 }
-.room
-{
+
+.room {
   position: absolute;
   width: 85%;
   height: 85%;
-  left:50%;top:50%;
+  left: 50%;
+  top: 50%;
   transform: translate(-50%, -50%);
   display: none;
   background-color: white;
@@ -171,8 +179,8 @@ body {
   border-radius: 10px;
   text-align: center;
 }
-.room input
-{
+
+.room input {
   border: 1px solid black;
   border-radius: 3px;
   text-align: center;
@@ -184,8 +192,8 @@ body {
   position: absolute;
   top: 55%;
 }
-#room2 input
-{
+
+#room2 input {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -194,16 +202,16 @@ body {
   transform: translate(-50%, -50%);
   font-size: 20px;
 }
-.roomTop
-{
+
+.roomTop {
   position: absolute;
   top: 12.5%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size : 40px;
+  font-size: 40px;
 }
-.roomBottom
-{
+
+.roomBottom {
   position: absolute;
   left: 50%;
   width: 100%;
@@ -211,102 +219,99 @@ body {
   transform: translate(-50%, -50%);
 }
 
-#croom { 
+#croom {
   top: 88%;
 }
 
-#jroom { 
+#jroom {
   top: 80%;
 }
 
-.roomBottom > button {
+.roomBottom>button {
   border: 2px solid black;
-  margin : 5%;
-  width : 20%;
+  margin: 5%;
+  width: 20%;
   height: 60px;
-  min-width : 10%;
+  min-width: 10%;
   border-radius: 10px;
-  font-size : 32px;
+  font-size: 32px;
 }
-#ready{
-  display : none;
+
+#ready {
+  display: none;
 }
-.players
-{
+
+.players {
   height: 50%;
   width: 100%;
   position: absolute;
   top: 25%;
-  display : flex;
-  justify-content : space-around;
+  display: flex;
+  justify-content: space-around;
 }
 
-.slot
-{
+.slot {
   border: 1px solid black;
   border-radius: 3px;
   height: 100%;
   width: 15%;
-  background-Color : rgb(255, 255, 255);
-  font-size : 1.5rem;
+  background-Color: rgb(255, 255, 255);
+  font-size: 1.5rem;
   padding-top: 2%;
 }
 
-.in_slot_name
-{  
-  font-size : 2rem;
+.in_slot_name {
+  font-size: 2rem;
   margin-bottom: 5%;
 }
 
-.in_slot_img
-{
+.in_slot_img {
   background-image: url("https://cdn.discordapp.com/attachments/980090904394219562/1004271208226881606/1.png");
   background-size: contain;
   background-repeat: no-repeat;
-  margin-top : 10%;
-  margin-bottom : 5%;
+  margin-top: 10%;
+  margin-bottom: 5%;
   width: 50%;
   height: 50%;
   border: 0;
 }
 
-.in_slot_hide
-{
-  visibility : hidden;
-  font-Size : 1px;
+.in_slot_hide {
+  visibility: hidden;
+  font-Size: 1px;
 }
 
-#match
-	{
-		display: none;
-	  position: absolute;
-	  top: 50%;
-	  left: 50%;
-	  width: 50%;
-		height: 50%;
-		background-color: white;
-		border-radius: 10px;
-		border: 1px solid;
-	  transform: translate(-50%, -50%);
-		background-color: #ddd;
+#match {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  height: 50%;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid;
+  transform: translate(-50%, -50%);
+  background-color: #ddd;
 }
 
-	#match > p {
-	  position: absolute;
-	  top: 60%;
-	  left: 50%;
-	  width: 50%;
-		height: 10%;
-	  transform: translate(-50%, -50%);
-		text-align: center;
-	}
-	
-#match > button {
-	  position: absolute;
-	  top: 80%;
-	  left: 50%;
-	  transform: translate(-50%, -50%);
+#match>p {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  width: 50%;
+  height: 10%;
+  transform: translate(-50%, -50%);
+  text-align: center;
 }
+
+#match>button {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .loader {
   font-size: 10px;
   margin: 50px auto;
@@ -326,10 +331,11 @@ body {
   -webkit-transform: translateZ(0);
   -ms-transform: translateZ(0);
   transform: translateZ(0);
-	left: 0%;
-	top: 4%;
-	transform: translate(-50%, -50%);
+  left: 0%;
+  top: 4%;
+  transform: translate(-50%, -50%);
 }
+
 .loader:before {
   width: 50%;
   height: 50%;
@@ -340,6 +346,7 @@ body {
   left: 0;
   content: '';
 }
+
 .loader:after {
   width: 75%;
   height: 75%;
@@ -352,43 +359,44 @@ body {
   bottom: 0;
   right: 0;
 }
+
 @-webkit-keyframes load3 {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
+
 @keyframes load3 {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
 
-@media screen and (min-width: 1000px)
-{
-	#match button,
-	.room button
-	{
-		font-size: 18px;
-	}
+@media screen and (min-width: 1000px) {
+
+  #match button,
+  .room button {
+    font-size: 18px;
+  }
 }
-
-
 
 .pixel {
   font-size: 25px;
   color: white;
   height: auto;
-  font-family : '둥근모꼴', 'DungGeunMo';
+  font-family: '둥근모꼴', 'DungGeunMo';
   position: relative;
   vertical-align: top;
   text-transform: uppercase;
@@ -404,10 +412,11 @@ body {
 .main_pixel:active {
   top: 2px;
 }
+
 .main_pixel {
   position: relative;
   display: block;
-  font-family : '둥근모꼴', 'DungGeunMo';
+  font-family: '둥근모꼴', 'DungGeunMo';
   text-transform: uppercase;
   background: rgb(60, 181, 197);
   font-size: 25px;
@@ -437,4 +446,3 @@ body {
   background: rgb(60, 181, 197);
   z-index: -1;
 }
-
