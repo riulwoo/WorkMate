@@ -1,46 +1,32 @@
 <!DOCTYPE html>
+<html lang="ko">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="../result_page/index.css">
-	<script src="result_page/index.js" defer></script>
-	<title>게임 마지막 결과 페이지</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="common.css">
 </head>
 <body>
-     <div id ="rank_box" class = "result_pixel">
-    <div class = "title"><br/>최종 결과</div>
-    <p> <span class="ranking">등수</span> <span class="names">이름</span> <span class="scores"> &nbsp; 총점수</span> </p>
-    <p> <span class="rank"></span> <span class="name"></span> <span class="score"></span></p>
-    <p> <span class="rank"></span> <span class="name"></span> <span class="score"></span></p>
-    <p> <span class="rank"></span> <span class="name"></span> <span class="score"></span></p>
-    <p> <span class="rank"></span> <span class="name"></span> <span class="score"></span></p>
-    <p> <span class="rank"></span> <span class="name"></span> <span class="score"></span></p>
-    <p> <span class="rank"></span> <span class="name"></span> <span class="score"></span></p>
+  <div id="wrapper" class="image-cover">
+    <div id="result-top">
+      <div id="result-left">
+        <div class="side-inner">
 
-        <div class="winner_box1">
-          <br/>
-            <span class = "toprank">최우수 사원</span>
-            <div class="img"></div>
-            <div class ="num" id="first"></div>
         </div>
-    
-        <div class="winner_box2">
-          <br/>
-            <span class="toprank">우수사원</span>
-            <div class="img"></div>
-            <div class ="num" id="second"></div>
+      </div>
+      <div id="result-right">
+        <div class="side-inner">
+          
         </div>
-    
-        <div class="winner_box3">
-          <br/>
-            <span class = "toprank">장려 사원</span>
-            <div class="img"></div>
-          <div class ="num" id="third"></div>
-        </div>
-       
-      <div class="btn_box" onclick="location.reload()">
-          <span>메인으로</span>
       </div>
     </div>
+    <div id="result-bottom">
+      <button id="back-to-main" class="center">
+        메인으로
+      </button>
+    </div>
+  </div> <!-- div#wrapper -->
 </body>
 </html>
