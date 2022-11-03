@@ -1,8 +1,8 @@
 //트랜스볼 객체
 function transBall(x, y, direction, id) {
   // 처음에 쏜 사람의 위치.
-  this.x = (x + 25) * X / 100;
-  this.y = (y + 35) * Y / 100;
+  this.x = (x + 25) * 100 / X;
+  this.y = (y + 35) * 100 / Y;
   this.direction = direction;
   this.radius = 3;
   
