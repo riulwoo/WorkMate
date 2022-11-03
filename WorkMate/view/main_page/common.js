@@ -53,8 +53,8 @@ function updateState(id, x, y, direction, ismove, cnt) {
   if (!ball) {
     return;
   }
-  ball.x = X * x / 100;
-  ball.y = Y * y / 100;
+  ball.x = x;
+  ball.y = y;
   ball.direction = direction;
   ball.ismove = ismove;
   ball.cnt = cnt;
@@ -68,8 +68,8 @@ function sendData(curPlayer) {
   let data = {};
   data = {
     id: curPlayer.id,
-    x: (curPlayer.x * 100) / X,
-    y: (curPlayer.y * 100) / Y,
+    x: curPlayer.x,
+    y: curPlayer.y,
     direction: curPlayer.direction,
     ismove: curPlayer.ismove,
     cnt: curPlayer.cnt,

@@ -1,13 +1,4 @@
-// QR & 도움말
-function toggle_display(id) {
-  var qr = document.getElementById(id);
 
-  if (qr.style.display != "block") {
-    qr.style.display = "block";
-  } else {
-    qr.style.display = "none";
-  }
-}
 
 // 절취선
 var matchBtn = document.getElementById("matchStart"); //매칭하기 버튼
@@ -27,7 +18,6 @@ let nickArr;
 var roomId = "";
 var a = 1;
 var myId;
-
 let players = []; //id가 인덱스
 let playermap = []; //순차적인 인덱스
 let playerinfo; // 게임에 쓸 플레이어 정보
@@ -78,31 +68,6 @@ jroomBtn.addEventListener("click", function () {
   ready.style.display = "inline";
 });
 
-socket.on("joinsuccess", (data) => {
-  adminCode.innerText = data.roomcode;
-  addPlayer(data.usernick, data.userid);
-});
-
-socket.on("readyUpdate", (rIndex) => {
-  readyUpdate(rIndex);
-});
-function readyUpdate(rIndex) {
-  let slotId = document.querySelectorAll(".in_slot_hide");
-  let arrId = Array.prototype.slice.call(slotId);
-  for (var i = 0; i < 6; i++) {
-      if (rIndex.includes(arrId[i].innerHTML))
-        slot[i].style.backgroundColor = "rgb(255, 245, 85)";
-  }
-}
-socket.on("joinfail", () => {
-  alert("올바른 코드를 입력해주세요!");
-  toggleRoom();
-  toggleRoom2();
-
-  start.style.display = "inline";
-  ready.style.display = "none";
-});
-
 start.addEventListener("click", function () {
   console.log("유저 카운트 : " + userCount + " 레디 카운트 : " + readyCount);
   if (readyCount == 0) console.log("혼자있어서 안됌");
@@ -118,23 +83,12 @@ cancelBtn.addEventListener("click", function () {
   console.log("나가기 눌림");
 });
 
-function removeAllPlayer() {
-  for (let i = 0; i < slot.length; i++) {
-    while (slot[i].hasChildNodes()) {
-      slot[i].firstChild.remove();
-    }
-    slot[i].style.backgroundColor = "rgb(255, 255, 255)";
-  }
-  userCount = 0;
-  readyCount = 0;
-}
-
 socket.on("matchfail", function (data) {
   document.getElementById("match-text").innerText =
     "매칭 중인 인원이 없습니다.";
 });
 
-socket.on("레디유저", function (Id) {
+socket.on("readyUser", function (Id) {
   ids = document.querySelectorAll(".in_slot_hide");
   for (let i = 0; i < ids.length; i++) {
     if (ids[i].textContent == Id) {
@@ -174,8 +128,6 @@ socket.on("gamestart", function (data) {
     });
   }
 });
-// 클라이언트
-// 게임 내에서만 쓰는 score 변수를 사용 > 게임이 끝날 시 players[myId].score += score 변수
 
 socket.on("go-result", (data) => {
   sortedScore = data.sort((a, b) => {
@@ -192,160 +144,23 @@ socket.on("leave_user", (id) => {
   checkLeader();
 });
 
+socket.on("joinfail", () => {
+  alert("올바른 코드를 입력해주세요!");
+  toggleRoom();
+  toggleRoom2();
 
+  start.style.display = "inline";
+  ready.style.display = "none";
+});
 
-function slotClear() {
-  for (let i = 0; i < 6; i++) {
-    while (slot[i].hasChildNodes()) {
-      slot[i].firstChild.remove();
-    }
-    slot[i].style.backgroundColor = "rgb(255, 255, 255)";
-  }
-}
+socket.on("joinsuccess", (data) => {
+  adminCode.innerText = data.roomcode;
+  addPlayer(data.usernick, data.userid);
+});
 
-function checkLeader() {
-  let leader = document.getElementById("admin");
-  if (!leader.hasChildNodes()) {
-    slotClear();
-    roomUpdate();
-    if (idArr[0] == myId) {
-      start.style.display = "inline";
-      ready.style.display = "none";
-      readyCount = 0;
-    }
-  }
-}
-
-function randomNick() {
-  nickName =
-    nickName.value == null ||
-    nickName.value == undefined ||
-    nickName.value == "" ||
-    nickName.value.replace(" ", "") == ""
-      ? "Player " + Math.floor(Math.random() * 100 + 1)
-      : nickName.value.substr(0, 10);
-}
-
-function addPlayer(nickName, userid) {
-  nickArr = nickName.length > 2 ? nickName.filter((e) => e != null) : nickName;
-  idArr = userid.length > 2 ? userid.filter((e) => e != null) : userid;
-  roomUpdate();
-  userCount = idArr.length;
-}
-
-function roomUpdate() {
-  for (let i = 0; i < nickArr.length; i++) {
-    while (slot[i].hasChildNodes()) {
-      slot[i].firstChild.remove();
-    }
-    let name = document.createElement("div");
-    let img = document.createElement("img");
-    let hide = document.createElement("div");
-    let titlediv = document.createElement("div");
-    let idcarddiv = document.createElement("div");
-    let hidedId = document.createTextNode(idArr[i]);
-    let Node = document.createTextNode(nickArr[i]);
-    let title = document.createTextNode("유한주식회사");
-    let idcard = document.createTextNode("사원증");
-    hide.classList.add("in_slot_hide");
-    img.classList.add("in_slot_img");
-    name.classList.add("in_slot_name");
-
-    titlediv.appendChild(title);
-    idcarddiv.appendChild(idcard);
-    hide.appendChild(hidedId);
-    name.appendChild(Node);
-    slot[i].appendChild(titlediv);
-    slot[i].appendChild(img);
-    slot[i].appendChild(name);
-    slot[i].appendChild(idcard);
-    slot[i].appendChild(hide);
-  }
-}
-
-function removePlayer(id) {
-  try {
-    let slotId = document.querySelectorAll(".in_slot_hide");
-    let arrId = Array.prototype.slice.call(slotId);
-    let i = arrId.findIndex((e) => e.innerHTML == id);
-    let color = window.getComputedStyle(slot[i]).backgroundColor;
-    console.log(color);
-    if (color == "rgb(255, 245, 85)") {
-      slot[i].style.backgroundColor = "rgb(255, 255, 255)";
-      readyCount--;
-    }
-    while (slot[i].hasChildNodes()) {
-      slot[i].firstChild.remove();
-    }
-  } catch (e) {
-    console.log(e);
-  }
-  userCount = idArr.length;
-}
-
-function randomCode() {
-  return (new Date().getTime() + Math.random()).toString(36).substring(2, 7).toUpperCase();
-}
-
-function match() {
-  roomId = randomCode();
-  randomNick();
-  socket.emit("matchStart", {
-    id: myId,
-    roomid: roomId,
-    nick: nickName,
-    score: 0,
-  });
-  console.log("매치 시작 보냈다?");
-  setTimeout(() => {
-    socket.emit("matchtimeover", myId);
-  }, 15000);
-}
-
-function toggleRoom() {
-  var x = document.getElementById("room");
-  if (x.style.display === "block") {
-    x.style.display = "none";
-  } else {
-    x.style.display = "block";
-  }
-}
-
-function toggleRoom2() {
-  var x = document.getElementById("room2");
-  if (x.style.display === "block") {
-    x.style.display = "none";
-  } else {
-    x.style.display = "block";
-  }
-}
-
-function toggleMatch() {
-  var x = document.getElementById("match");
-  if (x.style.display === "block") {
-    x.style.display = "none";
-    document.getElementById("match-text").innerText =
-      "상사 뒤통수에 사직서 때리는 상상 중....";
-  } else {
-    x.style.display = "block";
-  }
-}
-
-function getMyIndex(id) {
-  let index;
-  for (let i = 0; i < playerinfo.length; i++) {
-    if (playerinfo[i].id == myId) {
-      index = i;
-      break;
-    }
-  }
-  return index;
-}
-
-function moveeffect(curPlayer) {
-  let moveimage = Math.floor((curPlayer.cnt++ / 4) % 4);
-  return moveasset[curPlayer.direction][moveimage];
-}
+socket.on("readyUpdate", (rIndex) => {
+  readyUpdate(rIndex);
+});
 
 let result = document.getElementById('result');
 

@@ -20,7 +20,7 @@ function Item(x, y, xv, yv) {
 function Itemeffect(type) {
   if (type == 0) {
     /** 특수 장애물 생성 */
-    socket.emit("특수장애물이래요", {
+    socket.emit("create_spc_obs", {
       id: myId,
       type: Math.random() < 0.5 ? 0 : 1, // 0 - 중앙 생성 1 - 양쪽 생성
     });
@@ -88,7 +88,7 @@ function distItem() {
       players[myId].itemPocket = itemBox.type;
       //players[myId].itemPocket = 0;
 
-      socket.emit("아이템 먹었대요", myId);
+      socket.emit("get_item", myId);
     }
   }
 }

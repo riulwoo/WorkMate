@@ -1,11 +1,5 @@
 let flip_canvas = document.getElementById("flip_canvas");
 let flip_ctx = flip_canvas.getContext("2d");
-// let myfont = new FontFace("DungGeunMo", "url(flip_over/asset/DungGeunMo.otf)");
-
-// myfont.load().then(function (font) {
-//   document.fonts.add(font);
-// });
-
 // 화면 크기
 // 캔버스의 크기 속성값을 클라이언트의 화면 크기와 같게 바꿔줌
 flip_canvas.width = document.body.clientWidth;
@@ -29,14 +23,7 @@ let flip_XY =
 const FLIP_PLAYER_STUN_TIME = 1.5; // 플레이어가 폭탄을 맞으면 1.5초간 기절에 걸린다. 그 기절 시간을 상수에 저장해줌
 const FLIP_PLAYER_DELAY_TIME = 3;
 
-// 플레이어 이동
-// var rightPressed = false;
-// var leftPressed = false;
-// var upPressed = false;
-// var downPressed = false;
-
 // 플레이어
-// var player = players[myId];
 let flip_interval;
 // 상호작용 키
 var keyPressed = false;
@@ -165,13 +152,13 @@ function flip_func_lding() {
       players[playerinfo[i].id] = player;
     }
     setTimeout(() => {
-      socket.emit("뒤집기쥰비완료쓰", myId);
+      socket.emit("flip_is_ready", myId);
       r1();
     }, 3000);
   });
 }
 
-socket.on("뒤집기수타투", (data) => {
+socket.on("flip_start", (data) => {
   let cx = firstX;
   let cy = firstY;
   for (let i = 0; i < data.length; i++) {
@@ -185,20 +172,17 @@ socket.on("뒤집기수타투", (data) => {
     }
   }
 });
-socket.on("카드뒤집음", (c_index) => {
-  console.log(c_index);
+socket.on("card_fliped", (c_index) => {
   flip_effect(c_index);
 });
 
-socket.on("맞췄대", (c_index) => {
-  console.log(c_index);
+socket.on("card_matched", (c_index) => {
   c_index.forEach((i) => {
     deck[i].poly = 1;
     deck[i].untouchable = true;
   });
 });
-socket.on("못맞췄대", (c_index) => {
-  console.log(c_index);
+socket.on("card_not_matched", (c_index) => {
   c_index.forEach((i) => {
     deck[i].poly = 0;
     deck[i].isMine = true;
@@ -257,8 +241,6 @@ function stun_flow() {
 
 /** 플레이어가 두 장의 카드를 뒤집으면 맞는지 틀린지 최종 판별하는 메서드 */
 function match_flow(player, check) {
-  console.log(player.firstcard);
-  console.log(player.secondcard);
   // 다름
   if (!check) {
     deck[player.firstcard].poly = 0;
@@ -285,7 +267,7 @@ function delay_check() {
       deck[players[myId].firstcard].poly = 0;
       players[myId].firstpick = true;
       // players[myId].firstcard = -1;
-      socket.emit("이카드뒤집혔대", {
+      socket.emit("flip", {
         id: myId,
         c_index: players[myId].firstcard,
       });
@@ -315,7 +297,7 @@ function choose(player) {
           break; // 변수 card에 고른 카드를 저장한 채 반복문을 종료한다.
         } else {
           deck[player.firstcard].poly = 0;
-          socket.emit("이카드뒤집혔대", {
+          socket.emit("flip", {
             id: myId,
             c_index: players[myId].firstcard,
           });
@@ -337,7 +319,7 @@ function choose(player) {
       // 폭탄을 뒤집었을 때의 처리
       if (!player.firstpick) deck[player.firstcard].poly = 0;
       player.firstpick = true;
-      socket.emit("이카드뒤집혔대", {
+      socket.emit("flip", {
         id: myId,
         c_index: card_index,
       });
@@ -349,7 +331,7 @@ function choose(player) {
       setTimeout(() => {
         deck[card_index].untouchable = true;
         player.score -= 10;
-        socket.emit("이카드뒤집혔대", {
+        socket.emit("flip", {
           id: myId,
           c_index: card_index,
         });
@@ -358,11 +340,10 @@ function choose(player) {
     // 고른 카드가 첫번째인지 판별
     else if (player.firstpick) {
       player.firstcard = card_index;
-      console.log(player.firstcard);
       player.firstpick = false;
       player.first_delay_sec = Math.ceil(FLIP_PLAYER_DELAY_TIME * FPS);
       deck[card_index].poly = 1;
-      socket.emit("이카드뒤집혔대", {
+      socket.emit("flip", {
         id: myId,
         c_index: card_index,
       });
@@ -371,22 +352,21 @@ function choose(player) {
     else {
       player.delay = true;
       player.secondcard = card_index;
-      console.log(player.secondcard);
       deck[card_index].poly = 1;
-      socket.emit("이카드뒤집혔대", {
+      socket.emit("flip", {
         id: myId,
         c_index: card_index,
       });
       setTimeout(() => {
         if (deck[card_index].info == deck[player.firstcard].info) {
-          socket.emit("카드체크한대", {
+          socket.emit("card_will_check", {
             id: myId,
             check: true,
             c_index: [player.firstcard, player.secondcard],
           });
           match_flow(player, true);
         } else {
-          socket.emit("카드체크한대", {
+          socket.emit("card_will_check", {
             id: myId,
             check: false,
             c_index: [player.firstcard, player.secondcard],
@@ -410,7 +390,6 @@ function flip_update() {
 
     flip_count_draw();
 
-  console.log('카운팅 랜더링중')
     // handle countdown
     if (count_sec == 0) {
       flip_is_gaming = true;
@@ -421,12 +400,10 @@ function flip_update() {
     stun_flow();
     delay_check();
     
-  console.log('게이밍 랜더링중')
   }
   if (flip_is_ending) {
     flip_ending_draw();
     
-  console.log('엔딩 랜더링중')
   }
 } // end of update
 

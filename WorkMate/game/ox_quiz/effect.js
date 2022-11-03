@@ -1,8 +1,10 @@
 //트랜스볼 객체
-function transBall(_x, _y, direction, id) {
+function transBall(x, y, direction, id) {
   // 처음에 쏜 사람의 위치.
-  this.x = (_x * X) / 100 + playersizeX / 2;
-  this.y = (_y * Y) / 100 + playersizeY / 2;
+  this.initX = x;
+  this.initY = y;
+  this.x = x + 25;
+  this.y = y + 35;
   this.direction = direction;
   this.radius = 3;
   
@@ -53,7 +55,7 @@ function drawBall() {
     for (let i = 0; i < balls.length; i++) {
       let ball = balls[i];
       ox_ctx.beginPath();
-      ox_ctx.drawImage(ball.image, ball.x, ball.y, 30, 20); // 크기는 65, 65
+      ox_ctx.drawImage(ball.image, ball.x - ball.radius, ball.y - ball.radius, 30, 20); // 크기는 65, 65
 
       ox_ctx.closePath();
       //draw
@@ -88,50 +90,49 @@ function distBall() {
 
     if (
       distBetweenPoints(px, py, sx, sy) <
-        balls[i].radius + playersizeY / 2 &&
+        balls[i].radius + 35 &&
       players[myId].id != balls[i].id
     ) {
       // 좌표랑 좌표를 서로 바꿔주는 effect효과를 넣어야 함
       // 내 좌표만 그 사람의 좌표로 바뀌고
-      socket.emit("트랜스볼 맞음", {
-        x: (players[myId].x * 100) / X,
-        y: (players[myId].y * 100) / Y,
+      socket.emit("ox_transBall_hit", {
+        x: players[myId].x,
+        y: players[myId].y,
         id: balls[i].id
       });
       
-      socket.emit("트랜스볼 없어짐", {
+      socket.emit("ox_transBall_remove", {
         id : myId,
         i : i
       });
     }
   }
 }
-socket.on("트랜스볼 삭제", (i) => balls.splice(i, 1));
+socket.on("ox_transBall_del", (i) => balls.splice(i, 1));
 
 //메시지 처리 구역
-socket.on("트랜스볼 씀", (data) => {
+socket.on("ox_transBall_use", (data) => {
   //data = x, y, direction, id
-  console.log("클라로 넘어온 값 : " + data.y);
   balls.push(new transBall(data.x, data.y, data.direction, data.id));
 });
 
-socket.on("맞춘 사람의 위치2", (data) => {
-  players[myId].x = (data.x * X) / 100;
-  players[myId].y = (data.y * Y) / 100;
+socket.on("ox_return_XY", (data) => {
+  players[myId].x = data.x;
+  players[myId].y = data.y;
   sendData(players[myId]);
 })
 
 // 쏜 사람과 맞은 사람의 좌표를 바꿔 줌
-socket.on("트랜스볼 맞춤", (data) => {  // 공을 던진 사람
+socket.on("ox_hit_XY", (data) => {  // 공을 던진 사람
   // 맞은 사람의 좌표를 받아 내 좌표가 바뀜
   // data > x, y
-  socket.emit("맞춘 사람의 위치1", {
-    x: (players[myId].x * 100) / X,
-    y: (players[myId].y * 100) / Y,
+  socket.emit("ox_hit_return", {
+    x: players[myId].x,
+    y: players[myId].y,
     id: data.id
   })
-  players[myId].x = (data.x * X) / 100;
-  players[myId].y = (data.y * Y) / 100;
+  players[myId].x = data.x;
+  players[myId].y = data.y;
   sendData(players[myId]);
 });
 

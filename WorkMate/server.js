@@ -9,10 +9,10 @@ const router = require('./router/page_router')(app);
 
 /** Import SocketHandler */
 const init = require('./handler/func_conn');
-const mainHandler = require('./handler/main_handler');
-const oxHandler = require('./handler/ox_handler');
-const flipHandler = require('./handler/flip_handler');
-const survivHandler = require('./handler/survival_handler');
+const mainHandler = require('./handler/handler_main');
+const oxHandler = require('./handler/handler_ox');
+const flipHandler = require('./handler/handler_flip');
+const survivHandler = require('./handler/handler_survival');
 
 /** Set Middleware */
 app.use(express.static('view'));

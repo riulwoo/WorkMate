@@ -3,10 +3,6 @@ let surv_ctx = surv_canvas.getContext("2d");
 surv_canvas.width = document.body.clientWidth;
 surv_canvas.height = document.body.clientHeight;
 
-// myfont.load().then(function (font) {
-//   document.fonts.add(font);
-// });
-
 // 게임의 프레임은 60fps.
 X = surv_canvas.width;
 Y = surv_canvas.height;
@@ -50,7 +46,7 @@ function surviv_func_lding() {
     document.body.style.backgroundImage =
       "url('https://media.discordapp.net/attachments/980090904394219562/1021798469670813770/9a0b0a0d08d21b21.gif?width=1316&height=636')";
     setTimeout(() => {
-      socket.emit("레이스쥰비완료쓰", myId);
+      socket.emit("survival_ready", myId);
       r1();
     }, 3000);
   });
@@ -62,12 +58,9 @@ surviv_func_lding().then(() => {
   surviv_interval = setInterval(surviv_update, 1000 / FPS);
 });
 
-socket.on("게임수타투", (data) => {
+socket.on("survival_start", (data) => {
   is_counting = true;
-  console.log("골 초기 좌표 : " + data.goal[0].x + " " + data.goal[1].y);
-  console.log(
-    `아이템 초기 좌표 : x: ${data.item.x} y : ${data.item.y} xv : ${data.item.xv} yv : ${data.item.yv}`
-  );
+);
 
   for (let i = 0; i < data.goal.length; i++) {
     goal.push(new Goal(data.goal[i].x, data.goal[i].y));
@@ -75,40 +68,29 @@ socket.on("게임수타투", (data) => {
   itemBox = new Item(data.item.x, data.item.y, data.item.xv, data.item.yv); // 화면 넘어가면 반대편에 등장
 });
 
-socket.on("아이템생성하거라", (data) => {
-  // 생성은 되지만 그리기는 되지 않았음
-  console.log("아이템 좌표 : " + data);
+socket.on("create_item", (data) => {
   itemBox = new Item(data.x, data.y, data.xv, data.yv);
 });
 
-socket.on("돈을 생성하거라", (data) => {
-  // 생성은 되지만 그리기는 되지 않았음
-  for (let i = 0; i < data.length; i++) {
-    console.log(`돈 좌표 + ${data[i]}`);
-  }
-
+socket.on("need_some_money", (data) => {
   for (let i = 0; i < data.length; i++) {
     goal.push(new Goal(data[i].x, data[i].y));
   }
 });
 
-socket.on("아이템먹었음", () => (itemBox = null));
+socket.on("have_a_item", () => (itemBox = null));
 
-socket.on("장애물 생성하거라", (data) => {
-  // 생성은 되지만 그리기는 되지 않았음
+socket.on("create_obs", (data) => {
   roids.push(new Asteroid(data.x, data.y, data.xv, data.yv, data.type));
 });
 
-socket.on("특수 장애물 생성하거라", (data) => {
-  console.log(
-    `특수 장애물 데이터 : ${data.x} / ${data.y} / ${data.xv} / ${data.yv}`
-  );
+socket.on("create_item_obs", (data) => {
   roids_of_item.push(
     new ItemAsteroid(data.x, data.y, data.xv, data.yv, data.id)
   );
 });
 
-socket.on("살아남기 게임끝", () => {
+socket.on("survival_end", () => {
   surviv_is_end = true;
   surviv_is_gaming = false;
   let index = getMyIndex(myId);

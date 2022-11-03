@@ -1,6 +1,5 @@
 function flip_renderPlayer() {
   // rendering a player. 플레이어를 렌더링합니다.
-  console.log("랜더링중");
   // 모든 플레이어를 그리는 코드
   for (let i = 0; i < playermap.length; i++) {
     let ball = playermap[i];

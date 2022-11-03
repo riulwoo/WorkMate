@@ -1,5 +1,4 @@
 function surviv_renderPlayer() {
-  //console.log(playermap);
   for (let i = 0; i < playermap.length; i++) {
     let player = playermap[i];
     // rendering a player. 플레이어를 렌더링합니다.

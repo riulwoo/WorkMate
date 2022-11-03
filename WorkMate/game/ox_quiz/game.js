@@ -3,12 +3,7 @@ let ox_ctx = ox_canvas.getContext("2d");
 count_sec = Math.ceil(COUNT_DUR_TIME * FPS);
 let question = ""; // 문제 변수
 let answer; // 답 변수
-let f_size_ox = Math.floor((X * 30) / 100);
-let f_size_center = Math.floor((X * 5) / 100);
-let f_size_quiz = Math.floor((X * 4) / 100);
-let f_size_score = Math.floor((X * 2) / 100);
-let playersizeX = Math.floor((X * 3.6) / 100);
-let playersizeY = Math.floor((Y * 7.4) / 100);
+
 // 크기 변수
 ox_canvas.width = document.body.clientWidth;
 ox_canvas.height = document.body.clientHeight;
@@ -16,12 +11,12 @@ X = ox_canvas.width;
 Y = ox_canvas.height;
 
 let ox_XY = [
-  [(X * 45) / 100, (Y * 45) / 100],
-  [(X * 50) / 100, (Y * 45) / 100],
-  [(X * 55) / 100, (Y * 45) / 100],
-  [(X * 45) / 100, (Y * 55) / 100],
-  [(X * 50) / 100, (Y * 55) / 100],
-  [(X * 55) / 100, (Y * 55) / 100],
+  [X / 2 - 16, Y / 2 - 10],
+  [X / 2, Y / 2 - 10],
+  [X / 2 + 16, Y / 2 - 10],
+  [X / 2 - 16, Y / 2 + 10],
+  [X / 2, Y / 2 + 10],
+  [X / 2 + 16, Y / 2 + 10],
 ];
 
 let ox_interval1;
@@ -109,13 +104,13 @@ function ox_field_draw() {
   ox_ctx.fillRect((X * 60) / 100, Y / 4, (X * 40) / 100, Y);
   // O, X 텍스트
   ox_ctx.fillStyle = "white";
-  ox_ctx.font = `${f_size_ox} DungGeunMo`;
+  ox_ctx.font = "348px DungGeunMo";
   ox_ctx.textAlign = "center";
-  ox_ctx.fillText("O", (X * 20) / 100, Y / 1.4);
+  ox_ctx.fillText("O", X / 4, Y / 1.4);
   ox_ctx.fillStyle = "white";
-  ox_ctx.font = `${f_size_ox} DungGeunMo`;
+  ox_ctx.font = "348px DungGeunMo";
   ox_ctx.textAlign = "center";
-  ox_ctx.fillText("X", (X * 80) / 100, Y / 1.4);
+  ox_ctx.fillText("X", X - 300, Y / 1.4);
   ox_ctx.closePath();
 }
 
@@ -124,12 +119,12 @@ function ox_break_draw() {
   ox_ctx.fillStyle = "bisque";
   ox_ctx.fillRect(0, 0, X, Y / 4);
   ox_ctx.fillStyle = "black";
-  ox_ctx.font = `${f_size_center} DungGeunMo`;
+  ox_ctx.font = "48px DungGeunMo";
   // measureText() = 문자열의 넓이 반환
   ox_ctx.textAlign = "center";
   ox_ctx.fillText("READY??", X / 2, Y / 6.5);
   ox_ctx.fillStyle = "#90DBA2";
-  ox_ctx.font = `${f_size_center} DungGeunMo`;
+  ox_ctx.font = "200px DungGeunMo";
   ox_ctx.textAlign = "center";
   
   if (break_num == 0) ox_ctx.fillText("START!!!", X / 2, Y / 1.6);
@@ -142,7 +137,7 @@ function ox_check_draw() {
   ox_ctx.fillRect(0, 0, X, Y / 4);
 
   ox_ctx.fillStyle = "black";
-  ox_ctx.font = `${f_size_quiz} DungGeunMo`;
+  ox_ctx.font = "48px DungGeunMo";
   ox_ctx.textAlign = "center";
 
   if (answer && players[myId].is_O) {
@@ -167,9 +162,9 @@ function ox_during_draw() {
   // 문제 출력
   ox_ctx.fillStyle = "black";
   if (question.length < 20) {
-    ox_ctx.font = `${f_size_quiz} DungGeunMo`;
+    ox_ctx.font = "48px DungGeunMo";
   } else {
-    ox_ctx.font = `${f_size_quiz} DungGeunMo`;
+    ox_ctx.font = "36px DungGeunMo";
   }
   // measureText() = 문자열의 넓이 반환
   ox_ctx.textAlign = "center";
@@ -177,7 +172,7 @@ function ox_during_draw() {
 
   // 카운트다운 출력
   ox_ctx.fillStyle = "#90DBA2";
-  ox_ctx.font = `${f_size_center} DungGeunMo`;
+  ox_ctx.font = "200px DungGeunMo";
   ox_ctx.textAlign = "center";
   if (during_num <= 5) {
     ox_ctx.fillText(during_num, X / 2, Y / 1.6);
@@ -190,7 +185,7 @@ function ox_end_draw() {
       ox_ctx.fillStyle = "bisque";
       ox_ctx.fillRect(0, 0, X, Y / 4);
       ox_ctx.fillStyle = "black";
-      ox_ctx.font = `${f_size_center} DungGeunMo`;
+      ox_ctx.font = "48px DungGeunMo";
       // measureText() = 문자열의 넓이 반환
       ox_ctx.textAlign = "center";
   
@@ -201,7 +196,7 @@ function ox_end_draw() {
 function ox_score_draw() {
   // 점수 출력
   ox_ctx.fillStyle = "black";
-  ox_ctx.font = `${f_size_score} DungGeunMo`;
+  ox_ctx.font = "24px DungGeunMo";
   ox_ctx.textAlign = "center";
   ox_ctx.fillText(
     "Score : " + players[myId].score,
@@ -219,7 +214,6 @@ function delaycheck() {
 function ox_func_lding() {
   return new Promise((r1, r2) => {
     for (let i = 0; i < playerinfo.length; i++) {
-      console.log(ox_XY[i]);
       let player = new ox_player(
         playerinfo[i].id,
         playerinfo[i].nick,
@@ -233,7 +227,7 @@ function ox_func_lding() {
     document.body.style.backgroundImage =
       "url('https://media.discordapp.net/attachments/980090904394219562/1021799584667803839/GIF_2022-09-21_12-06-13.gif?width=1266&height=636')";
     setTimeout(() => {
-      socket.emit("쥰비완료쓰", myId);
+      socket.emit("ox_ready", myId);
       r1();
     }, 3000);
   });
@@ -244,7 +238,6 @@ socket.on("ox_breaking", (data) => {
   is_checking = false;
   is_breaking = true;
   is_during = false;
-  console.log(`문제 ${_question}`);
   break_num = break_time;
   question = _question;
 });
@@ -254,7 +247,6 @@ socket.on("ox_during", (data) => {
   is_breaking = false;
   is_during = true;
   is_checking = false;
-  console.log(`during ${during_time}`);
   during_num = during_time;
   answer = _answer;
 });
@@ -263,7 +255,6 @@ socket.on("ox_checking", (checking_time) => {
   is_during = false;
   is_breaking = false;
   is_checking = true;
-  console.log(`check`);
   checking_num = checking_time;
 });
 
