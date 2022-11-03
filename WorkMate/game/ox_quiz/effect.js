@@ -1,8 +1,8 @@
 //트랜스볼 객체
 function transBall(x, y, direction, id) {
   // 처음에 쏜 사람의 위치.
-  this.x = x * X / 100;
-  this.y = y * X / 100;
+  this.x = x * X / 100 + 25;
+  this.y = y * X / 100 + 35;
   this.direction = direction;
   this.radius = 3;
   
@@ -111,7 +111,9 @@ socket.on("트랜스볼 삭제", (i) => balls.splice(i, 1));
 //메시지 처리 구역
 socket.on("트랜스볼 씀", (data) => {
   //data = x, y, direction, id
-  console.log(data.x * X / 100);
+  console.log(data.y * Y / 100);
+  console.log("캔버스2 : " + Y);
+  console.log("캔버스2 : " + X);
   balls.push(new transBall(data.x, data.y, data.direction, data.id));
 });
 
@@ -119,9 +121,9 @@ socket.on("맞춘 사람의 위치2", (data) => {
   console.log("-----------------------------------------");
   console.log("맞춘 사람의 좌표 값 : " + data.x + " / " + data.y);
   console.log("내 좌표 값 : " + players[myId].x + " / " + players[myId].y);
-  console.log(data.x);
-  console.log((data.x * X) / 100);
-  console.log(players[myId].x * 100 / X);
+  console.log(data.y);
+  console.log((data.y * Y) / 100);
+  console.log(players[myId].y * 100 / Y);
   players[myId].x = (data.x * X) / 100;
   players[myId].y = (data.y * Y) / 100;
   sendData(players[myId]);
@@ -136,9 +138,9 @@ socket.on("트랜스볼 맞춤", (data) => {  // 공을 던진 사람
   console.log("-----------------------------------------");
   console.log("맞은 사람의 좌표 값 : " + data.x + " / " + data.y);
   console.log("내 좌표 값 : " + players[myId].x + " / " + players[myId].y);
-  console.log(data.x);
-  console.log((data.x * X) / 100);
-  console.log(players[myId].x * 100 / X);
+  console.log(data.y);
+  console.log((data.y * Y) / 100);
+  console.log(players[myId].y * 100 / Y);
   socket.emit("맞춘 사람의 위치1", {
     x: (players[myId].x * 100) / X,
     y: (players[myId].y * 100) / Y,

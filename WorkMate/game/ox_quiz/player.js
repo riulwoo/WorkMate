@@ -76,6 +76,8 @@ function ox_renderPlayer() {
   }
   if(ballPressed ) { //&& curPlayer.balldelaysec <= 0 && !is_checking
     console.log(players[myId].x * 100 / X);
+    console.log("캔버스1 : " + X);
+    console.log("캔버스1 : " + Y);
     socket.emit("트랜스볼 생성", {
       x: players[myId].x * 100 / X,
       y: players[myId].y * 100 / Y,
