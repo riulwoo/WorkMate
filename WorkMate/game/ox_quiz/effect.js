@@ -1,13 +1,3 @@
-// 트랜스 볼
-/* 준비물
-1. 발사체 (총알)
-2. 버튼
-3. 재사용 시간 
-4. 바라보는 방향으로 쏘는 기준
-5. 맞았을 때 좌표 변경
-6. 트랜스볼 갯수
-*/
-
 //트랜스볼 객체
 function transBall(x, y, direction, id) {
   // 처음에 쏜 사람의 위치.
@@ -21,35 +11,35 @@ function transBall(x, y, direction, id) {
   switch (direction) {
     case 0: // 아래
       this.xv = 0;
-      this.yv = 8;
+      this.yv = 15;
       break;
     case 1: // 왼쪽
-      this.xv = -8;
+      this.xv = -15;
       this.yv = 0;
       break;
     case 2: // 위
       this.xv = 0;
-      this.yv = -8;
+      this.yv = -15;
       break;
     case 3: // 오른쪽
-      this.xv = 8;
+      this.xv = 15;
       this.yv = 0;
       break;
     case 4: // 왼 아래
-      this.xv = -8;
-      this.yv = 8;
+      this.xv = -15;
+      this.yv = 15;
       break;
     case 5: // 왼위
-      this.xv = -8;
-      this.yv = -8;
+      this.xv = -15;
+      this.yv = -15;
       break;
     case 6: // 오른 아래
-      this.xv = 8;
-      this.yv = 8;
+      this.xv = 15;
+      this.yv = 15;
       break;
     case 7: // 오른 위
-      this.xv = 8;
-      this.yv = -8;
+      this.xv = 15;
+      this.yv = -15;
       break;
   }
   this.id = id; // 발사한 사람

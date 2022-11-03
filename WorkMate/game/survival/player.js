@@ -146,7 +146,7 @@ function surviv_renderPlayer() {
   }
 }
 
-function surviv_player(id, nick, x, y) {
+function surviv_player(id, nick, x, y, color) {
   this.id = id;
   this.nick = nick;
   this.direction;
@@ -164,7 +164,7 @@ function surviv_player(id, nick, x, y) {
   ];
   this.PLAYERSPEED = 5;
   this.radius = 25; // 반지름
-  this.color = "#FF00FF"; // 닉네임 색
+  this.color = color; // 닉네임 색
   this.x = x; // x 좌표
   this.y = y; // y 좌표
   this.player = new Image();

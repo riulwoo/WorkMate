@@ -219,7 +219,8 @@ function ox_func_lding() {
         playerinfo[i].id,
         playerinfo[i].nick,
         ox_XY[i][0],
-        ox_XY[i][1]
+        ox_XY[i][1],
+        colorNick[i]
       );
       playermap[i] = player;
       players[playerinfo[i].id] = player;

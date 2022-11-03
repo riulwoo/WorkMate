@@ -6,8 +6,11 @@ function ox_renderPlayer() {
     ox_ctx.drawImage(ball.player, ball.x, ball.y, 50, 70);
     ox_ctx.beginPath();
     ox_ctx.fillStyle = ball.color;
-    ox_ctx.font = "15px Arial";
+    ox_ctx.font = "bold 15px DungGeunMo";
     ox_ctx.fillText(ball.nick, ball.x + 15, ball.y - ball.radius + 10);
+    ox_ctx.fillStyle = "black";
+    ox_ctx.font = "16px DungGeunMo";
+    ox_ctx.strokeText(ball.nick, ball.x + 15, ball.y - ball.radius + 10);
     ox_ctx.closePath();
   }
   let curPlayer = players[myId];
@@ -78,7 +81,7 @@ function ox_renderPlayer() {
       direction: players[myId].direction,
       id: myId,
     });
-    curPlayer.balldelaysec = 250;
+    curPlayer.balldelaysec = 150;
   }
   if (players[myId].y > Y - curPlayer.radius * 2) {
     players[myId].y = Y - curPlayer.radius * 2;
@@ -107,7 +110,7 @@ function ox_renderPlayer() {
   }
 }
 
-function ox_player(id, nick, x, y) {
+function ox_player(id, nick, x, y, color) {
   this.id = id;
   this.nick = nick;
   this.asset = [
@@ -121,7 +124,7 @@ function ox_player(id, nick, x, y) {
     "https://cdn.discordapp.com/attachments/980090904394219562/1026451494075125800/gg_07.png", // 오른위
   ];
 
-  this.color = "#FF00FF";
+  this.color = color;
   this.x = x;
   this.y = y;
   this.player = new Image();

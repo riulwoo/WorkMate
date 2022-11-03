@@ -13,6 +13,17 @@ myfont.load().then(function (font) {
 let X;
 let Y;
 
+/** 플레이어 닉네임 색깔 배열*/
+// 빨 주 초 파 보 흰
+let colorNick = [
+  "rgb(237, 28, 36)",
+  "rgb(255, 127, 39)",
+  "rgb(34, 177, 76)",
+  "rgb(63, 72, 204)",
+  "rgb(163, 73, 164)",
+  "rgb(255, 255, 255)",
+]
+
 /** card, surviv에서 사용하는 게임의 프레임 */
 const FPS = 60;
 

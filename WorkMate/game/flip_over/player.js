@@ -93,7 +93,7 @@ function flip_renderPlayer() {
   }
 }
 
-function flip_player(id, nick, x, y) {
+function flip_player(id, nick, x, y, color) {
   this.id = id;
   // 플레이어 닉네임 설정
   this.nick = nick;
@@ -108,7 +108,7 @@ function flip_player(id, nick, x, y) {
     "https://cdn.discordapp.com/attachments/980090904394219562/1026451494075125800/gg_07.png",
   ];
 
-  this.color = "#FF00FF";
+  this.color = color;
   this.x = x;
   this.y = y;
   this.radius = 16;
