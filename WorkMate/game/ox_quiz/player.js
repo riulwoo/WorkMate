@@ -131,7 +131,7 @@ function ox_player(id, nick, x, y, color) {
   this.player.src = this.asset[0];
   this.score = 0;
   this.radius = 16;
-  this.PLAYERSPEED = 5;
+  this.PLAYERSPEED = 0.05;
 
   // 판정 관련
   this.is_O;
