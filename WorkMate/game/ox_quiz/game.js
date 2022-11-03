@@ -106,11 +106,11 @@ function ox_field_draw() {
   ox_ctx.fillStyle = "white";
   ox_ctx.font = "348px DungGeunMo";
   ox_ctx.textAlign = "center";
-  ox_ctx.fillText("O", X / 4, Y / 1.4);
+  ox_ctx.fillText("O", (X * 20) / 100, Y / 1.4);
   ox_ctx.fillStyle = "white";
   ox_ctx.font = "348px DungGeunMo";
   ox_ctx.textAlign = "center";
-  ox_ctx.fillText("X", X - 300, Y / 1.4);
+  ox_ctx.fillText("X", (X * 80) / 100, Y / 1.4);
   ox_ctx.closePath();
 }
 

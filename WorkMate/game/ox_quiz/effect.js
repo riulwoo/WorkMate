@@ -113,7 +113,7 @@ socket.on("트랜스볼 삭제", (i) => balls.splice(i, 1));
 //메시지 처리 구역
 socket.on("트랜스볼 씀", (data) => {
   //data = x, y, direction, id
-  balls.push(new transBall(data.x, data.y, data.direction, data.id));
+  balls.push(new transBall(data.x * 100 / X, data.y * 100 / Y, data.direction, data.id));
 });
 
 socket.on("맞춘 사람의 위치2", (data) => {
