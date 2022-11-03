@@ -95,8 +95,8 @@ function distBall() {
   let sy;
 
   for (let i = 0; i < balls.length; i++) {
-    sx = balls[i].x - balls[i].radius;
-    sy = balls[i].y - balls[i].radius;
+    sx = balls[i].x + balls[i].radius;
+    sy = balls[i].y + balls[i].radius;
 
     if (
       distBetweenPoints(px, py, sx, sy) <
