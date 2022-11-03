@@ -206,7 +206,6 @@ body {
   position: absolute;
   left: 50%;
   width: 100%;
-  padding: 5%;
   transform: translate(-50%, -50%);
 }
 
