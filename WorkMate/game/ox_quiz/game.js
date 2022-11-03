@@ -90,8 +90,6 @@ function ox_field_draw() {
 
   X = ox_canvas.width;
   Y = ox_canvas.height;
-
-  console.log("정상적으로 실행중");
   ox_ctx.beginPath();
   ox_ctx.fillStyle = "bisque";
   ox_ctx.fillRect(0, 0, X, Y / 4);

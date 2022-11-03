@@ -100,7 +100,7 @@ function distBall() {
 
     if (
       distBetweenPoints(px, py, sx, sy) <
-        balls[i].radius + players[myId].radius &&
+        balls[i].radius + 35 &&
       players[myId].id != balls[i].id
     ) {
       // 좌표랑 좌표를 서로 바꿔주는 effect효과를 넣어야 함

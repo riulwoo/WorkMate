@@ -3,7 +3,6 @@ function ox_renderPlayer() {
   // 모든 플레이어를 그리는 코드
   for (let i = 0; i < playermap.length; i++) {
     let ball = playermap[i];
-    console.log(ball.x, ball.y);
     ox_ctx.drawImage(ball.player, ball.x, ball.y, 50, 70);
     ox_ctx.beginPath();
     ox_ctx.fillStyle = ball.color;

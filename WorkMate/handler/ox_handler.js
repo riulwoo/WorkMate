@@ -104,7 +104,7 @@ module.exports = (io, socket, room) => {
   })
 
   socket.on("맞춘 사람의 위치1" , (data) => {
-      io.to(data.id).emit("맞춘 사람의 위치2", {
+      io.sockets.to(data.id).emit("맞춘 사람의 위치2", {
       x : data.x,
       y : data.y
     })
@@ -117,7 +117,7 @@ module.exports = (io, socket, room) => {
   })
 
   socket.on("트랜스볼 맞음", (data)=>{
-    io.to(data.id).emit("트랜스볼 맞춤", {
+    io.sockets.to(data.id).emit("트랜스볼 맞춤", {
       x : data.x,
       y : data.y
     })
