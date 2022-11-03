@@ -143,7 +143,7 @@ socket.on("트랜스볼 맞춤", (data) => {
   socket.emit("맞춘 사람의 위치1", {
     x: players[myId].x,
     y: players[myId].y,
-    id: ball.id
+    id: myId
   })
   players[myId].x = data.x;
   players[myId].y = data.y;
