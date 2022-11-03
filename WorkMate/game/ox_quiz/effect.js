@@ -112,8 +112,6 @@ socket.on("트랜스볼 삭제", (i) => balls.splice(i, 1));
 socket.on("트랜스볼 씀", (data) => {
   //data = x, y, direction, id
   console.log(data.y * Y / 100);
-  console.log("캔버스2 : " + Y);
-  console.log("캔버스2 : " + X);
   balls.push(new transBall(data.x, data.y, data.direction, data.id));
 });
 
