@@ -3,11 +3,11 @@ function ox_renderPlayer() {
   // 모든 플레이어를 그리는 코드
   for (let i = 0; i < playermap.length; i++) {
     let ball = playermap[i];
-    ox_ctx.drawImage(ball.player, ball.x, ball.y, 50, 70);
+    ox_ctx.drawImage(ball.player, ball.x, ball.y, playersizeX, playersizeY);
     ox_ctx.beginPath();
     ox_ctx.fillStyle = ball.color;
     ox_ctx.font = "bold 20px DungGeunMo";
-    ox_ctx.fillText(ball.nick, ball.x + 25, ball.y - ball.radius + 10);
+    ox_ctx.fillText(ball.nick, ball.x + playersizeX / 2, ball.y - ball.radius + 10);
     // ox_ctx.fillStyle = "white";
     // ox_ctx.font = "20px DungGeunMo";
     // ox_ctx.strokeText(ball.nick, ball.x + 25, ball.y - ball.radius + 10);
@@ -74,8 +74,7 @@ function ox_renderPlayer() {
       sendData(curPlayer);
     }
   }
-  if(ballPressed && curPlayer.balldelaysec <= 0 && !is_checking) { //
-    console.log("플레이어 좌표 : " + players[myId].y + " / 퍼센트 값 : " + players[myId].y * 100 / Y);
+  if(ballPressed && curPlayer.balldelaysec <= 0 && !is_checking) {
     socket.emit("트랜스볼 생성", {
       x: players[myId].x * 100 / X,
       y: players[myId].y * 100 / Y,
@@ -97,10 +96,10 @@ function ox_renderPlayer() {
   }
 
   /** 플레이어가 현재 O인지 X인지를 식별하는 조건문 */
-  if (players[myId].x + 25 < (X * 40) / 100) {
+  if (players[myId].x + playersizeX / 2 < (X * 40) / 100) {
     players[myId].is_O = true;
     players[myId].is_X = false;
-  } else if (players[myId].x + 25 >= (X * 60) / 100) {
+  } else if (players[myId].x + playersizeX / 2 >= (X * 60) / 100) {
     players[myId].is_O = false;
     players[myId].is_X = true;
   }

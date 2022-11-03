@@ -3,7 +3,12 @@ let ox_ctx = ox_canvas.getContext("2d");
 count_sec = Math.ceil(COUNT_DUR_TIME * FPS);
 let question = ""; // 문제 변수
 let answer; // 답 변수
-
+let f_size_ox = (X * 30) / 100;
+let f_size_center = (X * 5) / 100;
+let f_size_quiz = (X * 4) / 100;
+let f_size_score = (X * 2) / 100;
+let playersizeX = (X * 2.6) / 100;
+let playersizeY = (Y * 3.6) / 100;
 // 크기 변수
 ox_canvas.width = document.body.clientWidth;
 ox_canvas.height = document.body.clientHeight;
@@ -104,11 +109,11 @@ function ox_field_draw() {
   ox_ctx.fillRect((X * 60) / 100, Y / 4, (X * 40) / 100, Y);
   // O, X 텍스트
   ox_ctx.fillStyle = "white";
-  ox_ctx.font = "348px DungGeunMo";
+  ox_ctx.font = `${f_size_ox} DungGeunMo`;
   ox_ctx.textAlign = "center";
   ox_ctx.fillText("O", (X * 20) / 100, Y / 1.4);
   ox_ctx.fillStyle = "white";
-  ox_ctx.font = "348px DungGeunMo";
+  ox_ctx.font = `${f_size_ox} DungGeunMo`;
   ox_ctx.textAlign = "center";
   ox_ctx.fillText("X", (X * 80) / 100, Y / 1.4);
   ox_ctx.closePath();
@@ -119,12 +124,12 @@ function ox_break_draw() {
   ox_ctx.fillStyle = "bisque";
   ox_ctx.fillRect(0, 0, X, Y / 4);
   ox_ctx.fillStyle = "black";
-  ox_ctx.font = "48px DungGeunMo";
+  ox_ctx.font = `${f_size_center} DungGeunMo`;
   // measureText() = 문자열의 넓이 반환
   ox_ctx.textAlign = "center";
   ox_ctx.fillText("READY??", X / 2, Y / 6.5);
   ox_ctx.fillStyle = "#90DBA2";
-  ox_ctx.font = "200px DungGeunMo";
+  ox_ctx.font = `${f_size_center} DungGeunMo`;
   ox_ctx.textAlign = "center";
   
   if (break_num == 0) ox_ctx.fillText("START!!!", X / 2, Y / 1.6);
@@ -137,7 +142,7 @@ function ox_check_draw() {
   ox_ctx.fillRect(0, 0, X, Y / 4);
 
   ox_ctx.fillStyle = "black";
-  ox_ctx.font = "48px DungGeunMo";
+  ox_ctx.font = `${f_size_quiz} DungGeunMo`;
   ox_ctx.textAlign = "center";
 
   if (answer && players[myId].is_O) {
@@ -162,9 +167,9 @@ function ox_during_draw() {
   // 문제 출력
   ox_ctx.fillStyle = "black";
   if (question.length < 20) {
-    ox_ctx.font = "48px DungGeunMo";
+    ox_ctx.font = `${f_size_quiz} DungGeunMo`;
   } else {
-    ox_ctx.font = "36px DungGeunMo";
+    ox_ctx.font = `${f_size_quiz} DungGeunMo`;
   }
   // measureText() = 문자열의 넓이 반환
   ox_ctx.textAlign = "center";
@@ -172,7 +177,7 @@ function ox_during_draw() {
 
   // 카운트다운 출력
   ox_ctx.fillStyle = "#90DBA2";
-  ox_ctx.font = "200px DungGeunMo";
+  ox_ctx.font = `${f_size_center} DungGeunMo`;
   ox_ctx.textAlign = "center";
   if (during_num <= 5) {
     ox_ctx.fillText(during_num, X / 2, Y / 1.6);
@@ -185,7 +190,7 @@ function ox_end_draw() {
       ox_ctx.fillStyle = "bisque";
       ox_ctx.fillRect(0, 0, X, Y / 4);
       ox_ctx.fillStyle = "black";
-      ox_ctx.font = "48px DungGeunMo";
+      ox_ctx.font = `${f_size_center} DungGeunMo`;
       // measureText() = 문자열의 넓이 반환
       ox_ctx.textAlign = "center";
   
@@ -196,7 +201,7 @@ function ox_end_draw() {
 function ox_score_draw() {
   // 점수 출력
   ox_ctx.fillStyle = "black";
-  ox_ctx.font = "24px DungGeunMo";
+  ox_ctx.font = `${f_size_score} DungGeunMo`;
   ox_ctx.textAlign = "center";
   ox_ctx.fillText(
     "Score : " + players[myId].score,

@@ -1,7 +1,6 @@
 //트랜스볼 객체
 function transBall(_x, _y, direction, id) {
   // 처음에 쏜 사람의 위치.
-  console.log("저장될 값 : " + (_y * Y) / 100);
   this.x = (_x * X) / 100 + 25;
   this.y = (_y * Y) / 100 + 35;
   this.direction = direction;
@@ -54,8 +53,7 @@ function drawBall() {
     for (let i = 0; i < balls.length; i++) {
       let ball = balls[i];
       ox_ctx.beginPath();
-      console.log("그려지는 값 : " + ball.y);
-      ox_ctx.drawImage(ball.image, ball.x - 25, ball.y, 30, 20); // 크기는 65, 65
+      ox_ctx.drawImage(ball.image, ball.x, ball.y, 30, 20); // 크기는 65, 65
 
       ox_ctx.closePath();
       //draw
@@ -118,29 +116,15 @@ socket.on("트랜스볼 씀", (data) => {
 });
 
 socket.on("맞춘 사람의 위치2", (data) => {
-  console.log("-----------------------------------------");
-  console.log("맞춘 사람의 좌표 값 : " + data.x + " / " + data.y);
-  console.log("내 좌표 값 : " + players[myId].x + " / " + players[myId].y);
-  console.log(data.y);
-  console.log((data.y * Y) / 100);
-  console.log(players[myId].y * 100 / Y);
   players[myId].x = (data.x * X) / 100;
   players[myId].y = (data.y * Y) / 100;
   sendData(players[myId]);
-  console.log("맞춘 사람 좌표로 이동 후 좌표 값 : " + players[myId].x + " / " + players[myId].y);
-  console.log("-----------------------------------------");
 })
 
 // 쏜 사람과 맞은 사람의 좌표를 바꿔 줌
 socket.on("트랜스볼 맞춤", (data) => {  // 공을 던진 사람
   // 맞은 사람의 좌표를 받아 내 좌표가 바뀜
   // data > x, y
-  console.log("-----------------------------------------");
-  console.log("맞은 사람의 좌표 값 : " + data.x + " / " + data.y);
-  console.log("내 좌표 값 : " + players[myId].x + " / " + players[myId].y);
-  console.log(data.y);
-  console.log((data.y * Y) / 100);
-  console.log(players[myId].y * 100 / Y);
   socket.emit("맞춘 사람의 위치1", {
     x: (players[myId].x * 100) / X,
     y: (players[myId].y * 100) / Y,
@@ -149,7 +133,5 @@ socket.on("트랜스볼 맞춤", (data) => {  // 공을 던진 사람
   players[myId].x = (data.x * X) / 100;
   players[myId].y = (data.y * Y) / 100;
   sendData(players[myId]);
-  console.log("맞은 사람 좌표로 이동 후 좌표 값 : " + players[myId].x + " / " + players[myId].y);
-  console.log("-----------------------------------------");
 });
 
