@@ -127,18 +127,21 @@ socket.on("트랜스볼 씀", (data) => {
 });
 
 socket.on("맞춘 사람의 위치2", (data) => {
+  console.log("-----------------------------------------");
   console.log("맞춘 사람의 좌표 값 : " + data.x + " / " + data.y);
   console.log("내 좌표 값 : " + players[myId].x + " / " + players[myId].y);
   players[myId].x = data.x;
   players[myId].y = data.y;
   sendData(players[myId]);
   console.log("맞춘 사람 좌표로 이동 후 좌표 값 : " + players[myId].x + " / " + players[myId].y);
+  console.log("-----------------------------------------");
 })
 
 // 쏜 사람과 맞은 사람의 좌표를 바꿔 줌
 socket.on("트랜스볼 맞춤", (data) => {
   // 맞은 사람의 좌표를 받아 내 좌표가 바뀜
   // data > x, y
+  console.log("-----------------------------------------");
   console.log("맞은 사람의 좌표 값 : " + data.x + " / " + data.y);
   console.log("내 좌표 값 : " + players[myId].x + " / " + players[myId].y);
   socket.emit("맞춘 사람의 위치1", {
@@ -150,5 +153,6 @@ socket.on("트랜스볼 맞춤", (data) => {
   players[myId].y = data.y;
   sendData(players[myId]);
   console.log("맞은 사람 좌표로 이동 후 좌표 값 : " + players[myId].x + " / " + players[myId].y);
+  console.log("-----------------------------------------");
 });
 

@@ -205,26 +205,10 @@ function ox_score_draw() {
   );
 }
 
-function ox_ballSlot_draw() {
-  ox_ctx.beginPath();
-  ox_ctx.font = "30px DungGeunMo";
-  ox_ctx.textAlign = "left";
-  ox_ctx.fillStyle = "black";
-  ox_ctx.fillText("BALL", (X * 95) / 100, (Y * 17) / 100);
-
-  /**
-  if (players[myId].ballcnt > 0) {
-    ox_ctx.drawImage(ball_asset, (X * 78) / 100, (Y * 5.2) / 100);
-    
+function delaycheck() {
+  if(players[myId].balldelaysec > 0){
+    players[myId].balldelaysec--;
   }
-  */
-  
-  ox_ctx.strokeStyle = "black";
-  ox_ctx.lineWidth = 5;
-  ox_ctx.strokeRect((X * 93) / 100, (Y * 18) / 100, 60, 60);
-  ox_ctx.strokeRect((X * 96) / 100, (Y * 18) / 100, 60, 60);
-
-  ox_ctx.closePath();
 }
 /** 게임 시작 전 로딩창을 띄우는 메서드 */
 function ox_func_lding() {
@@ -302,7 +286,6 @@ function ox_update() {
   if (is_checking) ox_check_draw();
   if (is_end)      ox_end_draw();
   ox_score_draw();
-  ox_ballSlot_draw();
 } // end of update
 
 function answer_score() {
