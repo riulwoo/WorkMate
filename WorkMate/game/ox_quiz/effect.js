@@ -131,6 +131,7 @@ socket.on("맞춘 사람의 위치2", (data) => {
   console.log("내 좌표 값 : " + players[myId].x + " / " + players[myId].y);
   players[myId].x = data.x;
   players[myId].y = data.y;
+  sendData(players[myId]);
   console.log("맞춘 사람 좌표로 이동 후 좌표 값 : " + players[myId].x + " / " + players[myId].y);
 })
 
@@ -147,6 +148,7 @@ socket.on("트랜스볼 맞춤", (data) => {
   })
   players[myId].x = data.x;
   players[myId].y = data.y;
+  sendData(players[myId]);
   console.log("맞은 사람 좌표로 이동 후 좌표 값 : " + players[myId].x + " / " + players[myId].y);
 });
 
