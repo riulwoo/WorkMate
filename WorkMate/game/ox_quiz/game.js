@@ -281,6 +281,7 @@ function ox_update() {
   ox_renderPlayer();
   drawBall();
   distBall();
+  delaycheck();
   if (is_breaking) ox_break_draw();
   if (is_during)   ox_during_draw();
   if (is_checking) ox_check_draw();

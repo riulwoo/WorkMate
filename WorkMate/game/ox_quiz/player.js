@@ -71,14 +71,14 @@ function ox_renderPlayer() {
       sendData(curPlayer);
     }
   }
-  if(ballPressed && curPlayer.balldelaysec <= 0) {
+  if(ballPressed && curPlayer.balldelaysec <= 0 && !is_checking) {
     socket.emit("트랜스볼 생성", {
       x: players[myId].x,
       y: players[myId].y,
       direction: players[myId].direction,
       id: myId,
     });
-    curPlayer.balldelaysec = 5
+    curPlayer.balldelaysec = 250;
   }
   if (players[myId].y > Y - curPlayer.radius * 2) {
     players[myId].y = Y - curPlayer.radius * 2;
