@@ -72,7 +72,14 @@ function ox_renderPlayer() {
       sendData(curPlayer);
     }
   }
-
+  if(ballPressed && curPlayer.ballcnt > 0) {
+    socket.emit("트랜스볼 생성", {
+      x: players[myId].x,
+      y: players[myId].y,
+      direction: player[myId].direction,
+      id: myId,
+    });
+  }
   if (players[myId].y > Y - curPlayer.radius * 2) {
     players[myId].y = Y - curPlayer.radius * 2;
   } else if (players[myId].y < Y / 4) {
@@ -86,10 +93,17 @@ function ox_renderPlayer() {
   }
 
   /** 플레이어가 현재 O인지 X인지를 식별하는 조건문 */
-  if (players[myId].x < X / 2) {
+  if (players[myId].x < (X * 40) / 100) {
     players[myId].is_O = true;
-  } else if (players[myId].x >= X / 2) {
+    players[myId].is_X = false;
+  } else if (players[myId].x >= (X * 40) / 100) {
     players[myId].is_O = false;
+    players[myId].is_X = true;
+  }
+  else
+  {
+    players[myId].is_O = false;
+    players[myId].is_X = false;
   }
 }
 
@@ -118,9 +132,13 @@ function ox_player(id, nick, x, y) {
 
   // 판정 관련
   this.is_O;
-
+  this.is_X;
+  
   // 이동 관련
   this.ismove = false;
   this.cnt = 0;
   this.direction = 0;
+
+  // 상호작용 관련
+  this.ballcnt = 2;
 }

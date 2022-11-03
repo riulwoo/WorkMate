@@ -10,12 +10,14 @@
 
 //트랜스볼 객체
 function transBall(x, y, direction, id) {
+  // 처음에 쏜 사람의 위치.
   this.initX = x;
   this.initY = y;
   this.x = x;
   this.y = y;
   this.direction = direction;
-
+  this.radius = 3;
+  
   switch (direction) {
     case 0: // 아래
       this.xv = 0;
@@ -62,6 +64,10 @@ function drawBall() {
   if (balls.length > 0) {
     for (let i = 0; i < balls.length; i++) {
       let ball = balls[i];
+      ox_ctx.beginPath();
+      ox_ctx.drawImage(ball.image, ball.x - ball.radius, ball.y - ball.radius, 65, 65); // 크기는 65, 65
+
+      ox_ctx.closePath();
       //draw
     }
 
@@ -81,41 +87,37 @@ function drawBall() {
   }
 }
 
-// 트랜스볼 충돌 시
+// 트랜스볼 충돌 시 실행 함수 > 충돌 여부 체크는 ? 
 function distBall() {
   let px = players[myId].x - players[myId].radius;
   let py = players[myId].y - players[myId].radius;
   let sx;
   let sy;
 
-  for (let i = 0; i < roids_of_item.length; i++) {
-    sx = roids_of_item[i].x - roids_of_item[i].radius;
-    sy = roids_of_item[i].y - roids_of_item[i].radius;
+  for (let i = 0; i < balls.length; i++) {
+    sx = balls[i].x - balls[i].radius;
+    sy = balls[i].y - balls[i].radius;
 
     if (
       distBetweenPoints(px, py, sx, sy) <
-        roids_of_item[i].radius + players[myId].radius &&
-      players[myId].id != roids_of_item[i].id
+        balls[i].radius + players[myId].radius &&
+      players[myId].id != balls[i].id
     ) {
       // 좌표랑 좌표를 서로 바꿔주는 effect효과를 넣어야 함
       // 내 좌표만 그 사람의 좌표로 바뀌고
-
-      socket.emit("트랜스볼 맞음", {
+      socket.emit("트랜스볼 맞음", { 
         x: players[myId].x,
         y: players[myId].y,
-        id: ball.id,
+        id: ball.id
       });
-      socket.emit("트랜스볼 없어짐", i); // > on > io.emit
-      // > socket.to(id).emit(트랜스볼 맞춤, {x: x , y: y})
-      // io.sockets.socket(id).send(메시지);
-      players[myId].x = ball.initX;
-      players[myId].y = ball.initY;
+      
+      socket.emit("트랜스볼 없어짐", {
+        id : myId,
+        i : i
+      });
     }
   }
 }
-
-let balls = [];
-
 socket.on("트랜스볼 삭제", (i) => balls.splice(i, 1));
 
 //메시지 처리 구역
@@ -124,19 +126,21 @@ socket.on("트랜스볼 씀", (data) => {
   balls.push(new transBall(data.x, data.y, data.direction, data.id));
 });
 
+socket.on("맞춘 사람의 위치2", (data) => {
+  players[myId].x = data.x;
+  players[myId].y = data.y;
+})
+
 // 쏜 사람과 맞은 사람의 좌표를 바꿔 줌
 socket.on("트랜스볼 맞춤", (data) => {
   // 맞은 사람의 좌표를 받아 내 좌표가 바뀜
   // data > x, y
+  socket.emit("맞춘 사람의 위치1", {
+    x: players[myId].x,
+    y: players[myId].y,
+    id: ball.id
+  })
   players[myId].x = data.x;
   players[myId].y = data.y;
 });
 
-//renderPlayer > keyPressed >
-socket.emit("트랜스볼 생성", {
-  x: players[myId].x,
-  y: players[myId].y,
-  direction: player[myId].direction,
-  id: myId,
-});
-// > io.to().emit("트랜스볼 씀");

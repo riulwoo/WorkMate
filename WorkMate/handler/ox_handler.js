@@ -87,4 +87,39 @@ module.exports = (io, socket, room) => {
       }
     }
   });
+
+  //------------------------------------------ transball -------------------------------------------------
+  // 클라emit 트랜스볼 없어짐 > on 트랜스볼 삭제
+// 클라emit트랜스볼 맞음 > on 맞춤
+// 클라emit 트랜스볼 생성 > on 트랜스볼 씀
+  socket.on("트랜스볼 생성", (data) => {
+    const { x, y, direction, id } = data;
+    let index = room.findIndex((e) => e.userid.includes(id));
+    io.to(room[index].roomCode).emit("트랜스볼 씀", {
+      x : x,
+      y : y,
+      direction : direction,
+      id : id
+    })
+  })
+
+  socket.on("맞춘 사람의 위치1" , (data) => {
+      io.sockets.socket(data.id).emit("맞춘 사람의 위치2", {
+      x : data.x,
+      y : data.y
+    })
+  })
+  
+  socket.on("트랜스볼 없어짐", (data)=>{
+    const {id, i} = data;
+    let index = room.findIndex((e) => e.userid.includes(id));
+    io.to(room[index].roomCode).emit("트랜스볼 삭제", i);
+  })
+
+  socket.on("트랜스볼 맞음", (data)=>{
+    io.sockets.socket(data.id).emit("트랜스볼 맞춤", {
+      x : data.x,
+      y : data.y
+    })
+  })
 };

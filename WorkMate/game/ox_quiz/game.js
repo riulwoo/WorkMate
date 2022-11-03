@@ -21,7 +21,7 @@ let ox_XY = [
 
 let ox_interval1;
 let ox_interval2;
-
+var ballPressed = false;
 // Game Flow 관련
 var is_during = false; // 문제가 진행중일 때 true.
 var is_breaking = false; // 정답을 확인하고 다음 문제가 나오기 전까지 true.
@@ -33,7 +33,7 @@ var break_num = 0;
 var check_num = 0;
 
 var answer_cnt = false; // 문제를 맞췄을 때 활성화 되어 점수를 올려주는 체크용 변수
-
+let balls = [];
 document.addEventListener("keydown", ox_keyDownHandler, false);
 document.addEventListener("keyup", ox_keyUpHandler, false);
 
@@ -55,6 +55,9 @@ function ox_keyDownHandler(e) {
     // "ArrowUp"
     upPressed = true;
   }
+  if (e.keyCode == 74) {
+    ballPressed = true;
+  }
 }
 
 /** 키를 뗐을 때 실행되는 메서드 */
@@ -75,6 +78,9 @@ function ox_keyUpHandler(e) {
     // "ArrowUp"
     upPressed = false;
   }
+  if (e.keyCode == 74){
+    ballPressed = false;
+  }
 }
 
 /** 게임 맵을 그리는 메서드 */
@@ -89,10 +95,16 @@ function ox_field_draw() {
   ox_ctx.beginPath();
   ox_ctx.fillStyle = "bisque";
   ox_ctx.fillRect(0, 0, X, Y / 4);
+  // O 영역
   ox_ctx.fillStyle = "#87AFFD";
-  ox_ctx.fillRect(0, Y / 4, X / 2, Y);
+  ox_ctx.fillRect(0, Y / 4, (X * 40) / 100, Y);
+  // 중앙 영역
+  ox_ctx.fillStyle = "#87AFFD";
+  ox_ctx.fillRect((X * 40) / 100, Y / 4, (X * 20) / 100, Y);
+  // Y 영역
   ox_ctx.fillStyle = "#FE8787";
-  ox_ctx.fillRect(X / 2, Y / 4, X, Y);
+  ox_ctx.fillRect(X * 60) / 100, Y / 4, (X * 40) / 100, Y);
+  // O, X 텍스트
   ox_ctx.fillStyle = "white";
   ox_ctx.font = "348px DungGeunMo";
   ox_ctx.textAlign = "center";
@@ -104,6 +116,118 @@ function ox_field_draw() {
   ox_ctx.closePath();
 }
 
+function ox_break_draw() {
+  ox_ctx.clearRect(0, 0, X, Y / 4);
+  ox_ctx.fillStyle = "bisque";
+  ox_ctx.fillRect(0, 0, X, Y / 4);
+  ox_ctx.fillStyle = "black";
+  ox_ctx.font = "48px DungGeunMo";
+  // measureText() = 문자열의 넓이 반환
+  ox_ctx.textAlign = "center";
+  ox_ctx.fillText("READY??", X / 2, Y / 6.5);
+  ox_ctx.fillStyle = "#90DBA2";
+  ox_ctx.font = "200px DungGeunMo";
+  ox_ctx.textAlign = "center";
+  
+  if (break_num == 0) ox_ctx.fillText("START!!!", X / 2, Y / 1.6);
+  else if (break_num <= 3) ox_ctx.fillText(break_num, X / 2, Y / 1.6);
+}
+
+function ox_check_draw() {
+  ox_ctx.clearRect(0, 0, X, Y / 4);
+  ox_ctx.fillStyle = "bisque";
+  ox_ctx.fillRect(0, 0, X, Y / 4);
+
+  ox_ctx.fillStyle = "black";
+  ox_ctx.font = "48px DungGeunMo";
+  ox_ctx.textAlign = "center";
+
+  if (answer && players[myId].is_O) {
+    // 정답이 O. and 플레이어가 O.
+    ox_ctx.fillText("정답입니다!!", X / 2, Y / 6.5);
+    answer_cnt = true;
+  } else if (!answer && players[myId].is_X) {
+    // 정답이 X. and 플레이어가 X.
+    ox_ctx.fillText("정답입니다!!", X / 2, Y / 6.5);
+    answer_cnt = true;
+  } else {
+    ox_ctx.fillText("틀렸습니다!!", X / 2, Y / 6.5);
+  }
+}
+
+function ox_during_draw() {
+  // 문제 출력 전에 영역을 초기화 시켜줌
+  ox_ctx.clearRect(0, 0, X, Y / 4);
+  ox_ctx.fillStyle = "bisque";
+  ox_ctx.fillRect(0, 0, X, Y / 4);
+
+  // 문제 출력
+  ox_ctx.fillStyle = "black";
+  if (question.length < 20) {
+    ox_ctx.font = "48px DungGeunMo";
+  } else {
+    ox_ctx.font = "36px DungGeunMo";
+  }
+  // measureText() = 문자열의 넓이 반환
+  ox_ctx.textAlign = "center";
+  ox_ctx.fillText(question, X / 2, Y / 6.5);
+
+  // 카운트다운 출력
+  ox_ctx.fillStyle = "#90DBA2";
+  ox_ctx.font = "200px DungGeunMo";
+  ox_ctx.textAlign = "center";
+  if (during_num <= 5) {
+    ox_ctx.fillText(during_num, X / 2, Y / 1.6);
+  }
+}
+
+function ox_end_draw() {
+      let overmsg = "당신의 점수를 이력서에 추가하는 중입니다..";
+      ox_ctx.clearRect(0, 0, X, Y / 4);
+      ox_ctx.fillStyle = "bisque";
+      ox_ctx.fillRect(0, 0, X, Y / 4);
+      ox_ctx.fillStyle = "black";
+      ox_ctx.font = "48px DungGeunMo";
+      // measureText() = 문자열의 넓이 반환
+      ox_ctx.textAlign = "center";
+  
+      ox_ctx.fillText("게임 끝!!!!!", X / 2, Y / 6.5);
+      ox_ctx.fillText(overmsg, ox_ctx.measureText(overmsg).width, Y / 1.6);
+    }
+
+function ox_score_draw() {
+  // 점수 출력
+  ox_ctx.fillStyle = "black";
+  ox_ctx.font = "24px DungGeunMo";
+  ox_ctx.textAlign = "center";
+  ox_ctx.fillText(
+    "Score : " + players[myId].score,
+    (X * 5) / 100,
+    (Y * 3) / 100
+  );
+}
+
+function ox_ballSlot_draw() {
+  ox_ctx.beginPath();
+  ox_ctx.font = "30px DungGeunMo";
+  ox_ctx.textAlign = "left";
+  ox_ctx.fillStyle = "white";
+  ox_ctx.fillText("BALL", (X * 85) / 100, (Y * 3) / 100);
+
+  /**
+  if (players[myId].ballcnt > 0) {
+    ox_ctx.drawImage(ball_asset, (X * 78) / 100, (Y * 5.2) / 100);
+    
+  }
+  */
+  
+  ox_ctx.strokeStyle = "white";
+  ox_ctx.lineWidth = 5;
+  ox_ctx.strokeRect((X * 75) / 100, (Y * 5) / 100, 60, 60);
+  ox_ctx.strokeRect((X * 90) / 100, (Y * 5) / 100, 60, 60);
+
+  ox_ctx.closePath();
+}
 /** 게임 시작 전 로딩창을 띄우는 메서드 */
 function ox_func_lding() {
   return new Promise((r1, r2) => {
@@ -146,6 +270,7 @@ socket.on("ox_during", (data) => {
   during_num = during_time;
   answer = _answer;
 });
+
 socket.on("ox_checking", (checking_time) => {
   is_during = false;
   is_breaking = false;
@@ -168,116 +293,18 @@ socket.on("ox_end", () => {
   }, 3000);
 });
 
+
 function ox_update() {
-  ox_canvas.width = document.body.clientWidth;
-  ox_canvas.height = document.body.clientHeight;
-
-  X = ox_canvas.width;
-  Y = ox_canvas.height;
-
-  // draw playground. 플레이어가 이동할 필드를 그립니다.
-  ox_ctx.clearRect(0, 0, X, Y / 4);
-
-  ox_ctx.fillStyle = "#87AFFD";
-  ox_ctx.fillRect(0, Y / 4, X / 2, Y);
-  ox_ctx.fillStyle = "#FE8787";
-  ox_ctx.fillRect(X / 2, Y / 4, X, Y);
-  ox_ctx.fillStyle = "white";
-  ox_ctx.font = "348px DungGeunMo";
-  ox_ctx.textAlign = "center";
-  ox_ctx.fillText("O", X / 4, Y / 1.4);
-  ox_ctx.fillStyle = "white";
-  ox_ctx.font = "348px DungGeunMo";
-  ox_ctx.textAlign = "center";
-  ox_ctx.fillText("X", X - X / 4, Y / 1.4);
-
-  if (is_breaking) {
-    ox_ctx.clearRect(0, 0, X, Y / 4);
-    ox_ctx.fillStyle = "bisque";
-    ox_ctx.fillRect(0, 0, X, Y / 4);
-    ox_ctx.fillStyle = "black";
-    ox_ctx.font = "48px DungGeunMo";
-    // measureText() = 문자열의 넓이 반환
-    ox_ctx.textAlign = "center";
-    ox_ctx.fillText("READY??", X / 2, Y / 6.5);
-    ox_ctx.fillStyle = "#90DBA2";
-    ox_ctx.font = "200px DungGeunMo";
-    ox_ctx.textAlign = "center";
-
-    if (break_num == 0) ox_ctx.fillText("START!!!", X / 2, Y / 1.6);
-    else if (break_num <= 3) ox_ctx.fillText(break_num, X / 2, Y / 1.6);
-  }
-
-  if (is_during) {
-    // 문제 출력 전에 영역을 초기화 시켜줌
-    ox_ctx.clearRect(0, 0, X, Y / 4);
-    ox_ctx.fillStyle = "bisque";
-    ox_ctx.fillRect(0, 0, X, Y / 4);
-
-    // 문제 출력
-    ox_ctx.fillStyle = "black";
-    if (question.length < 20) {
-      ox_ctx.font = "48px DungGeunMo";
-    } else {
-      ox_ctx.font = "36px DungGeunMo";
-    }
-    // measureText() = 문자열의 넓이 반환
-    ox_ctx.textAlign = "center";
-    ox_ctx.fillText(question, X / 2, Y / 6.5);
-
-    // 카운트다운 출력
-    ox_ctx.fillStyle = "#90DBA2";
-    ox_ctx.font = "200px DungGeunMo";
-    ox_ctx.textAlign = "center";
-    if (during_num <= 5) {
-      ox_ctx.fillText(during_num, X / 2, Y / 1.6);
-    }
-  }
-  if (is_checking) {
-    ox_ctx.clearRect(0, 0, X, Y / 4);
-    ox_ctx.fillStyle = "bisque";
-    ox_ctx.fillRect(0, 0, X, Y / 4);
-
-    ox_ctx.fillStyle = "black";
-    ox_ctx.font = "48px DungGeunMo";
-    ox_ctx.textAlign = "center";
-
-    if (answer && players[myId].is_O) {
-      // 정답이 O. and 플레이어가 O.
-      ox_ctx.fillText("정답입니다!!", X / 2, Y / 6.5);
-      answer_cnt = true;
-    } else if (!answer && !players[myId].is_O) {
-      // 정답이 X. and 플레이어가 X.
-      ox_ctx.fillText("정답입니다!!", X / 2, Y / 6.5);
-      answer_cnt = true;
-    } else {
-      ox_ctx.fillText("틀렸습니다!!", X / 2, Y / 6.5);
-    }
-  }
-  if (is_end) {
-    let overmsg = "당신의 점수를 이력서에 추가하는 중입니다..";
-    ox_ctx.clearRect(0, 0, X, Y / 4);
-    ox_ctx.fillStyle = "bisque";
-    ox_ctx.fillRect(0, 0, X, Y / 4);
-    ox_ctx.fillStyle = "black";
-    ox_ctx.font = "48px DungGeunMo";
-    // measureText() = 문자열의 넓이 반환
-    ox_ctx.textAlign = "center";
-
-    ox_ctx.fillText("게임 끝!!!!!", X / 2, Y / 6.5);
-    ox_ctx.fillText(overmsg, ox_ctx.measureText(overmsg).width, Y / 1.6);
-  }
-
-  // 점수 출력
-  ox_ctx.fillStyle = "black";
-  ox_ctx.font = "24px DungGeunMo";
-  ox_ctx.textAlign = "center";
-  ox_ctx.fillText(
-    "Score : " + players[myId].score,
-    (X * 5) / 100,
-    (Y * 3) / 100
-  );
+  ox_field_draw();
   ox_renderPlayer();
+  drawBall();
+  distBall();
+  if (is_breaking) ox_break_draw();
+  if (is_during)   ox_during_draw();
+  if (is_checking) ox_checking_draw();
+  if (is_end)      ox_end_draw();
+  ox_score_draw();
+  ox_ballSlot_draw();
 } // end of update
 
 function answer_score() {
