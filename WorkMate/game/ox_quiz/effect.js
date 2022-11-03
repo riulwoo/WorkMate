@@ -1,8 +1,8 @@
 //트랜스볼 객체
 function transBall(x, y, direction, id) {
   // 처음에 쏜 사람의 위치.
-  this.x = (x + 25) * 100 / X;
-  this.y = (y + 35) * 100 / Y;
+  this.x = x * 100 / X + 25;
+  this.y = y * 100 / Y + 35;
   this.direction = direction;
   this.radius = 3;
   
@@ -111,6 +111,7 @@ socket.on("트랜스볼 삭제", (i) => balls.splice(i, 1));
 //메시지 처리 구역
 socket.on("트랜스볼 씀", (data) => {
   //data = x, y, direction, id
+  console.log(data.x * 100 / X);
   balls.push(new transBall(data.x, data.y, data.direction, data.id));
 });
 
