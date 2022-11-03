@@ -18,9 +18,8 @@ function surviv_renderPlayer() {
     }
 
     surv_ctx.fillStyle = player.color;
-    surv_ctx.font = "15px DungGeunMo";
-    surv_ctx.textAlign = "center";
-    surv_ctx.fillText(player.nick, player.x, player.y - player.radius - 10);
+    surv_ctx.font = "bold 20px DungGeunMo";
+    surv_ctx.fillText(player.nick, player.x + 25, player.y - player.radius + 10);
 
     surv_ctx.closePath();
 
@@ -160,7 +159,7 @@ function surviv_player(id, nick, x, y, color) {
     "https://cdn.discordapp.com/attachments/980090904394219562/1026451629450481664/gg_16.png", // 왼아래
     "https://cdn.discordapp.com/attachments/980090904394219562/1026451379939717130/dd_03.png", // 왼위
     "https://cdn.discordapp.com/attachments/980090904394219562/1026451865224884234/gg_18.png", // 오른아래
-    "https://cdn.discordapp.com/attachments/980090904394219562/1026451494075125800/gg_07.png",
+    "https://cdn.discordapp.com/attachments/980090904394219562/1026451494075125800/gg_07.png"
   ];
   this.PLAYERSPEED = 5;
   this.radius = 25; // 반지름

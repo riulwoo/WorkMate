@@ -160,7 +160,7 @@ function flip_func_lding() {
     document.body.style.backgroundImage =
       "url('https://media.discordapp.net/attachments/980090904394219562/1021799584667803839/GIF_2022-09-21_12-06-13.gif?width=1266&height=636')"; // 나중에 카드 로딩창으로 수정하기.
     for (let i = 0; i < playerinfo.length; i++) {
-      let player = new flip_player(playerinfo[i].id, playerinfo[i].nick, flip_XY[i][0], flip_XY[i][1]);
+      let player = new flip_player(playerinfo[i].id, playerinfo[i].nick, flip_XY[i][0], flip_XY[i][1], colorNick[i]);
       playermap[i] = player;
       players[playerinfo[i].id] = player;
     }

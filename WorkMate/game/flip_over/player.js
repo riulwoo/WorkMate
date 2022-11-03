@@ -7,8 +7,8 @@ function flip_renderPlayer() {
     flip_ctx.drawImage(ball.player, ball.x, ball.y, 50, 70);
     flip_ctx.beginPath();
     flip_ctx.fillStyle = ball.color;
-    flip_ctx.font = "15px DungGeunMo";
-    flip_ctx.fillText(ball.nick, ball.x + 15, ball.y - ball.radius + 10);
+    flip_ctx.font = "bold 20px DungGeunMo";
+    flip_ctx.fillText(ball.nick, ball.x + 25, ball.y - ball.radius + 10);
     flip_ctx.closePath();
   }
   let curPlayer = players[myId];

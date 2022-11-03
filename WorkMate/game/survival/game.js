@@ -41,7 +41,8 @@ function surviv_func_lding() {
         playerinfo[i].id,
         playerinfo[i].nick,
         surv_XY[i][0],
-        surv_XY[i][1]
+        surv_XY[i][1],
+        colorNick[i]
       );
       playermap[i] = player;
       players[playerinfo[i].id] = player;
