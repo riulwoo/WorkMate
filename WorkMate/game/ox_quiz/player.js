@@ -6,11 +6,11 @@ function ox_renderPlayer() {
     ox_ctx.drawImage(ball.player, ball.x, ball.y, 50, 70);
     ox_ctx.beginPath();
     ox_ctx.fillStyle = ball.color;
-    ox_ctx.font = "bold 15px DungGeunMo";
-    ox_ctx.fillText(ball.nick, ball.x + 15, ball.y - ball.radius + 10);
+    ox_ctx.font = "bold 17px DungGeunMo";
+    ox_ctx.fillText(ball.nick, ball.x + 25, ball.y - ball.radius + 10);
     ox_ctx.fillStyle = "black";
-    ox_ctx.font = "16px DungGeunMo";
-    ox_ctx.strokeText(ball.nick, ball.x + 15, ball.y - ball.radius + 10);
+    ox_ctx.font = "20px DungGeunMo";
+    ox_ctx.strokeText(ball.nick, ball.x + 25, ball.y - ball.radius + 10);
     ox_ctx.closePath();
   }
   let curPlayer = players[myId];
