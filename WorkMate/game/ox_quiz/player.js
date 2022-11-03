@@ -76,7 +76,7 @@ function ox_renderPlayer() {
     socket.emit("트랜스볼 생성", {
       x: players[myId].x,
       y: players[myId].y,
-      direction: player[myId].direction,
+      direction: players[myId].direction,
       id: myId,
     });
   }

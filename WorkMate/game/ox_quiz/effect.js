@@ -62,6 +62,7 @@ function transBall(x, y, direction, id) {
 function drawBall() {
   // 그리기
   if (balls.length > 0) {
+    console.log("여긴 drawBall 입니다 정상 작동중 ");
     for (let i = 0; i < balls.length; i++) {
       let ball = balls[i];
       ox_ctx.beginPath();
@@ -89,6 +90,7 @@ function drawBall() {
 
 // 트랜스볼 충돌 시 실행 함수 > 충돌 여부 체크는 ? 
 function distBall() {
+  console.log("여긴 distBall 입니다 정상 작동중 ");
   let px = players[myId].x - players[myId].radius;
   let py = players[myId].y - players[myId].radius;
   let sx;
@@ -124,6 +126,7 @@ socket.on("트랜스볼 삭제", (i) => balls.splice(i, 1));
 socket.on("트랜스볼 씀", (data) => {
   //data = x, y, direction, id
   balls.push(new transBall(data.x, data.y, data.direction, data.id));
+  console.log("트랜스볼 생성되었다" + balls[0])
 });
 
 socket.on("맞춘 사람의 위치2", (data) => {

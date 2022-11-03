@@ -99,7 +99,7 @@ function ox_field_draw() {
   ox_ctx.fillStyle = "#87AFFD";
   ox_ctx.fillRect(0, Y / 4, (X * 40) / 100, Y);
   // 중앙 영역
-  ox_ctx.fillStyle = "#87AFFD";
+  ox_ctx.fillStyle = "#757E8B";
   ox_ctx.fillRect((X * 40) / 100, Y / 4, (X * 20) / 100, Y);
   // Y 영역
   ox_ctx.fillStyle = "#FE8787";
@@ -211,8 +211,8 @@ function ox_ballSlot_draw() {
   ox_ctx.beginPath();
   ox_ctx.font = "30px DungGeunMo";
   ox_ctx.textAlign = "left";
-  ox_ctx.fillStyle = "white";
-  ox_ctx.fillText("BALL", (X * 85) / 100, (Y * 3) / 100);
+  ox_ctx.fillStyle = "black";
+  ox_ctx.fillText("BALL", (X * 97) / 100, (Y * 13) / 100);
 
   /**
   if (players[myId].ballcnt > 0) {
@@ -221,10 +221,10 @@ function ox_ballSlot_draw() {
   }
   */
   
-  ox_ctx.strokeStyle = "white";
+  ox_ctx.strokeStyle = "black";
   ox_ctx.lineWidth = 5;
-  ox_ctx.strokeRect((X * 75) / 100, (Y * 5) / 100, 60, 60);
-  ox_ctx.strokeRect((X * 90) / 100, (Y * 5) / 100, 60, 60);
+  ox_ctx.strokeRect((X * 95) / 100, (Y * 14) / 100, 60, 60);
+  ox_ctx.strokeRect((X * 98) / 100, (Y * 14) / 100, 60, 60);
 
   ox_ctx.closePath();
 }
@@ -301,7 +301,7 @@ function ox_update() {
   distBall();
   if (is_breaking) ox_break_draw();
   if (is_during)   ox_during_draw();
-  if (is_checking) ox_checking_draw();
+  if (is_checking) ox_check_draw();
   if (is_end)      ox_end_draw();
   ox_score_draw();
   ox_ballSlot_draw();
