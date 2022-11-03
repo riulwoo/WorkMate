@@ -60,7 +60,7 @@ surviv_func_lding().then(() => {
 
 socket.on("survival_start", (data) => {
   is_counting = true;
-);
+});
 
   for (let i = 0; i < data.goal.length; i++) {
     goal.push(new Goal(data.goal[i].x, data.goal[i].y));
