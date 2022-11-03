@@ -94,6 +94,7 @@ module.exports = (io, socket, room) => {
   // 클라emit 트랜스볼 생성 > on 트랜스볼 씀
   socket.on("트랜스볼 생성", (data) => {
     const { x, y, direction, id } = data;
+    console.log("넘어온 퍼센트 값 : " + y);
     let index = room.findIndex((e) => e.userid.includes(id));
     io.to(room[index].roomCode).emit("트랜스볼 씀", {
       x : x,

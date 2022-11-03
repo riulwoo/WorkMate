@@ -1,8 +1,9 @@
 //트랜스볼 객체
-function transBall(x, y, direction, id) {
+function transBall(_x, _y, direction, id) {
   // 처음에 쏜 사람의 위치.
-  this.x = (x * X) / 100 + 25;
-  this.y = (y * X) / 100 + 35;
+  console.log(_x, _y)
+  this.x = (_x * X) / 100 + 25;
+  this.y = (_y * Y) / 100 + 35;
   this.direction = direction;
   this.radius = 3;
   
@@ -53,8 +54,6 @@ function drawBall() {
     for (let i = 0; i < balls.length; i++) {
       let ball = balls[i];
       ox_ctx.beginPath();
-      console.log(ball.x - ball.radius, ball.y - ball.radius);
-      console.log(ball.x, ball.y);
       
       ox_ctx.drawImage(ball.image, ball.x - 25, ball.y - 35, 30, 20); // 크기는 65, 65
 
@@ -114,7 +113,7 @@ socket.on("트랜스볼 삭제", (i) => balls.splice(i, 1));
 //메시지 처리 구역
 socket.on("트랜스볼 씀", (data) => {
   //data = x, y, direction, id
-  console.log(data.y * Y / 100);
+  console.log("클라로 넘어온 값 : " + dat)
   balls.push(new transBall(data.x, data.y, data.direction, data.id));
 });
 

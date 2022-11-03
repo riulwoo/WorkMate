@@ -75,7 +75,7 @@ function ox_renderPlayer() {
     }
   }
   if(ballPressed && curPlayer.balldelaysec <= 0 && !is_checking) { //
-    console.log(players[myId].y * 100 / Y);
+    console.log("플레이어 좌표 : " + players[myId].y + " / 퍼센트 값 : " + players[myId].y * 100 / Y);
     socket.emit("트랜스볼 생성", {
       x: players[myId].x * 100 / X,
       y: players[myId].y * 100 / Y,
