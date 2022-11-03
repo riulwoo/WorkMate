@@ -66,7 +66,7 @@ function drawBall() {
     for (let i = 0; i < balls.length; i++) {
       let ball = balls[i];
       ox_ctx.beginPath();
-      ox_ctx.drawImage(ball.image, ball.x - ball.radius, ball.y - ball.radius, 65, 65); // 크기는 65, 65
+      ox_ctx.drawImage(ball.image, ball.x - ball.radius, ball.y - ball.radius, 30, 20); // 크기는 65, 65
 
       ox_ctx.closePath();
       //draw
@@ -107,10 +107,10 @@ function distBall() {
     ) {
       // 좌표랑 좌표를 서로 바꿔주는 effect효과를 넣어야 함
       // 내 좌표만 그 사람의 좌표로 바뀌고
-      socket.emit("트랜스볼 맞음", { 
+      socket.emit("트랜스볼 맞음", {
         x: players[myId].x,
         y: players[myId].y,
-        id: ball.id
+        id: balls[i].id
       });
       
       socket.emit("트랜스볼 없어짐", {

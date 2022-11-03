@@ -96,7 +96,7 @@ function ox_renderPlayer() {
   if (players[myId].x < (X * 40) / 100) {
     players[myId].is_O = true;
     players[myId].is_X = false;
-  } else if (players[myId].x >= (X * 40) / 100) {
+  } else if (players[myId].x >= (X * 60) / 100) {
     players[myId].is_O = false;
     players[myId].is_X = true;
   }
