@@ -284,7 +284,7 @@ function removePlayer(id) {
 }
 
 function randomCode() {
-  return (new Date().getTime() + Math.random()).toString(36).substring(2, 7);
+  return (new Date().getTime() + Math.random()).toString(36).substring(2, 7).toUpperCase();
 }
 
 function match() {

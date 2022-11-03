@@ -110,17 +110,17 @@ module.exports = (io, socket, room) => {
       })
   })
   
-  socket.on("트랜스볼 없어짐", (data)=>{
+  socket.on("트랜스볼 없어짐", (data) => {
     const {id, i} = data;
     let index = room.findIndex((e) => e.userid.includes(id));
     io.to(room[index].roomCode).emit("트랜스볼 삭제", i);
   })
 
-  socket.on("트랜스볼 맞음", (data)=>{
+  socket.on("트랜스볼 맞음", (data) => {
     io.sockets.to(data.id).emit("트랜스볼 맞춤", {
       x : data.x,
       y : data.y,
-      id : data.id
+      id : socket.id
     })
   })
 };
