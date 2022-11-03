@@ -53,7 +53,10 @@ function drawBall() {
     for (let i = 0; i < balls.length; i++) {
       let ball = balls[i];
       ox_ctx.beginPath();
-      ox_ctx.drawImage(ball.image, ball.x - ball.radius, ball.y - ball.radius, 30, 20); // 크기는 65, 65
+      console.log(ball.x - ball.radius, ball.y - ball.radius);
+      console.log(ball.x, ball.y);
+      
+      ox_ctx.drawImage(ball.image, ball.x - 25, ball.y - 35, 30, 20); // 크기는 65, 65
 
       ox_ctx.closePath();
       //draw
