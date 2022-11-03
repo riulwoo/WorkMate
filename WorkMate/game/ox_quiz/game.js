@@ -3,12 +3,12 @@ let ox_ctx = ox_canvas.getContext("2d");
 count_sec = Math.ceil(COUNT_DUR_TIME * FPS);
 let question = ""; // 문제 변수
 let answer; // 답 변수
-let f_size_ox = (X * 30) / 100;
-let f_size_center = (X * 5) / 100;
-let f_size_quiz = (X * 4) / 100;
-let f_size_score = (X * 2) / 100;
-let playersizeX = (X * 2.6) / 100;
-let playersizeY = (Y * 3.6) / 100;
+let f_size_ox = Math.floor((X * 30) / 100);
+let f_size_center = Math.floor((X * 5) / 100);
+let f_size_quiz = Math.floor((X * 4) / 100);
+let f_size_score = Math.floor((X * 2) / 100);
+let playersizeX = Math.floor((X * 3.6) / 100);
+let playersizeY = Math.floor((Y * 7.4) / 100);
 // 크기 변수
 ox_canvas.width = document.body.clientWidth;
 ox_canvas.height = document.body.clientHeight;
