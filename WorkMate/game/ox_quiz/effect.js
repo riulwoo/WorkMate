@@ -1,8 +1,8 @@
 //트랜스볼 객체
 function transBall(_x, _y, direction, id) {
   // 처음에 쏜 사람의 위치.
-  this.x = (_x * X) / 100 + 25;
-  this.y = (_y * Y) / 100 + 35;
+  this.x = (_x * X) / 100 + playersizeX / 2;
+  this.y = (_y * Y) / 100 + playersizeY / 2;
   this.direction = direction;
   this.radius = 3;
   
@@ -88,7 +88,7 @@ function distBall() {
 
     if (
       distBetweenPoints(px, py, sx, sy) <
-        balls[i].radius + 35 &&
+        balls[i].radius + playersizeY / 2 &&
       players[myId].id != balls[i].id
     ) {
       // 좌표랑 좌표를 서로 바꿔주는 effect효과를 넣어야 함
