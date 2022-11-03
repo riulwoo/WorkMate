@@ -103,7 +103,7 @@ function ox_field_draw() {
   ox_ctx.fillRect((X * 40) / 100, Y / 4, (X * 20) / 100, Y);
   // Y 영역
   ox_ctx.fillStyle = "#FE8787";
-  ox_ctx.fillRect(X * 60) / 100, Y / 4, (X * 40) / 100, Y);
+  ox_ctx.fillRect((X * 60) / 100, Y / 4, (X * 40) / 100, Y);
   // O, X 텍스트
   ox_ctx.fillStyle = "white";
   ox_ctx.font = "348px DungGeunMo";
