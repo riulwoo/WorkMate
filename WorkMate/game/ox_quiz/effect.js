@@ -96,8 +96,8 @@ function distBall() {
       // 좌표랑 좌표를 서로 바꿔주는 effect효과를 넣어야 함
       // 내 좌표만 그 사람의 좌표로 바뀌고
       socket.emit("트랜스볼 맞음", {
-        x: players[myId].x,
-        y: players[myId].y,
+        x: players[myId].x * 100 / X,
+        y: players[myId].y * 100 / Y,
         id: balls[i].id
       });
       
@@ -120,8 +120,8 @@ socket.on("맞춘 사람의 위치2", (data) => {
   console.log("-----------------------------------------");
   console.log("맞춘 사람의 좌표 값 : " + data.x + " / " + data.y);
   console.log("내 좌표 값 : " + players[myId].x + " / " + players[myId].y);
-  players[myId].x = data.x;
-  players[myId].y = data.y;
+  players[myId].x = data.x * X / 100;
+  players[myId].y = data.y * Y / 100;
   sendData(players[myId]);
   console.log("맞춘 사람 좌표로 이동 후 좌표 값 : " + players[myId].x + " / " + players[myId].y);
   console.log("-----------------------------------------");
@@ -135,12 +135,12 @@ socket.on("트랜스볼 맞춤", (data) => {  // 공을 던진 사람
   console.log("맞은 사람의 좌표 값 : " + data.x + " / " + data.y);
   console.log("내 좌표 값 : " + players[myId].x + " / " + players[myId].y);
   socket.emit("맞춘 사람의 위치1", {
-    x: players[myId].x,
-    y: players[myId].y,
+    x: players[myId].x * 100 / X,
+    y: players[myId].y * 100 / Y,
     id: data.id
   })
-  players[myId].x = data.x;
-  players[myId].y = data.y;
+  players[myId].x = data.x * X / 100;
+  players[myId].y = data.y * Y / 100;
   sendData(players[myId]);
   console.log("맞은 사람 좌표로 이동 후 좌표 값 : " + players[myId].x + " / " + players[myId].y);
   console.log("-----------------------------------------");
