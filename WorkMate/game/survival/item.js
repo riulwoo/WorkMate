@@ -80,10 +80,7 @@ function distItem() {
     let ix = itemBox.x + itemBox.radius;
     let iy = itemBox.y + itemBox.radius;
 
-    if (
-      distBetweenPoints(px, py, ix, iy) <
-      itemBox.radius + players[myId].radius
-    ) {
+    if (distBetweenPoints(px, py, ix, iy) < itemBox.radius + players[myId].radius) {
       players[myId].hasItem = true;
       players[myId].itemPocket = itemBox.type;
       //players[myId].itemPocket = 0;
