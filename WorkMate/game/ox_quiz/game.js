@@ -212,7 +212,7 @@ function ox_ballSlot_draw() {
   ox_ctx.font = "30px DungGeunMo";
   ox_ctx.textAlign = "left";
   ox_ctx.fillStyle = "black";
-  ox_ctx.fillText("BALL", (X * 95) / 100, (Y * 15) / 100);
+  ox_ctx.fillText("BALL", (X * 95) / 100, (Y * 17) / 100);
 
   /**
   if (players[myId].ballcnt > 0) {
@@ -223,8 +223,8 @@ function ox_ballSlot_draw() {
   
   ox_ctx.strokeStyle = "black";
   ox_ctx.lineWidth = 5;
-  ox_ctx.strokeRect((X * 91) / 100, (Y * 17) / 100, 60, 60);
-  ox_ctx.strokeRect((X * 96) / 100, (Y * 16) / 100, 60, 60);
+  ox_ctx.strokeRect((X * 93) / 100, (Y * 18) / 100, 60, 60);
+  ox_ctx.strokeRect((X * 97) / 100, (Y * 18) / 100, 60, 60);
 
   ox_ctx.closePath();
 }
