@@ -118,6 +118,9 @@ socket.on("맞춘 사람의 위치2", (data) => {
   console.log("-----------------------------------------");
   console.log("맞춘 사람의 좌표 값 : " + data.x + " / " + data.y);
   console.log("내 좌표 값 : " + players[myId].x + " / " + players[myId].y);
+  console.log(data.x);
+  console.log((data.x * X) / 100);
+  console.log(players[myId].x * 100 / X);
   players[myId].x = (data.x * X) / 100;
   players[myId].y = (data.y * Y) / 100;
   sendData(players[myId]);
@@ -132,6 +135,9 @@ socket.on("트랜스볼 맞춤", (data) => {  // 공을 던진 사람
   console.log("-----------------------------------------");
   console.log("맞은 사람의 좌표 값 : " + data.x + " / " + data.y);
   console.log("내 좌표 값 : " + players[myId].x + " / " + players[myId].y);
+  console.log(data.x);
+  console.log((data.x * X) / 100);
+  console.log(players[myId].x * 100 / X);
   socket.emit("맞춘 사람의 위치1", {
     x: (players[myId].x * 100) / X,
     y: (players[myId].y * 100) / Y,
