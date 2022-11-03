@@ -224,7 +224,7 @@ function ox_ballSlot_draw() {
   ox_ctx.strokeStyle = "black";
   ox_ctx.lineWidth = 5;
   ox_ctx.strokeRect((X * 93) / 100, (Y * 18) / 100, 60, 60);
-  ox_ctx.strokeRect((X * 97) / 100, (Y * 18) / 100, 60, 60);
+  ox_ctx.strokeRect((X * 96) / 100, (Y * 18) / 100, 60, 60);
 
   ox_ctx.closePath();
 }

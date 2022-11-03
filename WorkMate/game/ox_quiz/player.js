@@ -93,10 +93,10 @@ function ox_renderPlayer() {
   }
 
   /** 플레이어가 현재 O인지 X인지를 식별하는 조건문 */
-  if (players[myId].x < (X * 40) / 100) {
+  if (players[myId].x + 25 < (X * 40) / 100) {
     players[myId].is_O = true;
     players[myId].is_X = false;
-  } else if (players[myId].x >= (X * 60) / 100) {
+  } else if (players[myId].x + 25 >= (X * 60) / 100) {
     players[myId].is_O = false;
     players[myId].is_X = true;
   }

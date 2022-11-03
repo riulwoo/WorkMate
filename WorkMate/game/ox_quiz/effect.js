@@ -13,8 +13,8 @@ function transBall(x, y, direction, id) {
   // 처음에 쏜 사람의 위치.
   this.initX = x;
   this.initY = y;
-  this.x = x;
-  this.y = y;
+  this.x = x + 25;
+  this.y = y + 35;
   this.direction = direction;
   this.radius = 3;
   
@@ -62,7 +62,6 @@ function transBall(x, y, direction, id) {
 function drawBall() {
   // 그리기
   if (balls.length > 0) {
-    console.log("여긴 drawBall 입니다 정상 작동중 ");
     for (let i = 0; i < balls.length; i++) {
       let ball = balls[i];
       ox_ctx.beginPath();
@@ -90,9 +89,8 @@ function drawBall() {
 
 // 트랜스볼 충돌 시 실행 함수 > 충돌 여부 체크는 ? 
 function distBall() {
-  console.log("여긴 distBall 입니다 정상 작동중 ");
-  let px = players[myId].x - players[myId].radius;
-  let py = players[myId].y - players[myId].radius;
+  let px = players[myId].x + players[myId].radius;
+  let py = players[myId].y + players[myId].radius;
   let sx;
   let sy;
 
@@ -126,18 +124,22 @@ socket.on("트랜스볼 삭제", (i) => balls.splice(i, 1));
 socket.on("트랜스볼 씀", (data) => {
   //data = x, y, direction, id
   balls.push(new transBall(data.x, data.y, data.direction, data.id));
-  console.log("트랜스볼 생성되었다" + balls[0])
 });
 
 socket.on("맞춘 사람의 위치2", (data) => {
+  console.log("맞춘 사람의 좌표 값 : " + data.x + " / " + data.y);
+  console.log("내 좌표 값 : " + players[myId].x + " / " + players[myId].y);
   players[myId].x = data.x;
   players[myId].y = data.y;
+  console.log("맞춘 사람 좌표로 이동 후 좌표 값 : " + players[myId].x + " / " + players[myId].y);
 })
 
 // 쏜 사람과 맞은 사람의 좌표를 바꿔 줌
 socket.on("트랜스볼 맞춤", (data) => {
   // 맞은 사람의 좌표를 받아 내 좌표가 바뀜
   // data > x, y
+  console.log("맞은 사람의 좌표 값 : " + data.x + " / " + data.y);
+  console.log("내 좌표 값 : " + players[myId].x + " / " + players[myId].y);
   socket.emit("맞춘 사람의 위치1", {
     x: players[myId].x,
     y: players[myId].y,
@@ -145,5 +147,6 @@ socket.on("트랜스볼 맞춤", (data) => {
   })
   players[myId].x = data.x;
   players[myId].y = data.y;
+  console.log("맞은 사람 좌표로 이동 후 좌표 값 : " + players[myId].x + " / " + players[myId].y);
 });
 
