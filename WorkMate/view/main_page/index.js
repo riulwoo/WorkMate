@@ -32,7 +32,6 @@ croomBtn.addEventListener("click", function () {
   roomId = randomCode();
   randomNick();
   adminCode.innerText = roomId;
-  console.log("create room 눌림 " + myId + roomId + " " + nickName);
   toggleRoom();
   addPlayer([nickName], [myId]);
   socket.emit("createroom", {
@@ -50,7 +49,6 @@ ready.addEventListener("click", function () {
 });
 
 jroomBtn.addEventListener("click", function () {
-  console.log("join room 눌림");
   randomNick();
   if (rmCodeTxt.value == null || rmCodeTxt.value == "")
     alert("방 코드를 입력해주세요\n" + "입력받은 방코드 : " + rmCodeTxt.value);
@@ -69,18 +67,15 @@ jroomBtn.addEventListener("click", function () {
 });
 
 start.addEventListener("click", function () {
-  console.log("유저 카운트 : " + userCount + " 레디 카운트 : " + readyCount);
-  if (readyCount == 0) console.log("혼자있어서 안됌");
+  if (readyCount == 0);
   else if (readyCount == userCount - 1) {
-    console.log("모든 유저 준비 완료 게임 시작합니다");
     socket.emit("startgame", myId);
-  } else console.log("다른유저가 아직 레디 안해서 안됌");
+  }
 });
 
 cancelBtn.addEventListener("click", function () {
   socket.emit("matchcancel", myId);
   removeAllPlayer(myId);
-  console.log("나가기 눌림");
 });
 
 socket.on("matchfail", function (data) {
@@ -166,5 +161,4 @@ let result = document.getElementById('result');
 
 result.addEventListener('click', ()=>{
   $('#main').load(`/result`);
-  console.log("결과 창 로드 완료");
 });
