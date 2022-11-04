@@ -1,8 +1,7 @@
-
-
 // 절취선
 var matchBtn = document.getElementById("matchStart"); //매칭하기 버튼
-var cancelBtn = document.getElementById("matchcancel"); //방나가기 / 매치 나가기 버튼
+var mcancelBtn = document.getElementById("matchcancel"); //매치 나가기 버튼
+var rcancelBtn = document.getElementById("roomcancel"); //방 나가기
 var croomBtn = document.getElementById("createroom"); //방만들기 버튼
 var jroomBtn = document.getElementById("joinroom"); //방 입장 버튼
 var start = document.getElementById("start"); //게임 시작 버튼
@@ -73,7 +72,9 @@ start.addEventListener("click", function () {
   }
 });
 
-cancelBtn.addEventListener("click", function () {
+mcancelBtn.addEventListener("click", socket.emit("matchcancel", myId));
+
+rcancelBtn.addEventListener("click", function () {
   socket.emit("matchcancel", myId);
   removeAllPlayer(myId);
 });
