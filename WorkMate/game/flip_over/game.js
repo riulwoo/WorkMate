@@ -107,7 +107,7 @@ function flip_score_draw() {
   flip_ctx.textAlign = "center";
   flip_ctx.fillText(
     "score : " + players[myId].score,
-    (X * 35) / 100,
+    (X * 27) / 100,
     (Y * 7) / 100
   );
   flip_ctx.closePath();
