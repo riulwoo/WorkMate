@@ -107,7 +107,7 @@ function flip_score_draw() {
   flip_ctx.textAlign = "left";
   flip_ctx.fillText(
     "score : " + players[myId].score,
-    (X * 22) / 100,
+    (X * 23) / 100,
     (Y * 7) / 100
   );
   flip_ctx.closePath();

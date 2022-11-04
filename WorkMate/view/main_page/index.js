@@ -56,7 +56,7 @@ jroomBtn.addEventListener("click", function () {
   rmCodeTxt.innerText = "";
   socket.emit("joinroom", {
     id: myId,
-    roomid: rmCodeTxt.value,
+    roomid: rmCodeTxt.value.toUpperCase(),
     nick: nickName,
     score: 0,
   });
