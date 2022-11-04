@@ -103,11 +103,11 @@ function card_keyUpHandler(e) {
 function flip_score_draw() {
   flip_ctx.beginPath();
   flip_ctx.fillStyle = "black";
-  flip_ctx.font = "55px DungGeunMo";
+  flip_ctx.font = "42px DungGeunMo";
   flip_ctx.textAlign = "center";
   flip_ctx.fillText(
     "score : " + players[myId].score,
-    (X * 20) / 100,
+    (X * 35) / 100,
     (Y * 7) / 100
   );
   flip_ctx.closePath();
