@@ -29,6 +29,7 @@ module.exports = (io, socket, room) => {
   
   function roomout(id) { // 데이터 삭제 함수
     const index = getRoomIndex(id);
+    console.log(index);
     if(index !== -1) {
       const uIndex = room[index].userid.findIndex(e => e == id);      
       socket.leave(room[index].roomCode);
