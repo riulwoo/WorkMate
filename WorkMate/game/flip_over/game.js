@@ -104,10 +104,10 @@ function flip_score_draw() {
   flip_ctx.beginPath();
   flip_ctx.fillStyle = "black";
   flip_ctx.font = "42px DungGeunMo";
-  flip_ctx.textAlign = "center";
+  flip_ctx.textAlign = "left";
   flip_ctx.fillText(
     "score : " + players[myId].score,
-    (X * 27) / 100,
+    (X * 29) / 100,
     (Y * 7) / 100
   );
   flip_ctx.closePath();
