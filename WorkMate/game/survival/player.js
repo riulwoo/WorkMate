@@ -18,7 +18,7 @@ function surviv_renderPlayer() {
 
     surv_ctx.fillStyle = player.color;
     surv_ctx.font = "bold 20px DungGeunMo";
-    surv_ctx.fillText(player.nick, player.x + 25, player.y - player.radius + 10);
+    surv_ctx.fillText(player.nick, player.x, player.y - player.radius);
 
     surv_ctx.closePath();
 
