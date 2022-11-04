@@ -72,12 +72,12 @@ start.addEventListener("click", function () {
   }
 });
 
-mcancelBtn.addEventListener("click", ()=>{
+mcancelBtn.addEventListener("click", () => {
   socket.emit("matchcancel", myId);
-  console.log('매칭 취소')
+  console.log('매칭 취소');
 });
 
-rcancelBtn.addEventListener("click", function () {
+rcancelBtn.addEventListener("click", () => {
   socket.emit("matchcancel", myId);
   removeAllPlayer(myId);
 });
@@ -161,8 +161,8 @@ socket.on("readyUpdate", (rIndex) => {
   readyUpdate(rIndex);
 });
 
-let result = document.getElementById('result');
+// let result = document.getElementById('result');
 
-result.addEventListener('click', ()=>{
-  $('#main').load(`/result`);
-});
+// result.addEventListener('click', ()=>{
+//   $('#main').load(`/result`);
+// });
