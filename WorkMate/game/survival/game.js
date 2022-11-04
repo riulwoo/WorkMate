@@ -22,7 +22,7 @@ const PLAYER_BLINK_DUR = 2.5; // 플레이어 부활시 깜박임(무적) 지속
 const PER_SEC = 0.1;
 // 장애물 관련
 // 골인지점 관련
-const SHOW_BOUNDING = true; // 이 상수가 true면 피격 판정이 항시로 켜져있음.
+const SHOW_BOUNDING = false; // 이 상수가 true면 피격 판정이 항시로 켜져있음.
 
 var itemPressed = false;
 // 게임 흐름 관련
