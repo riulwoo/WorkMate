@@ -39,10 +39,10 @@ var card_asset_index = [
   "https://cdn.discordapp.com/attachments/980090904394219562/1026201898967126097/card_boom.png",
   "https://cdn.discordapp.com/attachments/980090904394219562/1026370795670347816/card_matched.png",
 ];
-var card_margin = (X * 0.35) / 100; // 카드와 카드 사이의 간격
+var card_margin = (X * 0.75) / 100; // 카드와 카드 사이의 간격 35 55 75
 var card_width = (X * 7.5) / 100; // 카드의 가로 길이
 var card_height = (Y * 13) / 100; // 카드의 세로 길이
-var firstX = (X * 3) / 100; // 카드가 처음 그려질 x 좌표
+var firstX = (X * 5.2) / 100; // 카드가 처음 그려질 x 좌표 4 5.5
 var firstY = (Y * 12) / 100; // 카드가 처음 그려질 y 좌표
 var deck = []; // 카드가 들어갈 배열
 
@@ -169,7 +169,7 @@ socket.on("flip_start", (data) => {
   let cx = firstX;
   let cy = firstY;
   for (let i = 0; i < data.length; i++) {
-    if (i % 12 == 11) {
+    if (i % 11 == 10) {
       make_Deck(cx, cy, data[i]);
       cy = cy + card_height + card_margin;
       cx = firstX;
