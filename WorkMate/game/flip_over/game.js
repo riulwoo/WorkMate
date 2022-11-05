@@ -7,17 +7,19 @@ flip_canvas.height = Math.ceil(document.body.clientHeight);
 // X와 Y는 캔버스의 width와 height를 저장하는데 사용.
 X = flip_canvas.width;
 Y = flip_canvas.height;
+let flip_map = new Image();
+flip_map.src =
+  "https://cdn.discordapp.com/attachments/914865394643271762/1037997369477836800/map.png";
 count_sec = Math.ceil(COUNT_DUR_TIME * FPS);
-// 
-let flip_XY = 
-  [
-    [ X / 2 - 116, Y / 2 - 110 ],
-    [ X / 2      , Y / 2 - 110 ],
-    [ X / 2 + 116, Y / 2 - 110 ],
-    [ X / 2 - 116, Y / 2 + 110 ],
-    [ X / 2      , Y / 2 + 110 ], 
-    [ X / 2 + 116, Y / 2 + 110 ]
-  ];
+//
+let flip_XY = [
+  [X / 2 - 116, Y / 2 - 110],
+  [X / 2, Y / 2 - 110],
+  [X / 2 + 116, Y / 2 - 110],
+  [X / 2 - 116, Y / 2 + 110],
+  [X / 2, Y / 2 + 110],
+  [X / 2 + 116, Y / 2 + 110],
+];
 
 // 플레이어 관련
 const FLIP_PLAYER_STUN_TIME = 1.5; // 플레이어가 폭탄을 맞으면 1.5초간 기절에 걸린다. 그 기절 시간을 상수에 저장해줌
@@ -115,20 +117,17 @@ function flip_score_draw() {
 
 /** 게임 맵을 그리는 메서드 */
 function flip_field_draw() {
-  let map = new Image();
-  map.src = "https://cdn.discordapp.com/attachments/914865394643271762/1037997369477836800/map.png";
   flip_canvas.width = document.body.clientWidth;
   flip_canvas.height = document.body.clientHeight;
 
   X = flip_canvas.width;
   Y = flip_canvas.height;
 
-  
   flip_ctx.beginPath();
   flip_ctx.fillStyle = "#7092BE";
   flip_ctx.fillRect(0, 0, X, Y);
   flip_ctx.closePath();
-  flip_ctx.drawImage(map, 0, 0, X, Y);
+  flip_ctx.drawImage(flip_map, 0, 0, X, Y);
 }
 
 function flip_count_draw() {
@@ -151,7 +150,13 @@ function flip_func_lding() {
     document.body.style.backgroundImage =
       "url('https://media.discordapp.net/attachments/980090904394219562/1021799584667803839/GIF_2022-09-21_12-06-13.gif?width=1266&height=636')"; // 나중에 카드 로딩창으로 수정하기.
     for (let i = 0; i < playerinfo.length; i++) {
-      let player = new flip_player(playerinfo[i].id, playerinfo[i].nick, flip_XY[i][0], flip_XY[i][1], colorNick[i]);
+      let player = new flip_player(
+        playerinfo[i].id,
+        playerinfo[i].nick,
+        flip_XY[i][0],
+        flip_XY[i][1],
+        colorNick[i]
+      );
       playermap[i] = player;
       players[playerinfo[i].id] = player;
     }
@@ -403,11 +408,9 @@ function flip_update() {
     flip_renderPlayer();
     stun_flow();
     delay_check();
-    
   }
   if (flip_is_ending) {
     flip_ending_draw();
-    
   }
 } // end of update
 

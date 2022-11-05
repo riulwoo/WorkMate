@@ -9,7 +9,9 @@ ox_canvas.width = document.body.clientWidth;
 ox_canvas.height = document.body.clientHeight;
 X = ox_canvas.width;
 Y = ox_canvas.height;
-
+let ox_map = new Image();
+ox_map.src =
+  "https://cdn.discordapp.com/attachments/914865394643271762/1037997369935020062/map-export.png";
 let ox_XY = [
   [X / 2 - 16, Y / 2 - 10],
   [X / 2, Y / 2 - 10],
@@ -78,7 +80,7 @@ function ox_keyUpHandler(e) {
     // "ArrowUp"
     upPressed = false;
   }
-  if (e.keyCode == 74){
+  if (e.keyCode == 74) {
     ballPressed = false;
   }
 }
@@ -126,7 +128,7 @@ function ox_break_draw() {
   ox_ctx.fillStyle = "#90DBA2";
   ox_ctx.font = "200px DungGeunMo";
   ox_ctx.textAlign = "center";
-  
+
   if (break_num == 0) ox_ctx.fillText("START!!!", X / 2, Y / 1.6);
   else if (break_num <= 3) ox_ctx.fillText(break_num, X / 2, Y / 1.6);
 }
@@ -180,18 +182,18 @@ function ox_during_draw() {
 }
 
 function ox_end_draw() {
-      let overmsg = "당신의 점수를 이력서에 추가하는 중입니다..";
-      ox_ctx.clearRect(0, 0, X, Y / 4);
-      ox_ctx.fillStyle = "bisque";
-      ox_ctx.fillRect(0, 0, X, Y / 4);
-      ox_ctx.fillStyle = "black";
-      ox_ctx.font = "48px DungGeunMo";
-      // measureText() = 문자열의 넓이 반환
-      ox_ctx.textAlign = "center";
-  
-      ox_ctx.fillText("게임 끝!!!!!", X / 2, Y / 6.5);
-      ox_ctx.fillText(overmsg, ox_ctx.measureText(overmsg).width, Y / 1.6);
-    }
+  let overmsg = "당신의 점수를 이력서에 추가하는 중입니다..";
+  ox_ctx.clearRect(0, 0, X, Y / 4);
+  ox_ctx.fillStyle = "bisque";
+  ox_ctx.fillRect(0, 0, X, Y / 4);
+  ox_ctx.fillStyle = "black";
+  ox_ctx.font = "48px DungGeunMo";
+  // measureText() = 문자열의 넓이 반환
+  ox_ctx.textAlign = "center";
+
+  ox_ctx.fillText("게임 끝!!!!!", X / 2, Y / 6.5);
+  ox_ctx.fillText(overmsg, ox_ctx.measureText(overmsg).width, Y / 1.6);
+}
 
 function ox_score_draw() {
   // 점수 출력
@@ -206,7 +208,7 @@ function ox_score_draw() {
 }
 
 function delaycheck() {
-  if(players[myId].balldelaysec > 0){
+  if (players[myId].balldelaysec > 0) {
     players[myId].balldelaysec--;
   }
 }
@@ -272,7 +274,6 @@ socket.on("ox_end", () => {
   }, 3000);
 });
 
-
 function ox_update() {
   ox_field_draw();
   ox_renderPlayer();
@@ -280,9 +281,10 @@ function ox_update() {
   distBall();
   delaycheck();
   if (is_breaking) ox_break_draw();
-  if (is_during)   ox_during_draw();
+  if (is_during) ox_during_draw();
   if (is_checking) ox_check_draw();
-  if (is_end)      ox_end_draw();
+  if (is_end) ox_end_draw();
+  ox_ctx.drawImage(ox_map, 0, 0, X, Y);
   ox_score_draw();
 } // end of update
 

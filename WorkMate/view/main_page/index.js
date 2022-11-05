@@ -74,7 +74,7 @@ start.addEventListener("click", function () {
 
 mcancelBtn.addEventListener("click", () => {
   socket.emit("matchcancel", myId);
-  console.log('매칭 취소');
+  console.log("매칭 취소");
 });
 
 rcancelBtn.addEventListener("click", () => {
@@ -94,11 +94,11 @@ socket.on("readyUser", function (Id) {
       let color = window.getComputedStyle(slot[i]).backgroundColor;
       if (color == "rgb(255, 255, 255)") {
         slot[i].style.backgroundColor = "rgb(255, 245, 85)";
-        if(myId == Id) socket.emit("readyIndex", Id);
+        if (myId == Id) socket.emit("readyIndex", Id);
         readyCount++;
       } else {
         slot[i].style.backgroundColor = "rgb(255, 255, 255)";
-        if(myId == Id) socket.emit("cancelReadyIndex", Id);
+        if (myId == Id) socket.emit("cancelReadyIndex", Id);
         readyCount--;
       }
     }

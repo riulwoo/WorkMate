@@ -2,7 +2,9 @@ let surv_canvas = document.getElementById("surviv_canvas");
 let surv_ctx = surv_canvas.getContext("2d");
 surv_canvas.width = document.body.clientWidth;
 surv_canvas.height = document.body.clientHeight;
-
+let surv_map = new Image();
+surv_map.src =
+  "https://media.discordapp.net/attachments/914865394643271762/1037997369935020062/map-export.png?width=1111&height=676";
 // 게임의 프레임은 60fps.
 X = surv_canvas.width;
 Y = surv_canvas.height;
@@ -169,7 +171,7 @@ function surviv_field_draw() {
   X = surv_canvas.width;
   Y = surv_canvas.height;
   surv_ctx.beginPath();
-  surv_ctx.fillStyle = "black";
+  surv_ctx.fillStyle = "#DDE1F0";
   surv_ctx.fillRect(0, 0, X, Y);
   // surv_ctx.drawImage(MAP, 0, 0);
   surv_ctx.closePath();
@@ -237,8 +239,6 @@ function stunAndBlink_flow() {
 
 function surviv_update() {
   surviv_field_draw(); // 바닥
-  // edge_draw();     // 벽
-  surviv_score_draw();
   if (surviv_is_counting) {
     count_sec--;
 
@@ -264,4 +264,6 @@ function surviv_update() {
   } else if (surviv_is_end) {
     surviv_end_draw();
   }
+  surv_ctx.drawImage(surv_map, 0, 0, X, Y); // 벽
+  surviv_score_draw();
 }
