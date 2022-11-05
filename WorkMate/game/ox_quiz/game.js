@@ -106,11 +106,11 @@ function ox_field_draw() {
   ox_ctx.fillStyle = "white";
   ox_ctx.font = "348px DungGeunMo";
   ox_ctx.textAlign = "center";
-  ox_ctx.fillText("O", X / 4, Y / 1.4);
+  ox_ctx.fillText("O", (X * 20) / 100, Y / 1.4);
   ox_ctx.fillStyle = "white";
   ox_ctx.font = "348px DungGeunMo";
   ox_ctx.textAlign = "center";
-  ox_ctx.fillText("X", X - 300, Y / 1.4);
+  ox_ctx.fillText("X", (X * 80) / 100, Y / 1.4);
   ox_ctx.closePath();
 }
 
@@ -122,7 +122,7 @@ function ox_break_draw() {
   ox_ctx.font = "48px DungGeunMo";
   // measureText() = 문자열의 넓이 반환
   ox_ctx.textAlign = "center";
-  ox_ctx.fillText("READY??", X / 2, Y / 6.5);
+  ox_ctx.fillText("READY??", X / 2, Y / 5.5);
   ox_ctx.fillStyle = "#90DBA2";
   ox_ctx.font = "200px DungGeunMo";
   ox_ctx.textAlign = "center";
@@ -142,14 +142,14 @@ function ox_check_draw() {
 
   if (answer && players[myId].is_O) {
     // 정답이 O. and 플레이어가 O.
-    ox_ctx.fillText("정답입니다!!", X / 2, Y / 6.5);
+    ox_ctx.fillText("정답입니다!!", X / 2, Y / 5.5);
     answer_cnt = true;
   } else if (!answer && players[myId].is_X) {
     // 정답이 X. and 플레이어가 X.
-    ox_ctx.fillText("정답입니다!!", X / 2, Y / 6.5);
+    ox_ctx.fillText("정답입니다!!", X / 2, Y / 5.5);
     answer_cnt = true;
   } else {
-    ox_ctx.fillText("틀렸습니다!!", X / 2, Y / 6.5);
+    ox_ctx.fillText("틀렸습니다!!", X / 2, Y / 5.5);
   }
 }
 
@@ -168,7 +168,7 @@ function ox_during_draw() {
   }
   // measureText() = 문자열의 넓이 반환
   ox_ctx.textAlign = "center";
-  ox_ctx.fillText(question, X / 2, Y / 6.5);
+  ox_ctx.fillText(question, X / 2, Y / 5.5);
 
   // 카운트다운 출력
   ox_ctx.fillStyle = "#90DBA2";
@@ -189,19 +189,19 @@ function ox_end_draw() {
   // measureText() = 문자열의 넓이 반환
   ox_ctx.textAlign = "center";
 
-  ox_ctx.fillText("게임 끝!!!!!", X / 2, Y / 6.5);
+  ox_ctx.fillText("게임 끝!!!!!", X / 2, Y / 5.5);
   ox_ctx.fillText(overmsg, ox_ctx.measureText(overmsg).width, Y / 1.6);
 }
 
 function ox_score_draw() {
   // 점수 출력
   ox_ctx.fillStyle = "black";
-  ox_ctx.font = "24px DungGeunMo";
-  ox_ctx.textAlign = "center";
+  ox_ctx.font = "42px DungGeunMo";
+  ox_ctx.textAlign = "left";
   ox_ctx.fillText(
     "Score : " + players[myId].score,
-    (X * 5) / 100,
-    (Y * 3) / 100
+    (X * 23) / 100,
+    (Y * 7) / 100
   );
 }
 

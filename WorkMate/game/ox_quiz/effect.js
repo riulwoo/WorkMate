@@ -7,39 +7,39 @@ function transBall(x, y, direction, id) {
   this.y = y + 35;
   this.direction = direction;
   this.radius = 3;
-  
+
   switch (direction) {
     case 0: // 아래
       this.xv = 0;
-      this.yv = 15;
+      this.yv = 30;
       break;
     case 1: // 왼쪽
-      this.xv = -15;
+      this.xv = -30;
       this.yv = 0;
       break;
     case 2: // 위
       this.xv = 0;
-      this.yv = -15;
+      this.yv = -30;
       break;
     case 3: // 오른쪽
-      this.xv = 15;
+      this.xv = 30;
       this.yv = 0;
       break;
     case 4: // 왼 아래
-      this.xv = -15;
-      this.yv = 15;
+      this.xv = -30;
+      this.yv = 30;
       break;
     case 5: // 왼위
-      this.xv = -15;
-      this.yv = -15;
+      this.xv = -30;
+      this.yv = -30;
       break;
     case 6: // 오른 아래
-      this.xv = 15;
-      this.yv = 15;
+      this.xv = 30;
+      this.yv = 30;
       break;
     case 7: // 오른 위
-      this.xv = 15;
-      this.yv = -15;
+      this.xv = 30;
+      this.yv = -30;
       break;
   }
   this.id = id; // 발사한 사람
@@ -55,7 +55,13 @@ function drawBall() {
     for (let i = 0; i < balls.length; i++) {
       let ball = balls[i];
       ox_ctx.beginPath();
-      ox_ctx.drawImage(ball.image, ball.x - ball.radius, ball.y - ball.radius, 30, 20); // 크기는 65, 65
+      ox_ctx.drawImage(
+        ball.image,
+        ball.x - ball.radius,
+        ball.y - ball.radius,
+        30,
+        20
+      ); // 크기는 65, 65
 
       ox_ctx.closePath();
       //draw
@@ -77,7 +83,7 @@ function drawBall() {
   }
 }
 
-// 트랜스볼 충돌 시 실행 함수 > 충돌 여부 체크는 ? 
+// 트랜스볼 충돌 시 실행 함수 > 충돌 여부 체크는 ?
 function distBall() {
   let px = players[myId].x + players[myId].radius;
   let py = players[myId].y + players[myId].radius;
@@ -89,8 +95,7 @@ function distBall() {
     sy = balls[i].y + balls[i].radius;
 
     if (
-      distBetweenPoints(px, py, sx, sy) <
-        balls[i].radius + 35 &&
+      distBetweenPoints(px, py, sx, sy) < balls[i].radius + 35 &&
       players[myId].id != balls[i].id
     ) {
       // 좌표랑 좌표를 서로 바꿔주는 effect효과를 넣어야 함
@@ -98,12 +103,12 @@ function distBall() {
       socket.emit("ox_transBall_hit", {
         x: players[myId].x,
         y: players[myId].y,
-        id: balls[i].id
+        id: balls[i].id,
       });
-      
+
       socket.emit("ox_transBall_remove", {
-        id : myId,
-        i : i
+        id: myId,
+        i: i,
       });
     }
   }
@@ -120,19 +125,19 @@ socket.on("ox_return_XY", (data) => {
   players[myId].x = data.x;
   players[myId].y = data.y;
   sendData(players[myId]);
-})
+});
 
 // 쏜 사람과 맞은 사람의 좌표를 바꿔 줌
-socket.on("ox_hit_XY", (data) => {  // 공을 던진 사람
+socket.on("ox_hit_XY", (data) => {
+  // 공을 던진 사람
   // 맞은 사람의 좌표를 받아 내 좌표가 바뀜
   // data > x, y
   socket.emit("ox_hit_return", {
     x: players[myId].x,
     y: players[myId].y,
-    id: data.id
-  })
+    id: data.id,
+  });
   players[myId].x = data.x;
   players[myId].y = data.y;
   sendData(players[myId]);
 });
-
