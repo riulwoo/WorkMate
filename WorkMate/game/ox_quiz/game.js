@@ -9,9 +9,7 @@ ox_canvas.width = document.body.clientWidth;
 ox_canvas.height = document.body.clientHeight;
 X = ox_canvas.width;
 Y = ox_canvas.height;
-let ox_map = new Image();
-ox_map.src =
-  "https://cdn.discordapp.com/attachments/914865394643271762/1037997369935020062/map-export.png";
+
 let ox_XY = [
   [X / 2 - 16, Y / 2 - 10],
   [X / 2, Y / 2 - 10],
@@ -226,8 +224,8 @@ function ox_func_lding() {
       playermap[i] = player;
       players[playerinfo[i].id] = player;
     }
-    document.body.style.backgroundImage =
-      "url('https://media.discordapp.net/attachments/980090904394219562/1021799584667803839/GIF_2022-09-21_12-06-13.gif?width=1266&height=636')";
+    //document.body.style.backgroundImage = "url('https://media.discordapp.net/attachments/980090904394219562/1021799584667803839/GIF_2022-09-21_12-06-13.gif?width=1266&height=636')";
+    document.body.style.backgroundImage = ox_loading;
     setTimeout(() => {
       socket.emit("ox_ready", myId);
       r1();
@@ -293,8 +291,8 @@ function answer_score() {
 }
 
 ox_func_lding().then(() => {
-  document.body.style.backgroundImage =
-    "url('https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png')";
+  //document.body.style.backgroundImage = "url('https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png')";
+  document.body.style.backgroundImage = bgImage;
   // setInterval(renderPlayer, 50);
   ox_interval2 = setInterval(() => {
     if (is_breaking) break_num--;

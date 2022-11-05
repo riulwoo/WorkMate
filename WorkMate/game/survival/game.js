@@ -2,9 +2,7 @@ let surv_canvas = document.getElementById("surviv_canvas");
 let surv_ctx = surv_canvas.getContext("2d");
 surv_canvas.width = document.body.clientWidth;
 surv_canvas.height = document.body.clientHeight;
-let surv_map = new Image();
-surv_map.src =
-  "https://media.discordapp.net/attachments/914865394643271762/1037997369935020062/map-export.png?width=1111&height=676";
+
 // 게임의 프레임은 60fps.
 X = surv_canvas.width;
 Y = surv_canvas.height;
@@ -45,8 +43,8 @@ function surviv_func_lding() {
       playermap[i] = player;
       players[playerinfo[i].id] = player;
     }
-    document.body.style.backgroundImage =
-      "url('https://media.discordapp.net/attachments/980090904394219562/1021798469670813770/9a0b0a0d08d21b21.gif?width=1316&height=636')";
+    //document.body.style.backgroundImage = "url('https://media.discordapp.net/attachments/980090904394219562/1021798469670813770/9a0b0a0d08d21b21.gif?width=1316&height=636')";
+    document.body.style.backgroundImage = surv_loading;
     setTimeout(() => {
       socket.emit("survival_ready", myId);
       r1();
@@ -55,8 +53,8 @@ function surviv_func_lding() {
 }
 
 surviv_func_lding().then(() => {
-  document.body.style.backgroundImage =
-    "url('https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png')";
+  //document.body.style.backgroundImage = "url('https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png')";
+  document.body.style.backgroundImage = bgImage;
   surviv_interval = setInterval(surviv_update, 1000 / FPS);
 });
 
@@ -194,27 +192,27 @@ function surviv_count_draw() {
 /** 게임 스코어와 아이템 보유 현황을 그리는 메서드 */
 function surviv_score_draw() {
   surv_ctx.beginPath();
-  surv_ctx.fillStyle = "white";
-  surv_ctx.font = "55px DungGeunMo";
-  surv_ctx.textAlign = "center";
+  surv_ctx.fillStyle = "black";
+  surv_ctx.font = "42px DungGeunMo";
+  surv_ctx.textAlign = "left";
   surv_ctx.fillText(
     "score : " + players[myId].score,
-    (X * 85) / 100,
-    (Y * 7) / 100
+    (X * 23) / 100,
+    (Y * 6) / 100
   );
 
   surv_ctx.font = "30px DungGeunMo";
   surv_ctx.textAlign = "left";
-  surv_ctx.fillStyle = "white";
-  surv_ctx.fillText("ITEM", (X * 5) / 100, (Y * 3) / 100);
+  surv_ctx.fillStyle = "black";
+  surv_ctx.fillText("ITEM", (X * 86.5) / 100, (Y * 3) / 100);
 
   if (players[myId].hasItem) {
-    surv_ctx.drawImage(item_asset, (X * 7.2) / 100, (Y * 5.2) / 100);
+    surv_ctx.drawImage(item_asset, (X * 90.5) / 100, (Y * 2.5) / 100, 50, 50);
   }
 
-  surv_ctx.strokeStyle = "white";
+  surv_ctx.strokeStyle = "black";
   surv_ctx.lineWidth = 5;
-  surv_ctx.strokeRect((X * 7) / 100, (Y * 5) / 100, 80, 80);
+  surv_ctx.strokeRect((X * 90) / 100, (Y * 1.5) / 100, 70, 70);
 
   surv_ctx.closePath();
 }

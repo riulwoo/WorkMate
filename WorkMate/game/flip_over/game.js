@@ -7,9 +7,7 @@ flip_canvas.height = Math.ceil(document.body.clientHeight);
 // X와 Y는 캔버스의 width와 height를 저장하는데 사용.
 X = flip_canvas.width;
 Y = flip_canvas.height;
-let flip_map = new Image();
-flip_map.src =
-  "https://cdn.discordapp.com/attachments/914865394643271762/1037997369477836800/map.png";
+
 count_sec = Math.ceil(COUNT_DUR_TIME * FPS);
 //
 let flip_XY = [
@@ -147,8 +145,8 @@ function flip_ending_draw() {
 /** 게임 시작 전 로딩창을 띄우는 메서드 */
 function flip_func_lding() {
   return new Promise((r1, r2) => {
-    document.body.style.backgroundImage =
-      "url('https://media.discordapp.net/attachments/980090904394219562/1021799584667803839/GIF_2022-09-21_12-06-13.gif?width=1266&height=636')"; // 나중에 카드 로딩창으로 수정하기.
+    //document.body.style.backgroundImage ="url('https://media.discordapp.net/attachments/980090904394219562/1021799584667803839/GIF_2022-09-21_12-06-13.gif?width=1266&height=636')"; // 나중에 카드 로딩창으로 수정하기.
+    document.body.style.backgroundImage = flip_loading;
     for (let i = 0; i < playerinfo.length; i++) {
       let player = new flip_player(
         playerinfo[i].id,
@@ -415,7 +413,7 @@ function flip_update() {
 } // end of update
 
 flip_func_lding().then(() => {
-  document.body.style.backgroundImage =
-    "url('https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png')";
+  //document.body.style.backgroundImage = "url('https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png')";
+  document.body.style.backgroundImage = bgImage;
   flip_interval = setInterval(flip_update, 1000 / FPS);
 });
