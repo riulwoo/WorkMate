@@ -1,12 +1,11 @@
 @font-face {
-  font-family: 'DungGeunMo';
-  src:
-    url("../view_asset/DungGeunMo.woff") format('woff'),
-    url("../view_asset/DungGeunMo.woff2") format('woff2');
+  font-family: "DungGeunMo";
+  src: url("../view_asset/DungGeunMo.woff") format("woff"),
+    url("../view_asset/DungGeunMo.woff2") format("woff2");
 }
 
 * {
-  font-family: '둥근모꼴', 'DungGeunMo';
+  font-family: "둥근모꼴", "DungGeunMo";
 }
 
 html {
@@ -16,7 +15,7 @@ html {
 }
 
 body {
-  font-family: '둥근모꼴', 'DungGeunMo';
+  font-family: "둥근모꼴", "DungGeunMo";
   margin: 0px;
   height: 100%;
   width: 100%;
@@ -53,7 +52,7 @@ body {
   right: 10px;
   background-image: url("https://media.discordapp.net/attachments/980090904394219562/1036960711512956998/c261c2ece9a48e97.png");
   background-size: cover;
-  position: absolute;  
+  position: absolute;
 }
 
 #question-mark {
@@ -151,7 +150,7 @@ body {
   gap: 2rem;
 }
 
-.inner>button {
+.inner > button {
   width: 10rem;
   height: 4rem;
   border: 0;
@@ -217,10 +216,11 @@ body {
   top: 80%;
 }
 
-.roomBottom>button {
+.roomBottom > button {
   border: 2px solid black;
-  margin: 5%;
   width: 20%;
+  padding: -1px;
+  margin: 0px 30px -10px 30px;
   height: 60px;
   min-width: 10%;
   border-radius: 10px;
@@ -245,7 +245,7 @@ body {
   border-radius: 3px;
   height: 100%;
   width: 15%;
-  background-Color: rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255);
   font-size: 1.5rem;
   padding-top: 2%;
 }
@@ -270,7 +270,7 @@ body {
 
 .in_slot_hide {
   visibility: hidden;
-  font-Size: 1px;
+  font-size: 1px;
 }
 
 #match {
@@ -282,12 +282,13 @@ body {
   height: 50%;
   background-color: white;
   border-radius: 10px;
-  border: 1px solid;
+  border: 3px solid black;
+  border-radius: 10px;
   transform: translate(-50%, -50%);
-  background-color: #ddd;
+  font-size: 20px;
 }
 
-#match>p {
+#match > p {
   position: absolute;
   top: 60%;
   left: 50%;
@@ -297,11 +298,17 @@ body {
   text-align: center;
 }
 
-#match>button {
+#match > button {
   position: absolute;
   top: 80%;
   left: 50%;
   transform: translate(-50%, -50%);
+  border: 2px solid black;
+  width: 20%;
+  height: 60px;
+  min-width: 10%;
+  border-radius: 10px;
+  font-size: 32px;
 }
 
 .loader {
@@ -399,7 +406,7 @@ body {
   font-size: 25px;
   color: white;
   height: auto;
-  font-family: '둥근모꼴', 'DungGeunMo';
+  font-family: "둥근모꼴", "DungGeunMo";
   position: relative;
   vertical-align: top;
   text-transform: uppercase;
@@ -419,7 +426,7 @@ body {
 .main_pixel {
   position: relative;
   display: block;
-  font-family: '둥근모꼴', 'DungGeunMo';
+  font-family: "둥근모꼴", "DungGeunMo";
   text-transform: uppercase;
   background: rgb(60, 181, 197);
   font-size: 25px;
