@@ -5,7 +5,7 @@ function Item(x, y, xv, yv) {
   this.xv = xv;
   this.yv = yv;
   this.typenum = Math.random();
-  this.type = this.typenum > 0.5 ? (typenum > 0.8 ? 2 : 1) : 0;
+  this.type = this.typenum > 0.5 ? (this.typenum > 0.8 ? 2 : 1) : 0;
 
   // item type
   // 1 : 특수 장애물 생성
@@ -80,10 +80,7 @@ function distItem() {
     let ix = itemBox.x + itemBox.radius;
     let iy = itemBox.y + itemBox.radius;
 
-    if (
-      distBetweenPoints(px, py, ix, iy) <
-      itemBox.radius + players[myId].radius
-    ) {
+    if (distBetweenPoints(px, py, ix, iy) < itemBox.radius + players[myId].radius) {
       players[myId].hasItem = true;
       players[myId].itemPocket = itemBox.type;
       //players[myId].itemPocket = 0;

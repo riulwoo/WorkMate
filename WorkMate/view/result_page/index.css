@@ -1,0 +1,215 @@
+@font-face {
+    font-family: "DungGeunMo";
+    src: url("../fonts/DungGeunMo.woff") format("woff"),
+    url("../fonts/DungGeunMo.woff2") format("woff2");
+    } 
+* {
+    font-family: "둥근모꼴", "DungGeunMo";
+}
+
+html{
+width: 100%;
+height: 100vh;
+overflow: hidden;
+font-size: 22px;
+}
+
+body{
+width: 100%;
+height: 100%;
+margin: 0;
+}
+
+#wrapper {
+width: 100%;
+height: 100%;
+display: flex;
+flex-direction: column;
+background-image: url("https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png");
+}
+
+#result-top {
+flex-grow: 11;
+display: flex;
+}
+
+#result-left, #result-right {
+display: flex;
+align-items: center;
+}
+
+#result-left {
+flex-grow: 1.5;
+}
+
+#result-right {
+flex-grow: 1;
+align-items: center;
+}
+
+.side-inner2 {
+width: 98%;
+height: 98%;
+margin: auto;
+display: block;
+align-items: center;
+justify-content: space-around;
+}
+
+.side_inner{
+width: 98%;
+height: 98%;
+margin: auto;
+}
+
+#result-bottom {
+display: flex;
+align-items: center;
+flex-basis: 100px;
+}
+
+#back-to-main {
+width: 27%;
+height: 70%;
+margin: auto;
+font-size: 2rem;
+position: relative;
+background: rgb(60, 181, 197);
+font-size: 25px;
+color: black;
+border: 0px;
+bottom: 20%;
+z-index: 3;
+}
+#back-to-main::before {
+    text-align: center;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: -10px;
+    right: -10px;
+    background: rgb(60, 181, 197);
+    z-index: -1;
+}
+#back-to-main::after {
+    text-align: center;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    left: -6px;
+    right: -6px;
+    background: rgb(60, 181, 197);
+    z-index: -1;
+}
+
+#back-to-main:active {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+/* Desktop */
+@media (min-aspect-ratio: 1/1) {
+#result-right {
+    flex-grow: 2;
+}
+}
+
+/* Mobile */
+@media (max-aspect-ratio: 1/1) {
+#result-top {
+    flex-direction: column-reverse;
+}
+}
+
+@media (min-width: 1280px) {
+html {
+    font-size: 22px;
+}
+}
+
+@media (max-width: 1279px) {
+html {
+    font-size: 18px;
+}
+
+}
+
+@media (max-width: 768px) {
+html {
+    font-size: 14px;
+}
+}
+
+@media (max-width: 480px) {
+html {
+    font-size: 10px;
+}
+}
+
+
+#result_pixel {
+width: 80%;
+height: 80%;
+background-color: rgb(164, 174, 255);
+text-align: center;
+font-size: 200%;
+text-transform: uppercase;
+cursor: pointer;
+position: relative;
+z-index: 1;
+}
+
+.winner_box1 {
+width: 30%;
+height: 40%;
+left: 30%;
+top: 20%;
+text-align: center;
+background: rgb(255, 224, 220);
+color: black;
+z-index: 4;
+position: relative;
+margin: 10px;
+}
+.winner_box2 {
+width: 30%;
+height: 40%;
+left: 5%;
+top: -17%;
+text-align: center;
+background: rgb(254, 255, 200);
+color: black;
+z-index: 3;
+
+position: relative;
+margin: 10px;
+}
+.winner_box3 {
+width: 30%;
+height: 40%;
+left: 55%;
+top: -58%;
+text-align: center;
+background: rgb(209, 255, 255);
+color: black;
+position: relative;
+z-index: 3;
+margin: 10px;
+}
+
+p{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
+.num{
+    text-align: center;
+
+}

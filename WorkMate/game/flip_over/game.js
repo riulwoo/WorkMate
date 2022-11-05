@@ -103,11 +103,11 @@ function card_keyUpHandler(e) {
 function flip_score_draw() {
   flip_ctx.beginPath();
   flip_ctx.fillStyle = "black";
-  flip_ctx.font = "55px DungGeunMo";
-  flip_ctx.textAlign = "center";
+  flip_ctx.font = "42px DungGeunMo";
+  flip_ctx.textAlign = "left";
   flip_ctx.fillText(
     "score : " + players[myId].score,
-    (X * 10) / 100,
+    (X * 23) / 100,
     (Y * 7) / 100
   );
   flip_ctx.closePath();
@@ -115,16 +115,20 @@ function flip_score_draw() {
 
 /** 게임 맵을 그리는 메서드 */
 function flip_field_draw() {
+  let map = new Image();
+  map.src = "https://cdn.discordapp.com/attachments/914865394643271762/1037997369477836800/map.png";
   flip_canvas.width = document.body.clientWidth;
   flip_canvas.height = document.body.clientHeight;
 
   X = flip_canvas.width;
   Y = flip_canvas.height;
 
+  
   flip_ctx.beginPath();
   flip_ctx.fillStyle = "#7092BE";
   flip_ctx.fillRect(0, 0, X, Y);
   flip_ctx.closePath();
+  flip_ctx.drawImage(map, 0, 0, X, Y);
 }
 
 function flip_count_draw() {

@@ -259,11 +259,13 @@ body {
   background-image: url("https://cdn.discordapp.com/attachments/980090904394219562/1004271208226881606/1.png");
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
   margin-top: 10%;
   margin-bottom: 5%;
   width: 50%;
   height: 50%;
   border: 0;
+  margin: auto;
 }
 
 .in_slot_hide {
@@ -302,6 +304,17 @@ body {
   transform: translate(-50%, -50%);
 }
 
+.loader {
+  background-image: url("https://media.discordapp.net/attachments/980090904394219562/1035832647307505725/vodafone-greece-vodafone.gif");
+  width: 100%;
+  height: 30%;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-top: 5%;
+}
+
+/*
 .loader {
   font-size: 10px;
   margin: 50px auto;
@@ -373,9 +386,9 @@ body {
     transform: rotate(360deg);
   }
 }
+*/
 
 @media screen and (min-width: 1000px) {
-
   #match button,
   .room button {
     font-size: 18px;

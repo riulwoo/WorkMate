@@ -70,7 +70,7 @@ function roomUpdate() {
       slot[i].firstChild.remove();
     }
     let name = document.createElement("div");
-    let img = document.createElement("img");
+    let img = document.createElement("div");
     let hide = document.createElement("div");
     let titlediv = document.createElement("div");
     let idcarddiv = document.createElement("div");
