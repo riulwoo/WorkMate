@@ -12,7 +12,7 @@ module.exports = (io, socket, room) => {
       time += 3.5;
       if (time >= 90) {
         clearInterval(enemyInterval);
-        io.to(room[index].roomCode).emit("survival_end");  // 살아남기 게임끝
+        io.to(room[index].roomCode).emit("survival_end"); // 살아남기 게임끝
       }
     }, 3500);
   }
@@ -29,62 +29,66 @@ module.exports = (io, socket, room) => {
   }
   // 보낼 좌표값 : x y 시작좌표 , xv yv 이동 속도 , 이미지 타입 0~2번
   function rightObastacle(index) {
-    io.to(room[index].roomCode).emit("create_obs", { // 장애물 생성하거라
-      x: 1800,
-      y: Math.floor(Math.random() * 1030),
-      xv: Math.floor(Math.random() * (4 - 2) + 2) * -1,
+    io.to(room[index].roomCode).emit("create_obs", {
+      // 장애물 생성하거라
+      x: 100,
+      y: Math.floor(Math.random() * 100),
+      xv: (Math.random() * (0.4 - 0.2) + 0.2).toFixed(1) * -1,
       yv:
-        Math.floor(Math.random() * (4 - 2) + 2) *
+        (Math.random() * (0.4 - 0.2) + 0.2).toFixed(1) *
         (Math.random() < 0.5 ? 1 : -1),
       type: Math.floor(Math.random() * 4),
     });
   }
 
   function upObastacle(index) {
-    io.to(room[index].roomCode).emit("create_obs", { // 장애물 생성하거라
-      x: Math.floor(Math.random() * (1650 - 90)) + 90,
+    io.to(room[index].roomCode).emit("create_obs", {
+      // 장애물 생성하거라
+      x: Math.floor(Math.random() * 100),
       y: 0,
       xv:
-        Math.floor(Math.random() * (4 - 2) + 2) *
+        (Math.random() * (0.4 - 0.2) + 0.2).toFixed(1) *
         (Math.random() < 0.5 ? 1 : -1),
-      yv: Math.floor(Math.random() * (4 - 2) + 2),
+      yv: (Math.random() * (0.4 - 0.2) + 0.2).toFixed(1),
       type: Math.floor(Math.random() * 4),
     });
   }
 
   function leftObastacle(index) {
-    io.to(room[index].roomCode).emit("create_obs", { // 장애물 생성하거라
+    io.to(room[index].roomCode).emit("create_obs", {
+      // 장애물 생성하거라
       x: 0,
-      y: Math.floor(Math.random() * 1030),
-      xv: Math.floor(Math.random() * (4 - 2) + 2),
+      y: Math.floor(Math.random() * 100),
+      xv: (Math.random() * (0.4 - 0.2) + 0.2).toFixed(1),
       yv:
-        Math.floor(Math.random() * (4 - 2) + 2) *
+        (Math.random() * (0.4 - 0.2) + 0.2).toFixed(1) *
         (Math.random() < 0.5 ? 1 : -1),
       type: Math.floor(Math.random() * 4),
     });
   }
 
   function downObastacle(index) {
-    io.to(room[index].roomCode).emit("create_obs", { // 장애물 생성하거라
-      x: Math.floor(Math.random() * (1650 - 90)) + 90,
-      y: 1000,
+    io.to(room[index].roomCode).emit("create_obs", {
+      // 장애물 생성하거라
+      x: Math.floor(Math.random() * 100),
+      y: 100,
       xv:
-        Math.floor(Math.random() * (4 - 2) + 2) *
+        (Math.random() * (0.4 - 0.2) + 0.2).toFixed(1) *
         (Math.random() < 0.5 ? 1 : -1),
-      yv: Math.floor(Math.random() * (4 - 2) + 2) * -1,
+      yv: (Math.random() * (0.4 - 0.2) + 0.2).toFixed(1) * -1,
       type: Math.floor(Math.random() * 4),
     });
   }
 
   function itemXYV() {
     let item = {
-      x: Math.floor(Math.random() * (1300 - 400)) + 400,
-      y: Math.floor(Math.random() * (700 - 100)) + 100,
+      x: Math.floor(Math.random() * (80 - 20)) + 20,
+      y: Math.floor(Math.random() * (80 - 20)) + 20,
       xv:
-        Math.floor(Math.random() * (5 - 1) + 1) *
+        (Math.random() * (0.5 - 0.1) + 0.1).toFixed(1) *
         (Math.random() < 0.5 ? 1 : -1),
       yv:
-        Math.floor(Math.random() * (5 - 1) + 1) *
+        (Math.random() * (0.5 - 0.1) + 0.1).toFixed(1) *
         (Math.random() < 0.5 ? 1 : -1),
     };
     return item;
@@ -94,8 +98,8 @@ module.exports = (io, socket, room) => {
     let goal = [];
     for (let i = 0; i < 2; i++) {
       goal.push({
-        x: Math.floor(Math.random() * (1670 - 250)) + 250,
-        y: Math.floor(Math.random() * (830 - 100)) + 100,
+        x: Math.floor(Math.random() * (75 - 25)) + 25,
+        y: Math.floor(Math.random() * (75 - 25)) + 25,
       });
     }
     return goal;
@@ -105,7 +109,8 @@ module.exports = (io, socket, room) => {
     for (let i = 0; i < 3; i++) {
       if (wLC == 0) {
         // 왼쪽 벽에서 생성
-        io.to(room[index].roomCode).emit("create_item_obs", { // 특수 장애물 생성하거라
+        io.to(room[index].roomCode).emit("create_item_obs", {
+          // 특수 장애물 생성하거라
           x: 0,
           y: 270 + 200 * i,
           xv: 6,
@@ -114,7 +119,8 @@ module.exports = (io, socket, room) => {
         });
       } else if (wLC == 1) {
         //오른쪽 벽에서 생성
-        io.to(room[index].roomCode).emit("create_item_obs", { // 특수 장애물 생성하거라
+        io.to(room[index].roomCode).emit("create_item_obs", {
+          // 특수 장애물 생성하거라
           x: 1600,
           y: 270 + 200 * i,
           xv: 6 * -1,
@@ -126,7 +132,8 @@ module.exports = (io, socket, room) => {
     for (let i = 0; i < 6; i++) {
       if (wLC == 2) {
         //위쪽 벽에서 생성
-        io.to(room[index].roomCode).emit("create_item_obs", { // 특수 장애물 생성하거라
+        io.to(room[index].roomCode).emit("create_item_obs", {
+          // 특수 장애물 생성하거라
           x: 420 + 220 * i,
           y: -100,
           xv: 0,
@@ -135,7 +142,8 @@ module.exports = (io, socket, room) => {
         });
       } else if (wLC == 3) {
         // 아래쪽 벽에서 생성
-        io.to(room[index].roomCode).emit("create_item_obs", { // 특수 장애물 생성하거라
+        io.to(room[index].roomCode).emit("create_item_obs", {
+          // 특수 장애물 생성하거라
           x: 420 + 220 * i,
           y: 1000,
           xv: 0,
@@ -152,7 +160,8 @@ module.exports = (io, socket, room) => {
       LR = i < 2 ? 90 : 246;
       if (wLC == 0) {
         // 왼쪽 벽에서 생성
-        io.to(room[index].roomCode).emit("create_item_obs", { // 특수 장애물 생성하거라
+        io.to(room[index].roomCode).emit("create_item_obs", {
+          // 특수 장애물 생성하거라
           x: 0,
           y: LR + 200 * i,
           xv: 6,
@@ -161,7 +170,8 @@ module.exports = (io, socket, room) => {
         });
       } else if (wLC == 1) {
         //오른쪽 벽에서 생성
-        io.to(room[index].roomCode).emit("create_item_obs", { // 특수 장애물 생성하거라
+        io.to(room[index].roomCode).emit("create_item_obs", {
+          // 특수 장애물 생성하거라
           x: 1600,
           y: LR + 200 * i,
           xv: 6 * -1,
@@ -174,7 +184,8 @@ module.exports = (io, socket, room) => {
       LR = i < 3 ? 90 : 730;
       if (wLC == 2) {
         //위쪽 벽에서 생성
-        io.to(room[index].roomCode).emit("create_item_obs", { // 특수 장애물 생성하거라
+        io.to(room[index].roomCode).emit("create_item_obs", {
+          // 특수 장애물 생성하거라
           x: LR + 220 * i,
           y: -100,
           xv: 0,
@@ -183,7 +194,8 @@ module.exports = (io, socket, room) => {
         });
       } else if (wLC == 3) {
         // 아래쪽 벽에서 생성
-        io.to(room[index].roomCode).emit("create_item_obs", { // 특수 장애물 생성하거라
+        io.to(room[index].roomCode).emit("create_item_obs", {
+          // 특수 장애물 생성하거라
           x: LR + 220 * i,
           y: 1000,
           xv: 0,
@@ -202,13 +214,15 @@ module.exports = (io, socket, room) => {
     else if (type == 1) LRLocation(index, wLocation, id); // 장애물이 생성될 좌표 위치
   }
 
-  socket.on("survival_ready", (id) => { // 레이스쥰비완료쓰
+  socket.on("survival_ready", (id) => {
+    // 레이스쥰비완료쓰
     let index = getIndex(id);
     if (index !== -1) {
       room[index].cnt += 1;
       let player = room[index].players;
       if (room[index].cnt == player.length) {
-        io.to(room[index].roomCode).emit("survival_start", { // 게임수타투
+        io.to(room[index].roomCode).emit("survival_start", {
+          // 게임수타투
           /** 초반 돈, 아이템 좌표 전달*/
           goal: goalXY(),
           item: itemXYV(),
@@ -220,7 +234,8 @@ module.exports = (io, socket, room) => {
   });
 
   // 아이템 먹으면 30초 뒤에 다시 생성
-  socket.on("get_item", (id) => { // 아이템 먹었대요
+  socket.on("get_item", (id) => {
+    // 아이템 먹었대요
     let index = getIndex(id);
     io.to(room[index].roomCode).emit("have_a_item"); // 아이템먹었음
     setTimeout(() => {
@@ -229,19 +244,22 @@ module.exports = (io, socket, room) => {
   });
 
   // 아이템 효과 중 특수장애물 요청이 들어오면 화면 중앙 or 양쪽 끝에 특수장애물이 지나감
-  socket.on("create_spc_obs", (data) => { // 특수장애물이래요
+  socket.on("create_spc_obs", (data) => {
+    // 특수장애물이래요
     const { id, type } = data;
     let index = getIndex(id);
     specialObastable(index, id, type);
   });
 
-  socket.on("get_money", (data) => { // 돈 먹었대요
+  socket.on("get_money", (data) => {
+    // 돈 먹었대요
     const { id, i } = data;
     let index = getIndex(id);
     io.to(room[index].roomCode).emit("have_a_money", i); // 돈 먹었대
   });
 
-  socket.on("create_money", (id) => { // 돈 생성해달래요
+  socket.on("create_money", (id) => {
+    // 돈 생성해달래요
     let index = getIndex(id);
     io.to(room[index].roomCode).emit("need_some_money", goalXY()); // 돈을 생성하거라
   });

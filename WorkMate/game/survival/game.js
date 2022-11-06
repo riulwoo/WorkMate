@@ -61,25 +61,43 @@ surviv_func_lding().then(() => {
 socket.on("survival_start", (data) => {
   is_counting = true;
   for (let i = 0; i < data.goal.length; i++) {
-    goal.push(new Goal(data.goal[i].x, data.goal[i].y));
+    goal.push(new Goal((data.goal[i].x * X) / 100, (data.goal[i].y * Y) / 100));
   }
-  itemBox = new Item(data.item.x, data.item.y, data.item.xv, data.item.yv); // 화면 넘어가면 반대편에 등장
+  itemBox = new Item(
+    (data.item.x * X) / 100,
+    (data.item.y * Y) / 100,
+    (data.item.xv * X) / 100,
+    (data.item.yv * Y) / 100
+  ); // 화면 넘어가면 반대편에 등장
 });
 
 socket.on("create_item", (data) => {
-  itemBox = new Item(data.x, data.y, data.xv, data.yv);
+  itemBox = new Item(
+    (data.x * X) / 100,
+    (data.y * Y) / 100,
+    (data.xv * X) / 100,
+    (data.yv * Y) / 100
+  );
 });
 
 socket.on("need_some_money", (data) => {
   for (let i = 0; i < data.length; i++) {
-    goal.push(new Goal(data[i].x, data[i].y));
+    goal.push(new Goal((data[i].x * X) / 100, (data[i].y * Y) / 100));
   }
 });
 
 socket.on("have_a_item", () => (itemBox = null));
 
 socket.on("create_obs", (data) => {
-  roids.push(new Asteroid(data.x, data.y, data.xv, data.yv, data.type));
+  roids.push(
+    new Asteroid(
+      (data.x * X) / 100,
+      (data.y * Y) / 100,
+      (data.xv * X) / 100,
+      (data.yv * Y) / 100,
+      data.type
+    )
+  );
 });
 
 socket.on("create_item_obs", (data) => {
