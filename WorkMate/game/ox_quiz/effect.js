@@ -101,8 +101,8 @@ function distBall() {
       // 좌표랑 좌표를 서로 바꿔주는 effect효과를 넣어야 함
       // 내 좌표만 그 사람의 좌표로 바뀌고
       socket.emit("ox_transBall_hit", {
-        x: players[myId].x,
-        y: players[myId].y,
+        x: (players[myId].x * 100) / X,
+        y: (players[myId].y * 100) / Y,
         id: balls[i].id,
       });
 
@@ -122,8 +122,8 @@ socket.on("ox_transBall_use", (data) => {
 });
 
 socket.on("ox_return_XY", (data) => {
-  players[myId].x = data.x;
-  players[myId].y = data.y;
+  players[myId].x = (data.x * X) / 100;
+  players[myId].y = (data.y * Y) / 100;
   sendData(players[myId]);
 });
 
@@ -133,11 +133,11 @@ socket.on("ox_hit_XY", (data) => {
   // 맞은 사람의 좌표를 받아 내 좌표가 바뀜
   // data > x, y
   socket.emit("ox_hit_return", {
-    x: players[myId].x,
-    y: players[myId].y,
+    x: (players[myId].x * 100) / X,
+    y: (players[myId].y * 100) / Y,
     id: data.id,
   });
-  players[myId].x = data.x;
-  players[myId].y = data.y;
+  players[myId].x = (data.x * X) / 100;
+  players[myId].y = (data.y * Y) / 100;
   sendData(players[myId]);
 });
