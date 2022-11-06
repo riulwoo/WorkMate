@@ -54,15 +54,15 @@ function renderItem() {
     itemBox.y += itemBox.yv;
 
     // handle edge of screen.
-    if (itemBox.x < 0 - itemBox.radius) {
+    if (itemBox.x < (X * 4) / 100 - itemBox.radius) {
       // itemBox.x = X + itemBox.radius;
       itemBox.xv *= -1;
-    } else if (itemBox.x > X + itemBox.radius) {
+    } else if (itemBox.x > (X * 96) / 100 + itemBox.radius) {
       // itemBox.x = 0 - itemBox.radius;
       itemBox.xv *= -1;
     }
 
-    if (itemBox.y < 0 - itemBox.radius) {
+    if (itemBox.y < (Y * 13) / 100 - itemBox.radius) {
       // itemBox.y = Y + itemBox.radius;
       itemBox.yv *= -1;
     } else if (itemBox.y > Y + itemBox.radius) {
@@ -80,7 +80,10 @@ function distItem() {
     let ix = itemBox.x + itemBox.radius;
     let iy = itemBox.y + itemBox.radius;
 
-    if (distBetweenPoints(px, py, ix, iy) < itemBox.radius + players[myId].radius) {
+    if (
+      distBetweenPoints(px, py, ix, iy) <
+      itemBox.radius + players[myId].radius
+    ) {
       players[myId].hasItem = true;
       players[myId].itemPocket = itemBox.type;
       //players[myId].itemPocket = 0;

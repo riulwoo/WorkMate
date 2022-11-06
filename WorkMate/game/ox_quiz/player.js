@@ -74,7 +74,7 @@ function ox_renderPlayer() {
       sendData(curPlayer);
     }
   }
-  if(ballPressed && curPlayer.balldelaysec <= 0 && !is_checking) {
+  if (ballPressed && curPlayer.balldelaysec <= 0 && !is_checking) {
     socket.emit("ox_transBall_create", {
       x: players[myId].x,
       y: players[myId].y,
@@ -88,11 +88,10 @@ function ox_renderPlayer() {
   } else if (players[myId].y < Y / 4) {
     players[myId].y = Y / 4;
   }
-
-  if (players[myId].x < 0) {
-    players[myId].x = 0;
-  } else if (players[myId].x > X - curPlayer.radius * 2) {
-    players[myId].x = X - curPlayer.radius * 2;
+  if (players[myId].x < (X * 3) / 100) {
+    players[myId].x = (X * 3) / 100;
+  } else if (players[myId].x > (X * 97) / 100 - curPlayer.radius * 2) {
+    players[myId].x = (X * 97) / 100 - curPlayer.radius * 2;
   }
 
   /** 플레이어가 현재 O인지 X인지를 식별하는 조건문 */
@@ -102,9 +101,7 @@ function ox_renderPlayer() {
   } else if (players[myId].x + 25 >= (X * 60) / 100) {
     players[myId].is_O = false;
     players[myId].is_X = true;
-  }
-  else
-  {
+  } else {
     players[myId].is_O = false;
     players[myId].is_X = false;
   }
@@ -136,7 +133,7 @@ function ox_player(id, nick, x, y, color) {
   // 판정 관련
   this.is_O;
   this.is_X;
-  
+
   // 이동 관련
   this.ismove = false;
   this.cnt = 0;

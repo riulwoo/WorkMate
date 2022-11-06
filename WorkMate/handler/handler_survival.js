@@ -121,7 +121,7 @@ module.exports = (io, socket, room) => {
         //오른쪽 벽에서 생성
         io.to(room[index].roomCode).emit("create_item_obs", {
           // 특수 장애물 생성하거라
-          x: 1600,
+          x: 100,
           y: 270 + 200 * i,
           xv: 6 * -1,
           yv: 0,
@@ -135,7 +135,7 @@ module.exports = (io, socket, room) => {
         io.to(room[index].roomCode).emit("create_item_obs", {
           // 특수 장애물 생성하거라
           x: 420 + 220 * i,
-          y: -100,
+          y: 0,
           xv: 0,
           yv: 4,
           id: id,
@@ -145,7 +145,7 @@ module.exports = (io, socket, room) => {
         io.to(room[index].roomCode).emit("create_item_obs", {
           // 특수 장애물 생성하거라
           x: 420 + 220 * i,
-          y: 1000,
+          y: 100,
           xv: 0,
           yv: 4 * -1,
           id: id,
