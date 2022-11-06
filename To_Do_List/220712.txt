@@ -1,9 +1,0 @@
-1. ajax를 통해 페이지에 덮어쓰기 > location.replace를 이용한 페이지 변경
-2. gamebase.html에 캐릭터가 나오지 않음
-  > 서버에서 주는 데이터는 index.html에 전달받음
-  > gamebase.html에서 받는 데이터 X
-  > JSON 오브젝트로 데이터를 구축해서 gamebase.html에서 데이터를 사용해야할듯
-3. 버그 수정
-  > index.html 의 socket변수 io() 와 gamebase.html 에서 socket변수 io() 때문에 소켓이 여러개 만들어져서 인간이 3개나 만들어지는것이었따..
-
-  야발~!
