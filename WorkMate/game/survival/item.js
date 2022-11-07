@@ -28,7 +28,8 @@ function Itemeffect(type) {
     /** 기절 */
     players[myId].stunsec = Math.ceil(PLAYER_STUN_DUR * FPS); // 기절 효과 넣어주면 됨
   } else if (type == 2) {
-    /** 아무 효과 X */
+    /** 플레이어 이동속도 3초간 증가 */
+    players[myId].speedUpsec = Math.ceil(PLAYER_SPEEDUP_DUR * FPS);
   }
 }
 

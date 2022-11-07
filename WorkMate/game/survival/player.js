@@ -175,6 +175,7 @@ function surviv_player(id, nick, x, y, color) {
   this.blinksec = 0;
 
   this.stunsec = -1;
+  this.speedUpsec = -1;
   this.itemImg = new Image();
   this.hasItem = false;
   this.itemPocket = -1;

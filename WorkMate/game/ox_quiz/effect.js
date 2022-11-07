@@ -3,10 +3,10 @@ function transBall(x, y, direction, id) {
   // 처음에 쏜 사람의 위치.
   this.initX = x;
   this.initY = y;
-  this.x = x + 25;
-  this.y = y + 35;
+  this.x = x;
+  this.y = y;
   this.direction = direction;
-  this.radius = 3;
+  this.radius = 25;
 
   switch (direction) {
     case 0: // 아래
@@ -57,8 +57,8 @@ function drawBall() {
       ox_ctx.beginPath();
       ox_ctx.drawImage(
         ball.image,
-        ball.x - ball.radius,
-        ball.y - ball.radius,
+        ball.x + ball.radius,
+        ball.y + ball.radius,
         30,
         20
       ); // 크기는 65, 65
@@ -95,7 +95,7 @@ function distBall() {
     sy = balls[i].y + balls[i].radius;
 
     if (
-      distBetweenPoints(px, py, sx, sy) < balls[i].radius + 35 &&
+      distBetweenPoints(px, py, sx, sy) < balls[i].radius + players[myId].radius &&
       players[myId].id != balls[i].id
     ) {
       // 좌표랑 좌표를 서로 바꿔주는 effect효과를 넣어야 함
@@ -118,7 +118,7 @@ socket.on("ox_transBall_del", (i) => balls.splice(i, 1));
 //메시지 처리 구역
 socket.on("ox_transBall_use", (data) => {
   //data = x, y, direction, id
-  balls.push(new transBall(data.x, data.y, data.direction, data.id));
+  balls.push(new transBall((data.x * X) / 100, (data.y * Y) / 100, data.direction, data.id));
 });
 
 socket.on("ox_return_XY", (data) => {

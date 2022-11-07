@@ -76,8 +76,8 @@ function ox_renderPlayer() {
   }
   if (ballPressed && curPlayer.balldelaysec <= 0 && !is_checking) {
     socket.emit("ox_transBall_create", {
-      x: players[myId].x,
-      y: players[myId].y,
+      x: (players[myId].x * 100) / X,
+      y: (players[myId].y * 100) / Y,
       direction: players[myId].direction,
       id: myId,
     });

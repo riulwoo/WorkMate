@@ -19,6 +19,7 @@ let surviv_interval;
 // 플레이어 피격 관련
 const PLAYER_STUN_DUR = 1; // 플레이어의 장애물 피격시 기절 지속시간
 const PLAYER_BLINK_DUR = 2.5; // 플레이어 부활시 깜박임(무적) 지속시간
+const PLAYER_SPEEDUP_DUR = 3;
 const PER_SEC = 0.1;
 // 장애물 관련
 // 골인지점 관련
@@ -253,6 +254,23 @@ function stunAndBlink_flow() {
   }
 }
 
+/** 플레이어가 아이템을 써서 이동속도 증가 효과를 얻은 뒤, 지속시간이 점차 감소하도록 컨트롤하는 메서드. */
+function speedUp_flow() {
+  if (players[myId].speedUpsec > 0)
+  {
+    players[myId].PLAYERSPEED = 8;
+
+    players[myId].speedUpsec--;
+  }
+  else if (players[myId].speedUpsec == 0)
+  {
+    players[myId].PLAYERSPEED = 5;
+
+    players[myId].speedUpsec = -1;
+  }
+}
+
+
 function surviv_update() {
   surviv_field_draw(); // 바닥
   if (surviv_is_counting) {
@@ -277,6 +295,7 @@ function surviv_update() {
     surviv_renderPlayer(); // 플레이어
 
     stunAndBlink_flow();
+    speedUp_flow();
   } else if (surviv_is_end) {
     surviv_end_draw();
   }
