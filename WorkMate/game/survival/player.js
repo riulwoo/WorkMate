@@ -130,16 +130,16 @@ function surviv_renderPlayer() {
   }
 
   // handle edge of screen // 플레이어가 화면 밖으로 벗어나지 몬하도록
-  if (curPlayer.x < (X * 4) / 100) {
-    curPlayer.x = (X * 4) / 100;
-  } else if (curPlayer.x > (X * 96) / 100) {
-    curPlayer.x = (X * 96) / 100;
+  if (curPlayer.x < (X * 4) / 100 + curPlayer.radius) {
+    curPlayer.x = (X * 4) / 100 + curPlayer.radius;
+  } else if (curPlayer.x > (X * 96) / 100 - curPlayer.radius * 2) {
+    curPlayer.x = (X * 96) / 100 - curPlayer.radius * 2;
   }
 
-  if (curPlayer.y < (Y * 13) / 100) {
-    curPlayer.y = (Y * 13) / 100;
-  } else if (curPlayer.y > Y) {
-    curPlayer.y = Y;
+  if (curPlayer.y < (Y * 13) / 100 + curPlayer.radius) {
+    curPlayer.y = (Y * 13) / 100 + curPlayer.radius;
+  } else if (curPlayer.y > Y - curPlayer.radius * 2) {
+    curPlayer.y = Y - curPlayer.radius * 2;
   }
 
   // 플레이어의 점수가 0 미만으로 떨어지면
