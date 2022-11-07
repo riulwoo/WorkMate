@@ -157,7 +157,7 @@ width: 80%;
 height: 80%;
 background-color: rgb(164, 174, 255);
 text-align: center;
-font-size: 200%;
+font-size: 160%;
 text-transform: uppercase;
 cursor: pointer;
 position: relative;
@@ -166,9 +166,9 @@ z-index: 1;
 
 .winner_box1 {
 width: 30%;
-height: 40%;
+height: 60%;
 left: 30%;
-top: 20%;
+top: 10%;
 text-align: center;
 background: rgb(255, 224, 220);
 color: black;
@@ -178,9 +178,9 @@ margin: 10px;
 }
 .winner_box2 {
 width: 30%;
-height: 40%;
+height: 60%;
 left: 5%;
-top: -17%;
+top: -40%;
 text-align: center;
 background: rgb(254, 255, 200);
 color: black;
@@ -191,9 +191,9 @@ margin: 10px;
 }
 .winner_box3 {
 width: 30%;
-height: 40%;
+height: 60%;
 left: 55%;
-top: -58%;
+top: -100%;
 text-align: center;
 background: rgb(209, 255, 255);
 color: black;
