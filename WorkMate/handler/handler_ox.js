@@ -6,6 +6,7 @@ const QUIZ_DUR_TIME = 6000; // 문제 출력 후 퀴즈 진행 시간      (ms)
 const CHECK_DUR_TIME = 990; // 퀴즈를 풀고 난 뒤 정답 체크 시간  (ms)
 const quiz_num = [1, 2, 3, 4, 5, 6, 7]; //문제 수
 module.exports = (io, socket, room) => {
+  
   function random_quiz(ms, Index) {
     var quiz_index = room[Index].cur_quiz_index[room[Index].cur_quiz_index.length-1] === undefined ?  Math.floor(Math.random() * question.length) : room[Index].cur_quiz_index[room[Index].cur_quiz_index.length-1];
     while (true) {
@@ -23,8 +24,8 @@ module.exports = (io, socket, room) => {
           return question[quiz_index];
         }
       }
+    }
   }
-
   const oxcycle = (ms, Index) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -125,4 +126,4 @@ module.exports = (io, socket, room) => {
       id : socket.id
     })
   })
-};
+}
