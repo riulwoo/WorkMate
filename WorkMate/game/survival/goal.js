@@ -41,7 +41,7 @@ function distGoal() {
         id: myId,
         i: i,
       });
-      players[myId].score += 50;
+      players[myId].score += 30;
     }
   }
 }

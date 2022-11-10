@@ -309,7 +309,7 @@ function ox_update() {
 } // end of update
 
 function answer_score() {
-  players[myId].score += 50;
+  players[myId].score += 100;
 }
 
 ox_func_lding().then(() => {
