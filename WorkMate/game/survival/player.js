@@ -20,7 +20,7 @@ function surviv_renderPlayer() {
     surv_ctx.font = "bold 20px DungGeunMo";
     surv_ctx.fillText(
       player.nick,
-      player.x - 10,
+      player.x - 14,
       player.y - 10
     );
 

@@ -7,13 +7,13 @@ function flip_renderPlayer() {
     flip_ctx.beginPath();
     flip_ctx.fillStyle = ball.color;
     flip_ctx.font = "bold 20px DungGeunMo";
-    flip_ctx.fillText(ball.nick, ball.x - ball.radius, ball.y - ball.radius + 10);
+    flip_ctx.fillText(ball.nick, ball.x - 25, ball.y - ball.radius + 10);
     flip_ctx.closePath();
   }
   let curPlayer = players[myId];
 
   // 현재 플레이어만 그릴 수 있게 화살표는 이곳에서 그린다.
-  surv_ctx.beginPath();
+  flip_ctx.beginPath();
 
   flip_ctx.drawImage(
     curPlayer.arrow,
@@ -23,6 +23,8 @@ function flip_renderPlayer() {
     32
   );
 
+  flip_ctx.closePath();
+  
   // 플레이어 이동
   if (players[myId].stun_sec <= 0) {
     if (rightPressed) {

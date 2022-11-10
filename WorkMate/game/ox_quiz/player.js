@@ -25,6 +25,9 @@ function ox_renderPlayer() {
     32,
     32
   );
+
+  ox_ctx.closePath();
+  
   // 플레이어 이동
   if (!is_end && !is_checking) {
     if (rightPressed) {
