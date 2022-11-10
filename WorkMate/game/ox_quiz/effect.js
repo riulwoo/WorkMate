@@ -108,10 +108,12 @@ function distBall() {
       });
 
       console.log("ex. 트랜스볼 없어짐");
+      
       socket.emit("ox_transBall_remove", {
         id: myId,
         i: i,
       });
+      balls.splice(i, 1);
     }
   }
 }

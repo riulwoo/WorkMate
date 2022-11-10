@@ -116,7 +116,7 @@ module.exports = (io, socket, room) => {
   socket.on("ox_transBall_remove", (data) => {
     const {id, i} = data;
     let index = room.findIndex((e) => e.userid.includes(id));
-    io.to(room[index].roomCode).emit("ox_transBall_del", i);
+    socket.broadcast.to(room[Index].roomCode).emit("ox_transBall_del", i);
   })
 
   socket.on("ox_transBall_hit", (data) => {
