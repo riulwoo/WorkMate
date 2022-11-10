@@ -92,7 +92,7 @@ function ox_field_draw() {
   Y = ox_canvas.height;
   ox_ctx.beginPath();
   //ox_ctx.fillStyle = "bisque";
-  ox_ctx.fillStyle = "ffffff";
+  ox_ctx.fillStyle = "#ffffff";
   ox_ctx.fillRect(0, 0, X, Y / 4);
   // 중앙 영역
   //ox_ctx.fillStyle = "#757E8B";
@@ -135,7 +135,7 @@ function ox_field_draw() {
 function ox_break_draw() {
   ox_ctx.clearRect(0, 0, X, Y / 4);
   //ox_ctx.fillStyle = "bisque";
-  ox_ctx.fillStyle = "ffffff";
+  ox_ctx.fillStyle = "#ffffff";
   ox_ctx.fillRect(0, 0, X, Y / 4);
   ox_ctx.fillStyle = "black";
   ox_ctx.font = "48px DungGeunMo";
@@ -153,7 +153,7 @@ function ox_break_draw() {
 function ox_check_draw() {
   ox_ctx.clearRect(0, 0, X, Y / 4);
   //ox_ctx.fillStyle = "bisque";
-  ox_ctx.fillStyle = "ffffff";
+  ox_ctx.fillStyle = "#ffffff";
   ox_ctx.fillRect(0, 0, X, Y / 4);
 
   ox_ctx.fillStyle = "black";
@@ -177,7 +177,7 @@ function ox_during_draw() {
   // 문제 출력 전에 영역을 초기화 시켜줌
   ox_ctx.clearRect(0, 0, X, Y / 4);
   //ox_ctx.fillStyle = "bisque";
-  ox_ctx.fillStyle = "ffffff";
+  ox_ctx.fillStyle = "#ffffff";
   ox_ctx.fillRect(0, 0, X, Y / 4);
 
   // 문제 출력
@@ -204,7 +204,7 @@ function ox_end_draw() {
   let overmsg = "당신의 점수를 이력서에 추가하는 중입니다..";
   ox_ctx.clearRect(0, 0, X, Y / 4);
   //ox_ctx.fillStyle = "bisque";
-  ox_ctx.fillStyle = "ffffff";
+  ox_ctx.fillStyle = "#ffffff";
   ox_ctx.fillRect(0, 0, X, Y / 4);
   ox_ctx.fillStyle = "black";
   ox_ctx.font = "48px DungGeunMo";
