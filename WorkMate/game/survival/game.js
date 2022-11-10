@@ -103,7 +103,13 @@ socket.on("create_obs", (data) => {
 
 socket.on("create_item_obs", (data) => {
   roids_of_item.push(
-    new ItemAsteroid(data.x, data.y, data.xv, data.yv, data.id)
+    new ItemAsteroid(
+      (data.x * X) / 100,
+      (data.y * Y) / 100,
+      (data.xv * X) / 100,
+      (data.yv * Y) / 100,
+      data.id
+    )
   );
 });
 

@@ -9,12 +9,12 @@ module.exports = (io, socket, room) => {
     let time = 0;
     enemyInterval = setInterval(() => {
       obstacle(index);
-      time += 3.5;
-      if (time >= 90) {
+      time += 3.5; 
+      if (time >= 90) { 
         clearInterval(enemyInterval);
         io.to(room[index].roomCode).emit("survival_end"); // 살아남기 게임끝
       }
-    }, 3500);
+    }, 3500); 
   }
 
   function obstacle(index) {
@@ -112,8 +112,8 @@ module.exports = (io, socket, room) => {
         io.to(room[index].roomCode).emit("create_item_obs", {
           // 특수 장애물 생성하거라
           x: 0,
-          y: 270 + 200 * i,
-          xv: 6,
+          y: 36.5 + 19.2 * i,
+          xv: 0.6,
           yv: 0,
           id: id,
         });
@@ -122,8 +122,8 @@ module.exports = (io, socket, room) => {
         io.to(room[index].roomCode).emit("create_item_obs", {
           // 특수 장애물 생성하거라
           x: 100,
-          y: 270 + 200 * i,
-          xv: 6 * -1,
+          y: 36.5 + 19.2 * i,
+          xv: -0.6,
           yv: 0,
           id: id,
         });
@@ -134,20 +134,20 @@ module.exports = (io, socket, room) => {
         //위쪽 벽에서 생성
         io.to(room[index].roomCode).emit("create_item_obs", {
           // 특수 장애물 생성하거라
-          x: 420 + 220 * i,
+          x: 17 + 12.8 * i,
           y: 0,
           xv: 0,
-          yv: 4,
+          yv: 0.4,
           id: id,
         });
       } else if (wLC == 3) {
         // 아래쪽 벽에서 생성
         io.to(room[index].roomCode).emit("create_item_obs", {
           // 특수 장애물 생성하거라
-          x: 420 + 220 * i,
+          x: 17 + 12.8 * i,
           y: 100,
           xv: 0,
-          yv: 4 * -1,
+          yv: -0.4,
           id: id,
         });
       }
@@ -157,14 +157,14 @@ module.exports = (io, socket, room) => {
   function LRLocation(index, wLC, id) {
     let LR;
     for (let i = 0; i < 4; i++) {
-      LR = i < 2 ? 90 : 246;
+      LR = i < 2 ? 19 : 34;
       if (wLC == 0) {
         // 왼쪽 벽에서 생성
         io.to(room[index].roomCode).emit("create_item_obs", {
           // 특수 장애물 생성하거라
           x: 0,
-          y: LR + 200 * i,
-          xv: 6,
+          y: LR + 19.2 * i,
+          xv: 0.6,
           yv: 0,
           id: id,
         });
@@ -172,34 +172,34 @@ module.exports = (io, socket, room) => {
         //오른쪽 벽에서 생성
         io.to(room[index].roomCode).emit("create_item_obs", {
           // 특수 장애물 생성하거라
-          x: 1600,
-          y: LR + 200 * i,
-          xv: 6 * -1,
+          x: 100,
+          y: LR + 19.2 * i,
+          xv: -0.6,
           yv: 0,
           id: id,
         });
       }
     }
     for (let i = 0; i < 6; i++) {
-      LR = i < 3 ? 90 : 730;
+      LR = i < 3 ? 8.6 : 27.4;
       if (wLC == 2) {
         //위쪽 벽에서 생성
         io.to(room[index].roomCode).emit("create_item_obs", {
           // 특수 장애물 생성하거라
-          x: LR + 220 * i,
-          y: -100,
+          x: LR + 12.8 * i,
+          y: 0,
           xv: 0,
-          yv: 4,
+          yv: 0.4,
           id: id,
         });
       } else if (wLC == 3) {
         // 아래쪽 벽에서 생성
         io.to(room[index].roomCode).emit("create_item_obs", {
           // 특수 장애물 생성하거라
-          x: LR + 220 * i,
-          y: 1000,
+          x: LR + 12.8 * i,
+          y: 100,
           xv: 0,
-          yv: 4 * -1,
+          yv: -0.4,
           id: id,
         });
       }
@@ -240,7 +240,7 @@ module.exports = (io, socket, room) => {
     io.to(room[index].roomCode).emit("have_a_item"); // 아이템먹었음
     setTimeout(() => {
       io.to(room[index].roomCode).emit("create_item", itemXYV()); // 아이템생성하거라
-    }, 8000);
+    }, 4000); //8000
   });
 
   // 아이템 효과 중 특수장애물 요청이 들어오면 화면 중앙 or 양쪽 끝에 특수장애물이 지나감

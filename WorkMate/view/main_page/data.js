@@ -1,3 +1,4 @@
+// 캐릭터 움직임 모션 이미지
 let moveasset = [
   [
     "https://cdn.discordapp.com/attachments/980090904394219562/1026451716855582750/dd_17.png",
@@ -49,9 +50,11 @@ let moveasset = [
   ], //오른위
 ];
 
+// 게임 배경 이미지
 let bgImage =
-  "url('https://media.discordapp.net/attachments/980090904394219562/1020072426308112394/unknown.png')";
+  "url('https://media.discordapp.net/attachments/980090904394219562/1039145710551040030/logo.png')";
 
+// 게임 로딩 이미지
 let ox_loading =
   "url('https://media.discordapp.net/attachments/980090904394219562/1021799584667803839/GIF_2022-09-21_12-06-13.gif?width=1266&height=636')";
 let flip_loading =
@@ -59,6 +62,8 @@ let flip_loading =
 let surv_loading =
   "url('https://media.discordapp.net/attachments/980090904394219562/1021798469670813770/9a0b0a0d08d21b21.gif?width=1316&height=636')";
 
+
+// 게임 맵 이미지
 let ox_map = new Image();
 ox_map.src =
   "https://cdn.discordapp.com/attachments/914865394643271762/1037997369935020062/map-export.png";

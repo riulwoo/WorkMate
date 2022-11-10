@@ -7,20 +7,22 @@ const CHECK_DUR_TIME = 990; // 퀴즈를 풀고 난 뒤 정답 체크 시간  (m
 const quiz_num = [1, 2, 3, 4, 5, 6, 7]; //문제 수
 module.exports = (io, socket, room) => {
   function random_quiz(ms, Index) {
-    var quiz_index = Math.floor(Math.random() * question.length);
+    var quiz_index = room[Index].cur_quiz_index[room[Index].cur_quiz_index.length-1] === undefined ?  Math.floor(Math.random() * question.length) : room[Index].cur_quiz_index[room[Index].cur_quiz_index.length-1];
     while (true) {
-      if (room[Index].cur_quiz_index.includes(quiz_index)) {
+      if (ms == 990 && room[Index].cur_quiz_index.includes(quiz_index)) {
         quiz_index = Math.floor(Math.random() * question.length);
-      } else if (!room[Index].cur_quiz_index.includes(quiz_index)) {
+      }
+      else{
         if (ms == 4000) {
-          return answer[quiz_index];
+          return answer[
+            room[Index].cur_quiz_index[room[Index].cur_quiz_index.length - 1]
+          ];
         }
         if (ms == 990) {
           room[Index].cur_quiz_index.push(quiz_index);
           return question[quiz_index];
         }
       }
-    }
   }
 
   const oxcycle = (ms, Index) => {
