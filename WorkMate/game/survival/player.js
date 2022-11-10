@@ -9,8 +9,8 @@ function surviv_renderPlayer() {
       // 플레이어가 무적일 때 깜빡이게 표현
       surv_ctx.drawImage(
         player.player,
-        player.x - player.radius,
-        player.y - player.radius,
+        player.x,
+        player.y,
         50,
         70
       );
@@ -20,8 +20,8 @@ function surviv_renderPlayer() {
     surv_ctx.font = "bold 20px DungGeunMo";
     surv_ctx.fillText(
       player.nick,
-      player.x - player.radius - 10,
-      player.y - player.radius
+      player.x - 10,
+      player.y - 10
     );
 
     surv_ctx.closePath();
@@ -32,8 +32,8 @@ function surviv_renderPlayer() {
       surv_ctx.strokeStyle = "lime";
       surv_ctx.lineWidth = 3;
       surv_ctx.strokeRect(
-        player.x - player.radius,
-        player.y - player.radius,
+        player.x,
+        player.y,
         50,
         70
       );
@@ -44,6 +44,19 @@ function surviv_renderPlayer() {
   } // end of for
 
   let curPlayer = players[myId];
+
+  // 현재 플레이어만 그릴 수 있게 화살표는 이곳에서 그린다.
+  surv_ctx.beginPath();
+
+  surv_ctx.drawImage(
+    curPlayer.arrow,
+    curPlayer.x + 5,
+    curPlayer.y - 42,
+    32,
+    32
+  );
+
+  surv_ctx.closePath();
 
   if (curPlayer.blinkNum > 0) {
     // reduce the blink time
@@ -171,6 +184,8 @@ function surviv_player(id, nick, x, y, color) {
   this.y = y; // y 좌표
   this.player = new Image();
   this.player.src = this.asset[0]; // 플레이어의 현재 이미지. 방향키를 누를때 바뀐다.
+  this.arrow = new Image(); // 플레이어 위치를 가리킬 화살표.
+  this.arrow.src = "https://cdn.discordapp.com/attachments/980090904394219562/1039148418993492018/Untitled_11-07-2022_08-55-41.png"; // 화살표 이미지 링크.
   this.score = 0; // 플레이어의 현재 점수
   this.blinksec = 0;
 

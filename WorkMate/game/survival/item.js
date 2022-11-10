@@ -41,8 +41,8 @@ function renderItem() {
     surv_ctx.beginPath();
     surv_ctx.drawImage(
       itemBox.image,
-      itemBox.x - itemBox.radius,
-      itemBox.y - itemBox.radius,
+      itemBox.x,
+      itemBox.y,
       55,
       55
     ); // 크기는 55, 55
@@ -76,8 +76,8 @@ function renderItem() {
 /** 아이템 상자와 플레이어가 닿음을 감지하는 메서드 */
 function distItem() {
   if (itemBox != null) {
-    let px = players[myId].x;
-    let py = players[myId].y;
+    let px = players[myId].x + 25;
+    let py = players[myId].y + 35;
     let ix = itemBox.x + itemBox.radius;
     let iy = itemBox.y + itemBox.radius;
 

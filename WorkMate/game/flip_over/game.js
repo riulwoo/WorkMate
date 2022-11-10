@@ -291,10 +291,10 @@ function choose(player) {
 
     if (card.x >= 0) {
       if (
-        player.x >= card.x &&
-        player.x <= card.x + card_width &&
-        player.y >= card.y &&
-        player.y <= card.y + card_height
+        player.x + 25 >= card.x &&
+        player.x + 25 <= card.x + card_width &&
+        player.y + 35 >= card.y &&
+        player.y + 35 <= card.y + card_height
       ) {
         // 플레이어의 좌표가 카드의 영역 안에 정상적으로 들어가 있고,
         if (player.firstpick || player.firstcard != i) {

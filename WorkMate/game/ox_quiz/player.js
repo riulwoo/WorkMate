@@ -14,6 +14,17 @@ function ox_renderPlayer() {
     ox_ctx.closePath();
   }
   let curPlayer = players[myId];
+
+  // 현재 플레이어만 그릴 수 있게 화살표는 이곳에서 그린다.
+  ox_ctx.beginPath();
+
+  ox_ctx.drawImage(
+    curPlayer.arrow,
+    curPlayer.x + 5,
+    curPlayer.y - 42,
+    32,
+    32
+  );
   // 플레이어 이동
   if (!is_end && !is_checking) {
     if (rightPressed) {
@@ -126,6 +137,8 @@ function ox_player(id, nick, x, y, color) {
   this.y = y;
   this.player = new Image();
   this.player.src = this.asset[0];
+  this.arrow = new Image(); // 플레이어 위치를 가리킬 화살표.
+  this.arrow.src = "https://cdn.discordapp.com/attachments/980090904394219562/1039148418993492018/Untitled_11-07-2022_08-55-41.png"; // 화살표 이미지 링크.
   this.score = 0;
   this.radius = 16;
   this.PLAYERSPEED = 5;

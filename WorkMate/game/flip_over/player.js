@@ -11,6 +11,18 @@ function flip_renderPlayer() {
     flip_ctx.closePath();
   }
   let curPlayer = players[myId];
+
+  // 현재 플레이어만 그릴 수 있게 화살표는 이곳에서 그린다.
+  surv_ctx.beginPath();
+
+  flip_ctx.drawImage(
+    curPlayer.arrow,
+    curPlayer.x + 5,
+    curPlayer.y - 42,
+    32,
+    32
+  );
+
   // 플레이어 이동
   if (players[myId].stun_sec <= 0) {
     if (rightPressed) {
@@ -112,6 +124,8 @@ function flip_player(id, nick, x, y, color) {
   this.PLAYERSPEED = 5;
   this.player = new Image();
   this.player.src = this.asset[0];
+  this.arrow = new Image(); // 플레이어 위치를 가리킬 화살표.
+  this.arrow.src = "https://cdn.discordapp.com/attachments/980090904394219562/1039148418993492018/Untitled_11-07-2022_08-55-41.png"; // 화살표 이미지 링크.
   this.score = 0;
   this.first_delay_sec = 0; // 첫번째 카드가 choose되고 3초 뒤에 다시 원상태 복귀하게 하는 변수 firstpick = false; → first_delay_sec = 180;
   this.delay = false; // 2번째카드가 맞춰질때 까지 다른 카드를 못 뒤집게 막는 변수        player.secondcard = card_index; → delay = match_flow 실행 후에 풀리는걸로

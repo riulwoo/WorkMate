@@ -264,6 +264,10 @@ function stunAndBlink_flow() {
 function speedUp_flow() {
   if (players[myId].speedUpsec > 0)
   {
+    surv_ctx.fillStyle = "#3561F1";
+    surv_ctx.font = "120px DungGeunMo";
+    surv_ctx.textAlign = "center";
+    surv_ctx.fillText("Speed Up!!", X / 2, Y / 2 - 260);
     players[myId].PLAYERSPEED = 8;
 
     players[myId].speedUpsec--;
