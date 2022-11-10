@@ -11,6 +11,11 @@ for(let i = 0; i < sortedScore.length; i++)
   scores[i].innerText = sortedScore[i].score;
 }
 
+if (sortedScore.length <= 2) {
+  console.log("뀨");
+  document.getElementById("img3").style.display = "none";
+}
+
 document.getElementById('first').innerText = sortedScore[0].nick;
 document.getElementById('second').innerText = sortedScore[1].nick;
 document.getElementById('third').innerText = sortedScore[2].nick;

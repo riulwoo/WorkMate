@@ -19,10 +19,10 @@ let moveasset = [
     "https://cdn.discordapp.com/attachments/980090904394219562/1026451443999326228/dd_05.png",
   ], //위
   [
-    "https://cdn.discordapp.com/attachments/980090904394219562/1026451573129367592/gg_13.png",
-    "https://cdn.discordapp.com/attachments/980090904394219562/1026451573506838559/h_14.png",
-    "https://cdn.discordapp.com/attachments/980090904394219562/1026451573846573117/dd_13.png",
-    "https://cdn.discordapp.com/attachments/980090904394219562/1026451574219882517/ff_13.png",
+    "https://cdn.discordapp.com/attachments/980090904394219562/1035900756055830570/unknown.png",
+    "https://cdn.discordapp.com/attachments/980090904394219562/1035900909617696818/h_12.png",
+    "https://cdn.discordapp.com/attachments/980090904394219562/1035900933642657832/unknown.png",
+    "https://cdn.discordapp.com/attachments/980090904394219562/1035900946980552805/h_12.png",
   ], //오른
   [
     "https://cdn.discordapp.com/attachments/980090904394219562/1026451629089751120/ff_17.png",

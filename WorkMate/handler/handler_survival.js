@@ -137,7 +137,7 @@ module.exports = (io, socket, room) => {
           x: 17 + 12.8 * i,
           y: 0,
           xv: 0,
-          yv: 0.4,
+          yv: 0.8,
           id: id,
         });
       } else if (wLC == 3) {
@@ -147,7 +147,7 @@ module.exports = (io, socket, room) => {
           x: 17 + 12.8 * i,
           y: 100,
           xv: 0,
-          yv: -0.4,
+          yv: -0.8,
           id: id,
         });
       }
@@ -189,7 +189,7 @@ module.exports = (io, socket, room) => {
           x: LR + 12.8 * i,
           y: 0,
           xv: 0,
-          yv: 0.4,
+          yv: 0.8,
           id: id,
         });
       } else if (wLC == 3) {
@@ -199,7 +199,7 @@ module.exports = (io, socket, room) => {
           x: LR + 12.8 * i,
           y: 100,
           xv: 0,
-          yv: -0.4,
+          yv: -0.8,
           id: id,
         });
       }

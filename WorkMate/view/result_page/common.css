@@ -12,10 +12,19 @@
     background-position: center;
     background-repeat: no-repeat;
     border: 0;
-    display: block;
-
 }
 
+#img1 {
+  display: block;
+}
+
+#img2 {
+  display: block;
+}
+
+#img3 {
+  display: block;
+}
 #result_pixel ::before {
     content: "";
     display: block;
