@@ -18,11 +18,12 @@ function surviv_renderPlayer() {
 
     surv_ctx.fillStyle = player.color;
     surv_ctx.font = "bold 20px DungGeunMo";
+    surv_ctx.textAlign = "center";
     surv_ctx.fillText(
       player.nick,
-      player.x - 14,
+      player.x + 25,
       player.y - 10
-    );
+    ); //player.x - 14
 
     surv_ctx.closePath();
 

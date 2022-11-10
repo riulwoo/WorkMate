@@ -7,6 +7,7 @@ function ox_renderPlayer() {
     ox_ctx.beginPath();
     ox_ctx.fillStyle = ball.color;
     ox_ctx.font = "bold 20px DungGeunMo";
+    ox_ctx.textAlign = "center";
     ox_ctx.fillText(ball.nick, ball.x + 25, ball.y - ball.radius + 10);
     // ox_ctx.fillStyle = "white";
     // ox_ctx.font = "20px DungGeunMo";
@@ -27,7 +28,7 @@ function ox_renderPlayer() {
   );
 
   ox_ctx.closePath();
-  
+
   // 플레이어 이동
   if (!is_end && !is_checking) {
     if (rightPressed) {
