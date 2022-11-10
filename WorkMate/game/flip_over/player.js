@@ -7,7 +7,7 @@ function flip_renderPlayer() {
     flip_ctx.beginPath();
     flip_ctx.fillStyle = ball.color;
     flip_ctx.font = "bold 20px DungGeunMo";
-    flip_ctx.fillText(ball.nick, ball.x - 25, ball.y - ball.radius + 10);
+    flip_ctx.fillText(ball.nick, ball.x - 23, ball.y - ball.radius + 10);
     flip_ctx.closePath();
   }
   let curPlayer = players[myId];
@@ -24,7 +24,7 @@ function flip_renderPlayer() {
   );
 
   flip_ctx.closePath();
-  
+
   // 플레이어 이동
   if (players[myId].stun_sec <= 0) {
     if (rightPressed) {
