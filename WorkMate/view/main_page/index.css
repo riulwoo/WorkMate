@@ -29,7 +29,7 @@ body {
   height: 100%;
 }
 
-
+/*
 #corner-menu {
   position: absolute;
   right: 5px;
@@ -40,7 +40,7 @@ body {
   border-radius: 10px;
   background-color: rgba(153, 242, 253, 0.1);
 }
-
+*/
 
 #qr-button,
 #question-mark {
@@ -394,4 +394,15 @@ body {
   right: -6px;
   background: rgb(60, 181, 197);
   z-index: -1;
+}
+#touch_me{
+  position: absolute;
+  background-image: url("https://media.discordapp.net/attachments/980090904394219562/1039152516585238559/unknown.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 10%;
+  height: 10%;
+  left: 86%;
+  top: 10%;
 }
