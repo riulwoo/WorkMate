@@ -91,17 +91,35 @@ function ox_field_draw() {
   X = ox_canvas.width;
   Y = ox_canvas.height;
   ox_ctx.beginPath();
-  ox_ctx.fillStyle = "bisque";
+  //ox_ctx.fillStyle = "bisque";
+  ox_ctx.fillStyle = "fff5cd";
   ox_ctx.fillRect(0, 0, X, Y / 4);
-  // O 영역
-  ox_ctx.fillStyle = "#87AFFD";
-  ox_ctx.fillRect(0, Y / 4, (X * 40) / 100, Y);
   // 중앙 영역
-  ox_ctx.fillStyle = "#757E8B";
+  //ox_ctx.fillStyle = "#757E8B";
+  ox_ctx.fillStyle = "#fffae7";
   ox_ctx.fillRect((X * 40) / 100, Y / 4, (X * 20) / 100, Y);
-  // Y 영역
-  ox_ctx.fillStyle = "#FE8787";
+  //ox_ctx.fillStyle = "#87AFFD";
+  ox_ctx.fillStyle = "#b5ceff";
+  ox_ctx.fillRect(0, Y / 4, (X * 40) / 100, Y);
+  //ox_ctx.fillStyle = "#FE8787";
+  ox_ctx.fillStyle = "#ffbbbb";
   ox_ctx.fillRect((X * 60) / 100, Y / 4, (X * 40) / 100, Y);
+  if(is_checking == true)
+  {
+    // O 영역
+    if(answer) {
+      //ox_ctx.fillStyle = "#87AFFD";
+      ox_ctx.fillStyle = "#266fff";
+      ox_ctx.fillRect(0, Y / 4, (X * 40) / 100, Y);
+    }
+    // X 영역
+    else
+    {
+      //ox_ctx.fillStyle = "#FE8787";
+      ox_ctx.fillStyle = "#ff3838";
+      ox_ctx.fillRect((X * 60) / 100, Y / 4, (X * 40) / 100, Y);
+    }
+  }
   // O, X 텍스트
   ox_ctx.fillStyle = "white";
   ox_ctx.font = "348px DungGeunMo";
