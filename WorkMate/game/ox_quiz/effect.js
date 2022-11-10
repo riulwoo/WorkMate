@@ -100,12 +100,14 @@ function distBall() {
     ) {
       // 좌표랑 좌표를 서로 바꿔주는 effect효과를 넣어야 함
       // 내 좌표만 그 사람의 좌표로 바뀌고
+      console.log("1. 트랜스볼 맞음");
       socket.emit("ox_transBall_hit", {
         x: (players[myId].x * 100) / X,
         y: (players[myId].y * 100) / Y,
         id: balls[i].id,
       });
 
+      console.log("ex. 트랜스볼 없어짐");
       socket.emit("ox_transBall_remove", {
         id: myId,
         i: i,
@@ -122,6 +124,7 @@ socket.on("ox_transBall_use", (data) => {
 });
 
 socket.on("ox_return_XY", (data) => {
+  console.log("3. 트랜스볼 맞아서 내 좌표 바뀜");
   players[myId].x = (data.x * X) / 100;
   players[myId].y = (data.y * Y) / 100;
   sendData(players[myId]);
@@ -129,6 +132,7 @@ socket.on("ox_return_XY", (data) => {
 
 // 쏜 사람과 맞은 사람의 좌표를 바꿔 줌
 socket.on("ox_hit_XY", (data) => {
+  console.log("2. 트랜스볼 맞춰서 그 사람의 좌표로 이동");
   // 공을 던진 사람
   // 맞은 사람의 좌표를 받아 내 좌표가 바뀜
   // data > x, y

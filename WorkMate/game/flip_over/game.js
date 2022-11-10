@@ -259,7 +259,7 @@ function match_flow(player, check) {
   else {
     deck[player.firstcard].untouchable = true;
     deck[player.secondcard].untouchable = true;
-    player.score += 50;
+    player.score += 200;
   }
   player.firstcard = -1;
   player.secondcard = -1;
