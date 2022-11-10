@@ -56,11 +56,11 @@ let bgImage =
 
 // 게임 로딩 이미지
 let ox_loading =
-  "url('https://media.discordapp.net/attachments/980090904394219562/1021799584667803839/GIF_2022-09-21_12-06-13.gif?width=1266&height=636')";
+  "url('https://media.discordapp.net/attachments/980090904394219562/1040310345148944425/OX.gif?width=1395&height=676')";
 let flip_loading =
-  "url('https://media.discordapp.net/attachments/980090904394219562/1021799584667803839/GIF_2022-09-21_12-06-13.gif?width=1266&height=636')";
+  "url('https://media.discordapp.net/attachments/980090904394219562/1040310345845194762/2eb05ba7899cfc30.gif?width=1395&height=676')";
 let surv_loading =
-  "url('https://media.discordapp.net/attachments/980090904394219562/1021798469670813770/9a0b0a0d08d21b21.gif?width=1316&height=636')";
+  "url('https://media.discordapp.net/attachments/980090904394219562/1040310345509642281/04d8188d12317b6b.gif?width=1395&height=676')";
 
 
 // 게임 맵 이미지
