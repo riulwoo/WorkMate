@@ -24,7 +24,7 @@ let finalscore; // 마지막 라운드에 전송할 점수 변수(게임이 종�
 let sortedScore = [];
 let readyCount = 0;
 let userCount = 0;
-
+let matchTimer;
 matchBtn.addEventListener("click", match);
 
 croomBtn.addEventListener("click", function () {
@@ -75,6 +75,7 @@ start.addEventListener("click", function () {
 mcancelBtn.addEventListener("click", () => {
   socket.emit("matchcancel", myId);
   console.log("매칭 취소");
+  clearTimeout(matchTimer);
 });
 
 rcancelBtn.addEventListener("click", () => {

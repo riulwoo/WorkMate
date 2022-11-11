@@ -3,8 +3,8 @@ function readyUpdate(rIndex) {
   let slotId = document.querySelectorAll(".in_slot_hide");
   let arrId = Array.prototype.slice.call(slotId);
   for (var i = 0; i < 6; i++) {
-      if (rIndex.includes(arrId[i].innerHTML))
-        slot[i].style.backgroundColor = "rgb(255, 245, 85)";
+    if (rIndex.includes(arrId[i].innerHTML))
+      slot[i].style.backgroundColor = "rgb(255, 245, 85)";
   }
 }
 
@@ -117,7 +117,10 @@ function removePlayer(id) {
 
 //방 생성 시 랜덤 코드 생성
 function randomCode() {
-  return (new Date().getTime() + Math.random()).toString(36).substring(2, 7).toUpperCase();
+  return (new Date().getTime() + Math.random())
+    .toString(36)
+    .substring(2, 7)
+    .toUpperCase();
 }
 
 //매칭 시작
@@ -131,7 +134,7 @@ function match() {
     score: 0,
   });
   console.log("매치 시작 보냈다?");
-  setTimeout(() => {
+  matchTimer = setTimeout(() => {
     socket.emit("matchtimeover", myId);
   }, 15000);
 }
