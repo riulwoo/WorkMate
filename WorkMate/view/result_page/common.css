@@ -1,19 +1,26 @@
 .image-cover {
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .img {
-    /*캐릭터 이미지*/
-    width: 80%;
-    height: 50%;
-    background-image: url("https://cdn.discordapp.com/attachments/896478465237348402/1006409267257024614/1.png");
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    border: 0;
+  /*캐릭터 이미지*/
+  width: 80%;
+  height: 55%;
+  background-image: url("https://cdn.discordapp.com/attachments/896478465237348402/1006409267257024614/1.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 0;
+  padding-right : 40px;
 }
-
+div#first, div#second, div#third {
+  margin-top : 30px;
+  font-size : 35px;
+}
+span.toprank{
+  font-size : 35px;
+}
 #img1 {
   display: block;
 }
