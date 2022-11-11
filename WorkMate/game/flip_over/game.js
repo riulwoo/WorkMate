@@ -29,15 +29,15 @@ let flip_interval;
 var keyPressed = false;
 // 그려질 카드
 var card_asset_index = [
-  "https://cdn.discordapp.com/attachments/980090904394219562/1026178038003662969/card_back.png",
-  "https://cdn.discordapp.com/attachments/980090904394219562/1026201806897938573/card_coffee.png",
-  "https://cdn.discordapp.com/attachments/980090904394219562/1026201836232913006/card_laptop.png",
-  "https://cdn.discordapp.com/attachments/980090904394219562/1026745172316389446/card_files_2.png",
-  "https://cdn.discordapp.com/attachments/980090904394219562/1026745172001820722/card_print_2.png",
-  "https://cdn.discordapp.com/attachments/980090904394219562/1026203173796446339/card_money.png",
-  "https://cdn.discordapp.com/attachments/980090904394219562/1030014941689810955/card_cal.png",
-  "https://cdn.discordapp.com/attachments/980090904394219562/1026201898967126097/card_boom.png",
-  "https://cdn.discordapp.com/attachments/980090904394219562/1039927041543389224/card_matched.png",
+  "https://workmate.s3.ap-northeast-2.amazonaws.com/flip/card_back.png",
+  "https://workmate.s3.ap-northeast-2.amazonaws.com/flip/card_coffee.png",
+  "https://workmate.s3.ap-northeast-2.amazonaws.com/flip/card_laptop.png",
+  "https://workmate.s3.ap-northeast-2.amazonaws.com/flip/card_files_2.png",
+  "https://workmate.s3.ap-northeast-2.amazonaws.com/flip/card_print_2.png",
+  "https://workmate.s3.ap-northeast-2.amazonaws.com/flip/card_money.png",
+  "https://workmate.s3.ap-northeast-2.amazonaws.com/flip/card_cal.png",
+  "https://workmate.s3.ap-northeast-2.amazonaws.com/flip/card_boom.png",
+  "https://workmate.s3.ap-northeast-2.amazonaws.com/flip/card_matched.png",
 ];
 var card_margin = (X * 0.75) / 100; // 카드와 카드 사이의 간격 35 55 75
 var card_width = (X * 7.5) / 100; // 카드의 가로 길이
@@ -324,7 +324,13 @@ function choose(player) {
     // 사용자가 카드를 고름
     if (deck[card_index].info == 7) {
       // 폭탄을 뒤집었을 때의 처리
-      if (!player.firstpick) deck[player.firstcard].poly = 0;
+      if (!player.firstpick) {
+        deck[player.firstcard].poly = 0;
+        socket.emit("flip", {
+          id: myId,
+          c_index: player.firstcard,
+        });
+      }
       player.firstpick = true;
       socket.emit("flip", {
         id: myId,

@@ -19,13 +19,7 @@ function ox_renderPlayer() {
   // 현재 플레이어만 그릴 수 있게 화살표는 이곳에서 그린다.
   ox_ctx.beginPath();
 
-  ox_ctx.drawImage(
-    curPlayer.arrow,
-    curPlayer.x + 5,
-    curPlayer.y - 42,
-    32,
-    32
-  );
+  ox_ctx.drawImage(curPlayer.arrow, curPlayer.x + 5, curPlayer.y - 42, 32, 32);
 
   ox_ctx.closePath();
 
@@ -126,14 +120,14 @@ function ox_player(id, nick, x, y, color) {
   this.id = id;
   this.nick = nick;
   this.asset = [
-    "https://cdn.discordapp.com/attachments/980090904394219562/1026451716855582750/dd_17.png", // 아래
-    "https://cdn.discordapp.com/attachments/980090904394219562/1026451526304137217/gg_12.png", // 왼쪽
-    "https://cdn.discordapp.com/attachments/980090904394219562/1026451443055607838/gg_05.png", // 위
-    "https://cdn.discordapp.com/attachments/980090904394219562/1026451573129367592/gg_13.png", // 오른
-    "https://cdn.discordapp.com/attachments/980090904394219562/1026451629450481664/gg_16.png", // 왼아래
-    "https://cdn.discordapp.com/attachments/980090904394219562/1026451379939717130/dd_03.png", // 왼위
-    "https://cdn.discordapp.com/attachments/980090904394219562/1026451865224884234/gg_18.png", // 오른아래
-    "https://cdn.discordapp.com/attachments/980090904394219562/1026451494075125800/gg_07.png", // 오른위
+    "https://workmate.s3.ap-northeast-2.amazonaws.com/player/asset/down.png", // 아래
+    "https://workmate.s3.ap-northeast-2.amazonaws.com/player/asset/left.png", // 왼쪽
+    "https://workmate.s3.ap-northeast-2.amazonaws.com/player/asset/up.png", // 위
+    "https://workmate.s3.ap-northeast-2.amazonaws.com/player/asset/right.png", // 오른
+    "https://workmate.s3.ap-northeast-2.amazonaws.com/player/asset/leftdown.png", // 왼아래
+    "https://workmate.s3.ap-northeast-2.amazonaws.com/player/asset/leftup.png", // 왼위
+    "https://workmate.s3.ap-northeast-2.amazonaws.com/player/asset/rightdown.png", // 오른아래
+    "https://workmate.s3.ap-northeast-2.amazonaws.com/player/asset/rightup.png", // 오른위
   ];
 
   this.color = color;
@@ -142,7 +136,8 @@ function ox_player(id, nick, x, y, color) {
   this.player = new Image();
   this.player.src = this.asset[0];
   this.arrow = new Image(); // 플레이어 위치를 가리킬 화살표.
-  this.arrow.src = "https://cdn.discordapp.com/attachments/980090904394219562/1039148418993492018/Untitled_11-07-2022_08-55-41.png"; // 화살표 이미지 링크.
+  this.arrow.src =
+    "https://workmate.s3.ap-northeast-2.amazonaws.com/player_arrow.png"; // 화살표 이미지 링크.
   this.score = 0;
   this.radius = 16;
   this.PLAYERSPEED = 5;

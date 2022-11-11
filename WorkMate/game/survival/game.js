@@ -136,7 +136,7 @@ var roids_of_item = [];
 var itemBox;
 var item_asset = new Image();
 item_asset.src =
-  "https://cdn.discordapp.com/attachments/980090904394219562/1020591795580706816/item_boxxx_2.png";
+  "https://workmate.s3.ap-northeast-2.amazonaws.com/surviv/surv_itembox.png";
 
 document.addEventListener("keydown", surviv_keyDownHandler, false);
 document.addEventListener("keyup", surviv_keyUpHandler, false);
@@ -262,8 +262,7 @@ function stunAndBlink_flow() {
 
 /** 플레이어가 아이템을 써서 이동속도 증가 효과를 얻은 뒤, 지속시간이 점차 감소하도록 컨트롤하는 메서드. */
 function speedUp_flow() {
-  if (players[myId].speedUpsec > 0)
-  {
+  if (players[myId].speedUpsec > 0) {
     surv_ctx.fillStyle = "#3561F1";
     surv_ctx.font = "120px DungGeunMo";
     surv_ctx.textAlign = "center";
@@ -271,15 +270,12 @@ function speedUp_flow() {
     players[myId].PLAYERSPEED = 8;
 
     players[myId].speedUpsec--;
-  }
-  else if (players[myId].speedUpsec == 0)
-  {
+  } else if (players[myId].speedUpsec == 0) {
     players[myId].PLAYERSPEED = 5;
 
     players[myId].speedUpsec = -1;
   }
 }
-
 
 function surviv_update() {
   surviv_field_draw(); // 바닥

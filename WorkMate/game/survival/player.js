@@ -7,23 +7,13 @@ function surviv_renderPlayer() {
 
     if (player.blinksec % 2 == 0) {
       // 플레이어가 무적일 때 깜빡이게 표현
-      surv_ctx.drawImage(
-        player.player,
-        player.x,
-        player.y,
-        50,
-        70
-      );
+      surv_ctx.drawImage(player.player, player.x, player.y, 50, 70);
     }
 
     surv_ctx.fillStyle = player.color;
     surv_ctx.font = "bold 20px DungGeunMo";
     surv_ctx.textAlign = "center";
-    surv_ctx.fillText(
-      player.nick,
-      player.x + 25,
-      player.y - 10
-    ); //player.x - 14
+    surv_ctx.fillText(player.nick, player.x + 25, player.y - 10); //player.x - 14
 
     surv_ctx.closePath();
 
@@ -32,12 +22,7 @@ function surviv_renderPlayer() {
       surv_ctx.beginPath();
       surv_ctx.strokeStyle = "lime";
       surv_ctx.lineWidth = 3;
-      surv_ctx.strokeRect(
-        player.x,
-        player.y,
-        50,
-        70
-      );
+      surv_ctx.strokeRect(player.x, player.y, 50, 70);
       //surv_ctx.arc(player.x, player.y, player.radius, Math.PI * 2, false);
       surv_ctx.stroke();
       surv_ctx.closePath();
@@ -167,16 +152,14 @@ function surviv_player(id, nick, x, y, color) {
   this.nick = nick;
   this.direction;
   this.asset = [
-    // 플레이어로써 출력 될 이미지.
-    // 이미지는 총 8개 (회사원 이미지로 대체 예정)
-    "https://cdn.discordapp.com/attachments/980090904394219562/1026451716855582750/dd_17.png", // 아래
-    "https://cdn.discordapp.com/attachments/980090904394219562/1026451526304137217/gg_12.png", // 왼쪽
-    "https://cdn.discordapp.com/attachments/980090904394219562/1026451443055607838/gg_05.png", // 위
-    "https://cdn.discordapp.com/attachments/980090904394219562/1026451573129367592/gg_13.png", // 오른
-    "https://cdn.discordapp.com/attachments/980090904394219562/1026451629450481664/gg_16.png", // 왼아래
-    "https://cdn.discordapp.com/attachments/980090904394219562/1026451379939717130/dd_03.png", // 왼위
-    "https://cdn.discordapp.com/attachments/980090904394219562/1026451865224884234/gg_18.png", // 오른아래
-    "https://cdn.discordapp.com/attachments/980090904394219562/1026451494075125800/gg_07.png",
+    "https://workmate.s3.ap-northeast-2.amazonaws.com/player/asset/down.png", // 아래
+    "https://workmate.s3.ap-northeast-2.amazonaws.com/player/asset/left.png", // 왼쪽
+    "https://workmate.s3.ap-northeast-2.amazonaws.com/player/asset/up.png", // 위
+    "https://workmate.s3.ap-northeast-2.amazonaws.com/player/asset/right.png", // 오른
+    "https://workmate.s3.ap-northeast-2.amazonaws.com/player/asset/leftdown.png", // 왼아래
+    "https://workmate.s3.ap-northeast-2.amazonaws.com/player/asset/leftup.png", // 왼위
+    "https://workmate.s3.ap-northeast-2.amazonaws.com/player/asset/rightdown.png", // 오른아래
+    "https://workmate.s3.ap-northeast-2.amazonaws.com/player/asset/rightup.png", // 오른위
   ];
   this.PLAYERSPEED = 5;
   this.radius = 25; // 반지름
@@ -186,7 +169,8 @@ function surviv_player(id, nick, x, y, color) {
   this.player = new Image();
   this.player.src = this.asset[0]; // 플레이어의 현재 이미지. 방향키를 누를때 바뀐다.
   this.arrow = new Image(); // 플레이어 위치를 가리킬 화살표.
-  this.arrow.src = "https://cdn.discordapp.com/attachments/980090904394219562/1039148418993492018/Untitled_11-07-2022_08-55-41.png"; // 화살표 이미지 링크.
+  this.arrow.src =
+    "https://workmate.s3.ap-northeast-2.amazonaws.com/player_arrow.png"; // 화살표 이미지 링크.
   this.score = 0; // 플레이어의 현재 점수
   this.blinksec = 0;
 

@@ -14,7 +14,7 @@ function Item(x, y, xv, yv) {
 
   this.image = new Image();
   this.image.src =
-    "https://cdn.discordapp.com/attachments/980090904394219562/1025853760267890758/673a781ab5dc57b6.png";
+    "https://workmate.s3.ap-northeast-2.amazonaws.com/surviv/surv_coffee.png";
 }
 
 function Itemeffect(type) {
@@ -39,13 +39,7 @@ function renderItem() {
   if (itemBox != null) {
     // rendering a Item. 장애물을 화면에 출력합니다.
     surv_ctx.beginPath();
-    surv_ctx.drawImage(
-      itemBox.image,
-      itemBox.x,
-      itemBox.y,
-      55,
-      55
-    ); // 크기는 55, 55
+    surv_ctx.drawImage(itemBox.image, itemBox.x, itemBox.y, 55, 55); // 크기는 55, 55
 
     surv_ctx.closePath();
 

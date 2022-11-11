@@ -19,7 +19,7 @@ body {
   margin: 0px;
   height: 100%;
   width: 100%;
-  background-image: url("https://media.discordapp.net/attachments/980090904394219562/1039145765064425502/unknown.png");
+  background-image: url("https://workmate.s3.ap-northeast-2.amazonaws.com/bg_main.png");
   background-size: cover;
   background-position: center;
 }
@@ -55,14 +55,14 @@ body {
 
 #qr-button {
   right: 10px;
-  background-image: url("https://media.discordapp.net/attachments/980090904394219562/1036960711512956998/c261c2ece9a48e97.png");
+  background-image: url("https://workmate.s3.ap-northeast-2.amazonaws.com/btn_qr.png");
   background-size: cover;
   position: absolute;
 }
 
 #question-mark {
   right: 100px;
-  background-image: url("https://media.discordapp.net/attachments/980090904394219562/1036960279751311450/581f51d3bd46bb0c.png");
+  background-image: url("https://workmate.s3.ap-northeast-2.amazonaws.com/btn_howto.png");
   background-size: cover;
   position: absolute;
 }
@@ -88,7 +88,7 @@ body {
 }
 
 #qr-code {
-  background-image: url("https://media.discordapp.net/attachments/980090904394219562/1035890351136854147/qrcode_workmate.ga.png");
+  background-image: url("https://workmate.s3.ap-northeast-2.amazonaws.com/qrcode.png");
   background-size: cover;
   position: absolute;
   top: 10px;
@@ -110,7 +110,7 @@ body {
   z-index: 100;
   border: 3px solid black;
   display: none;
-  background-image: url("https://media.discordapp.net/attachments/980090904394219562/1036973540433461329/unknown.png");
+  background-image: url("https://workmate.s3.ap-northeast-2.amazonaws.com/howto.PNG");
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -149,7 +149,7 @@ body {
 }
 
 #logo {
-  background-image: url("https://cdn.discordapp.com/attachments/980090904394219562/980091289414557736/logo.png");
+  background-image: url("https://workmate.s3.ap-northeast-2.amazonaws.com/logo.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -269,7 +269,7 @@ body {
 }
 
 .in_slot_img {
-  background-image: url("https://cdn.discordapp.com/attachments/980090904394219562/1004271208226881606/1.png");
+  background-image: url("https://workmate.s3.ap-northeast-2.amazonaws.com/player_main.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -325,7 +325,7 @@ body {
 }
 
 .loader {
-  background-image: url("https://media.discordapp.net/attachments/980090904394219562/1035832647307505725/vodafone-greece-vodafone.gif");
+  background-image: url("https://workmate.s3.ap-northeast-2.amazonaws.com/match_loading.gif");
   width: 100%;
   height: 30%;
   background-size: contain;
@@ -395,9 +395,9 @@ body {
   background: rgb(60, 181, 197);
   z-index: -1;
 }
-#touch_me{
+#touch_me {
   position: absolute;
-  background-image: url("https://media.discordapp.net/attachments/980090904394219562/1039152516585238559/unknown.png");
+  background-image: url("https://workmate.s3.ap-northeast-2.amazonaws.com/touchme.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

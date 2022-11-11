@@ -6,7 +6,7 @@ function Goal(x, y) {
   this.y = y;
   this.image = new Image();
   this.image.src =
-    "https://cdn.discordapp.com/attachments/980090904394219562/1025853774016811058/293546e0e809970.png";
+    "https://workmate.s3.ap-northeast-2.amazonaws.com/surviv/surv_money.png";
   this.blink = () => {};
 }
 
@@ -36,7 +36,10 @@ function distGoal() {
     gx = goal[i].x - goal[i].radius;
     gy = goal[i].y - goal[i].radius;
 
-    if (distBetweenPoints(px, py, gx, gy) < goal[i].radius + players[myId].radius) {
+    if (
+      distBetweenPoints(px, py, gx, gy) <
+      goal[i].radius + players[myId].radius
+    ) {
       socket.emit("get_money", {
         id: myId,
         i: i,

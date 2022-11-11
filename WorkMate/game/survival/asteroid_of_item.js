@@ -7,8 +7,7 @@ function ItemAsteroid(x, y, xv, yv, id) {
   this.radius = 90; // 반지름
   this.image = new Image();
   // 편지
-  this.image.src =
-    "https://cdn.discordapp.com/attachments/980090904394219562/1035889079222554724/Untitled_10-29-2022_09-10-45.png";
+  this.image.src = "https://workmate.s3.ap-northeast-2.amazonaws.com/mail.png";
 }
 
 /** 특수 장애물을 화면에 출력하는 메서드. */

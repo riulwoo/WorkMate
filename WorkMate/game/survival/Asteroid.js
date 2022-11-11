@@ -15,10 +15,10 @@ function Asteroid(x, y, xv, yv, type) {
 
   // 이미지 종류 : 문서더미, 복사기, 노트북
   this.asset = [
-    "https://cdn.discordapp.com/attachments/980090904394219562/1035884700205580308/documents.png",
-    "https://cdn.discordapp.com/attachments/980090904394219562/1035884700855709746/printer.png",
-    "https://cdn.discordapp.com/attachments/980090904394219562/1035884700528562236/laptop.png",
-    "https://cdn.discordapp.com/attachments/980090904394219562/1036893353297575997/calculer.png"
+    "https://workmate.s3.ap-northeast-2.amazonaws.com/surviv/surv_documents.png",
+    "https://workmate.s3.ap-northeast-2.amazonaws.com/surviv/surv_printer.png",
+    "https://workmate.s3.ap-northeast-2.amazonaws.com/surviv/surv_laptop.png",
+    "https://workmate.s3.ap-northeast-2.amazonaws.com/surviv/surv_calculer.png",
   ];
 
   this.image.src = this.asset[type];

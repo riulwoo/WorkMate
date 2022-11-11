@@ -44,8 +44,7 @@ function transBall(x, y, direction, id) {
   }
   this.id = id; // 발사한 사람
   this.image = new Image();
-  this.image.src =
-    "https://cdn.discordapp.com/attachments/980090904394219562/1035889079222554724/Untitled_10-29-2022_09-10-45.png";
+  this.image.src = "https://workmate.s3.ap-northeast-2.amazonaws.com/mail.png";
 }
 
 // 트랜스볼 그리기
@@ -95,7 +94,8 @@ function distBall() {
     sy = balls[i].y + balls[i].radius;
 
     if (
-      distBetweenPoints(px, py, sx, sy) < balls[i].radius + players[myId].radius &&
+      distBetweenPoints(px, py, sx, sy) <
+        balls[i].radius + players[myId].radius &&
       players[myId].id != balls[i].id
     ) {
       // 좌표랑 좌표를 서로 바꿔주는 effect효과를 넣어야 함
@@ -108,7 +108,7 @@ function distBall() {
       });
 
       console.log("ex. 트랜스볼 없어짐");
-      
+
       socket.emit("ox_transBall_remove", {
         id: myId,
         i: i,
@@ -122,7 +122,14 @@ socket.on("ox_transBall_del", (i) => balls.splice(i, 1));
 //메시지 처리 구역
 socket.on("ox_transBall_use", (data) => {
   //data = x, y, direction, id
-  balls.push(new transBall((data.x * X) / 100, (data.y * Y) / 100, data.direction, data.id));
+  balls.push(
+    new transBall(
+      (data.x * X) / 100,
+      (data.y * Y) / 100,
+      data.direction,
+      data.id
+    )
+  );
 });
 
 socket.on("ox_return_XY", (data) => {
