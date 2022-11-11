@@ -130,7 +130,7 @@ function match() {
   socket.emit("matchStart", {
     id: myId,
     roomid: roomId,
-    nick: nickName,
+    nick: nick,
     score: 0,
   });
   console.log("매치 시작 보냈다?");

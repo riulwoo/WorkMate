@@ -77,11 +77,13 @@ mcancelBtn.addEventListener("click", () => {
   socket.emit("matchcancel", myId);
   console.log("매칭 취소");
   clearTimeout(matchTimer);
+  nickName.value = "";
 });
 
 rcancelBtn.addEventListener("click", () => {
   socket.emit("matchcancel", myId);
   removeAllPlayer(myId);
+  nickName.value = "";
 });
 
 socket.on("matchfail", function (data) {
