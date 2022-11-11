@@ -184,6 +184,7 @@ body {
   background: rgb(254, 255, 200);
   color: black;
   z-index: 3;
+  margin: -10px;
 
   position: relative;
   margin: 10px;
@@ -198,7 +199,7 @@ body {
   color: black;
   position: relative;
   z-index: 3;
-  margin: 10px;
+  margin: 10px 20px;
 }
 
 /* p {
