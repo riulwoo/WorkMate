@@ -49,7 +49,7 @@ function surviv_func_lding() {
     setTimeout(() => {
       socket.emit("survival_ready", myId);
       r1();
-    }, 3000);
+    }, 4000);
   });
 }
 

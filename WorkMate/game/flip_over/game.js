@@ -161,7 +161,7 @@ function flip_func_lding() {
     setTimeout(() => {
       socket.emit("flip_is_ready", myId);
       r1();
-    }, 3000);
+    }, 4000);
   });
 }
 

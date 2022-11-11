@@ -56,7 +56,7 @@ let bgImage =
 
 // 게임 로딩 이미지
 let ox_loading =
-  "url('https://workmate.s3.ap-northeast-2.amazonaws.com/OX_loading.gif')";
+  "url('https://workmate.s3.ap-northeast-2.amazonaws.com/ox_loading.gif')";
 let flip_loading =
   "url('https://workmate.s3.ap-northeast-2.amazonaws.com/flip_loading.gif')";
 let surv_loading =

@@ -104,17 +104,15 @@ function ox_field_draw() {
   //ox_ctx.fillStyle = "#FE8787";
   ox_ctx.fillStyle = "#FE8787";
   ox_ctx.fillRect((X * 60) / 100, Y / 4, (X * 40) / 100, Y);
-  if(is_checking == true)
-  {
+  if (is_checking == true) {
     // O 영역
-    if(answer) {
+    if (answer) {
       //ox_ctx.fillStyle = "#87AFFD";
       ox_ctx.fillStyle = "#1765ff";
       ox_ctx.fillRect(0, Y / 4, (X * 40) / 100, Y);
     }
     // X 영역
-    else
-    {
+    else {
       //ox_ctx.fillStyle = "#FE8787";
       ox_ctx.fillStyle = "#ff3838";
       ox_ctx.fillRect((X * 60) / 100, Y / 4, (X * 40) / 100, Y);
@@ -251,7 +249,7 @@ function ox_func_lding() {
     setTimeout(() => {
       socket.emit("ox_ready", myId);
       r1();
-    }, 3000);
+    }, 4000);
   });
 }
 
