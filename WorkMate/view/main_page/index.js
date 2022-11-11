@@ -7,6 +7,7 @@ var jroomBtn = document.getElementById("joinroom"); //방 입장 버튼
 var start = document.getElementById("start"); //게임 시작 버튼
 var ready = document.getElementById("ready"); //게임 준비완료 버튼
 var nickName = document.getElementById("set-nickname"); // 닉네임
+let nick = "";
 var rmCodeTxt = document.getElementById("roomcode"); // 입력받은 룸 코드
 let adminCode = document.getElementById("adminCode");
 let slot = document.querySelectorAll(".slot");
@@ -32,11 +33,11 @@ croomBtn.addEventListener("click", function () {
   randomNick();
   adminCode.innerText = roomId;
   toggleRoom();
-  addPlayer([nickName], [myId]);
+  addPlayer([nick], [myId]);
   socket.emit("createroom", {
     id: myId,
     roomid: roomId,
-    nick: nickName,
+    nick: nick,
     score: 0,
   });
   start.style.display = "inline";
@@ -57,7 +58,7 @@ jroomBtn.addEventListener("click", function () {
   socket.emit("joinroom", {
     id: myId,
     roomid: rmCodeTxt.value.toUpperCase(),
-    nick: nickName,
+    nick: nick,
     score: 0,
   });
 

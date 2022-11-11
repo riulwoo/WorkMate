@@ -46,7 +46,7 @@ function checkLeader() {
 
 // 랜덤 닉네임 생성기
 function randomNick() {
-  nickName =
+  nick =
     nickName.value == null ||
     nickName.value == undefined ||
     nickName.value == "" ||
