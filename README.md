@@ -3,7 +3,7 @@
 참여 인원 : 이근우, 강민성, 임정은, 김범식, 최성우
   
 ## 프로젝트 기간
-2021/01/10 ~ 22/11/12
+2021/01/10 ~ 22/11/16
   
 ## 역할   
   - [이근우](https://github.com/riulwoo) : 총괄, 백엔드(통신)
@@ -14,8 +14,8 @@
 * * *
 # 프로젝트 정보   
 ## 프로젝트 주제 및 기능
-프로젝트 주제 : 웹 멀티 미니게임
-체험해보기 : http://WorkMate.ga
+프로젝트 주제 : 웹 멀티 미니게임  
+체험해보기 : http://WorkMate.ga  
 ## SKILL
 HTML CSS Javascript NodeJs SocketIO AWS EC2 AWS Route 53   
 
