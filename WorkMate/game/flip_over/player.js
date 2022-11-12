@@ -93,10 +93,10 @@ function flip_renderPlayer() {
   }
 
   // collision detection of player. 플레이어가 문제 출력 영역으로 이동하지 못하도록 충돌을 감지합니다.
-  if (players[myId].y <= (Y * 13) / 100 + curPlayer.radius) {
-    players[myId].y = (Y * 13) / 100 + curPlayer.radius;
-  } else if (players[myId].y > Y - curPlayer.radius * 2) {
-    players[myId].y = Y - curPlayer.radius * 2;
+  if (players[myId].y <= (Y * 9) / 100 + curPlayer.radius) {
+    players[myId].y = (Y * 9) / 100 + curPlayer.radius;
+  } else if (players[myId].y > (Y * 98) / 100 - curPlayer.radius * 2) {
+    players[myId].y = (Y * 98) / 100 - curPlayer.radius * 2;
   }
   if (players[myId].x < (X * 4) / 100 + curPlayer.radius) {
     players[myId].x = (X * 4) / 100 + curPlayer.radius;

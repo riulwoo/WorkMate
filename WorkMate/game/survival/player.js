@@ -135,10 +135,10 @@ function surviv_renderPlayer() {
     curPlayer.x = (X * 96) / 100 - curPlayer.radius * 2;
   }
 
-  if (curPlayer.y < (Y * 13) / 100 + curPlayer.radius) {
-    curPlayer.y = (Y * 13) / 100 + curPlayer.radius;
-  } else if (curPlayer.y > Y - curPlayer.radius * 2) {
-    curPlayer.y = Y - curPlayer.radius * 2;
+  if (curPlayer.y < (Y * 9) / 100 + curPlayer.radius) {
+    curPlayer.y = (Y * 9) / 100 + curPlayer.radius;
+  } else if (curPlayer.y > (Y * 98) / 100 - curPlayer.radius * 2) {
+    curPlayer.y = (Y * 98) / 100 - curPlayer.radius * 2;
   }
 
   // 플레이어의 점수가 0 미만으로 떨어지면
