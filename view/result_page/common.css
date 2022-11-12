@@ -1,0 +1,126 @@
+.image-cover {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.img {
+  /*캐릭터 이미지*/
+  width: 80%;
+  height: 55%;
+  background-image: url("https://workmate.s3.ap-northeast-2.amazonaws.com/player_result.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 0;
+  padding-right: 40px;
+}
+div#first,
+div#second,
+div#third {
+  margin-top: 30px;
+  font-size: 35px;
+}
+span.toprank {
+  font-size: 35px;
+}
+#img1 {
+  display: block;
+}
+
+#img2 {
+  display: block;
+}
+
+#img3 {
+  display: block;
+}
+#result_pixel ::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: -10px;
+  right: -10px;
+  background: rgb(164, 174, 255);
+  z-index: -1;
+}
+#result_pixel ::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: -6px;
+  right: -6px;
+  background: rgb(164, 174, 255);
+  z-index: -1;
+}
+
+.winner_box1::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: -10px;
+  right: -10px;
+  background: rgb(255, 224, 220);
+  z-index: -1;
+}
+
+.winner_box1::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: -6px;
+  right: -6px;
+  background: rgb(255, 224, 220);
+  z-index: -1;
+}
+.winner_box2::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: -10px;
+  right: -10px;
+  background: rgb(254, 255, 200);
+  z-index: -1;
+}
+
+.winner_box2::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: -6px;
+  right: -6px;
+  background: rgb(254, 255, 200);
+  z-index: -1;
+}
+.winner_box3::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: -10px;
+  right: -10px;
+  background: rgb(209, 255, 255);
+  z-index: -1;
+}
+
+.winner_box3::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: -6px;
+  right: -6px;
+  background: rgb(209, 255, 255);
+  z-index: -1;
+}
