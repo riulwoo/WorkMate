@@ -23,17 +23,26 @@ HTML CSS Javascript NodeJs SocketIO AWS EC2 AWS Route 53 AWS S3
 ## UI
 <div align="center"> [메인 페이지]</div>
 <div align="center"><img src="https://user-images.githubusercontent.com/67493361/202855735-c767413f-b1cb-4f71-9121-2d6c26b174da.png" width="800" height="400"></div>
+
 <div align="center"> [메인 - 방만들기]</div>
 <div align="center"><img src="https://user-images.githubusercontent.com/67493361/202855781-c3d132ff-ff8e-40ec-8255-d5b768afa531.png" width="800" height="400"></div>
+
 <div align="center"> [메인 - 입장하기]</div>
 <div align="center"><img src="https://user-images.githubusercontent.com/67493361/202855783-dcb3956b-b8df-46f3-812f-59e6c7fa1f3d.png" width="800" height="400"></div>
+
 <div align="center"> [메인 - 매칭하기]</div>
 <div align="center"><img src="https://user-images.githubusercontent.com/67493361/202855788-e4378381-468b-42bf-be4b-b4935767b2b9.png" width="800" height="400"></div>
 
-<div align="center"> [결과]</div>
-<div align="center"><img src="https://user-images.githubusercontent.com/67493361/202856521-d095396e-e036-4369-a3a1-64d9f1f42e97.png" width="800" height="400"></div>
+<div align="center"> [Surviv]</div>
+<div align="center"><img src="https://user-images.githubusercontent.com/80028813/202857383-c5bfc5db-e83a-4bde-b079-35e93de6c7e1.png" width="800" height="400"></div>
 
-### 기능 : 
+<div align="center"> [O/X]</div>
+<div align="center"><img src="https://user-images.githubusercontent.com/80028813/202857343-72e2c47d-3910-47bd-87c0-66844c4b9159.png" width="800" height="400"></div>
+
+<div align="center"> [Flip over]</div>
+<div align="center"><img src="https://user-images.githubusercontent.com/80028813/202857354-46dc8b4b-b4f4-4928-9e6a-a6280ebea6c8.png" width="800" height="400"></div>
+
+## 기능
   - 매칭 플레이 기능
     + 2 ~ 6명 랜덤 매칭 
     + 매칭 중 취소 기능
@@ -66,7 +75,8 @@ HTML CSS Javascript NodeJs SocketIO AWS EC2 AWS Route 53 AWS S3
     + 처음 접해본 NodeJs와 SocketIO를 사용하면서 많은 우여곡절이 있었고, 에러를 찾고 해결하는 과정에서 좋은 경험을 쌓은 것 같습니다.  
       프로젝트가 쉽지 않은 주제였지만 팀원들이 잘 따라와 주셔서 무사히 마무리 할 수 있었습니다.
   - 강민성
-    + .
+    + 프로젝트를 진행하며 많은 회의와 의견 공유를 통해 값진 경험을 얻었습니다.
+      코드 설계와 부족한 리펙토링이 많이 아쉬웠지만, 이 경험을 토대로 한 걸음 더 성장하는 계기가 되었던 것 같습니다.
   - 임정은
     + 다들 11개월동안 고생 많으셨습니다.
   - 김범식
