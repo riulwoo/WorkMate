@@ -21,9 +21,18 @@
 ## SKILL
 HTML CSS Javascript NodeJs SocketIO AWS EC2 AWS Route 53 AWS S3   
 
-### UI
-![image](https://user-images.githubusercontent.com/80028813/201474188-7705972b-418d-46d2-ba75-3ce047a69693.png)
+## UI
+<div align="center"> [메인 페이지]</div>
+<div align="center"><img src="https://user-images.githubusercontent.com/67493361/202855735-c767413f-b1cb-4f71-9121-2d6c26b174da.png" width="800" height="400"></div>
+<div align="center"> [메인 - 방만들기]</div>
+<div align="center"><img src="https://user-images.githubusercontent.com/67493361/202855781-c3d132ff-ff8e-40ec-8255-d5b768afa531.png" width="800" height="400"></div>
+<div align="center"> [메인 - 입장하기]</div>
+<div align="center"><img src="https://user-images.githubusercontent.com/67493361/202855783-dcb3956b-b8df-46f3-812f-59e6c7fa1f3d.png" width="800" height="400"></div>
+<div align="center"> [메인 - 매칭하기]</div>
+<div align="center"><img src="https://user-images.githubusercontent.com/67493361/202855788-e4378381-468b-42bf-be4b-b4935767b2b9.png" width="800" height="400"></div>
 
+<div align="center"> [결과]</div>
+<div align="center"><img src="https://user-images.githubusercontent.com/67493361/202856521-d095396e-e036-4369-a3a1-64d9f1f42e97.png" width="800" height="400"></div>
 
 ### 기능 : 
   - 매칭 플레이 기능
