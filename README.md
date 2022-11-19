@@ -4,22 +4,22 @@
 ## 프로젝트 기간
 2021/01/10 ~ 22/11/16
   
-## 역할   
-| 이름 | 역할 | 깃 |
-|------|------||------|
+## 참여 인원   
+| 이름 | 역할 |  |
+| :------: | ------ | ------ |
 | 이근우 | 총괄, 백엔드(통신) | https://github.com/riulwoo |
-  - [이근우](https://github.com/riulwoo) : 총괄, 백엔드(통신)
-  - [강민성](https://github.com/minseong00) : 백엔드(통신)
-  - [임정은](https://github.com/ycs-202007021) : 프론트엔드(디자인/UI)
-  - [최성우](https://github.com/ken-edward) : 프론트엔드(UI/UX)
-  - [김범식](https://github.com/ycs-201707010) : 프론트엔드(게임)
+| 강민성 | 백엔드(통신) | https://github.com/minseong00 |
+| 임정은 | 프론트엔드(디자인/UI) | https://github.com/ycs-202007021 |
+| 최성우 | 프론트엔드(UI/UX) | https://github.com/ken-edward |
+| 김범식 | 프론트엔드(게임) | https://github.com/ycs-201707010 |
+
 * * *
 # 프로젝트 정보   
 ## 프로젝트 주제 및 기능
 프로젝트 주제 : 웹 멀티 미니게임  
 체험해보기 : http://WorkMate.ga  
 ## SKILL
-HTML CSS Javascript NodeJs SocketIO AWS EC2 AWS Route 53   
+HTML CSS Javascript NodeJs SocketIO AWS EC2 AWS Route 53 AWS S3   
 
 ### UI
 ![image](https://user-images.githubusercontent.com/80028813/201474188-7705972b-418d-46d2-ba75-3ce047a69693.png)
@@ -54,8 +54,14 @@ HTML CSS Javascript NodeJs SocketIO AWS EC2 AWS Route 53
       
   
 ## 소감 한마디
-  - 이근우 : 
-  - 강민성 : 
-  - 임정은 : 다들 11개월동안 고생 많으셨습니다.
-  - 김범식 : 재밌는 작업이었구 아쉬운 부분도 많았지만 실력을 크게 올릴 수 있던 좋은 시간이었습니다.
-  - 최성우 : 
+  - 이근우
+    + 처음 접해본 NodeJs와 SocketIO를 사용하면서 많은 우여곡절이 있었고, 에러를 찾고 해결하는 과정에서 좋은 경험을 쌓은 것 같습니다.  
+      프로젝트가 쉽지 않은 주제였지만 팀원들이 잘 따라와 주셔서 무사히 마무리 할 수 있었습니다.
+  - 강민성
+    + .
+  - 임정은
+    + 다들 11개월동안 고생 많으셨습니다.
+  - 김범식
+    + 재밌는 작업이었구 아쉬운 부분도 많았지만 실력을 크게 올릴 수 있던 좋은 시간이었습니다.
+  - 최성우
+    + .
