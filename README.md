@@ -82,4 +82,4 @@ HTML CSS Javascript NodeJs SocketIO AWS EC2 AWS Route 53 AWS S3
   - 김범식
     + 재밌는 작업이었구 아쉬운 부분도 많았지만 실력을 크게 올릴 수 있던 좋은 시간이었습니다.
   - 최성우
-    + .
+    + 혼자 했다면 알지 못했을 부분까지 알게 되어 유익한 시간이었습니다
