@@ -98,6 +98,7 @@ module.exports = (io, socket, room) => {
   socket.on("ox_transBall_create", (data) => {
     const { x, y, direction, id } = data;
     let index = room.findIndex((e) => e.userid.includes(id));
+    if(index < 0) return;
     io.to(room[index].roomCode).emit("ox_transBall_use", {
       x : x,
       y : y,
@@ -116,6 +117,7 @@ module.exports = (io, socket, room) => {
   socket.on("ox_transBall_remove", (data) => {
     const {id, i} = data;
     let index = room.findIndex((e) => e.userid.includes(id));
+    if(index < 0) return;
     socket.broadcast.to(room[index].roomCode).emit("ox_transBall_del", i);
   })
 

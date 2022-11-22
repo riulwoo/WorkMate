@@ -19,7 +19,7 @@ module.exports = (io, socket, room) => {
   socket.on("flip_is_ready", (id) => {
     // 뒤집기쥰비완료쓰
     let Index = room.findIndex((e) => e.userid.includes(id));
-    if (Index !== -1) {
+    if(Index < 0) return;
       room[Index].cnt += 1;
       if (room[Index].cnt == room[Index].players.length) {
         let flip_time = room[Index].players.length > 3 ? 64000 : 94000;
@@ -30,7 +30,6 @@ module.exports = (io, socket, room) => {
           io.to(room[Index].roomCode).emit("flip_end");
         }, flip_time);
       }
-    }
   });
 
   // 첫번째인지 두번째인지 이 메시지에서 공통으로 처리해서 체크
@@ -39,6 +38,7 @@ module.exports = (io, socket, room) => {
     const { id, c_index } = data;
     console.log(c_index);
     let Index = room.findIndex((e) => e.userid.includes(id));
+    if(Index < 0) return;
     socket.broadcast.to(room[Index].roomCode).emit("card_fliped", c_index); // 카드뒤집음
   });
 
@@ -46,6 +46,7 @@ module.exports = (io, socket, room) => {
     // 카드 체크한대
     const { id, c_index, check } = data;
     let Index = room.findIndex((e) => e.userid.includes(id));
+    if(Index < 0) return;
     console.log(c_index);
     if (check)
       socket.broadcast.to(room[Index].roomCode).emit("card_matched", c_index);

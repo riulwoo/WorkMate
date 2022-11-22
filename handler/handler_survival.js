@@ -217,7 +217,7 @@ module.exports = (io, socket, room) => {
   socket.on("survival_ready", (id) => {
     // 레이스쥰비완료쓰
     let index = getIndex(id);
-    if (index !== -1) {
+    if(index < 0) return;
       room[index].cnt += 1;
       let player = room[index].players;
       if (room[index].cnt == player.length) {
@@ -230,17 +230,17 @@ module.exports = (io, socket, room) => {
         sendAsteroid(index);
         room[index].cnt = 0;
       }
-    }
   });
 
   // 아이템 먹으면 30초 뒤에 다시 생성
   socket.on("get_item", (id) => {
     // 아이템 먹었대요
     let index = getIndex(id);
-    io.to(room[index].roomCode).emit("have_a_item"); // 아이템먹었음
-    setTimeout(() => {
-      io.to(room[index].roomCode).emit("create_item", itemXYV()); // 아이템생성하거라
-    }, 4000); //8000
+    if(index < 0) return;
+      io.to(room[index].roomCode).emit("have_a_item"); // 아이템먹었음
+      setTimeout(() => {
+        io.to(room[index].roomCode).emit("create_item", itemXYV()); // 아이템생성하거라
+      }, 4000); //8000
   });
 
   // 아이템 효과 중 특수장애물 요청이 들어오면 화면 중앙 or 양쪽 끝에 특수장애물이 지나감
@@ -248,6 +248,7 @@ module.exports = (io, socket, room) => {
     // 특수장애물이래요
     const { id, type } = data;
     let index = getIndex(id);
+    if(index < 0) return;
     specialObastable(index, id, type);
   });
 
@@ -255,12 +256,14 @@ module.exports = (io, socket, room) => {
     // 돈 먹었대요
     const { id, i } = data;
     let index = getIndex(id);
+    if(index < 0) return;
     io.to(room[index].roomCode).emit("have_a_money", i); // 돈 먹었대
   });
 
   socket.on("create_money", (id) => {
     // 돈 생성해달래요
     let index = getIndex(id);
+    if(index < 0) return;
     io.to(room[index].roomCode).emit("need_some_money", goalXY()); // 돈을 생성하거라
   });
 };
