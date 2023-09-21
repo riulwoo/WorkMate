@@ -16,7 +16,8 @@
 * * *
 ## 프로젝트 주제 및 기능
 프로젝트 주제 : 웹 멀티 미니게임  
-<h3><a href="http://workmate.riul.p-e.kr">[체험해보기]</a></h3>
+<h3><a href="http://workmate.riulwoo.com">[체험해보기]</a></h3>
+
 ## SKILL
 HTML CSS Javascript NodeJs SocketIO AWS EC2 AWS Route 53 AWS S3   
 
